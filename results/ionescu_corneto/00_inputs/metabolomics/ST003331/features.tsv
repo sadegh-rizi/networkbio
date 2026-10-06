@@ -1,0 +1,182 @@
+feature_id	study	analysis_id	analysis_summary	metabolite_name	refmet_name	kegg_id	lipid_group	is_13c_isotopologue	units
+AN005456|2/3-Phospho-D-glycerate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2/3-Phospho-D-glycerate	2-Phosphoglyceric acid	C00631		False	peak area
+AN005456|2-Aminomuconate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Aminomuconate	2-Aminomuconic acid	C00322		False	peak area
+AN005456|2-Hydroxyglutarate/Citramalate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Hydroxyglutarate/Citramalate	2-Hydroxyglutaric acid	C02630		False	peak area
+AN005456|2-Oxoglutaramate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Oxoglutaramate	2-Keto-glutaramic acid	C00940		False	peak area
+AN005456|2-Oxoglutarate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Oxoglutarate	2-Oxoglutaric acid	C00026		False	peak area
+AN005456|2-Oxoglutarate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Oxoglutarate 13C2	2-Oxoglutaric acid	C00026		True	peak area
+AN005456|2-Oxoglutarate 13C3	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Oxoglutarate 13C3	2-Oxoglutaric acid	C00026		True	peak area
+AN005456|2-Oxoglutarate 13C4	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Oxoglutarate 13C4	2-Oxoglutaric acid	C00026		True	peak area
+AN005456|2-Oxoglutarate 13C5	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	2-Oxoglutarate 13C5	2-Oxoglutaric acid	C00026		True	peak area
+AN005456|3',5'-Cyclic AMP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	3',5'-Cyclic AMP	3',5' cyclic AMP	C00575		False	peak area
+AN005456|4-Acetamidobutanoate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	4-Acetamidobutanoate	4-Acetamidobutanoic acid	C02946		False	peak area
+AN005456|5-10-Methenyltetrahydrofolate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	5-10-Methenyltetrahydrofolate	5,10-Methenyl-THF	C00445		False	peak area
+AN005456|5-6-Dihydrouracil	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	5-6-Dihydrouracil	Dihydrouracil	C00429		False	peak area
+AN005456|5-Oxoproline	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	5-Oxoproline	Pyroglutamic acid	C01879		False	peak area
+AN005456|(7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	(7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid	DPA	C16513		False	peak area
+AN005456|(8Z-11Z-14Z)-Icosatrienoic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	(8Z-11Z-14Z)-Icosatrienoic acid	Dihomo-gamma-linolenic acid	C03242		False	peak area
+AN005456|Adenosine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Adenosine	Adenosine	C00212		False	peak area
+AN005456|Adenylosuccinic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Adenylosuccinic acid	Adenylsuccinic acid	C03794		False	peak area
+AN005456|Adenylyl sulfate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Adenylyl sulfate	Adenosine phosphosulfate	C00224		False	peak area
+AN005456|ADP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	ADP	ADP	C00008		False	peak area
+AN005456|alpha-D-Glucosamine 1-phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	alpha-D-Glucosamine 1-phosphate	Glucosamine 1-phosphate	C06156		False	peak area
+AN005456|alpha-D-Ribose 1-phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	alpha-D-Ribose 1-phosphate	Ribose 1-phosphate	C00620		False	peak area
+AN005456|Arachidonic acid (Eicosatetraenoic acid)	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Arachidonic acid (Eicosatetraenoic acid)	Arachidonic acid	C00219		False	peak area
+AN005456|Argininosuccinate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Argininosuccinate	Argininosuccinic acid	C03406		False	peak area
+AN005456|Ascorbate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Ascorbate	Vitamin C	C00072		False	peak area
+AN005456|ATP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	ATP	ATP	C00002		False	peak area
+AN005456|Butanoic/Butyric acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Butanoic/Butyric acid	Butyric acid	C00246		False	peak area
+AN005456|CDP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	CDP	CDP	C00112		False	peak area
+AN005456|cis-Aconitate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	cis-Aconitate	cis-Aconitic acid	C00417		False	peak area
+AN005456|cis-Aconitate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	cis-Aconitate 13C2	cis-Aconitic acid	C00417		True	peak area
+AN005456|cis-Aconitate 13C3	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	cis-Aconitate 13C3	cis-Aconitic acid	C00417		True	peak area
+AN005456|cis-Aconitate 13C4	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	cis-Aconitate 13C4	cis-Aconitic acid	C00417		True	peak area
+AN005456|Citrate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Citrate	Citric acid	C00158		False	peak area
+AN005456|Citrate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Citrate 13C2	Citric acid	C00158		True	peak area
+AN005456|Citrate 13C3	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Citrate 13C3	Citric acid	C00158		True	peak area
+AN005456|Citrate 13C4	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Citrate 13C4	Citric acid	C00158		True	peak area
+AN005456|Citrate 13C5	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Citrate 13C5	Citric acid	C00158		True	peak area
+AN005456|CMP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	CMP	CMP	C00055		False	peak area
+AN005456|CMP-N-acetylneuraminate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	CMP-N-acetylneuraminate	CMP-N-acetylneuraminic acid	C00128		False	peak area
+AN005456|Cystathionine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Cystathionine	Cystathionine	C00542		False	peak area
+AN005456|D-4--Phosphopantothenate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	D-4--Phosphopantothenate	(R)-4'-Phosphopantothenic acid	C03492		False	peak area
+AN005456|D-Arabitol	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	D-Arabitol	Arabitol	C01904		False	peak area
+AN005456|Dehydroascorbate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Dehydroascorbate	Dehydroascorbic acid	C05422		False	peak area
+AN005456|D-Fructose 1-6-bisphosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	D-Fructose 1-6-bisphosphate	Fructose 1,6-bisphosphate	C00354		False	peak area
+AN005456|D-Glucose	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	D-Glucose	Glucose	C00031		False	peak area
+AN005456|D-Glucose 6-phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	D-Glucose 6-phosphate	Glucose 6-phosphate	C02965		False	peak area
+AN005456|Dimethylglycine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Dimethylglycine	Dimethylglycine	C01026		False	peak area
+AN005456|Diphosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Diphosphate	Pyrophosphate	C00013		False	peak area
+AN005456|Docosahexaenoic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Docosahexaenoic acid	Docosahexaenoic acid	C06429		False	peak area
+AN005456|Dodecanedioic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Dodecanedioic acid	Dodecanedioic acid	C02678		False	peak area
+AN005456|Ethanolamine phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Ethanolamine phosphate	Phosphoethanolamine	C00346		False	peak area
+AN005456|Fumarate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Fumarate	Fumaric acid	C00122		False	peak area
+AN005456|Fumarate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Fumarate 13C2	Fumaric acid	C00122		True	peak area
+AN005456|Fumarate 13C3	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Fumarate 13C3	Fumaric acid	C00122		True	peak area
+AN005456|Fumarate 13C4	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Fumarate 13C4	Fumaric acid	C00122		True	peak area
+AN005456|gamma-Glutamyl-Se-methylselenocysteine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	gamma-Glutamyl-Se-methylselenocysteine	gamma-Glutamyl-Se-methylselenocysteine	C05695		False	peak area
+AN005456|gamma-L-Glutamyl-D-alanine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	gamma-L-Glutamyl-D-alanine	gamma-L-Glutamyl-D-alanine	C03738		False	peak area
+AN005456|GDP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	GDP	GDP	C00035		False	peak area
+AN005456|Glucose 13C6	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Glucose 13C6	Glucose	C00031		True	peak area
+AN005456|Glycerol 3-phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Glycerol 3-phosphate	sn-Glycero-3-phosphate	C00093		False	peak area
+AN005456|GMP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	GMP	GMP	C00144		False	peak area
+AN005456|g-Oxalo-crotonate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	g-Oxalo-crotonate	4-Oxalocrotonic acid	C03453		False	peak area
+AN005456|Guanidinoacetate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Guanidinoacetate	Guanidoacetic acid	C00581		False	peak area
+AN005456|Heptanoic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Heptanoic acid	Heptylic acid	C17714		False	peak area
+AN005456|Hexadecenoic acid (Palmitoleic acid)	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Hexadecenoic acid (Palmitoleic acid)	Palmitoleic acid	C08362		False	peak area
+AN005456|Hexanoic acid (caproate)	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Hexanoic acid (caproate)	Caproic acid	C01585		False	peak area
+AN005456|Hydroxyindole-acetylglycine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Hydroxyindole-acetylglycine	Hydroxyindoleacetylglycine	C05832		False	peak area
+AN005456|Hypotaurine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Hypotaurine	Hypotaurine	C00519		False	peak area
+AN005456|Indole	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Indole	Indole	C00463		False	peak area
+AN005456|Indolepyruvate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Indolepyruvate	Indolepyruvic acid	C00331		False	peak area
+AN005456|Indoxyl	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Indoxyl	Indoxyl	C05658		False	peak area
+AN005456|Inosine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Inosine	Inosine	C00294		False	peak area
+AN005456|Itaconate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Itaconate	Itaconic acid	C00490		False	peak area
+AN005456|Itaconate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Itaconate 13C2	Itaconic acid	C00490		True	peak area
+AN005456|L-alanine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-alanine	Alanine	C00041		False	peak area
+AN005456|L-asparagine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-asparagine	Asparagine	C00152		False	peak area
+AN005456|L-aspartate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-aspartate	Aspartic acid	C00049		False	peak area
+AN005456|L-Cysteate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-Cysteate	Cysteic acid	C00506		False	peak area
+AN005456|L-cysteine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-cysteine	Cysteine	C00097		False	peak area
+AN005456|L-glutamate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-glutamate	Glutamic acid	C00025		False	peak area
+AN005456|L-glutamine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-glutamine	Glutamine	C00064		False	peak area
+AN005456|Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	Linoleic acid	C01595		False	peak area
+AN005456|L-Selenomethionine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-Selenomethionine	Selenomethionine	C05335		False	peak area
+AN005456|L-threonine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	L-threonine	Threonine	C00188		False	peak area
+AN005456|Malate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Malate 13C2	Malic acid	C00149		True	peak area
+AN005456|Malate 13C3	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Malate 13C3	Malic acid	C00149		True	peak area
+AN005456|Malate 13C4	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Malate 13C4	Malic acid	C00149		True	peak area
+AN005456|N-Acetylneuraminate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	N-Acetylneuraminate	N-Acetylneuraminic acid	C00270		False	peak area
+AN005456|NADPH	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	NADPH	NADPH	C00005		False	peak area
+AN005456|N-formyl kynurenine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	N-formyl kynurenine	N-Formylkynurenine	C02700		False	peak area
+AN005456|Octadecenoic acid (Oleic acid)	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Octadecenoic acid (Oleic acid)	Oleic acid	C00712		False	peak area
+AN005456|Octanoic acid (caprylate)	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Octanoic acid (caprylate)	Caprylic acid	C06423		False	peak area
+AN005456|Pantothenol	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Pantothenol	Pantothenol	C00864		False	peak area
+AN005456|Phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Phosphate	Phosphoric acid	C00009		False	peak area
+AN005456|phosphomevalonate M-2H	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	phosphomevalonate M-2H		C01107		False	peak area
+AN005456|p-mevalonate 13C4 M-2H	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	p-mevalonate 13C4 M-2H		C01107		True	peak area
+AN005456|Pyruvate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Pyruvate	Pyruvic acid	C00022		False	peak area
+AN005456|quinolinic acid	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	quinolinic acid	Quinolinic acid	C03722		False	peak area
+AN005456|(R)-Mevalonate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	(R)-Mevalonate	Mevalonic acid	C00418		False	peak area
+AN005456|Sedoheptulose 1-phosphate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Sedoheptulose 1-phosphate	Sedoheptulose 1-phosphate	C06222		False	peak area
+AN005456|(S)-Malate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	(S)-Malate	Malic acid	C00149		False	peak area
+AN005456|Succinate	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Succinate	Succinic acid	C00042		False	peak area
+AN005456|Succinate 13C2	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Succinate 13C2	Succinic acid	C00042		True	peak area
+AN005456|Succinate 13C3	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Succinate 13C3	Succinic acid	C00042		True	peak area
+AN005456|Succinate 13C4	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Succinate 13C4	Succinic acid	C00042		True	peak area
+AN005456|Thymidine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Thymidine	Thymidine	C00214		False	peak area
+AN005456|Thymine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	Thymine	Thymine	C00178		False	peak area
+AN005456|trans-4-Hydroxy-L-proline	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	trans-4-Hydroxy-L-proline	trans-4-Hydroxyproline	C01157		False	peak area
+AN005456|UDP-glucose	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	UDP-glucose	UDP-glucose	C00029		False	peak area
+AN005456|UDP-N-acetyl-D-glucosamine	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	UDP-N-acetyl-D-glucosamine	UDP-N-acetylglucosamine	C00043		False	peak area
+AN005456|UMP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	UMP	UMP	C00105		False	peak area
+AN005456|UTP	ST003331	AN005456	Reversed phase NEGATIVE ION MODE	UTP	UTP	C00075		False	peak area
+AN005457|3-Methyleneoxindole	ST003331	AN005457	Reversed phase POSITIVE ION MODE	3-Methyleneoxindole	3-Methyleneoxindole	C02796		False	peak area
+AN005457|5-6-Dihydrothymine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	5-6-Dihydrothymine	Dihydrothymine	C00906		False	peak area
+AN005457|5-Guanidino-2-oxopentanoate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	5-Guanidino-2-oxopentanoate	2-Oxoarginine	C03771		False	peak area
+AN005457|5-Hydroxyindoleacetate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	5-Hydroxyindoleacetate	5-Hydroxyindoleacetic acid	C05635		False	peak area
+AN005457|5-Hydroxyisourate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	5-Hydroxyisourate	5-Hydroxyisouric acid	C11821		False	peak area
+AN005457|(5-L-Glutamyl)-L-glutamine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	(5-L-Glutamyl)-L-glutamine	gamma-Glutamylglutamine	C05283		False	peak area
+AN005457|5-Phosphoribosylamine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	5-Phosphoribosylamine	5-Phosphoribosylamine	C03090		False	peak area
+AN005457|acetyl-carnitine (acyl-C2)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	acetyl-carnitine (acyl-C2)	CAR 2:0	C02571		False	peak area
+AN005457|Acetylcholine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Acetylcholine	Acetylcholine	C01996		False	peak area
+AN005457|acyl-C18:2 (Linoleoyl-CoA)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	acyl-C18:2 (Linoleoyl-CoA)	Linoleoyl-CoA	HMDB01064		False	peak area
+AN005457|acyl-C4-DC	ST003331	AN005457	Reversed phase POSITIVE ION MODE	acyl-C4-DC	CAR DC4:0	HMDB13133		False	peak area
+AN005457|acyl-C4-OH	ST003331	AN005457	Reversed phase POSITIVE ION MODE	acyl-C4-OH	CAR 4:0;OH	HMDB13127		False	peak area
+AN005457|acyl-C5:1	ST003331	AN005457	Reversed phase POSITIVE ION MODE	acyl-C5:1	CAR 5:1	HMDB02366		False	peak area
+AN005457|acyl-C5-OH	ST003331	AN005457	Reversed phase POSITIVE ION MODE	acyl-C5-OH	CAR 5:0;OH	ac107		False	peak area
+AN005457|Allantoate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Allantoate	Allantoic acid	C00499		False	peak area
+AN005457|AMP	ST003331	AN005457	Reversed phase POSITIVE ION MODE	AMP	AMP	C00020		False	peak area
+AN005457|Anthranilate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Anthranilate	2-Aminobenzoic acid	C00108		False	peak area
+AN005457|butanoyl-l-carnitine (acyl-C4)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	butanoyl-l-carnitine (acyl-C4)	CAR 4:0	C02862		False	peak area
+AN005457|Choline	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Choline	Choline	C00114		False	peak area
+AN005457|Creatine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Creatine	Creatine	C00300		False	peak area
+AN005457|Cys-Gly	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Cys-Gly	Cys-Gly	C01419		False	peak area
+AN005457|Cytosine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Cytosine	Cytosine	C00380		False	peak area
+AN005457|dAMP	ST003331	AN005457	Reversed phase POSITIVE ION MODE	dAMP	dAMP	C00360		False	peak area
+AN005457|Dihydrofolate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Dihydrofolate	Dihydrofolic acid	C00415		False	peak area
+AN005457|gamma-Glutamyl-gamma-aminobutyrate	ST003331	AN005457	Reversed phase POSITIVE ION MODE	gamma-Glutamyl-gamma-aminobutyrate	4-(Glutamylamino) butanoate	C15767		False	peak area
+AN005457|gamma-L-Glutamyl-L-cysteine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	gamma-L-Glutamyl-L-cysteine	gamma-Glutamylcysteine	C00669		False	peak area
+AN005457|Glutathione	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Glutathione	Glutathione	C00051		False	peak area
+AN005457|Glutathione disulfide	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Glutathione disulfide	Oxidized glutathione	C00127		False	peak area
+AN005457|Guanine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Guanine	Guanine	C00242		False	peak area
+AN005457|Hexadecenoyl-carnitine (acyl-C16:1)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Hexadecenoyl-carnitine (acyl-C16:1)	CAR 16:1	HMDB06317		False	peak area
+AN005457|hexanoyl-L-carnitine (acyl-C6)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	hexanoyl-L-carnitine (acyl-C6)	CAR 6:0	HMDB00756		False	peak area
+AN005457|Hypoxanthine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Hypoxanthine	Hypoxanthine	C00262		False	peak area
+AN005457|IMP	ST003331	AN005457	Reversed phase POSITIVE ION MODE	IMP	IMP	C00130		False	peak area
+AN005457|Indole-3-acetaldehyde	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Indole-3-acetaldehyde	Indoleacetaldehyde	C00637		False	peak area
+AN005457|L-Adrenaline	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-Adrenaline	Epinephrine	C00788		False	peak area
+AN005457|L-arginine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-arginine	Arginine	C00062		False	peak area
+AN005457|L-Carnitine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-Carnitine	Carnitine	C00318		False	peak area
+AN005457|L-histidine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-histidine	Histidine	C00135		False	peak area
+AN005457|L-leucine/isoleucine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-leucine/isoleucine	Leucine	C00123		False	peak area
+AN005457|L-lysine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-lysine	Lysine	C00047		False	peak area
+AN005457|L-methionine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-methionine	Methionine	C00073		False	peak area
+AN005457|L-Methionine S-oxide	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-Methionine S-oxide	Methionine sulfoxide	C02989		False	peak area
+AN005457|L-Palmitoylcarnitine (acyl-C16)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-Palmitoylcarnitine (acyl-C16)	CAR 16:0	C02990		False	peak area
+AN005457|L-phenylalanine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-phenylalanine	Phenylalanine	C00079		False	peak area
+AN005457|L-proline	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-proline	Proline	C00148		False	peak area
+AN005457|L-serine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-serine	Serine	C00065		False	peak area
+AN005457|L-tryptophan	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-tryptophan	Tryptophan	C00078		False	peak area
+AN005457|L-tyrosine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-tyrosine	Tyrosine	C00082		False	peak area
+AN005457|L-valine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	L-valine	Valine	C00183		False	peak area
+AN005457|NAD+	ST003331	AN005457	Reversed phase POSITIVE ION MODE	NAD+	NAD	C00003		False	peak area
+AN005457|NADP+	ST003331	AN005457	Reversed phase POSITIVE ION MODE	NADP+	NADP	C00006		False	peak area
+AN005457|Octadecanoyl-L-carnitine (acyl-C18)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Octadecanoyl-L-carnitine (acyl-C18)	CAR 18:0	HMDB00848		False	peak area
+AN005457|O-dodecanoyl-carnitine (acyl-C12)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	O-dodecanoyl-carnitine (acyl-C12)	CAR 12:0	HMDB02250		False	peak area
+AN005457|O-octadecenoyl-L-carnitine (acyl-C18:1)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	O-octadecenoyl-L-carnitine (acyl-C18:1)	CAR 18:1(9Z)	HMDB06351		False	peak area
+AN005457|Ornithine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Ornithine	Ornithine	C01602		False	peak area
+AN005457|O-tetradecanoyl-L-carnitine (acyl-C14)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	O-tetradecanoyl-L-carnitine (acyl-C14)	CAR 14:0	HMDB05066		False	peak area
+AN005457|Phosphocreatine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Phosphocreatine	Phosphocreatine	C02305		False	peak area
+AN005457|Phosphoserine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Phosphoserine	Phosphoserine	C02532		False	peak area
+AN005457|Picolinic acid	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Picolinic acid	Picolinic acid	C10164		False	peak area
+AN005457|propionyl-carnitine (acyl-C3)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	propionyl-carnitine (acyl-C3)	CAR 3:0	C03017		False	peak area
+AN005457|Putrescine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Putrescine	Putrescine	C00134		False	peak area
+AN005457|S-Adenosyl-L-homocysteine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	S-Adenosyl-L-homocysteine	S-Adenosylhomocysteine	C00021		False	peak area
+AN005457|S-Adenosyl-L-methionine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	S-Adenosyl-L-methionine	S-Adenosylmethionine	C00019		False	peak area
+AN005457|(S)(+)-Allantoin	ST003331	AN005457	Reversed phase POSITIVE ION MODE	(S)(+)-Allantoin	Allantoin	C02350		False	peak area
+AN005457|Spermidine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Spermidine	Spermidine	C00315		False	peak area
+AN005457|Spermine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Spermine	Spermine	C00750		False	peak area
+AN005457|Sphingosine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Sphingosine	Sphingosine	C00319		False	peak area
+AN005457|Tetradecenoyl Carnitine (acyl-C14:1)	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Tetradecenoyl Carnitine (acyl-C14:1)	CAR 14:1	HMDB13329		False	peak area
+AN005457|Xanthine	ST003331	AN005457	Reversed phase POSITIVE ION MODE	Xanthine	Xanthine	C00385		False	peak area

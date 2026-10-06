@@ -1,0 +1,23 @@
+layer	sample	reason
+rnaseq	C18_2	listed in GEO but not a column of the raw count matrix
+rnaseq	C7	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C8	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C9	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C10	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C11	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C12	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C13	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C14	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C15	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C16	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C17	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C18	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C19	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C20	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C21	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C22	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C23	conditioned-medium experiment, not baseline Ctrl vs PMS
+rnaseq	C24	conditioned-medium experiment, not baseline Ctrl vs PMS
+ST003332	NC 7	no-cell medium blank (background reference, not a line)
+ST003332	NC 8	no-cell medium blank (background reference, not a line)
+ST003332	NC 9	no-cell medium blank (background reference, not a line)

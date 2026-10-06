@@ -1,0 +1,26 @@
+sample_title	gsm	cell_line	cell_type	condition	in_count_matrix	group	group_source	use_baseline
+C1	GSM8985311	C1	induced neural stem cells	base iNSC	True	Ctrl	authors code (09_generate_figures.R)	True
+C2	GSM8985312	C2	induced neural stem cells	base iNSC	True	Ctrl	authors code (09_generate_figures.R)	True
+C3	GSM8985313	C3	induced neural stem cells	base iNSC	True	Ctrl	authors code (09_generate_figures.R)	True
+C4	GSM8985314	C4	induced neural stem cells	base iNSC	True	PMS	authors code (09_generate_figures.R)	True
+C5	GSM8985315	C5	induced neural stem cells	base iNSC	True	PMS	authors code (09_generate_figures.R)	True
+C6	GSM8985316	C6	induced neural stem cells	base iNSC	True	PMS	authors code (09_generate_figures.R)	True
+C7	GSM8985317	C7	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C8	GSM8985318	C8	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C9	GSM8985319	C9	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C10	GSM8985320	C10	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C11	GSM8985321	C11	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C12	GSM8985322	C12	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C13	GSM8985323	C13	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C14	GSM8985324	C14	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C15	GSM8985325	C15	induced neural stem cells	individual control iNSC treated with CM from individual PMS	True			False
+C16	GSM8985326	C16	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C17	GSM8985327	C17	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C18	GSM8985328	C18	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C18_2	GSM8985329	C18	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	False			False
+C19	GSM8985330	C19	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C20	GSM8985331	C20	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C21	GSM8985332	C21	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C22	GSM8985333	C22	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C23	GSM8985334	C23	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False
+C24	GSM8985335	C24	induced neural stem cells	individual control iNSC treated with CM from individual PMS treated with senolytic	True			False

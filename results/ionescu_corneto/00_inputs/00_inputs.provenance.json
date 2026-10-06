@@ -1,0 +1,104 @@
+{
+  "stage": "00_inputs",
+  "created_utc": "2026-10-06T14:30:10+00:00",
+  "script": "scripts/analysis/01_build_inputs.py",
+  "inputs": {
+    "data/Park/GEO/GSE297192/GSE297192_series_matrix.txt.gz": "8e7863b1526008ba7bd39215211bfee5d876dfd102caa9f3797704a4abbea275",
+    "data/Park/GEO/GSE297192/GSE297192_raw_expression.csv.gz": "53a9fa2d28f43f9aa083a4c49959234504ffb544147d84884541a0e9947514d4",
+    "data/Ionescu/MetabolomicsWorkbench/ST003328/ST003328_AN005452.mwtab.txt": "b1a1d387ad884007d16df16ea34a399ef7f46cc009f417a1cf724360ee955c64",
+    "data/Ionescu/MetabolomicsWorkbench/ST003328/ST003328_AN005453.mwtab.txt": "f35b85da65e3be46233d5fc6e38851088b689d5653f87640cd39d2e510c985ce",
+    "data/Ionescu/MetabolomicsWorkbench/ST003328/ST003328_data.json": "c0fce27f81bdfb5d259c400299831d26c0e4fab00a159278095241725e156146",
+    "data/Ionescu/MetabolomicsWorkbench/ST003328/ST003328_factors.json": "21a49e76a4f3979fc7873b0c23c066040b84d12fa019f0018bab6560b966a1a0",
+    "data/Ionescu/MetabolomicsWorkbench/ST003328/ST003328_summary.json": "b294ef8ca26555b278d03aa236f1c3681ef7ba5b4ab83a8439afffcdce2e5755",
+    "data/Ionescu/MetabolomicsWorkbench/ST003331/ST003331_AN005456.mwtab.txt": "c0567747ee383544f03df3cb8ee65e1c5d2cb5497f5ff93cd77881eba35509d4",
+    "data/Ionescu/MetabolomicsWorkbench/ST003331/ST003331_AN005457.mwtab.txt": "3dba2058483d9390bca62826f39661eabac668349f3f0d0431dd473247a71d6d",
+    "data/Ionescu/MetabolomicsWorkbench/ST003331/ST003331_data.json": "925ccbaeed60b6e419e0864777ea2c3b5717bdeb5fc91eeab76e4bb111a19008",
+    "data/Ionescu/MetabolomicsWorkbench/ST003331/ST003331_factors.json": "a22b1a49730d81f4b2c1e4bd191a906ec4c43e875d1b3089bda4d38e5b1f137e",
+    "data/Ionescu/MetabolomicsWorkbench/ST003331/ST003331_summary.json": "c18bb9af8aa20cf3df901ae949fc4290344ca59673c6c7919cfb6905ef917eb7",
+    "data/Ionescu/MetabolomicsWorkbench/ST003332/ST003332_AN005458.mwtab.txt": "7e78a50e225c6f5c5a3b020e9977c929ea22bb28e510c106c01a6ecd69cb8c8b",
+    "data/Ionescu/MetabolomicsWorkbench/ST003332/ST003332_AN005459.mwtab.txt": "d74d42637367b0b6f9603f0e3981c91dc111a044a518f11cbaacb8006d46ee4a",
+    "data/Ionescu/MetabolomicsWorkbench/ST003332/ST003332_data.json": "6d2f359733632eb30e864491d7bc5c88b4d4bfcbb9a62bb36e381038af3ce367",
+    "data/Ionescu/MetabolomicsWorkbench/ST003332/ST003332_factors.json": "ff69c60d2e430da417d172a363f26008fee4aad5f2ae976b5ee3136cb46f36a4",
+    "data/Ionescu/MetabolomicsWorkbench/ST003332/ST003332_summary.json": "0578eb20af2597214c6513c3a4c76f553823655f15cce0567ffb5dc260f3272c"
+  },
+  "accessions": {
+    "GSE297192": "Park et al. 2025, Neuron",
+    "ST003328": "Ionescu et al. 2024, Cell Stem Cell",
+    "ST003331": "Ionescu et al. 2024, Cell Stem Cell",
+    "ST003332": "Ionescu et al. 2024, Cell Stem Cell"
+  },
+  "decisions": {
+    "rnaseq_baseline_groups": "C1-C3 Ctrl, C4-C6 PMS, from the authors' code (not in GEO)",
+    "mw_group_labels": "AMC -> Ctrl; deposited 'PMA' sample prefix is PMS by the factors field",
+    "line_keys": "study:group:letter; letters are reused across studies and are NOT matched across studies",
+    "transformations": "none (values as deposited)"
+  },
+  "lines_per_layer": [
+    {
+      "layer": "ST003328 intracellular lipidomics (+/- simvastatin)",
+      "group": "Ctrl",
+      "treatment": "SV",
+      "n_lines": 3
+    },
+    {
+      "layer": "ST003328 intracellular lipidomics (+/- simvastatin)",
+      "group": "Ctrl",
+      "treatment": "untreated",
+      "n_lines": 3
+    },
+    {
+      "layer": "ST003328 intracellular lipidomics (+/- simvastatin)",
+      "group": "PMS",
+      "treatment": "SV",
+      "n_lines": 4
+    },
+    {
+      "layer": "ST003328 intracellular lipidomics (+/- simvastatin)",
+      "group": "PMS",
+      "treatment": "untreated",
+      "n_lines": 4
+    },
+    {
+      "layer": "ST003331 intracellular metabolomics, 24 h 13C-glucose",
+      "group": "Ctrl",
+      "treatment": "untreated",
+      "n_lines": 3
+    },
+    {
+      "layer": "ST003331 intracellular metabolomics, 24 h 13C-glucose",
+      "group": "PMS",
+      "treatment": "untreated",
+      "n_lines": 4
+    },
+    {
+      "layer": "ST003332 extracellular metabolomics (medium)",
+      "group": "Ctrl",
+      "treatment": "untreated",
+      "n_lines": 3
+    },
+    {
+      "layer": "ST003332 extracellular metabolomics (medium)",
+      "group": "PMS",
+      "treatment": "untreated",
+      "n_lines": 4
+    },
+    {
+      "layer": "rnaseq_GSE297192",
+      "group": "Ctrl",
+      "treatment": "untreated",
+      "n_lines": 3
+    },
+    {
+      "layer": "rnaseq_GSE297192",
+      "group": "PMS",
+      "treatment": "untreated",
+      "n_lines": 3
+    }
+  ],
+  "versions": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3"
+  },
+  "python": "3.12.3",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+}

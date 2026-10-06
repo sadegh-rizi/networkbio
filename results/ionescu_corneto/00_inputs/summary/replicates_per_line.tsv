@@ -1,0 +1,35 @@
+layer	group	treatment	line_key	n_samples
+rnaseq_GSE297192	Ctrl	untreated	C1	1
+rnaseq_GSE297192	Ctrl	untreated	C2	1
+rnaseq_GSE297192	Ctrl	untreated	C3	1
+rnaseq_GSE297192	PMS	untreated	C4	1
+rnaseq_GSE297192	PMS	untreated	C5	1
+rnaseq_GSE297192	PMS	untreated	C6	1
+ST003328 intracellular lipidomics (+/- simvastatin)	Ctrl	SV	ST003328:Ctrl:A	3
+ST003328 intracellular lipidomics (+/- simvastatin)	Ctrl	SV	ST003328:Ctrl:B	3
+ST003328 intracellular lipidomics (+/- simvastatin)	Ctrl	SV	ST003328:Ctrl:C	3
+ST003328 intracellular lipidomics (+/- simvastatin)	Ctrl	untreated	ST003328:Ctrl:A	3
+ST003328 intracellular lipidomics (+/- simvastatin)	Ctrl	untreated	ST003328:Ctrl:B	3
+ST003328 intracellular lipidomics (+/- simvastatin)	Ctrl	untreated	ST003328:Ctrl:C	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	SV	ST003328:PMS:A	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	SV	ST003328:PMS:B	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	SV	ST003328:PMS:C	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	SV	ST003328:PMS:D	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	untreated	ST003328:PMS:A	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	untreated	ST003328:PMS:B	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	untreated	ST003328:PMS:C	3
+ST003328 intracellular lipidomics (+/- simvastatin)	PMS	untreated	ST003328:PMS:D	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	Ctrl	untreated	ST003331:Ctrl:A	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	Ctrl	untreated	ST003331:Ctrl:B	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	Ctrl	untreated	ST003331:Ctrl:C	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	PMS	untreated	ST003331:PMS:D	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	PMS	untreated	ST003331:PMS:E	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	PMS	untreated	ST003331:PMS:F	3
+ST003331 intracellular metabolomics, 24 h 13C-glucose	PMS	untreated	ST003331:PMS:G	3
+ST003332 extracellular metabolomics (medium)	Ctrl	untreated	ST003332:Ctrl:A	3
+ST003332 extracellular metabolomics (medium)	Ctrl	untreated	ST003332:Ctrl:B	3
+ST003332 extracellular metabolomics (medium)	Ctrl	untreated	ST003332:Ctrl:D	3
+ST003332 extracellular metabolomics (medium)	PMS	untreated	ST003332:PMS:A	3
+ST003332 extracellular metabolomics (medium)	PMS	untreated	ST003332:PMS:B	3
+ST003332 extracellular metabolomics (medium)	PMS	untreated	ST003332:PMS:C	3
+ST003332 extracellular metabolomics (medium)	PMS	untreated	ST003332:PMS:D	3

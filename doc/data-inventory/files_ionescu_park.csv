@@ -1,0 +1,116 @@
+paper,accession,file_type,file,url,size_bytes,size_human,note
+Park 2025,GSE297192,"processed: raw counts (featureCounts, Ensembl IDs x 24 samples)",GSE297192_raw_expression.csv.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE297nnn/GSE297192/suppl/GSE297192_raw_expression.csv.gz,1446921.0,1.4 MB,"78,932 genes x 24 columns (C1-C24); C18_2 not a separate column"
+Park 2025,GSE297192,processed: noisyR + quantile-normalised expression,GSE297192_normalised_expression.csv.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE297nnn/GSE297192/suppl/GSE297192_normalised_expression.csv.gz,1739272.0,1.7 MB,"23,496 genes x 24; space-delimited with quoted header (read with sep=r""\s+"")"
+Park 2025,GSE297365,processed: archive of all per-sample files,GSE297365_RAW.tar,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE297nnn/GSE297365/suppl/GSE297365_RAW.tar,357468160.0,357.5 MB,
+Park 2025,GSE297365,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8989497_105_2g_ABT_263_raw_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8989nnn/GSM8989497/suppl/GSM8989497_105_2g_ABT_263_raw_expression.h5,101508987.0,101.5 MB,
+Park 2025,GSE297365,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8989498_105_2g_DMSO_raw_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8989nnn/GSM8989498/suppl/GSM8989498_105_2g_DMSO_raw_expression.h5,56522038.0,56.5 MB,
+Park 2025,GSE297365,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8989499_HD_7HA_ABT_263_raw_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8989nnn/GSM8989499/suppl/GSM8989499_HD_7HA_ABT_263_raw_expression.h5,110131563.0,110.1 MB,
+Park 2025,GSE297365,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8989500_HD_7HA_DMSO_raw_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8989nnn/GSM8989500/suppl/GSM8989500_HD_7HA_DMSO_raw_expression.h5,89299178.0,89.3 MB,
+Park 2025,GSE297690,processed: archive of all per-sample files,GSE297690_RAW.tar,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE297nnn/GSE297690/suppl/GSE297690_RAW.tar,6734274560.0,6.73 GB,
+Park 2025,GSE297690,processed: ATAC fragments (inside RAW.tar; also per-GSM),GSM8996710_105_2g_1_fragments.tsv.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996710/suppl/GSM8996710_105_2g_1_fragments.tsv.gz,1634660527.0,1.63 GB,
+Park 2025,GSE297690,processed: fragments index (inside RAW.tar; also per-GSM),GSM8996710_105_2g_1_fragments.tsv.gz.tbi.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996710/suppl/GSM8996710_105_2g_1_fragments.tsv.gz.tbi.gz,932688.0,0.9 MB,
+Park 2025,GSE297690,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8996710_105_2g_1_raw_peak_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996710/suppl/GSM8996710_105_2g_1_raw_peak_expression.h5,142822677.0,142.8 MB,
+Park 2025,GSE297690,processed: ATAC fragments (inside RAW.tar; also per-GSM),GSM8996712_105_2g_2_fragments.tsv.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996712/suppl/GSM8996712_105_2g_2_fragments.tsv.gz,1572933263.0,1.57 GB,
+Park 2025,GSE297690,processed: fragments index (inside RAW.tar; also per-GSM),GSM8996712_105_2g_2_fragments.tsv.gz.tbi.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996712/suppl/GSM8996712_105_2g_2_fragments.tsv.gz.tbi.gz,918983.0,0.9 MB,
+Park 2025,GSE297690,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8996712_105_2g_2_raw_peak_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996712/suppl/GSM8996712_105_2g_2_raw_peak_expression.h5,135360054.0,135.4 MB,
+Park 2025,GSE297690,processed: ATAC fragments (inside RAW.tar; also per-GSM),GSM8996714_HD_74A_1_fragments.tsv.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996714/suppl/GSM8996714_HD_74A_1_fragments.tsv.gz,1511718831.0,1.51 GB,
+Park 2025,GSE297690,processed: fragments index (inside RAW.tar; also per-GSM),GSM8996714_HD_74A_1_fragments.tsv.gz.tbi.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996714/suppl/GSM8996714_HD_74A_1_fragments.tsv.gz.tbi.gz,906340.0,0.9 MB,
+Park 2025,GSE297690,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8996714_HD_74A_1_raw_peak_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996714/suppl/GSM8996714_HD_74A_1_raw_peak_expression.h5,116331374.0,116.3 MB,
+Park 2025,GSE297690,processed: ATAC fragments (inside RAW.tar; also per-GSM),GSM8996716_HD_74A_2_fragments.tsv.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996716/suppl/GSM8996716_HD_74A_2_fragments.tsv.gz,1502653669.0,1.50 GB,
+Park 2025,GSE297690,processed: fragments index (inside RAW.tar; also per-GSM),GSM8996716_HD_74A_2_fragments.tsv.gz.tbi.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996716/suppl/GSM8996716_HD_74A_2_fragments.tsv.gz.tbi.gz,905815.0,0.9 MB,
+Park 2025,GSE297690,processed: 10x h5 matrix (inside RAW.tar; also per-GSM),GSM8996716_HD_74A_2_raw_peak_expression.h5,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8996nnn/GSM8996716/suppl/GSM8996716_HD_74A_2_raw_peak_expression.h5,114110509.0,114.1 MB,
+Park 2025,GSE251839,processed: archive of all per-sample files,GSE251839_RAW.tar,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE251nnn/GSE251839/suppl/GSE251839_RAW.tar,2983147520.0,2.98 GB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988874_WGBS_103_iNSC.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988874/suppl/GSM7988874_WGBS_103_iNSC.txt.gz,84767325.0,84.8 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988875_WGBS_103_Fibro.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988875/suppl/GSM7988875_WGBS_103_Fibro.txt.gz,92550209.0,92.6 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988876_WGBS_DR5a_iNSC.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988876/suppl/GSM7988876_WGBS_DR5a_iNSC.txt.gz,83181762.0,83.2 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988877_WGBS_DR5a_Fibro.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988877/suppl/GSM7988877_WGBS_DR5a_Fibro.txt.gz,90249477.0,90.2 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988878_WGBS_113_iNSC.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988878/suppl/GSM7988878_WGBS_113_iNSC.txt.gz,84830724.0,84.8 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988879_WGBS_113_Fibro.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988879/suppl/GSM7988879_WGBS_113_Fibro.txt.gz,86090064.0,86.1 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988880_WGBS_111_iNSC.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988880/suppl/GSM7988880_WGBS_111_iNSC.txt.gz,82397595.0,82.4 MB,
+Park 2025,GSE251839,processed: CpG methylation table (inside RAW.tar; also per-GSM),GSM7988881_WGBS_111_Fibro.txt.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM7988nnn/GSM7988881/suppl/GSM7988881_WGBS_111_Fibro.txt.gz,96601034.0,96.6 MB,
+Park 2025,GSE251839,processed: Bismark coverage (.cov) (inside RAW.tar; also per-GSM),GSM8980817_105_2g_iNSCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8980nnn/GSM8980817/suppl/GSM8980817_105_2g_iNSCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,366658510.0,366.7 MB,
+Park 2025,GSE251839,processed: Bismark coverage (.cov) (inside RAW.tar; also per-GSM),GSM8980818_105_Fibs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8980nnn/GSM8980818/suppl/GSM8980818_105_Fibs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,382454269.0,382.5 MB,
+Park 2025,GSE251839,processed: Bismark coverage (.cov) (inside RAW.tar; also per-GSM),GSM8980819_105_iPS-NPCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8980nnn/GSM8980819/suppl/GSM8980819_105_iPS-NPCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,387058730.0,387.1 MB,
+Park 2025,GSE251839,processed: Bismark coverage (.cov) (inside RAW.tar; also per-GSM),GSM8980820_HD_7hA_iNSCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8980nnn/GSM8980820/suppl/GSM8980820_HD_7hA_iNSCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,361980102.0,362.0 MB,
+Park 2025,GSE251839,processed: Bismark coverage (.cov) (inside RAW.tar; also per-GSM),GSM8980821_HD_Fibs_1_val_1_bismark_hisat2_pe.bam.bismark.cov.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8980nnn/GSM8980821/suppl/GSM8980821_HD_Fibs_1_val_1_bismark_hisat2_pe.bam.bismark.cov.gz,403057749.0,403.1 MB,
+Park 2025,GSE251839,processed: Bismark coverage (.cov) (inside RAW.tar; also per-GSM),GSM8980822_HD_iPS-NPCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,https://ftp.ncbi.nlm.nih.gov/geo/series/GSM8980nnn/GSM8980822/suppl/GSM8980822_HD_iPS-NPCs_1_val_1_bismark_hisat2_pe.bismark.cov.gz,381255382.0,381.3 MB,
+Park 2025,GSE251839,metadata: GEO submission sheet for 6 new WGBS samples (incl. md5),GSE251839_metadata_WGBS_new_samples.xlsx,https://ftp.ncbi.nlm.nih.gov/geo/series/GSE251nnn/GSE251839/suppl/GSE251839_metadata_WGBS_new_samples.xlsx,239374.0,0.2 MB,
+Park 2025,GSE297192,raw reads (SRA run),SRR33563997,https://www.ncbi.nlm.nih.gov/sra/SRR33563997,3140485120.0,3.14 GB,GSM8985311; 35838350 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563996,https://www.ncbi.nlm.nih.gov/sra/SRR33563996,1692401664.0,1.69 GB,GSM8985312; 19326065 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563995,https://www.ncbi.nlm.nih.gov/sra/SRR33563995,1720713216.0,1.72 GB,GSM8985313; 19785339 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563994,https://www.ncbi.nlm.nih.gov/sra/SRR33563994,1946157056.0,1.95 GB,GSM8985314; 22182222 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563993,https://www.ncbi.nlm.nih.gov/sra/SRR33563993,1514143744.0,1.51 GB,GSM8985315; 17330207 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563992,https://www.ncbi.nlm.nih.gov/sra/SRR33563992,1631584256.0,1.63 GB,GSM8985316; 18722908 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563991,https://www.ncbi.nlm.nih.gov/sra/SRR33563991,2475687936.0,2.48 GB,GSM8985317; 29019027 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563990,https://www.ncbi.nlm.nih.gov/sra/SRR33563990,2453667840.0,2.45 GB,GSM8985318; 28889892 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563989,https://www.ncbi.nlm.nih.gov/sra/SRR33563989,2569011200.0,2.57 GB,GSM8985319; 30112262 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563988,https://www.ncbi.nlm.nih.gov/sra/SRR33563988,2414870528.0,2.41 GB,GSM8985320; 28093503 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563987,https://www.ncbi.nlm.nih.gov/sra/SRR33563987,1824522240.0,1.82 GB,GSM8985321; 19472866 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563986,https://www.ncbi.nlm.nih.gov/sra/SRR33563986,1589641216.0,1.59 GB,GSM8985322; 17131929 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563985,https://www.ncbi.nlm.nih.gov/sra/SRR33563985,1547698176.0,1.55 GB,GSM8985323; 16531494 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563984,https://www.ncbi.nlm.nih.gov/sra/SRR33563984,1660944384.0,1.66 GB,GSM8985324; 17834417 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563983,https://www.ncbi.nlm.nih.gov/sra/SRR33563983,1615855616.0,1.62 GB,GSM8985325; 17538397 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563982,https://www.ncbi.nlm.nih.gov/sra/SRR33563982,1648361472.0,1.65 GB,GSM8985326; 17563560 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563981,https://www.ncbi.nlm.nih.gov/sra/SRR33563981,2466250752.0,2.47 GB,GSM8985327; 29131849 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563980,https://www.ncbi.nlm.nih.gov/sra/SRR33563980,550502400.0,550.5 MB,GSM8985328; 6016391 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563979,https://www.ncbi.nlm.nih.gov/sra/SRR33563979,1606418432.0,1.61 GB,GSM8985329; 18505058 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563978,https://www.ncbi.nlm.nih.gov/sra/SRR33563978,2372927488.0,2.37 GB,GSM8985330; 27640610 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563977,https://www.ncbi.nlm.nih.gov/sra/SRR33563977,2593128448.0,2.59 GB,GSM8985331; 30231951 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563976,https://www.ncbi.nlm.nih.gov/sra/SRR33563976,2489319424.0,2.49 GB,GSM8985332; 28775876 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563975,https://www.ncbi.nlm.nih.gov/sra/SRR33563975,1821376512.0,1.82 GB,GSM8985333; 19541582 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563974,https://www.ncbi.nlm.nih.gov/sra/SRR33563974,2549088256.0,2.55 GB,GSM8985334; 29608254 spots
+Park 2025,GSE297192,raw reads (SRA run),SRR33563973,https://www.ncbi.nlm.nih.gov/sra/SRR33563973,1547698176.0,1.55 GB,GSM8985335; 16556280 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593234,https://www.ncbi.nlm.nih.gov/sra/SRR33593234,5151653888.0,5.15 GB,GSM8989497; 142021837 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593235,https://www.ncbi.nlm.nih.gov/sra/SRR33593235,5176819712.0,5.18 GB,GSM8989497; 142186851 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593232,https://www.ncbi.nlm.nih.gov/sra/SRR33593232,4279238656.0,4.28 GB,GSM8989498; 116404189 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593233,https://www.ncbi.nlm.nih.gov/sra/SRR33593233,4298113024.0,4.30 GB,GSM8989498; 116540774 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593230,https://www.ncbi.nlm.nih.gov/sra/SRR33593230,5123342336.0,5.12 GB,GSM8989499; 143507023 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593231,https://www.ncbi.nlm.nih.gov/sra/SRR33593231,5135925248.0,5.14 GB,GSM8989499; 143421835 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593228,https://www.ncbi.nlm.nih.gov/sra/SRR33593228,4401922048.0,4.40 GB,GSM8989500; 120181783 spots
+Park 2025,GSE297365,raw reads (SRA run),SRR33593229,https://www.ncbi.nlm.nih.gov/sra/SRR33593229,4422893568.0,4.42 GB,GSM8989500; 120367642 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643589,https://www.ncbi.nlm.nih.gov/sra/SRR33643589,4958715904.0,4.96 GB,GSM8996710; 120712129 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643588,https://www.ncbi.nlm.nih.gov/sra/SRR33643588,4823449600.0,4.82 GB,GSM8996711; 115897938 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643587,https://www.ncbi.nlm.nih.gov/sra/SRR33643587,4758437888.0,4.76 GB,GSM8996712; 116225932 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643586,https://www.ncbi.nlm.nih.gov/sra/SRR33643586,4645191680.0,4.65 GB,GSM8996713; 111949857 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643585,https://www.ncbi.nlm.nih.gov/sra/SRR33643585,4870635520.0,4.87 GB,GSM8996714; 118416567 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643584,https://www.ncbi.nlm.nih.gov/sra/SRR33643584,4740612096.0,4.74 GB,GSM8996715; 113696797 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643583,https://www.ncbi.nlm.nih.gov/sra/SRR33643583,4827643904.0,4.83 GB,GSM8996716; 117582261 spots
+Park 2025,GSE297690,raw reads (SRA run),SRR33643582,https://www.ncbi.nlm.nih.gov/sra/SRR33643582,4696571904.0,4.70 GB,GSM8996717; 112904139 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320602,https://www.ncbi.nlm.nih.gov/sra/SRR27320602,152964169728.0,152.96 GB,GSM7988874; 1354006634 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320601,https://www.ncbi.nlm.nih.gov/sra/SRR27320601,108391301120.0,108.39 GB,GSM7988875; 961694709 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320600,https://www.ncbi.nlm.nih.gov/sra/SRR27320600,82607865856.0,82.61 GB,GSM7988876; 735614068 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320599,https://www.ncbi.nlm.nih.gov/sra/SRR27320599,95976161280.0,95.98 GB,GSM7988877; 849377335 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320598,https://www.ncbi.nlm.nih.gov/sra/SRR27320598,81151393792.0,81.15 GB,GSM7988878; 722632565 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320597,https://www.ncbi.nlm.nih.gov/sra/SRR27320597,141721337856.0,141.72 GB,GSM7988879; 1264939910 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320596,https://www.ncbi.nlm.nih.gov/sra/SRR27320596,79456894976.0,79.46 GB,GSM7988880; 706121197 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR27320595,https://www.ncbi.nlm.nih.gov/sra/SRR27320595,139106189312.0,139.11 GB,GSM7988881; 1237749640 spots
+Park 2025,GSE251839,raw reads (SRA run),SRR33556543,https://www.ncbi.nlm.nih.gov/sra/SRR33556543,,unknown,GSM8980817; 0 spots; SRA reports size 0 (not yet loaded/processed on 2026-09-29)
+Park 2025,GSE251839,raw reads (SRA run),SRR33556542,https://www.ncbi.nlm.nih.gov/sra/SRR33556542,,unknown,GSM8980818; 0 spots; SRA reports size 0 (not yet loaded/processed on 2026-09-29)
+Park 2025,GSE251839,raw reads (SRA run),SRR33556541,https://www.ncbi.nlm.nih.gov/sra/SRR33556541,,unknown,GSM8980819; 0 spots; SRA reports size 0 (not yet loaded/processed on 2026-09-29)
+Park 2025,GSE251839,raw reads (SRA run),SRR33556540,https://www.ncbi.nlm.nih.gov/sra/SRR33556540,,unknown,GSM8980820; 0 spots; SRA reports size 0 (not yet loaded/processed on 2026-09-29)
+Park 2025,GSE251839,raw reads (SRA run),SRR33556539,https://www.ncbi.nlm.nih.gov/sra/SRR33556539,,unknown,GSM8980821; 0 spots; SRA reports size 0 (not yet loaded/processed on 2026-09-29)
+Park 2025,GSE251839,raw reads (SRA run),SRR33556538,https://www.ncbi.nlm.nih.gov/sra/SRR33556538,,unknown,GSM8980822; 0 spots; SRA reports size 0 (not yet loaded/processed on 2026-09-29)
+Ionescu 2024,ST003328,raw MS files (zip),ST003328_DS1-93_Rawdata.zip,https://www.metabolomicsworkbench.org/studydownload/ST003328_DS1-93_Rawdata.zip,3863188587.0,3.86 GB,
+Ionescu 2024,ST003328,raw MS files (zip),ST003328_Rawfiles.zip,https://www.metabolomicsworkbench.org/studydownload/ST003328_Rawfiles.zip,3863188587.0,3.86 GB,same size as ST003328_DS1-93_Rawdata.zip; probably a duplicate
+Ionescu 2024,ST003328,"processed: data matrix (REST JSON, all analyses)",ST003328_data.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003328/data,,unknown,peak areas per metabolite per sample
+Ionescu 2024,ST003328,processed: mwTab (metadata + data) per analysis,ST003328_AN005452.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005452/mwtab/txt,,unknown,
+Ionescu 2024,ST003328,processed: mwTab (metadata + data) per analysis,ST003328_AN005453.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005453/mwtab/txt,,unknown,
+Ionescu 2024,ST003328,metadata: sample factors (REST JSON),ST003328_factors.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003328/factors,,unknown,
+Ionescu 2024,ST003330,raw MS files (zip),ST003330_DS1-58_Rawdata.zip,https://www.metabolomicsworkbench.org/studydownload/ST003330_DS1-58_Rawdata.zip,674456770.0,674.5 MB,
+Ionescu 2024,ST003330,"processed: data matrix (REST JSON, all analyses)",ST003330_data.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003330/data,,unknown,peak areas per metabolite per sample
+Ionescu 2024,ST003330,processed: mwTab (metadata + data) per analysis,ST003330_AN005455.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005455/mwtab/txt,,unknown,
+Ionescu 2024,ST003330,metadata: sample factors (REST JSON),ST003330_factors.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003330/factors,,unknown,
+Ionescu 2024,ST003331,raw MS files (zip),ST003331_DN47_cells_Rawdata.zip,https://www.metabolomicsworkbench.org/studydownload/ST003331_DN47_cells_Rawdata.zip,2299211182.0,2.30 GB,
+Ionescu 2024,ST003331,"processed: data matrix (REST JSON, all analyses)",ST003331_data.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003331/data,,unknown,peak areas per metabolite per sample
+Ionescu 2024,ST003331,processed: mwTab (metadata + data) per analysis,ST003331_AN005456.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005456/mwtab/txt,,unknown,
+Ionescu 2024,ST003331,processed: mwTab (metadata + data) per analysis,ST003331_AN005457.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005457/mwtab/txt,,unknown,
+Ionescu 2024,ST003331,metadata: sample factors (REST JSON),ST003331_factors.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003331/factors,,unknown,
+Ionescu 2024,ST003332,raw MS files (zip),ST003332_DN47_media_Rawdata.zip,https://www.metabolomicsworkbench.org/studydownload/ST003332_DN47_media_Rawdata.zip,1848421280.0,1.85 GB,
+Ionescu 2024,ST003332,"processed: data matrix (REST JSON, all analyses)",ST003332_data.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003332/data,,unknown,peak areas per metabolite per sample
+Ionescu 2024,ST003332,processed: mwTab (metadata + data) per analysis,ST003332_AN005458.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005458/mwtab/txt,,unknown,
+Ionescu 2024,ST003332,processed: mwTab (metadata + data) per analysis,ST003332_AN005459.mwtab.txt,https://www.metabolomicsworkbench.org/rest/study/analysis_id/AN005459/mwtab/txt,,unknown,
+Ionescu 2024,ST003332,metadata: sample factors (REST JSON),ST003332_factors.json,https://www.metabolomicsworkbench.org/rest/study/study_id/ST003332/factors,,unknown,
+Ionescu 2024,MSV000095283,"raw + search results (proteomics, cells and conditioned media)",MSV000095283/,ftp://massive-ftp.ucsd.edu/ (path depends on release),,unknown,dataset page reported PRIVATE on 2026-09-29; needs release or reviewer password
+Ionescu 2024,zenodo:13764808,code archive,IonescuNicaise2023-v1.0.zip,https://zenodo.org/api/records/13764808/files/Core-Bioinformatics/IonescuNicaise2023-v1.0.zip/content,5985.0,0.0 MB,
+Park 2025,zenodo:15581508,code archive,DARG_PMS-DARG_PMS.Rev1.zip,https://zenodo.org/api/records/15581508/files/Core-Bioinformatics/DARG_PMS-DARG_PMS.Rev1.zip/content,402017.0,0.4 MB,
+Park 2025,zenodo:15584700,code archive,ST_PMS_DARGs.zip,https://zenodo.org/api/records/15584700/files/ST_PMS_DARGs.zip/content,227888.0,0.2 MB,

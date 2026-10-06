@@ -1,0 +1,82 @@
+\documentclass[11pt, a4paper]{article}
+
+% Required packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=0.75in]{geometry} % Decreased from 1in to 0.75in
+\usepackage{titlesec} % For compact section spacing
+\usepackage{enumitem} % For compact lists
+\usepackage{cite} % For bibliaography
+
+% Compact section formatting and spacing
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.5ex plus 0.2ex}
+
+% Compact title block
+\title{\vspace{-1.5cm}\textbf{\large Knowledge gaps in multi-omics network inference: evaluating CORNETO on a patient stem-cell model of progressive MS}}
+\author{\small Sadegh Seyedhashemirizi \and \small i6427433}
+\date{\vspace{-2.5ex}} % Strips extra whitespace under authors
+
+\begin{document}
+
+\maketitle
+
+\section*{Background / Problem Introduction}
+Gene regulation is a combinatorial, dynamic process playing a role in development and disease and can be modeled by gene regulatory networks (GRNs). GRNs based on single modalities assume independence between different omic layers and cannot fully capture different levels of regulation. Statistical approaches (correlation) are undirected, whereas machine-learning methods are unsigned, and directionality is imposed from a defined set of transcription factors\cite{huynhthu2010genie3}. Factor models (MOFA,SOFA) \cite{argelaguet2020mofa} pool modalities by dimension reduction but yield no GRN. Knowledge-based methods select the part of a directed prior-knowledge network (PKN) that is consistent with the data \cite{garridorodriguez2022}, e.g.\ CARNIVAL \cite{liu2019carnival} and COSMOS \cite{dugourd2021cosmos}. CORNETO unifies data-driven methods with knowledge-based approaches as mixed-integer optimisation on network flows with structured sparsity, consolidating signal across samples and modalities \cite{rodriguezmier2025corneto}. Without ground truth, the same data can yield different networks and there has been little attempt to quantify this gap and its implications.
+
+As a benchmark, I evaluate these approaches on a published induced neural stem cell (iNSC) model of progressive multiple sclerosis (PMS) \cite{reich2018ms,ionescu2024}. This dataset spans transcriptomic, metabolomic, and lipidomic layers across 3--4 cell lines per group.
+
+\section*{Aim / Research Question}
+To assess the strengths and limitations across several multi-omics integration methods, focusing on CORNETO (and COSMOS-style or other methods if time allows), I propose:
+
+\begin{itemize}[noitemsep, topsep=2pt, parsep=0pt, leftmargin=*]
+    \item \textbf{Aim 1.} How robust are the networks inferred per modality?
+    \item \textbf{Aim 2.} Which co-regulation links recur across modalities under late integration?
+    \item \textbf{Aim 3.} Which differences are modality-specific, relative to MOFA/SOFA factors \cite{argelaguet2020mofa,capraz2026sofa}?
+    \item \textbf{Aim 4.} How does early/intermediate integration (CORNETO/COSMOS) compare with late?
+    \item \textbf{Aim 5.} Is the proposed route in the PKN, and is it recovered when not given as input?
+\end{itemize}
+
+\section*{Approach / Study Design}
+\begin{itemize}[noitemsep, topsep=2pt, parsep=0pt, leftmargin=*]
+    \item \textbf{Data} (separate experiments, integrated per disease group; unit: cell line):
+    \begin{itemize}[noitemsep, topsep=1pt, parsep=0pt]
+        \item RNA-seq: 3 control vs 3 PMS iNSC lines (GEO GSE297192) \cite{park2025,barrett2013geo}.
+        \item Metabolomics: cells and medium, 24\,h \(^{13}\)C-glucose (ST003331/2; 3 vs 4 lines) \cite{ionescu2024,sud2016mw}.
+        \item Lipidomics: cells, with and without simvastatin (ST003328; same lines).
+        \item Prior knowledge: OmniPath PKN; CollecTRI, DoRothEA regulons \cite{mullerdott2023collectri,garciaalonso2019dorothea}.
+    \end{itemize}
+   \item \textbf{Methodology} (by aim):
+    \begin{itemize}[noitemsep, topsep=0pt]
+        \item Inputs: GENIE3 per modality; decoupler TF activities \cite{badia2022decoupler} in multi-sample CORNETO.
+        \item A1: leave-one-line-out, repeated solutions, sparsity/regulon swaps, label/PKN nulls.
+        \item A2: edge overlap across modality networks; centrality of shared nodes.
+        \item A3: modality-specific edges and nodes versus MOFA/SOFA factor loadings.
+        \item A4: joint CORNETO network on the COSMOS PKN versus late integration.
+        \item A5: cholesterol-to-TF signed PKN paths; recovery without HMGCR/SREBF1/2 as inputs.
+    \end{itemize}
+    \item \textbf{Software:} Python, CORNETO, decoupler, GENIE3, MOFA2/SOFA, NetworkX \cite{hagberg2008networkx}, HiGHS \cite{huangfu2018highs} \cite{shannon2003cytoscape}.
+\end{itemize}
+
+\section*{Context within the Course}
+It applies the network contextualisation and optimisation-based inference from the lectures (Gene Regulatory network identification), and the topological analyses from the practicals, to probe their blind spots on real data.
+
+% ======================================================================
+% Pushes Timeline and References to Page 2
+% ======================================================================
+\newpage
+
+\section*{Timeline}
+% Steps and key milestones to assess feasibility, not included in page limit
+\begin{itemize}[noitemsep]
+    \item \textbf{Days 1--2:} Data quality control and line-level input tables; CORNETO toy problem with a known answer to test the solver. \textit{Milestone: one input table per modality; the solver recovers the toy network.}
+    \item \textbf{Days 3--5:} Per-modality networks (TF activities and CORNETO; GENIE3); inputs, measured nodes and controls fixed before any inference. \textit{Milestone: a GENIE3 network for each modality and a first CORNETO network from RNA-seq TF activities.}
+    \item \textbf{Days 6--7:} Robustness of the per-modality networks (A1). \textit{Milestone: edge frequencies per modality under leave-one-line-out, sparsity and regulon swaps, compared with the null models.}
+    \item \textbf{Days 8--10:} Late integration and modality-specific differences, compared with MOFA/SOFA (A2, A3). \textit{Milestone: lists of links shared across modalities and of modality-specific edges and nodes, matched to MOFA/SOFA factors.}
+    \item \textbf{Days 11--12:} Early/intermediate integration with CORNETO/COSMOS (A4); case-study route (A5). \textit{Milestone: joint network compared with late integration; whether the proposed route is in the PKN and recovered without being given as input.}
+    \item \textbf{Days 13--14:} Final figures and report. \textit{Milestone: summary of the gaps found per method, and the submitted report.}
+\end{itemize}
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

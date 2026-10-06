@@ -1,0 +1,22 @@
+study	sample_id	mb_sample_id	sample_source	disease_as_deposited	group	treatment	subject_as_deposited	name_prefix	line_letter	line_key	replicate
+ST003331	DN47-01	SA362443	induced neural stem cell	AMC	Ctrl	untreated	A		A	ST003331:Ctrl:A	
+ST003331	DN47-02	SA362440	induced neural stem cell	AMC	Ctrl	untreated	A		A	ST003331:Ctrl:A	
+ST003331	DN47-03	SA362447	induced neural stem cell	AMC	Ctrl	untreated	A		A	ST003331:Ctrl:A	
+ST003331	DN47-04	SA362446	induced neural stem cell	AMC	Ctrl	untreated	B		B	ST003331:Ctrl:B	
+ST003331	DN47-05	SA362445	induced neural stem cell	AMC	Ctrl	untreated	B		B	ST003331:Ctrl:B	
+ST003331	DN47-06	SA362444	induced neural stem cell	AMC	Ctrl	untreated	B		B	ST003331:Ctrl:B	
+ST003331	DN47-10	SA362439	induced neural stem cell	AMC	Ctrl	untreated	C		C	ST003331:Ctrl:C	
+ST003331	DN47-11	SA362442	induced neural stem cell	AMC	Ctrl	untreated	C		C	ST003331:Ctrl:C	
+ST003331	DN47-12	SA362441	induced neural stem cell	AMC	Ctrl	untreated	C		C	ST003331:Ctrl:C	
+ST003331	DN47-13	SA362448	induced neural stem cell	PMS	PMS	untreated	D		D	ST003331:PMS:D	
+ST003331	DN47-14	SA362449	induced neural stem cell	PMS	PMS	untreated	D		D	ST003331:PMS:D	
+ST003331	DN47-15	SA362459	induced neural stem cell	PMS	PMS	untreated	D		D	ST003331:PMS:D	
+ST003331	DN47-16	SA362450	induced neural stem cell	PMS	PMS	untreated	E		E	ST003331:PMS:E	
+ST003331	DN47-17	SA362451	induced neural stem cell	PMS	PMS	untreated	E		E	ST003331:PMS:E	
+ST003331	DN47-18	SA362452	induced neural stem cell	PMS	PMS	untreated	E		E	ST003331:PMS:E	
+ST003331	DN47-19	SA362453	induced neural stem cell	PMS	PMS	untreated	F		F	ST003331:PMS:F	
+ST003331	DN47-20	SA362454	induced neural stem cell	PMS	PMS	untreated	F		F	ST003331:PMS:F	
+ST003331	DN47-21	SA362455	induced neural stem cell	PMS	PMS	untreated	F		F	ST003331:PMS:F	
+ST003331	DN47-22	SA362456	induced neural stem cell	PMS	PMS	untreated	G		G	ST003331:PMS:G	
+ST003331	DN47-23	SA362457	induced neural stem cell	PMS	PMS	untreated	G		G	ST003331:PMS:G	
+ST003331	DN47-24	SA362458	induced neural stem cell	PMS	PMS	untreated	G		G	ST003331:PMS:G	

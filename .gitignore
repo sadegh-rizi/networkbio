@@ -1,0 +1,38 @@
+# Environments
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.idea/
+.vscode/
+.obsidian/
+
+# Data and large intermediates: never committed
+data/
+results/**/*.pkl
+results/**/*.pickle
+results/**/*.h5ad
+results/**/*.h5
+results/**/*.parquet
+results/**/*.rds
+results/**/*.npz
+results/**/*.lp
+results/**/*.mps
+
+# Loose PDFs at the repository root (move to doc/papers/ if wanted)
+/*.pdf
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+~$*
+
+# Secrets
+.env
+.netrc
+*.pem

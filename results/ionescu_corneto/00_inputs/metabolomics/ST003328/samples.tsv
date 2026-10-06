@@ -1,0 +1,43 @@
+study	sample_id	mb_sample_id	sample_source	disease_as_deposited	group	treatment	subject_as_deposited	name_prefix	line_letter	line_key	replicate
+ST003328	AMC A SV P1	SA362368	induced neural stem cell	AMC	Ctrl	SV	A	AMC	A	ST003328:Ctrl:A	P1
+ST003328	AMC A SV P2	SA362369	induced neural stem cell	AMC	Ctrl	SV	A	AMC	A	ST003328:Ctrl:A	P2
+ST003328	AMC A SV P3	SA362361	induced neural stem cell	AMC	Ctrl	SV	A	AMC	A	ST003328:Ctrl:A	P3
+ST003328	AMC B SV P1	SA362367	induced neural stem cell	AMC	Ctrl	SV	B	AMC	B	ST003328:Ctrl:B	P1
+ST003328	AMC B SV P2	SA362366	induced neural stem cell	AMC	Ctrl	SV	B	AMC	B	ST003328:Ctrl:B	P2
+ST003328	AMC B SV P3	SA362365	induced neural stem cell	AMC	Ctrl	SV	B	AMC	B	ST003328:Ctrl:B	P3
+ST003328	AMC C SV P1	SA362364	induced neural stem cell	AMC	Ctrl	SV	C	AMC	C	ST003328:Ctrl:C	P1
+ST003328	AMC C SV P2	SA362363	induced neural stem cell	AMC	Ctrl	SV	C	AMC	C	ST003328:Ctrl:C	P2
+ST003328	AMC C SV P3	SA362362	induced neural stem cell	AMC	Ctrl	SV	C	AMC	C	ST003328:Ctrl:C	P3
+ST003328	AMC A P1	SA362371	induced neural stem cell	AMC	Ctrl	untreated	A	AMC	A	ST003328:Ctrl:A	P1
+ST003328	AMC A P2	SA362370	induced neural stem cell	AMC	Ctrl	untreated	A	AMC	A	ST003328:Ctrl:A	P2
+ST003328	AMC A P3	SA362375	induced neural stem cell	AMC	Ctrl	untreated	A	AMC	A	ST003328:Ctrl:A	P3
+ST003328	AMC B P1	SA362373	induced neural stem cell	AMC	Ctrl	untreated	B	AMC	B	ST003328:Ctrl:B	P1
+ST003328	AMC B P2	SA362376	induced neural stem cell	AMC	Ctrl	untreated	B	AMC	B	ST003328:Ctrl:B	P2
+ST003328	AMC B P3	SA362377	induced neural stem cell	AMC	Ctrl	untreated	B	AMC	B	ST003328:Ctrl:B	P3
+ST003328	AMC C P1	SA362378	induced neural stem cell	AMC	Ctrl	untreated	C	AMC	C	ST003328:Ctrl:C	P1
+ST003328	AMC C P2	SA362374	induced neural stem cell	AMC	Ctrl	untreated	C	AMC	C	ST003328:Ctrl:C	P2
+ST003328	AMC C P3	SA362372	induced neural stem cell	AMC	Ctrl	untreated	C	AMC	C	ST003328:Ctrl:C	P3
+ST003328	PMA A SV P1	SA362390	induced neural stem cell	PMS	PMS	SV	A	PMA	A	ST003328:PMS:A	P1
+ST003328	PMA A SV P2	SA362382	induced neural stem cell	PMS	PMS	SV	A	PMA	A	ST003328:PMS:A	P2
+ST003328	PMA A SV P3	SA362389	induced neural stem cell	PMS	PMS	SV	A	PMA	A	ST003328:PMS:A	P3
+ST003328	PMA B SV P1	SA362388	induced neural stem cell	PMS	PMS	SV	B	PMA	B	ST003328:PMS:B	P1
+ST003328	PMA B SV P2	SA362387	induced neural stem cell	PMS	PMS	SV	B	PMA	B	ST003328:PMS:B	P2
+ST003328	PMA B SV P3	SA362386	induced neural stem cell	PMS	PMS	SV	B	PMA	B	ST003328:PMS:B	P3
+ST003328	PMS C SV P1	SA362385	induced neural stem cell	PMS	PMS	SV	C	PMS	C	ST003328:PMS:C	P1
+ST003328	PMS C SV P2	SA362384	induced neural stem cell	PMS	PMS	SV	C	PMS	C	ST003328:PMS:C	P2
+ST003328	PMS C SV P3	SA362383	induced neural stem cell	PMS	PMS	SV	C	PMS	C	ST003328:PMS:C	P3
+ST003328	PMS D SV P1	SA362381	induced neural stem cell	PMS	PMS	SV	D	PMS	D	ST003328:PMS:D	P1
+ST003328	PMS D SV P2	SA362380	induced neural stem cell	PMS	PMS	SV	D	PMS	D	ST003328:PMS:D	P2
+ST003328	PMS D SV P3	SA362379	induced neural stem cell	PMS	PMS	SV	D	PMS	D	ST003328:PMS:D	P3
+ST003328	PMA A P1	SA362401	induced neural stem cell	PMS	PMS	untreated	A	PMA	A	ST003328:PMS:A	P1
+ST003328	PMA A P2	SA362400	induced neural stem cell	PMS	PMS	untreated	A	PMA	A	ST003328:PMS:A	P2
+ST003328	PMA A P3	SA362399	induced neural stem cell	PMS	PMS	untreated	A	PMA	A	ST003328:PMS:A	P3
+ST003328	PMA B P1	SA362402	induced neural stem cell	PMS	PMS	untreated	B	PMA	B	ST003328:PMS:B	P1
+ST003328	PMA B P2	SA362398	induced neural stem cell	PMS	PMS	untreated	B	PMA	B	ST003328:PMS:B	P2
+ST003328	PMA B P3	SA362397	induced neural stem cell	PMS	PMS	untreated	B	PMA	B	ST003328:PMS:B	P3
+ST003328	PMS C P1	SA362396	induced neural stem cell	PMS	PMS	untreated	C	PMS	C	ST003328:PMS:C	P1
+ST003328	PMS C P2	SA362395	induced neural stem cell	PMS	PMS	untreated	C	PMS	C	ST003328:PMS:C	P2
+ST003328	PMS C P3	SA362394	induced neural stem cell	PMS	PMS	untreated	C	PMS	C	ST003328:PMS:C	P3
+ST003328	PMS D P1	SA362391	induced neural stem cell	PMS	PMS	untreated	D	PMS	D	ST003328:PMS:D	P1
+ST003328	PMS D P2	SA362393	induced neural stem cell	PMS	PMS	untreated	D	PMS	D	ST003328:PMS:D	P2
+ST003328	PMS D P3	SA362392	induced neural stem cell	PMS	PMS	untreated	D	PMS	D	ST003328:PMS:D	P3

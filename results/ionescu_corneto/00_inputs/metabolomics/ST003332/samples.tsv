@@ -1,0 +1,25 @@
+study	sample_id	mb_sample_id	sample_source	disease_as_deposited	group	treatment	subject_as_deposited	name_prefix	line_letter	line_key	replicate
+ST003332	AMC A S7	SA362464	cell culture supernatant	AMC	Ctrl	untreated	A	AMC	A	ST003332:Ctrl:A	S7
+ST003332	AMC A S8	SA362461	cell culture supernatant	AMC	Ctrl	untreated	A	AMC	A	ST003332:Ctrl:A	S8
+ST003332	AMC A S9	SA362468	cell culture supernatant	AMC	Ctrl	untreated	A	AMC	A	ST003332:Ctrl:A	S9
+ST003332	AMC B S7	SA362467	cell culture supernatant	AMC	Ctrl	untreated	B	AMC	B	ST003332:Ctrl:B	S7
+ST003332	AMC B S8	SA362466	cell culture supernatant	AMC	Ctrl	untreated	B	AMC	B	ST003332:Ctrl:B	S8
+ST003332	AMC B S9	SA362465	cell culture supernatant	AMC	Ctrl	untreated	B	AMC	B	ST003332:Ctrl:B	S9
+ST003332	AMC D S7	SA362460	cell culture supernatant	AMC	Ctrl	untreated	C	AMC	D	ST003332:Ctrl:D	S7
+ST003332	AMC D S8	SA362463	cell culture supernatant	AMC	Ctrl	untreated	C	AMC	D	ST003332:Ctrl:D	S8
+ST003332	AMC D S9	SA362462	cell culture supernatant	AMC	Ctrl	untreated	C	AMC	D	ST003332:Ctrl:D	S9
+ST003332	PMS A S7	SA362479	cell culture supernatant	PMS	PMS	untreated	D	PMS	A	ST003332:PMS:A	S7
+ST003332	PMS A S8	SA362478	cell culture supernatant	PMS	PMS	untreated	D	PMS	A	ST003332:PMS:A	S8
+ST003332	PMS A S9	SA362477	cell culture supernatant	PMS	PMS	untreated	D	PMS	A	ST003332:PMS:A	S9
+ST003332	PMS B S7	SA362480	cell culture supernatant	PMS	PMS	untreated	E	PMS	B	ST003332:PMS:B	S7
+ST003332	PMS B S8	SA362476	cell culture supernatant	PMS	PMS	untreated	E	PMS	B	ST003332:PMS:B	S8
+ST003332	PMS B S9	SA362475	cell culture supernatant	PMS	PMS	untreated	E	PMS	B	ST003332:PMS:B	S9
+ST003332	PMS C S7	SA362474	cell culture supernatant	PMS	PMS	untreated	F	PMS	C	ST003332:PMS:C	S7
+ST003332	PMS C S8	SA362473	cell culture supernatant	PMS	PMS	untreated	F	PMS	C	ST003332:PMS:C	S8
+ST003332	PMS C S9	SA362472	cell culture supernatant	PMS	PMS	untreated	F	PMS	C	ST003332:PMS:C	S9
+ST003332	PMS D S7	SA362471	cell culture supernatant	PMS	PMS	untreated	G	PMS	D	ST003332:PMS:D	S7
+ST003332	PMS D S8	SA362470	cell culture supernatant	PMS	PMS	untreated	G	PMS	D	ST003332:PMS:D	S8
+ST003332	PMS D S9	SA362469	cell culture supernatant	PMS	PMS	untreated	G	PMS	D	ST003332:PMS:D	S9
+ST003332	NC 7	SA362481	cell culture supernatant	no cell ctrl	no_cell_blank	untreated	NA	NC			7
+ST003332	NC 8	SA362482	cell culture supernatant	no cell ctrl	no_cell_blank	untreated	NA	NC			8
+ST003332	NC 9	SA362483	cell culture supernatant	no cell ctrl	no_cell_blank	untreated	NA	NC			9

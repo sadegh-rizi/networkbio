@@ -1,0 +1,28 @@
+# First-party Python only. See AGENTS.md "Environment setup".
+# Direct dependencies, pinned 2026-10-06 (Python 3.12, Ubuntu 24.04 / WSL2).
+# The full resolved set, including transitive packages, is requirements.lock.txt;
+# scripts/setup/create_venv.sh installs from the lock. Versions and reasons are
+# in doc/external-tools.md. Change only with approval.
+
+# Core stack
+numpy==2.5.3
+pandas==3.0.6
+scipy==1.18.1
+matplotlib==3.11.2
+statsmodels==0.15.0
+openpyxl==3.1.5
+pytest==9.1.1
+
+# Network inference. corneto 1.0.0rc8 is a pre-release (2026-10-02); it needs
+# Python >= 3.11. The [os] extra brings the open-source MILP solvers
+# (HiGHS via highspy, SCIP via pyscipopt) and cvxpy.
+corneto[os]==1.0.0rc8
+highspy==1.15.1
+pyscipopt==6.2.1
+cvxpy==1.9.3
+decoupler==2.2.0
+omnipath==1.0.12
+networkx==3.7
+
+# Not installed: networkcommons (pins graphviz<0.18, incompatible with
+# corneto 1.0.0rc8). The COSMOS meta-PKN will be downloaded directly instead.

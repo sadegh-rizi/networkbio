@@ -1,0 +1,5 @@
+layer	n_features	id_type	n_with_kegg_id	n_unique_kegg_ids	n_13c_isotopologue_rows	n_missing_values	n_zero_values
+rnaseq_GSE297192	78932	Ensembl gene ID (symbol mapping needed for regulons/PKN)					
+ST003328 intracellular lipidomics (+/- simvastatin)	642	names only (RefMet / lipid shorthand)	0.0	0.0	0.0	3.0	0.0
+ST003331 intracellular metabolomics, 24 h 13C-glucose	181	KEGG compound ID	158.0	158.0	23.0	35.0	0.0
+ST003332 extracellular metabolomics (medium)	136	KEGG compound ID	136.0	136.0	0.0	24.0	0.0
