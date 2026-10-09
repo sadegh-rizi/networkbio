@@ -1,7 +1,7 @@
 # Stage 03: prior-knowledge networks, identifier mapping, Aim-5 structure check
 
 Date: 2026-10-09
-Status: proposed
+Status: implemented (uncommitted)
 
 Implements step 4 of `2026-09-29-corneto-ionescu-inscs-plan.md` and settles
 its open question Q6 (PKN), split below into P1-P10. No CORNETO run, no λ and

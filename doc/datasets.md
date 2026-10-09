@@ -210,6 +210,33 @@ still pending.
   verify and reuse these files. Multiple competing caches stop for an
   explicit version choice.
 
+## Stage-03 prior-knowledge resources (downloaded 2026-10-09)
+
+- **OmniPath signalling:** the `omnipath` 1.0.12 client returned 72,272
+  interactions from `OmniPath.get(genesymbols=True, datasets="omnipath",
+  organisms="human", directed=True, signed=True)`. The cached response and
+  checksum are under `data/resources/pkn/`; the primary PKN retains directed
+  rows with consensus direction, exactly one consensus sign, curation effort
+  at least 2, no complexes, no self-loops, unique signed pairs and expressed
+  HGNC symbols.
+- **COSMOS meta-PKN:** both
+  `https://commons.omnipathdb.org/prior_knowledge/meta_network.sif` and
+  `https://metapkn.omnipathdb.org/metapkn__20200122.txt` were available. They
+  are not identical after the registered duplicate-sign cleanup: the
+  NetworkCommons file has 81,788 cleaned edges and the OmniPath-hosted file
+  has 65,138, with different node namespaces. NetworkCommons is the primary
+  used for stage 03; the mismatch is recorded in the stage-03 provenance and
+  is not treated as a sensitivity result. The raw node grammar is recorded in
+  `results/ionescu_corneto/03_pkn/summary/cosmos_node_grammar.md`.
+- **Recon3D:** `https://bigg.ucsd.edu/static/models/Recon3D.json`, 5,835
+  metabolites and 2,248 genes. Its HMDB annotations are normalised to the
+  seven-digit form before mapping KEGG features.
+- **Metabolomics Workbench compound REST:** one lookup was requested per 205
+  KEGG IDs present in the stage-01 metabolomics tables. The cached table and
+  sidecar are under `data/resources/metabolite_ids/`. Free cholesterol in
+  ST003328 is mapped by name to HMDB0000067; other lipid species remain
+  unmapped because the deposit has no database identifiers.
+
 Stage-01 inputs are exclusively the existing stage-00 tables (plus HGNC),
 not a fresh parsing of the deposited datasets. ST003330 remains excluded.
 Line identities are study-specific. Stage-02 activities use GSE297192 only;
@@ -217,7 +244,8 @@ the disease contrast has n = 3 Ctrl vs 3 PMS independent lines. Age, sex and
 genetic background remain confounded with disease. ST003332 primary values are
 log2 peak areas referenced to available blanks without per-total scaling;
 glucose-reachable features are changes in the unlabelled fraction, not
-absolute exchange fluxes. No real stage-01/02 outputs have yet been validated.
+absolute exchange fluxes. The real stage-01/02 run completed on 2026-10-09;
+its checks and limitations are recorded in `doc/analysis-state.md`.
 
 ## Traps to check before using any file
 

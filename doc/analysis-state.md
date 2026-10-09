@@ -50,6 +50,19 @@ Findings are hypothesis-generating.
   30 tests passed in WSL first. Moderated-t prior d0 = 2.85, s0^2 = 0.043;
   CollecTRI 628 TFs after tmin = 5 (AP1 321 targets, NFKB 466), no-complex
   variant 626, DoRothEA A-C 284.
+- **Stage 03 real-data run (2026-10-09, `results/ionescu_corneto/03_pkn/`):**
+  completed. OmniPath returned 72,272 rows; the primary P1-P6 PKN has 9,870
+  edges and 3,443 nodes. The NetworkCommons COSMOS file was selected because
+  it was available; its primary P7/P5/P6 PKN has 36,088 edges and 16,951
+  nodes. The OmniPath-hosted COSMOS file was also fetched, but the two files
+  differ after cleanup (81,788 versus 65,138 edges) and are not treated as
+  interchangeable. Recon3D and 205 Metabolomics Workbench KEGG lookups were
+  cached with checksums.
+- **Aim-5 structure check (2026-10-09):** no positive-sign path of at most
+  eight edges was found for any of the 30 source-target pairs in either
+  primary PKN. This is a structural result about the filtered PKNs, not a
+  biological negative finding; the complete pair table and rewiring null are
+  in `03_pkn/aim5/`.
 - **Audit (2026-10-09, `doc/reviews/2026-10-09-stage01-02-implementation-audit.md`):**
   code matches the plans and the limma/decoupler sources; moderated t and the
   ST003332 blank reference were recomputed independently and match. Open:
@@ -65,7 +78,9 @@ See the open questions and the 2026-10-06 proposed defaults in
 `doc/decisions/2026-09-29-corneto-ionescu-inscs-plan.md`.
 The main ones: which layers and conditions are inputs, signalling only or
 signalling plus metabolism, how the input nodes are chosen without making the
-validation circular, the PKN, the solver, and the course deliverable.
+validation circular, the solver, and the course deliverable. The PKN filters
+and stage-03 resource choice are settled in
+`doc/decisions/2026-10-09-stage03-pkn-plan.md`.
 
 ## Known unknowns
 
@@ -126,6 +141,7 @@ validation circular, the PKN, the solver, and the course deliverable.
    resources cached under `data/resources/`. Before stage 04, decide the two
    audit points (limma-trend variant or primary; TF-selection rule) and check
    the SRA run metadata for C1-C6.
-3. Stage 03: build and log the PKN (OmniPath, then COSMOS meta-PKN); map
-   KEGG IDs to the PKN's metabolite IDs and count what maps.
-4. Stage 04: CORNETO runs, with the controls fixed beforehand.
+3. Stage 03: done. The PKNs, identifier maps, Aim-5 structure table and
+   rewiring null are in `results/ionescu_corneto/03_pkn/`.
+4. Stage 04: CORNETO runs, with the controls fixed beforehand and the COSMOS
+   endpoint mismatch explicitly reported.
