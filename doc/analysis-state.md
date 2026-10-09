@@ -1,6 +1,6 @@
 # Analysis state: read this first
 
-Last updated: 2026-10-06. Update this file whenever a decision is made or a
+Last updated: 2026-10-09. Update this file whenever a decision is made or a
 run changes a number. Detail and sources are in `doc/context/`.
 
 ## Question
@@ -31,6 +31,33 @@ Findings are hypothesis-generating.
 - **CORNETO handles a metabolite node like any other node**: the toy problem
   passed all five checks in WSL (`results/corneto_toy/04_inference/toy_checks.json`).
   So a COSMOS-style signalling + metabolism PKN can go into `CarnivalFlow`.
+- **Stages 01-02 revised choices (2026-10-09):** plain rows remain registered
+  as M+0 because R0 found no deposit statement that they are total pools;
+  ST003332 and ST003328 primary values are unscaled log2 peak areas, the
+  moderated t is the primary RNA contrast, and CollecTRI complexes are retained
+  with a no-complex sensitivity. The implementation is synthetic-tested, and
+  the real-data run of stages 01 and 02 completed on 2026-10-09.
+- **HGNC ambiguity rule (2026-10-09):** three Ensembl IDs in the HGNC
+  2026-10-06 release have multiple distinct approved symbols. They are excluded
+  from the one-to-one RNA-seq mapping, not duplicated or assigned arbitrarily,
+  and are recorded in the gene map and QC/exclusion tables.
+- **Stage 01 real-data run (2026-10-09):** completed successfully after the
+  HGNC rule was implemented. The primary output has 14,490 genes passing the
+  pre-mapping CPM check, 13,530 retained symbols, and a valid provenance
+  sidecar. The prior incomplete output is archived at
+  `results/ionescu_corneto/01_preprocessing_failed_2026-10-09_hgnc_ambiguity/`.
+- **Stage 02 real-data run (2026-10-09, `logs/stage01_02.log`):** completed;
+  30 tests passed in WSL first. Moderated-t prior d0 = 2.85, s0^2 = 0.043;
+  CollecTRI 628 TFs after tmin = 5 (AP1 321 targets, NFKB 466), no-complex
+  variant 626, DoRothEA A-C 284.
+- **Audit (2026-10-09, `doc/reviews/2026-10-09-stage01-02-implementation-audit.md`):**
+  code matches the plans and the limma/decoupler sources; moderated t and the
+  ST003332 blank reference were recomputed independently and match. Open:
+  log2(CPM+1) has a strong mean-variance trend (limma-trend variant
+  recommended); RNA-seq PC1 (69%) splits Ctrl/PMS perfectly, so check SRA run
+  metadata for a group-aligned batch; stage 04 needs a pre-stated TF-selection
+  rule (ULM padj counts change threefold with the contrast statistic). The
+  audit did not look at the six held-out TFs or AP1.
 
 ## Not yet decided
 
@@ -80,18 +107,26 @@ validation circular, the PKN, the solver, and the course deliverable.
 
 ## Known broken or stale
 
-- `00_toy_corneto.py` uses `lambda_reg=0.1` and a 13-node graph; it says
-  nothing about run time on a real PKN.
+- `00_toy_corneto.py` uses `lambda_reg=0.1` and a 12-node, 12-edge graph; it
+  says nothing about run time on a real PKN. Its figure and Cytoscape tables
+  come from `scripts/analysis/00b_plot_toy_network.py` (branch
+  `viz/toy-network`).
 - `networkcommons` could not be installed (pins graphviz<0.18, conflicts
   with corneto 1.0.0rc8); the COSMOS meta-PKN has to be fetched directly.
 
 ## Next steps, in order
 
 1. Confirm the remaining open questions of the main plan (Q4 controls, Q6
-   PKN filters, Q7 lambda rule, Q8 limits, Q9 replicates, Q11 deliverable).
-2. Stages 01-02 (preprocessing, TF activities): plan written,
-   `doc/decisions/2026-10-06-stage01-02-preprocessing-tf-activities-plan.md`
-   (status proposed; 6 open questions to confirm before implementation).
+   PKN filters, Q7 lambda rule, Q8 limits, Q11 deliverable). Q9 is resolved
+   for stage-01 preprocessing: mean log2 replicates with the 2-of-3 rule.
+2. Stages 01-02 (preprocessing, TF activities): done. Plans:
+   `doc/decisions/2026-10-06-stage01-02-preprocessing-tf-activities-plan.md`,
+   `doc/decisions/2026-10-09-stage01-02-revision-plan.md` and
+   `doc/decisions/2026-10-09-hgnc-ambiguous-mapping-plan.md`; code on
+   `task/stage01-02`; real run 2026-10-09; HGNC, CollecTRI and DoRothEA
+   resources cached under `data/resources/`. Before stage 04, decide the two
+   audit points (limma-trend variant or primary; TF-selection rule) and check
+   the SRA run metadata for C1-C6.
 3. Stage 03: build and log the PKN (OmniPath, then COSMOS meta-PKN); map
    KEGG IDs to the PKN's metabolite IDs and count what maps.
 4. Stage 04: CORNETO runs, with the controls fixed beforehand.

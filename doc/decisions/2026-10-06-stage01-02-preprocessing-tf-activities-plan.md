@@ -1,11 +1,11 @@
 # Stage 01 preprocessing and stage 02 TF activities
 
 Date: 2026-10-06
-Status: proposed
+Status: implemented in part; revised by 2026-10-09-stage01-02-revision-plan.md
 
-Do not implement until the status says `confirmed`. Every default below was
-proposed by the agent, not chosen by the user; the open questions list the
-ones the user must confirm. Parent plan: `2026-09-29-corneto-ionescu-inscs-plan.md`
+The user confirmed all six proposed choices on 2026-10-06 ("confirm"), after
+the existing files were committed as baseline `7b1fa51` and the implementation
+branch `task/stage01-02` was created. Parent plan: `2026-09-29-corneto-ionescu-inscs-plan.md`
 (steps 2-3). Previous stage: `2026-10-06-setup-toy-inputs-plan.md`.
 
 ## Question
@@ -68,12 +68,13 @@ All randomness: none expected; if any appears, seed 20261006.
 
 R1. `scripts/download/07_resources.sh` downloads into `data/resources/`
     (new folder; never edit existing `data/` files):
-    - HGNC complete set, quarterly release 2026-10-01:
-      `https://storage.googleapis.com/public-download-files/hgnc/archive/archive/quarterly/tsv/hgnc_complete_set_2026-10-01.txt`
-      → `data/resources/hgnc/hgnc_complete_set_2026-10-01.txt`. If that file
-      does not exist, use 2026-07-01 and record which one was used. (URL
-      pattern taken from the pysec2pri source; not reachable from the
-      planning agent's sandbox, so it is unverified.)
+     - HGNC complete set, quarterly release 2026-10-06:
+       `https://storage.googleapis.com/public-download-files/hgnc/archive/archive/quarterly/tsv/hgnc_complete_set_2026-10-06.txt`
+       → `data/resources/hgnc/hgnc_complete_set_2026-10-06.txt`. If that file
+       does not exist, use 2026-07-07 and record which one was used. (The
+       quarterly files were published on these dates, rather than the nominal
+       quarter-start dates.) The URL and object names were verified against
+       the HGNC Google Cloud Storage listing on 2026-10-09.
 R2. CollecTRI and DoRothEA are fetched in Python by
     `scripts/analysis/03_tf_activities.py` the first time it runs
     (`decoupler.op.collectri(organism="human")`,
@@ -160,9 +161,9 @@ QC (exploratory figures only, via `src/plot_config.save_figure`)
     package versions (`importlib.metadata.version`), Python, platform, and
     `git rev-parse HEAD` if available (else "uncommitted").
 
-## Open questions
+## Confirmed choices
 
-The user must confirm or change each before the status becomes `confirmed`.
+All six choices below were confirmed as written on 2026-10-06.
 
 1. Gene filter: CPM >= 1 in >= 3 of 6 libraries (gives 14,490 genes before
    symbol mapping).
@@ -175,7 +176,59 @@ The user must confirm or change each before the status becomes `confirmed`.
 5. TF activities: per-line ULM on gene-centred data as primary (step 15), the
    3-vs-3 contrast as secondary (step 16).
 6. Whether ST003330 (extracellular lipidomics) should be added. This plan
-   leaves it out, as the proposal does.
+    leaves it out, as the proposal does.
+
+## Open questions
+
+None of the six choices above remain open. Later PKN and inference decisions
+remain in the parent plan.
+
+## Implementation and validation budget
+
+Implement the files listed below using the existing project environment.
+Validate with synthetic pytest fixtures, shell syntax checks, and a synthetic
+end-to-end run with local resource fixtures (no downloads or patient-data
+pipeline runs). The user's full run is expected to take minutes to tens of
+minutes, mostly first-use imports, resource downloads and figure exports;
+allow roughly 1-2 GB RAM including Python/decoupler and 600-DPI figures. The
+largest input here is 78,932 genes x 6 libraries (about 4 MB of numeric data).
+
+### Implementation details checked against installed APIs
+
+- RNA filtering uses the **original unfiltered count-matrix totals** as the
+  CPM denominator. Mapping and symbol-count collapse precede the analysis
+  filter. The 14,490-gene check and the >=90% mapping check are independently
+  computed on the original Ensembl rows before mapping. The final log2(CPM+1)
+  denominator is recomputed on the retained symbols only.
+- ST003331 has no deposited replicate labels. Replicate counts use its
+  explicit sample-to-line keys, not a label inferred from the run ID.
+  Fractional labelling is reported for annotated labelled pools only;
+  all-missing labelled measurements give NaN, not a fabricated zero.
+- Blank references use available blank values. If all three are missing,
+  the exchange value is undefined (NaN) and logged; no feature is filtered
+  on its blank abundance. ST003332 QC uses normalised log2 peak areas before
+  blank subtraction, including the three blanks. These are relative
+  exchange proxies, not absolute uptake/release fluxes.
+- `decoupler.mt.ulm` 2.2.0 returns **BH-adjusted**, not raw, p-values. Raw
+  p-values are reconstructed from the returned t-score with df = supplied
+  genes - 2. Both are saved: BH correction is over retained TFs separately
+  for each resource and line/contrast. These are ULM model-fit statistics,
+  not donor-level disease-association p-values; nothing is thresholded.
+- `empty=False` retains zero-centred genes and zero Welch statistics in
+  the supplied gene universe. Nonfinite/undefined Welch or ULM results
+  stop with an error; no new imputation or gene-removal rule is introduced.
+  decoupler internally shuffles features with its fixed seed 0 (not exposed
+  by ULM); this permutes regression rows and does not randomise the estimate.
+- Exploratory heatmap: raw ULM scores, no row scaling; Euclidean distance,
+  average linkage; top-30 variance selection is solely for visualisation.
+- Additional reporting files below preserve both p-value meanings, the
+  contrast's expression-scale effect and 95% Welch interval, target counts,
+  and the requested descriptive diagnostics. Correlations are not tested.
+- Complete output caches are reused only when input/resource hashes,
+  parameters, code hashes and installed versions match. Changed or partial
+  stage directories stop the run; inspect and archive them before rerunning.
+  Source resources are never overwritten, and their download dates are
+  recorded at download time rather than invented during implementation.
 
 ## Files to change
 
@@ -199,7 +252,7 @@ files that exist, stage-00 code or outputs.
 
 ```
 results/ionescu_corneto/01_preprocessing/
-  rnaseq/gene_map.tsv                 ensembl_gene_id, symbol, status, kept
+  rnaseq/gene_map.tsv                 ensembl_gene_id, symbol, status, kept, reason
   rnaseq/log2cpm.tsv                  symbol x line (C1-C6)
   rnaseq/samples.tsv
   metabolomics/ST003331/{features.tsv, replicate_log2.tsv, line_log2.tsv, line_samples.tsv, fractional_labelling.tsv}
@@ -212,10 +265,14 @@ results/ionescu_corneto/01_preprocessing/
   01_preprocessing.provenance.json
 results/ionescu_corneto/02_activities/
   collectri/tf_activity_per_line.tsv  TF x line, ULM score
-  collectri/tf_pvalue_per_line.tsv
-  collectri/tf_activity_contrast.tsv  TF, score, pvalue (PMS vs Ctrl)
-  collectri/regulon_summary.tsv       n TFs, n edges before/after tmin and gene filter
-  dorothea_ABC/<same four filenames>
+  collectri/tf_pvalue_per_line.tsv    raw ULM p-values, TF x line
+  collectri/tf_padj_per_line.tsv      BH-adjusted ULM p-values, TF x line
+  collectri/tf_activity_contrast.tsv  TF, score, pvalue, padj (PMS vs Ctrl)
+  collectri/regulon_summary.tsv       per-TF target/edge counts before/after gene filter and tmin
+  dorothea_ABC/<same five filenames>
+  gene_contrast.tsv                  per-gene mean log2(CPM+1) difference, SE, Welch t/df, 95% CI
+  summary/counts.tsv                 resource-level TF/edge counts and minimum retained targets
+  summary/diagnostics.json           library-size/order correlations, per-line and median Spearman
   figures/tf_activity_heatmap_collectri.{...}
   figures/collectri_vs_dorothea.{...}
   02_activities.provenance.json
@@ -258,3 +315,8 @@ correlation of each line's mean absolute score with its library size and
 report it); PCA in which replicates of one line do not cluster together;
 CollecTRI and DoRothEA per-line scores uncorrelated for shared TFs
 (report the median Spearman correlation across lines).
+
+Implementation verification is recorded in
+`prompts/2026-10-06-stage01-02-implementation.md`. Only synthetic pipelines
+have been executed by the implementing agent; real stage-01/02 counts,
+resource availability and biological QC remain to be checked by the user.

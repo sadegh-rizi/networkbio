@@ -154,6 +154,43 @@ interactive app is at `mohorianulab.org/shiny/pluchino/DARG_PMS/`.
 **Unverified:** number of lines and replicates per accession, whether the
 matrices are raw counts or processed, and the genome annotation used.
 
+## Stage-01/02 annotation resources (implementation 2026-10-09)
+
+These are reference annotations, not additional donor measurements. The HGNC
+file was downloaded in the user's WSL run on 2026-10-09; regulon downloads are
+still pending.
+
+- **HGNC complete set:** `scripts/download/07_resources.sh` requests
+  `https://storage.googleapis.com/public-download-files/hgnc/archive/archive/quarterly/tsv/hgnc_complete_set_2026-10-06.txt`,
+  with release 2026-07-07 as the fallback for HTTP 404/410. Files are cached
+  under `data/resources/hgnc/`, with a `.provenance.json` recording release,
+  source URL, download time, row count and sha256. Only status `Approved`
+  mappings from `ensembl_gene_id` to `symbol` are used. Ensembl IDs with more
+  than one distinct approved symbol are excluded from the one-to-one mapping,
+  never duplicated or assigned arbitrarily, and recorded in the gene map and
+  stage-01 QC/exclusion tables. A cached fallback is reused rather than updated.
+- **CollecTRI:** human signed TF-target edges from the decoupler 2.2.0
+  wrapper's [Zenodo source](https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1).
+  Complexes are retained in the primary resource (`remove_complexes=False`);
+  a separately cached `collectri_nocomplex` sensitivity removes AP1/NFKB.
+- **DoRothEA:** human levels A-C via the decoupler 2.2.0 wrapper for
+  [OmniPath](https://omnipathdb.org/interactions). Default weights are mode of
+  regulation divided by 1, 2 or 3 for A, B or C, respectively.
+  All regulons are cached by stage 02 at
+  `data/resources/regulons/{collectri,collectri_nocomplex,dorothea_ABC}_human_<download-date>.tsv.gz`,
+  with source/settings/date/row-count/checksum sidecars. Subsequent runs
+  verify and reuse these files. Multiple competing caches stop for an
+  explicit version choice.
+
+Stage-01 inputs are exclusively the existing stage-00 tables (plus HGNC),
+not a fresh parsing of the deposited datasets. ST003330 remains excluded.
+Line identities are study-specific. Stage-02 activities use GSE297192 only;
+the disease contrast has n = 3 Ctrl vs 3 PMS independent lines. Age, sex and
+genetic background remain confounded with disease. ST003332 primary values are
+log2 peak areas referenced to available blanks without per-total scaling;
+glucose-reachable features are changes in the unlabelled fraction, not
+absolute exchange fluxes. No real stage-01/02 outputs have yet been validated.
+
 ## Traps to check before using any file
 
 - Row/column orientation and identifier type (gene symbol, UniProt,

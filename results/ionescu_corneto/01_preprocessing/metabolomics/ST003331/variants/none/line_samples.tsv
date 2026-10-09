@@ -1,0 +1,8 @@
+column	line_key	group	line_letter	treatment	n_replicates	sample_ids
+Ctrl_A	ST003331:Ctrl:A	Ctrl	A	untreated	3	"[""DN47-01"", ""DN47-02"", ""DN47-03""]"
+Ctrl_B	ST003331:Ctrl:B	Ctrl	B	untreated	3	"[""DN47-04"", ""DN47-05"", ""DN47-06""]"
+Ctrl_C	ST003331:Ctrl:C	Ctrl	C	untreated	3	"[""DN47-10"", ""DN47-11"", ""DN47-12""]"
+PMS_D	ST003331:PMS:D	PMS	D	untreated	3	"[""DN47-13"", ""DN47-14"", ""DN47-15""]"
+PMS_E	ST003331:PMS:E	PMS	E	untreated	3	"[""DN47-16"", ""DN47-17"", ""DN47-18""]"
+PMS_F	ST003331:PMS:F	PMS	F	untreated	3	"[""DN47-19"", ""DN47-20"", ""DN47-21""]"
+PMS_G	ST003331:PMS:G	PMS	G	untreated	3	"[""DN47-22"", ""DN47-23"", ""DN47-24""]"

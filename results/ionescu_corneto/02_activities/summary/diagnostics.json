@@ -1,0 +1,250 @@
+{
+  "collectri": {
+    "primary": {
+      "mean_absolute_score": {
+        "C1": 1.381069874000696,
+        "C2": 1.3102688979302408,
+        "C3": 1.5512259894217413,
+        "C4": 1.5480310641995556,
+        "C5": 1.4079743294279035,
+        "C6": 1.6894227869045246
+      },
+      "library_sizes": {
+        "C1": 26907881,
+        "C2": 27567576,
+        "C3": 29889799,
+        "C4": 32505374,
+        "C5": 27087838,
+        "C6": 28783917
+      },
+      "library_size_group_means": {
+        "Ctrl": 28121752.0,
+        "PMS": 29459043.0
+      },
+      "groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      },
+      "mean_absolute_score_vs_library_size_pearson": 0.5661402038924052,
+      "mean_absolute_score_vs_column_order_pearson": 0.7017361674268237
+    },
+    "sizefactor_variant": {
+      "mean_absolute_score": {
+        "C1": 1.1991161339785321,
+        "C2": 1.1650908276641834,
+        "C3": 1.5117400291006207,
+        "C4": 1.4829927957310551,
+        "C5": 1.3217628061953992,
+        "C6": 1.5553276443773731
+      },
+      "library_sizes": {
+        "C1": 26907881,
+        "C2": 27567576,
+        "C3": 29889799,
+        "C4": 32505374,
+        "C5": 27087838,
+        "C6": 28783917
+      },
+      "library_size_group_means": {
+        "Ctrl": 28121752.0,
+        "PMS": 29459043.0
+      },
+      "groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      },
+      "mean_absolute_score_vs_library_size_pearson": 0.6839011415059795,
+      "mean_absolute_score_vs_column_order_pearson": 0.7081858373477351
+    }
+  },
+  "collectri_nocomplex": {
+    "primary": {
+      "mean_absolute_score": {
+        "C1": 1.3734261380875399,
+        "C2": 1.305634733423384,
+        "C3": 1.5378982741750284,
+        "C4": 1.5376876805564132,
+        "C5": 1.401559415579957,
+        "C6": 1.676609313520282
+      },
+      "library_sizes": {
+        "C1": 26907881,
+        "C2": 27567576,
+        "C3": 29889799,
+        "C4": 32505374,
+        "C5": 27087838,
+        "C6": 28783917
+      },
+      "library_size_group_means": {
+        "Ctrl": 28121752.0,
+        "PMS": 29459043.0
+      },
+      "groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      },
+      "mean_absolute_score_vs_library_size_pearson": 0.5644741535160542,
+      "mean_absolute_score_vs_column_order_pearson": 0.7073018440703539
+    },
+    "sizefactor_variant": {
+      "mean_absolute_score": {
+        "C1": 1.1930682235201824,
+        "C2": 1.1605929657032572,
+        "C3": 1.4993814501749647,
+        "C4": 1.4720850454697907,
+        "C5": 1.3149244254845789,
+        "C6": 1.5437069176028577
+      },
+      "library_sizes": {
+        "C1": 26907881,
+        "C2": 27567576,
+        "C3": 29889799,
+        "C4": 32505374,
+        "C5": 27087838,
+        "C6": 28783917
+      },
+      "library_size_group_means": {
+        "Ctrl": 28121752.0,
+        "PMS": 29459043.0
+      },
+      "groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      },
+      "mean_absolute_score_vs_library_size_pearson": 0.6828692356749628,
+      "mean_absolute_score_vs_column_order_pearson": 0.7112419104478959
+    }
+  },
+  "dorothea_ABC": {
+    "primary": {
+      "mean_absolute_score": {
+        "C1": 1.5797542812911811,
+        "C2": 1.4226305543608133,
+        "C3": 1.389441434254425,
+        "C4": 1.5437348840033307,
+        "C5": 1.5020858948704272,
+        "C6": 1.6539453122260634
+      },
+      "library_sizes": {
+        "C1": 26907881,
+        "C2": 27567576,
+        "C3": 29889799,
+        "C4": 32505374,
+        "C5": 27087838,
+        "C6": 28783917
+      },
+      "library_size_group_means": {
+        "Ctrl": 28121752.0,
+        "PMS": 29459043.0
+      },
+      "groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      },
+      "mean_absolute_score_vs_library_size_pearson": -0.018101278458144462,
+      "mean_absolute_score_vs_column_order_pearson": 0.4132078639870198
+    },
+    "sizefactor_variant": {
+      "mean_absolute_score": {
+        "C1": 1.34528406891366,
+        "C2": 1.2397725216412496,
+        "C3": 1.291879199307449,
+        "C4": 1.390399951219631,
+        "C5": 1.345935078561942,
+        "C6": 1.5034952107820527
+      },
+      "library_sizes": {
+        "C1": 26907881,
+        "C2": 27567576,
+        "C3": 29889799,
+        "C4": 32505374,
+        "C5": 27087838,
+        "C6": 28783917
+      },
+      "library_size_group_means": {
+        "Ctrl": 28121752.0,
+        "PMS": 29459043.0
+      },
+      "groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      },
+      "mean_absolute_score_vs_library_size_pearson": 0.2439326581731024,
+      "mean_absolute_score_vs_column_order_pearson": 0.7156069615606896
+    }
+  },
+  "library_size_group_means": {
+    "Ctrl": 28121752.0,
+    "PMS": 29459043.0
+  },
+  "library_size_warning": "Library size is partly aligned with group; at n=6 this correlation cannot separate an artefact from biology.",
+  "comparison": {
+    "shared_tfs": 244,
+    "spearman_per_line": {
+      "C1": 0.41798528761838677,
+      "C2": 0.4023592679330384,
+      "C3": 0.47868852459016387,
+      "C4": 0.4409559330714678,
+      "C5": 0.390615797017046,
+      "C6": 0.5346831385863391
+    },
+    "median_spearman": 0.4294706103449273,
+    "n_defined_correlations": 6
+  },
+  "heatmap_row_order": [
+    "LRRFIP1",
+    "KLF17",
+    "HDAC1",
+    "IRF7",
+    "CREB1",
+    "NFKB",
+    "POU2F2",
+    "JUNB",
+    "FOSB",
+    "RARA",
+    "ETS2",
+    "SCX",
+    "SMAD3",
+    "GTF3A",
+    "MYOCD",
+    "SP3",
+    "FOS",
+    "SMAD2",
+    "HIF1A",
+    "NFKB1",
+    "AP1",
+    "STAT1",
+    "STAT2",
+    "IRF9",
+    "ETS1",
+    "JUN",
+    "SP1",
+    "JUND",
+    "SRF",
+    "REL"
+  ]
+}
