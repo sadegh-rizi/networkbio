@@ -154,6 +154,35 @@ interactive app is at `mohorianulab.org/shiny/pluchino/DARG_PMS/`.
 **Unverified:** number of lines and replicates per accession, whether the
 matrices are raw counts or processed, and the genome annotation used.
 
+### GSE297192 baseline libraries C1-C6: sequencing batch (checked 2026-10-09)
+
+Checked because RNA-seq PC1 (69% of variance) separates Ctrl from PMS
+perfectly (audit finding F2). Sources: ENA `filereport` for PRJNA1262970,
+NCBI SRA `efetch` XML, and the first read headers of each `_1.fastq.gz` on the
+ENA FTP (HTTP range request, first 32 kB).
+
+| Line | Group | Run | Read pairs | Read-header instrument:run:flowcell:lane | Original files |
+|---|---|---|---|---|---|
+| C1 | Ctrl | SRR33563997 | 35,838,350 | LH00409:296:22GWVTLT4:1 | C1_L001_R1/R2_001.fastq.gz |
+| C2 | Ctrl | SRR33563996 | 19,326,065 | LH00409:296:22GWVTLT4:1 | C2_L001_R1/R2_001.fastq.gz |
+| C3 | Ctrl | SRR33563995 | 19,785,339 | LH00409:296:22GWVTLT4:1 | C3_L001_R1/R2_001.fastq.gz |
+| C4 | PMS | SRR33563994 | 22,182,222 | LH00409:296:22GWVTLT4:1 | C4_L001_R1/R2_001.fastq.gz |
+| C5 | PMS | SRR33563993 | 17,330,207 | LH00409:296:22GWVTLT4:1 | C5_L001_R1/R2_001.fastq.gz |
+| C6 | PMS | SRR33563992 | 18,722,908 | LH00409:296:22GWVTLT4:1 | C6_L001_R1/R2_001.fastq.gz |
+
+- All six libraries were sequenced on the same instrument run, flow cell and
+  lane, in one SRA submission (SRA2129539), with the same library protocol
+  text ("Qiagen RNeasy Kit standard Illumina protocol"). A sequencing batch
+  aligned with group is ruled out.
+- Not recoverable from the deposit: RNA extraction and library-prep dates or
+  batches, culture passage and harvest dates. These, and donor genetics, age
+  and sex, remain confounded with disease at n = 3 vs 3.
+- The deposit gives the instrument as "Illumina NovaSeq 6000", but `LH`
+  instrument IDs are NovaSeq X. Harmless for this analysis; note it if the
+  instrument is cited.
+- Only the first reads of read 1 were inspected; that every read comes from
+  lane 1 is inferred from the single `L001` file per read direction.
+
 ## Traps to check before using any file
 
 - Row/column orientation and identifier type (gene symbol, UniProt,
