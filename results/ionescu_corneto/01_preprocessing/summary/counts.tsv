@@ -1,0 +1,75 @@
+layer	metric	value	expected
+GSE297192	genes_input	78932	
+GSE297192	genes_cpm_before_mapping	14490	
+GSE297192	genes_mapped	42426	
+GSE297192	genes_unmapped	36506	
+GSE297192	genes_unmapped_no_approved_symbol	36503	
+GSE297192	genes_ambiguous_approved_mapping	3	
+GSE297192	ambiguous_approved_ensembl_ids_in_hgnc	3	
+GSE297192	filtered_genes_mapped	13530	
+GSE297192	filtered_mapping_fraction	0.9337474120082816	
+GSE297192	symbols_before_filter	42426	
+GSE297192	symbols_with_multiple_ensembl_ids	0	
+GSE297192	symbols_removed_by_filter	28896	
+GSE297192	symbols_output	13530	
+GSE297192	sizefactor_genes_all_counts_positive	13244	
+GSE297192	n_lines	6	6.0
+ST003331	features_input	181	
+ST003331	labelled_pools	9	
+ST003331	features_after_pooling	158	
+ST003331	features_output	158	
+ST003331	n_line_conditions	7	7.0
+ST003331	missing_replicate_values	33	
+ST003331	labelling_class:isotopologue_sum_partial	9	
+ST003331	labelling_class:m0_confounded	120	
+ST003331	labelling_class:m0_unconfounded	29	
+ST003331	insufficient_replicate_fraction:Ctrl_A	0.0	
+ST003331	insufficient_replicate_fraction:Ctrl_B	0.0	
+ST003331	insufficient_replicate_fraction:Ctrl_C	0.0189873417721519	
+ST003331	insufficient_replicate_fraction:PMS_D	0.006329113924050633	
+ST003331	insufficient_replicate_fraction:PMS_E	0.006329113924050633	
+ST003331	insufficient_replicate_fraction:PMS_F	0.006329113924050633	
+ST003331	insufficient_replicate_fraction:PMS_G	0.006329113924050633	
+ST003332	features_input	136	
+ST003332	features_without_blank_reference	2	
+ST003332	exchange_interpretation	m0_unconfounded: relative exchange proxy; m0_confounded: change in unlabelled fraction	
+ST003332	features_after_pooling	136	
+ST003332	features_output	136	
+ST003332	n_line_conditions	7	7.0
+ST003332	missing_replicate_values	61	
+ST003332	labelling_class:m0_confounded	115	
+ST003332	labelling_class:m0_unconfounded	21	
+ST003332	insufficient_replicate_fraction:Ctrl_A	0.014705882352941176	
+ST003332	insufficient_replicate_fraction:Ctrl_B	0.014705882352941176	
+ST003332	insufficient_replicate_fraction:Ctrl_D	0.014705882352941176	
+ST003332	insufficient_replicate_fraction:PMS_A	0.014705882352941176	
+ST003332	insufficient_replicate_fraction:PMS_B	0.014705882352941176	
+ST003332	insufficient_replicate_fraction:PMS_C	0.022058823529411766	
+ST003332	insufficient_replicate_fraction:PMS_D	0.022058823529411766	
+ST003328	features_input	642	
+ST003328	features_after_pooling	642	
+ST003328	features_output	642	
+ST003328	n_line_conditions	14	14.0
+ST003328	missing_replicate_values	3	
+ST003328	insufficient_replicate_fraction:Ctrl_A_SV	0.0	
+ST003328	insufficient_replicate_fraction:Ctrl_A_untreated	0.0	
+ST003328	insufficient_replicate_fraction:Ctrl_B_SV	0.0	
+ST003328	insufficient_replicate_fraction:Ctrl_B_untreated	0.0	
+ST003328	insufficient_replicate_fraction:Ctrl_C_SV	0.0	
+ST003328	insufficient_replicate_fraction:Ctrl_C_untreated	0.0	
+ST003328	insufficient_replicate_fraction:PMS_A_SV	0.0	
+ST003328	insufficient_replicate_fraction:PMS_A_untreated	0.0	
+ST003328	insufficient_replicate_fraction:PMS_B_SV	0.0	
+ST003328	insufficient_replicate_fraction:PMS_B_untreated	0.0	
+ST003328	insufficient_replicate_fraction:PMS_C_SV	0.0	
+ST003328	insufficient_replicate_fraction:PMS_C_untreated	0.0	
+ST003328	insufficient_replicate_fraction:PMS_D_SV	0.0	
+ST003328	insufficient_replicate_fraction:PMS_D_untreated	0.0	
+GSE297192	pca_complete_features	13530	
+GSE297192_sizefactor	pca_complete_features	13530	
+ST003331	pca_complete_features	143	
+ST003331_none	pca_complete_features	143	
+ST003332	pca_complete_features	126	
+ST003332_pertotal_authors	pca_complete_features	126	
+ST003328	pca_complete_features	639	
+ST003328_pertotal_all42	pca_complete_features	639	

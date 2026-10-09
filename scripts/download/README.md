@@ -34,6 +34,7 @@ data/
 | `04_sra_fastq.sh` | raw reads per GEO series, via ENA (default) or SRA Toolkit | 38 GB to >880 GB |
 | `05_massive_proteomics.sh` | MassIVE MSV000095283. The dataset was private on 2026-09-29 | unknown |
 | `06_reused_public.sh` | lists (or `--get`) GEO supplements of the datasets Park re-analysed | not checked |
+| `07_resources.sh` | HGNC quarterly release 2026-10-06 (2026-07-07 fallback); immutable cache plus download provenance | size unverified |
 | `verify.sh` | reports missing files and size mismatches against `manifest.tsv` | - |
 | `download_all.sh` | 01 (+ 02, 03 with `--medium`), 05, verify | - |
 
@@ -62,6 +63,32 @@ nohup bash scripts/download/04_sra_fastq.sh --method sra GSE297365 > logs/downlo
 
 Requirements: `wget` or `curl`, GNU coreutils (`stat -c`, `df --output`),
 bash >= 4.4. `sra-tools` only for `--method sra`.
+
+### Stage-01/02 resources and execution (WSL)
+
+`07_resources.sh` requires `curl` and the existing project `.venv`. It uses
+`data/resources/hgnc/` by default; `DATA_ROOT` overrides the download root,
+but the analysis scripts expect resources under the project `data/`.
+An existing resource is verified, never replaced. Only HTTP 404/410 triggers
+the older release; transport/server errors stop. The live HGNC endpoints
+have not been exercised in this implementation session.
+
+The stage-02 script fetches CollecTRI and DoRothEA A-C once through decoupler,
+then reads dated caches in `data/resources/regulons/` on later runs. Every
+download has a checksum and download-time sidecar.
+
+```bash
+cd "/mnt/d/#University/#MS-SystemsBio/Master_Thesis/repos/networkbio"
+nohup bash -c 'bash scripts/download/07_resources.sh && bash scripts/setup/run_stage01_02.sh' > logs/stage01_02.log 2>&1 &
+```
+
+The runner tests synthetic inputs first, then runs stage 01 and stage 02 in
+order. It stops at the first failure. Success is `STAGES 01-02 FINISHED` in
+the log. Check `01_preprocessing/summary/` and `02_activities/summary/`
+under `results/ionescu_corneto/`, and both stages' `figures/` folders.
+Completed stages are reused if all hashes/settings match. A partial or stale
+stage directory stops with an explanatory error: inspect/archive that stage
+before rerunning rather than mixing outputs from different runs.
 
 ## Known gaps (details in `doc/data-inventory/data_inventory_ionescu_park.xlsx`, sheet `gaps`)
 

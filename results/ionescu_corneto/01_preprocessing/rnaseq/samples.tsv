@@ -1,0 +1,7 @@
+sample_title	gsm	cell_line	cell_type	condition	in_count_matrix	group	group_source	use_baseline	column	line_key	treatment	n_replicates	library_size
+C1	GSM8985311	C1	induced neural stem cells	base iNSC	True	Ctrl	authors code (09_generate_figures.R)	True	C1	GSE297192:Ctrl:C1	untreated	1	26907881
+C2	GSM8985312	C2	induced neural stem cells	base iNSC	True	Ctrl	authors code (09_generate_figures.R)	True	C2	GSE297192:Ctrl:C2	untreated	1	27567576
+C3	GSM8985313	C3	induced neural stem cells	base iNSC	True	Ctrl	authors code (09_generate_figures.R)	True	C3	GSE297192:Ctrl:C3	untreated	1	29889799
+C4	GSM8985314	C4	induced neural stem cells	base iNSC	True	PMS	authors code (09_generate_figures.R)	True	C4	GSE297192:PMS:C4	untreated	1	32505374
+C5	GSM8985315	C5	induced neural stem cells	base iNSC	True	PMS	authors code (09_generate_figures.R)	True	C5	GSE297192:PMS:C5	untreated	1	27087838
+C6	GSM8985316	C6	induced neural stem cells	base iNSC	True	PMS	authors code (09_generate_figures.R)	True	C6	GSE297192:PMS:C6	untreated	1	28783917
