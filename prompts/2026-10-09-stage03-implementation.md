@@ -4,7 +4,7 @@ Date: 2026-10-09
 Model: gpt-5.6-luna
 Settings: default
 Plan: doc/decisions/2026-10-09-stage03-pkn-plan.md
-Commit(s): add after committing
+Commit(s): 75597e3
 Transcript: not saved
 
 ## Prompt actually used
