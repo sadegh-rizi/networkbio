@@ -1,0 +1,463 @@
+{
+  "stage": "02_activities",
+  "created_utc": "2026-10-09T10:21:27+00:00",
+  "inputs": {
+    "results/ionescu_corneto/01_preprocessing/01_preprocessing.provenance.json": "6fce7a4c4e3148f377767a0e577778ec1323c9e76f075281b27b9e4161fa0f59",
+    "results/ionescu_corneto/01_preprocessing/rnaseq/log2cpm.tsv": "54b8970957e927556b5572ccc72fcdbe8381ee6c9cb78372971645d03c41143f",
+    "results/ionescu_corneto/01_preprocessing/rnaseq/samples.tsv": "0e21d1500bbe81aea5c4fd1dbbad1ada95e59f3e6a9b0b30d219e243da2c9217",
+    "results/ionescu_corneto/01_preprocessing/rnaseq/variants/sizefactor/log2norm.tsv": "404c3279889834d5231bee10a4dd21c48bf1402aec2ec089c7772e233608c4c3",
+    "results/ionescu_corneto/01_preprocessing/rnaseq/variants/sizefactor/size_factors.tsv": "9f795d5a2b105276146d62f4f91b29d5f54178aa0c70cac25f5edaa7f44db55d"
+  },
+  "resources": {
+    "collectri": {
+      "resource": "collectri",
+      "downloaded_utc": "2026-10-09T10:21:18.135257+00:00",
+      "settings": {
+        "function": "decoupler.op.collectri",
+        "organism": "human",
+        "remove_complexes": false,
+        "license": "academic",
+        "source_url": "https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1"
+      },
+      "row_count": 42990,
+      "sha256": "edc6f6331be53d60d9c56351fb7a5ff33a32ed70ae6d3212cb2753dd31953d81",
+      "versions": {
+        "decoupler": "2.2.0",
+        "omnipath": "1.0.12"
+      },
+      "path": "data/resources/regulons/collectri_human_2026-10-09.tsv.gz"
+    },
+    "collectri_nocomplex": {
+      "resource": "collectri_nocomplex",
+      "downloaded_utc": "2026-10-09T10:21:25.255401+00:00",
+      "settings": {
+        "function": "decoupler.op.collectri",
+        "organism": "human",
+        "remove_complexes": true,
+        "license": "academic",
+        "source_url": "https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1"
+      },
+      "row_count": 41595,
+      "sha256": "0c3a374675a4732fcbe4bb24a87f76b9692461f6d259af32f96ca76ea4a1e347",
+      "versions": {
+        "decoupler": "2.2.0",
+        "omnipath": "1.0.12"
+      },
+      "path": "data/resources/regulons/collectri_nocomplex_human_2026-10-09.tsv.gz"
+    },
+    "dorothea_ABC": {
+      "resource": "dorothea_ABC",
+      "downloaded_utc": "2026-10-09T10:21:26.839211+00:00",
+      "settings": {
+        "function": "decoupler.op.dorothea",
+        "organism": "human",
+        "levels": [
+          "A",
+          "B",
+          "C"
+        ],
+        "license": "academic",
+        "confidence_divisors": {
+          "A": 1,
+          "B": 2,
+          "C": 3
+        },
+        "source_url": "https://omnipathdb.org/interactions/?genesymbols=1&datasets=dorothea&dorothea_levels=A,B,C&fields=dorothea_level&license=academic"
+      },
+      "row_count": 32286,
+      "sha256": "dfdf592295f6d98588f36356b4878e7818b9979714035c96c22e7370b78c362a",
+      "versions": {
+        "decoupler": "2.2.0",
+        "omnipath": "1.0.12"
+      },
+      "path": "data/resources/regulons/dorothea_ABC_human_2026-10-09.tsv.gz"
+    }
+  },
+  "parameters": {
+    "primary": "ULM on per-gene centred log2(CPM+1), lines x genes",
+    "primary_sign": "positive: signed targets higher in a line than the six-line gene mean",
+    "contrast_primary": "limma-style moderated t on log2(CPM+1), PMS minus Ctrl",
+    "contrast_sensitivities": [
+      "mean log2 difference",
+      "Welch t"
+    ],
+    "tmin": 5,
+    "decoupler_empty": false,
+    "zero_variance_welch": "stop; no invented zero scores or silent gene removal",
+    "pvalues": "two-sided ULM slope t-test, df = supplied genes - 2",
+    "multiple_testing": "BH over all retained TFs within each resource and each line/contrast separately",
+    "inference_selection": null,
+    "resources": {
+      "collectri": {
+        "function": "decoupler.op.collectri",
+        "organism": "human",
+        "remove_complexes": false,
+        "license": "academic",
+        "source_url": "https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1"
+      },
+      "collectri_nocomplex": {
+        "function": "decoupler.op.collectri",
+        "organism": "human",
+        "remove_complexes": true,
+        "license": "academic",
+        "source_url": "https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1"
+      },
+      "dorothea_ABC": {
+        "function": "decoupler.op.dorothea",
+        "organism": "human",
+        "levels": [
+          "A",
+          "B",
+          "C"
+        ],
+        "license": "academic",
+        "confidence_divisors": {
+          "A": 1,
+          "B": 2,
+          "C": 3
+        },
+        "source_url": "https://omnipathdb.org/interactions/?genesymbols=1&datasets=dorothea&dorothea_levels=A,B,C&fields=dorothea_level&license=academic"
+      }
+    },
+    "heatmap": {
+      "selection": "top 30 CollecTRI TFs by within-data variance",
+      "scaling": null,
+      "distance": "euclidean",
+      "linkage": "average",
+      "columns": "Ctrl then PMS"
+    },
+    "diagnostics": "mean absolute activity vs library size and C1-C6 order: Pearson; shared TFs per line: Spearman",
+    "seed": 20261006,
+    "decoupler_internal_shuffle": "fixed seed 0 in decoupler 2.2.0; permutation of features only, no stochastic ULM estimator",
+    "limitations": "exploratory model outputs; 3 vs 3 has little power; disease confounded with age, sex and genetic background",
+    "moderated_prior": {
+      "df_g": 4,
+      "d0": 2.853263841926907,
+      "s0_squared": 0.04338937312338162,
+      "n_genes_prior": 13530
+    }
+  },
+  "code": {
+    "scripts/analysis/03_tf_activities.py": "428b951bece85e47be312eb152055b87681643a6bf75b9978d9625ce26893071",
+    "src/activities.py": "e0135789d231618679cbf4ff8419887cba3efbb8a152966d94b793e7be642f88",
+    "src/preprocess.py": "195a2de1c6cc7e8cfb5d9b8213d9db6e116a6d666045dc999ac0ee3841d8e8f9",
+    "src/plot_config.py": "bb0e5d9f5e4ce36927a4e24053e8318780db26011c34a76341399d6fa93df3a1",
+    "requirements.lock.txt": "03f51bcb86971777907c6ac6bdc8f97064af09fac91b7e3021c810a91cecc58a",
+    "doc/decisions/2026-10-09-stage01-02-revision-plan.md": "dee413ca12cfacf1e5958b6266c0ee973c3e4bde6a59ad7dffa9a2f20135714b"
+  },
+  "git_commit": "7b1fa5106e7e744a7cb4173234ba1d6588f06fd6",
+  "git_dirty": true,
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "decoupler": "2.2.0",
+    "omnipath": "1.0.12"
+  },
+  "python": "3.12.3",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "accessions": {
+    "GSE297192": "Park et al. 2025, Neuron; DOI 10.1016/j.neuron.2025.09.022"
+  },
+  "diagnostics": {
+    "collectri": {
+      "primary": {
+        "mean_absolute_score": {
+          "C1": 1.381069874000696,
+          "C2": 1.3102688979302408,
+          "C3": 1.5512259894217413,
+          "C4": 1.5480310641995556,
+          "C5": 1.4079743294279035,
+          "C6": 1.6894227869045246
+        },
+        "library_sizes": {
+          "C1": 26907881,
+          "C2": 27567576,
+          "C3": 29889799,
+          "C4": 32505374,
+          "C5": 27087838,
+          "C6": 28783917
+        },
+        "library_size_group_means": {
+          "Ctrl": 28121752.0,
+          "PMS": 29459043.0
+        },
+        "groups": {
+          "C1": "Ctrl",
+          "C2": "Ctrl",
+          "C3": "Ctrl",
+          "C4": "PMS",
+          "C5": "PMS",
+          "C6": "PMS"
+        },
+        "mean_absolute_score_vs_library_size_pearson": 0.5661402038924052,
+        "mean_absolute_score_vs_column_order_pearson": 0.7017361674268237
+      },
+      "sizefactor_variant": {
+        "mean_absolute_score": {
+          "C1": 1.1991161339785321,
+          "C2": 1.1650908276641834,
+          "C3": 1.5117400291006207,
+          "C4": 1.4829927957310551,
+          "C5": 1.3217628061953992,
+          "C6": 1.5553276443773731
+        },
+        "library_sizes": {
+          "C1": 26907881,
+          "C2": 27567576,
+          "C3": 29889799,
+          "C4": 32505374,
+          "C5": 27087838,
+          "C6": 28783917
+        },
+        "library_size_group_means": {
+          "Ctrl": 28121752.0,
+          "PMS": 29459043.0
+        },
+        "groups": {
+          "C1": "Ctrl",
+          "C2": "Ctrl",
+          "C3": "Ctrl",
+          "C4": "PMS",
+          "C5": "PMS",
+          "C6": "PMS"
+        },
+        "mean_absolute_score_vs_library_size_pearson": 0.6839011415059795,
+        "mean_absolute_score_vs_column_order_pearson": 0.7081858373477351
+      }
+    },
+    "collectri_nocomplex": {
+      "primary": {
+        "mean_absolute_score": {
+          "C1": 1.3734261380875399,
+          "C2": 1.305634733423384,
+          "C3": 1.5378982741750284,
+          "C4": 1.5376876805564132,
+          "C5": 1.401559415579957,
+          "C6": 1.676609313520282
+        },
+        "library_sizes": {
+          "C1": 26907881,
+          "C2": 27567576,
+          "C3": 29889799,
+          "C4": 32505374,
+          "C5": 27087838,
+          "C6": 28783917
+        },
+        "library_size_group_means": {
+          "Ctrl": 28121752.0,
+          "PMS": 29459043.0
+        },
+        "groups": {
+          "C1": "Ctrl",
+          "C2": "Ctrl",
+          "C3": "Ctrl",
+          "C4": "PMS",
+          "C5": "PMS",
+          "C6": "PMS"
+        },
+        "mean_absolute_score_vs_library_size_pearson": 0.5644741535160542,
+        "mean_absolute_score_vs_column_order_pearson": 0.7073018440703539
+      },
+      "sizefactor_variant": {
+        "mean_absolute_score": {
+          "C1": 1.1930682235201824,
+          "C2": 1.1605929657032572,
+          "C3": 1.4993814501749647,
+          "C4": 1.4720850454697907,
+          "C5": 1.3149244254845789,
+          "C6": 1.5437069176028577
+        },
+        "library_sizes": {
+          "C1": 26907881,
+          "C2": 27567576,
+          "C3": 29889799,
+          "C4": 32505374,
+          "C5": 27087838,
+          "C6": 28783917
+        },
+        "library_size_group_means": {
+          "Ctrl": 28121752.0,
+          "PMS": 29459043.0
+        },
+        "groups": {
+          "C1": "Ctrl",
+          "C2": "Ctrl",
+          "C3": "Ctrl",
+          "C4": "PMS",
+          "C5": "PMS",
+          "C6": "PMS"
+        },
+        "mean_absolute_score_vs_library_size_pearson": 0.6828692356749628,
+        "mean_absolute_score_vs_column_order_pearson": 0.7112419104478959
+      }
+    },
+    "dorothea_ABC": {
+      "primary": {
+        "mean_absolute_score": {
+          "C1": 1.5797542812911811,
+          "C2": 1.4226305543608133,
+          "C3": 1.389441434254425,
+          "C4": 1.5437348840033307,
+          "C5": 1.5020858948704272,
+          "C6": 1.6539453122260634
+        },
+        "library_sizes": {
+          "C1": 26907881,
+          "C2": 27567576,
+          "C3": 29889799,
+          "C4": 32505374,
+          "C5": 27087838,
+          "C6": 28783917
+        },
+        "library_size_group_means": {
+          "Ctrl": 28121752.0,
+          "PMS": 29459043.0
+        },
+        "groups": {
+          "C1": "Ctrl",
+          "C2": "Ctrl",
+          "C3": "Ctrl",
+          "C4": "PMS",
+          "C5": "PMS",
+          "C6": "PMS"
+        },
+        "mean_absolute_score_vs_library_size_pearson": -0.018101278458144462,
+        "mean_absolute_score_vs_column_order_pearson": 0.4132078639870198
+      },
+      "sizefactor_variant": {
+        "mean_absolute_score": {
+          "C1": 1.34528406891366,
+          "C2": 1.2397725216412496,
+          "C3": 1.291879199307449,
+          "C4": 1.390399951219631,
+          "C5": 1.345935078561942,
+          "C6": 1.5034952107820527
+        },
+        "library_sizes": {
+          "C1": 26907881,
+          "C2": 27567576,
+          "C3": 29889799,
+          "C4": 32505374,
+          "C5": 27087838,
+          "C6": 28783917
+        },
+        "library_size_group_means": {
+          "Ctrl": 28121752.0,
+          "PMS": 29459043.0
+        },
+        "groups": {
+          "C1": "Ctrl",
+          "C2": "Ctrl",
+          "C3": "Ctrl",
+          "C4": "PMS",
+          "C5": "PMS",
+          "C6": "PMS"
+        },
+        "mean_absolute_score_vs_library_size_pearson": 0.2439326581731024,
+        "mean_absolute_score_vs_column_order_pearson": 0.7156069615606896
+      }
+    },
+    "library_size_group_means": {
+      "Ctrl": 28121752.0,
+      "PMS": 29459043.0
+    },
+    "library_size_warning": "Library size is partly aligned with group; at n=6 this correlation cannot separate an artefact from biology.",
+    "comparison": {
+      "shared_tfs": 244,
+      "spearman_per_line": {
+        "C1": 0.41798528761838677,
+        "C2": 0.4023592679330384,
+        "C3": 0.47868852459016387,
+        "C4": 0.4409559330714678,
+        "C5": 0.390615797017046,
+        "C6": 0.5346831385863391
+      },
+      "median_spearman": 0.4294706103449273,
+      "n_defined_correlations": 6
+    },
+    "heatmap_row_order": [
+      "LRRFIP1",
+      "KLF17",
+      "HDAC1",
+      "IRF7",
+      "CREB1",
+      "NFKB",
+      "POU2F2",
+      "JUNB",
+      "FOSB",
+      "RARA",
+      "ETS2",
+      "SCX",
+      "SMAD3",
+      "GTF3A",
+      "MYOCD",
+      "SP3",
+      "FOS",
+      "SMAD2",
+      "HIF1A",
+      "NFKB1",
+      "AP1",
+      "STAT1",
+      "STAT2",
+      "IRF9",
+      "ETS1",
+      "JUN",
+      "SP1",
+      "JUND",
+      "SRF",
+      "REL"
+    ]
+  },
+  "outputs": {
+    "collectri/loo/without_C1.tsv": "de75498582b3ab1bee2e581888239cea5ceade87559938ad2d67d26bf8eb8973",
+    "collectri/loo/without_C2.tsv": "b38f9605c8914ad2148f527c0f82cc3b03b71a4c603ac991af0ddfeae244e027",
+    "collectri/loo/without_C3.tsv": "2dfd3e4d7f3a3ac5eb2c2ec4976d3da1dc538853c3196c17c68564fc235c40ba",
+    "collectri/loo/without_C4.tsv": "c144e97f81d032d1b06fbd72452820ca3bdf661db69aa758b1c899dcd91a819e",
+    "collectri/loo/without_C5.tsv": "095d71e533edd956e820ad256aa57e02082e680a97edf8f60607fa23d15c2657",
+    "collectri/loo/without_C6.tsv": "14cc55aec38acbeb1ad57e6915c774ee8f3fdbd61b0f5b4b0a32f2246e870198",
+    "collectri/regulon_summary.tsv": "fa1f7c11a526cabf8c698db3267910f10b0b0054dcafdedebb2748672f74b0c7",
+    "collectri/tf_activity_contrast.tsv": "27e402f09924b6b0d8c8108e3aa9e8cf1ce3c11a7926120abbd953fba4fe9093",
+    "collectri/tf_activity_contrast_logfc.tsv": "bf27019e08ceb7305c2741b2b7c9158db4369468088d4f2904f5ceb3aa347a34",
+    "collectri/tf_activity_contrast_welch.tsv": "cc65a319dfa56778386596986bb26200e3588652a437c67e9fc957804dfed030",
+    "collectri/tf_activity_per_line.tsv": "64d05e765408e03abce2ff815d453ccf3fd278b17b70d87d0c8b403b44508b65",
+    "collectri/tf_padj_per_line.tsv": "2e205ec631731f3d8ef661310612d28992b8eadba0f9ec4645b9e17139aa9d2c",
+    "collectri/tf_pvalue_per_line.tsv": "4e77d716ca0b80d267d601444e9c1538200917989a582a2ee354e6a36119733d",
+    "collectri_nocomplex/loo/without_C1.tsv": "565ea5bb34db12aa35f10b1c520de39adfea6af446cc27b461403aa8813455a0",
+    "collectri_nocomplex/loo/without_C2.tsv": "42fb2e401e279f65a5030a3bfa98d51c316b85bed65893ab92d1ab417a77ee36",
+    "collectri_nocomplex/loo/without_C3.tsv": "3cde3c0b215d41f1f59ae8436131ab0a72135495352886dc8fa720867e8f0b07",
+    "collectri_nocomplex/loo/without_C4.tsv": "31c1644edce8b27af1159ff916ce0fd80641699b65b5b8dfe8c6f9ebbf929d50",
+    "collectri_nocomplex/loo/without_C5.tsv": "baf9669afcab7802356b6c30ea06c0db0e564080a7b35844770fd2d4759106c8",
+    "collectri_nocomplex/loo/without_C6.tsv": "8bf57a6ea75427ddf215a1694ce38796e50775ab8ff03150ea8441b0d0d9c5a0",
+    "collectri_nocomplex/regulon_summary.tsv": "f36187e8272e50978c7777e646463eb42379a76a66df863fcae1197558195940",
+    "collectri_nocomplex/tf_activity_contrast.tsv": "8f9076ff081447fe12aa65a6361dd5c7dd6344c96d74bb81e79d73401d1a3718",
+    "collectri_nocomplex/tf_activity_contrast_logfc.tsv": "627d31ba3b9b3c7a02025405052f570a9989a0bf3edd0114c134b1d03af80239",
+    "collectri_nocomplex/tf_activity_contrast_welch.tsv": "3a16447e3a589768b12ff4ff6c4ed6f5fdfd0e3352405a398bb49886efc793f0",
+    "collectri_nocomplex/tf_activity_per_line.tsv": "ad9f001d6ffb18d0493f896ba8e29b5be751bfd02a35257f67c78a47311217fc",
+    "collectri_nocomplex/tf_padj_per_line.tsv": "b8f236e3194646822d39d9f58eb2376c6891cf30f7fa644423752c1b62deb314",
+    "collectri_nocomplex/tf_pvalue_per_line.tsv": "df417065cbd383bdaec93b0a96e73ad2ec440eadd0f6a10ad88ded5cb92fe6df",
+    "dorothea_ABC/loo/without_C1.tsv": "b95c09f3b04760436f758c5c48322a53b90a569d546673a01e9558ff0caba559",
+    "dorothea_ABC/loo/without_C2.tsv": "72c03a2acb20aeffa0b2c73688005085b51545bc6f5786ad908f769c965f546a",
+    "dorothea_ABC/loo/without_C3.tsv": "a8b501656429127d1ae21e7c3e824ae4a73c79a0ab6447019799bfd5b2ce51a8",
+    "dorothea_ABC/loo/without_C4.tsv": "c63cd5dfd5d288b3f281e442d2e38ff96c0a3d80a8b4ede5c762ca8db8c0262a",
+    "dorothea_ABC/loo/without_C5.tsv": "ce2e900697bf78912528727ad92eb536f212f685b5f634a6c9ee2ef6e628a464",
+    "dorothea_ABC/loo/without_C6.tsv": "381d6c835009a963226b24c44f4c56fedabe9607c077756aafc1e5a516424fba",
+    "dorothea_ABC/regulon_summary.tsv": "fb6fd8e3843807e004aa76ce7463ced5940b32b7b8e0bccf17240a74f1e188bc",
+    "dorothea_ABC/tf_activity_contrast.tsv": "22943b8b4d28dab15d713eed4b3579b67d50a1c33cc798c5b1f0ac89fed70704",
+    "dorothea_ABC/tf_activity_contrast_logfc.tsv": "7ce72027f946571b7529c7158b383b73bca860f8d06ed9ce639ae91088439e1f",
+    "dorothea_ABC/tf_activity_contrast_welch.tsv": "92463ddec866ec97d4834ab31955b09ce791ba70c42fd8292f3269a721bc2a4b",
+    "dorothea_ABC/tf_activity_per_line.tsv": "05a6ffffc39be7bb94e1bb760c4f0e8855e1f4befea93873c42e736865c34cdb",
+    "dorothea_ABC/tf_padj_per_line.tsv": "2badd80d181af2e6912fd16d064d25a90d1b1e89534c087cd0af9f4bc3f98ea3",
+    "dorothea_ABC/tf_pvalue_per_line.tsv": "2a1ef3a30a9aed5f058376f1783e97ace7bcf3beff4581a8dbc1d1f5576ab996",
+    "figures/collectri_vs_dorothea.pdf": "2e2eebcc6955c8a210a0c77e07376ce5c03292d8e24d003fd71847c203f997dd",
+    "figures/collectri_vs_dorothea_manuscript.png": "f2252180a4627c5f2bd9f219f753ee60e05598b528597d981f2020e042143836",
+    "figures/collectri_vs_dorothea_presentation.png": "a32b84cbc9d979b390fb4a077432873844b9fb533a3cbda658bfed2997d772e1",
+    "figures/tf_activity_heatmap_collectri.pdf": "1aa34f1d18d4183e3d6496f22d329d72ad12961b5e0d302346dc870ebe5b8239",
+    "figures/tf_activity_heatmap_collectri_manuscript.png": "145f3d4d632100d7ad388670925b8bfaf08d111e9a26b24e21c3df8dd253d65c",
+    "figures/tf_activity_heatmap_collectri_presentation.png": "99297b5f695fe0c1561f6d214b3ef610894b46f3af608074b537188f553003c0",
+    "gene_contrast.tsv": "b8cdc8327948308e077da56fa145aa6fc35e39085b6cedee37ae2841e675c1f1",
+    "summary/counts.tsv": "12ff6521bb89766c6b8d0552b2a85d787d25264d45509600d73439665cfa4e49",
+    "summary/diagnostics.json": "b591b8a0231b0f78cd22b72fb6493d6381f2d857154b81a7d5046a7b25f94db7"
+  }
+}

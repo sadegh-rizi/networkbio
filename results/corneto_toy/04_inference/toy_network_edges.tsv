@@ -1,0 +1,37 @@
+run	source	target	pkn_sign	n_samples_selected	n_samples	frequency	samples
+known_sign	R1	K1	1	1	1	1.0	known_sign
+known_sign	R1	K2	1	1	1	1.0	known_sign
+known_sign	K1	TF1	1	1	1	1.0	known_sign
+known_sign	K2	TF2	-1	1	1	1.0	known_sign
+known_sign	R1	ENZ	1	1	1	1.0	known_sign
+known_sign	ENZ	Metab__HMDB0000067_c	1	1	1	1.0	known_sign
+known_sign	Metab__HMDB0000067_c	TF3	1	1	1	1.0	known_sign
+known_sign	R2	K3	1	0	1	0.0	
+known_sign	K3	TF1	1	0	1	0.0	
+known_sign	K1	TF2	1	0	1	0.0	
+known_sign	K2	K4	1	0	1	0.0	
+known_sign	K4	TF4	1	0	1	0.0	
+unknown_sign	R1	K1	1	1	1	1.0	unknown_sign
+unknown_sign	R1	K2	1	1	1	1.0	unknown_sign
+unknown_sign	K1	TF1	1	1	1	1.0	unknown_sign
+unknown_sign	K2	TF2	-1	1	1	1.0	unknown_sign
+unknown_sign	R1	ENZ	1	1	1	1.0	unknown_sign
+unknown_sign	ENZ	Metab__HMDB0000067_c	1	1	1	1.0	unknown_sign
+unknown_sign	Metab__HMDB0000067_c	TF3	1	1	1	1.0	unknown_sign
+unknown_sign	R2	K3	1	0	1	0.0	
+unknown_sign	K3	TF1	1	0	1	0.0	
+unknown_sign	K1	TF2	1	0	1	0.0	
+unknown_sign	K2	K4	1	0	1	0.0	
+unknown_sign	K4	TF4	1	0	1	0.0	
+multisample	R1	K1	1	2	2	1.0	s1,s2
+multisample	R1	K2	1	2	2	1.0	s1,s2
+multisample	K1	TF1	1	2	2	1.0	s1,s2
+multisample	K2	TF2	-1	2	2	1.0	s1,s2
+multisample	R1	ENZ	1	2	2	1.0	s1,s2
+multisample	ENZ	Metab__HMDB0000067_c	1	2	2	1.0	s1,s2
+multisample	Metab__HMDB0000067_c	TF3	1	2	2	1.0	s1,s2
+multisample	R2	K3	1	0	2	0.0	
+multisample	K3	TF1	1	0	2	0.0	
+multisample	K1	TF2	1	0	2	0.0	
+multisample	K2	K4	1	0	2	0.0	
+multisample	K4	TF4	1	0	2	0.0	

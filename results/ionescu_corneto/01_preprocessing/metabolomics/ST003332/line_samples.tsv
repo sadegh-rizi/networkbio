@@ -1,0 +1,8 @@
+column	line_key	group	line_letter	treatment	n_replicates	sample_ids
+Ctrl_A	ST003332:Ctrl:A	Ctrl	A	untreated	3	"[""AMC A S7"", ""AMC A S8"", ""AMC A S9""]"
+Ctrl_B	ST003332:Ctrl:B	Ctrl	B	untreated	3	"[""AMC B S7"", ""AMC B S8"", ""AMC B S9""]"
+Ctrl_D	ST003332:Ctrl:D	Ctrl	D	untreated	3	"[""AMC D S7"", ""AMC D S8"", ""AMC D S9""]"
+PMS_A	ST003332:PMS:A	PMS	A	untreated	3	"[""PMS A S7"", ""PMS A S8"", ""PMS A S9""]"
+PMS_B	ST003332:PMS:B	PMS	B	untreated	3	"[""PMS B S7"", ""PMS B S8"", ""PMS B S9""]"
+PMS_C	ST003332:PMS:C	PMS	C	untreated	3	"[""PMS C S7"", ""PMS C S8"", ""PMS C S9""]"
+PMS_D	ST003332:PMS:D	PMS	D	untreated	3	"[""PMS D S7"", ""PMS D S8"", ""PMS D S9""]"

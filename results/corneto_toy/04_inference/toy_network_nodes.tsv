@@ -1,0 +1,49 @@
+run	sample	node	node_type	role	measured_sign	inferred_state	in_solution
+known_sign	known_sign	R1	protein	input		1	True
+known_sign	known_sign	K1	protein	other		1	True
+known_sign	known_sign	K2	protein	other		1	True
+known_sign	known_sign	TF1	protein	measured	1	1	True
+known_sign	known_sign	TF2	protein	measured	-1	-1	True
+known_sign	known_sign	ENZ	protein	other		1	True
+known_sign	known_sign	Metab__HMDB0000067_c	metabolite	measured	1	1	True
+known_sign	known_sign	TF3	protein	measured	1	1	True
+known_sign	known_sign	R2	protein	other		0	False
+known_sign	known_sign	K3	protein	other		0	False
+known_sign	known_sign	K4	protein	other		0	False
+known_sign	known_sign	TF4	protein	other		0	False
+unknown_sign	unknown_sign	R1	protein	input		1	True
+unknown_sign	unknown_sign	K1	protein	other		1	True
+unknown_sign	unknown_sign	K2	protein	other		1	True
+unknown_sign	unknown_sign	TF1	protein	measured	1	1	True
+unknown_sign	unknown_sign	TF2	protein	measured	-1	-1	True
+unknown_sign	unknown_sign	ENZ	protein	other		1	True
+unknown_sign	unknown_sign	Metab__HMDB0000067_c	metabolite	measured	1	1	True
+unknown_sign	unknown_sign	TF3	protein	measured	1	1	True
+unknown_sign	unknown_sign	R2	protein	other		0	False
+unknown_sign	unknown_sign	K3	protein	other		0	False
+unknown_sign	unknown_sign	K4	protein	other		0	False
+unknown_sign	unknown_sign	TF4	protein	other		0	False
+multisample	s1	R1	protein	input		1	True
+multisample	s1	K1	protein	other		1	True
+multisample	s1	K2	protein	other		1	True
+multisample	s1	TF1	protein	measured	1	1	True
+multisample	s1	TF2	protein	measured	-1	-1	True
+multisample	s1	ENZ	protein	other		1	True
+multisample	s1	Metab__HMDB0000067_c	metabolite	measured	1	1	True
+multisample	s1	TF3	protein	measured	1	1	True
+multisample	s1	R2	protein	other		0	False
+multisample	s1	K3	protein	other		0	False
+multisample	s1	K4	protein	other		0	False
+multisample	s1	TF4	protein	other		0	False
+multisample	s2	R1	protein	input		1	True
+multisample	s2	K1	protein	other		1	True
+multisample	s2	K2	protein	other		1	True
+multisample	s2	TF1	protein	measured	1	1	True
+multisample	s2	TF2	protein	measured	-1	-1	True
+multisample	s2	ENZ	protein	other		1	True
+multisample	s2	Metab__HMDB0000067_c	metabolite	measured	1	1	True
+multisample	s2	TF3	protein	measured	1	1	True
+multisample	s2	R2	protein	other		0	False
+multisample	s2	K3	protein	other		0	False
+multisample	s2	K4	protein	other		0	False
+multisample	s2	TF4	protein	other		0	False

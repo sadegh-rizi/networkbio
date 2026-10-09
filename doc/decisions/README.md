@@ -69,4 +69,6 @@ For what has actually been run and decided, see `doc/analysis-state.md`.
 |---|---|---|
 | `2026-09-29-corneto-ionescu-inscs-plan.md` | proposed | Q1, Q12 answered; defaults proposed 2026-10-06 |
 | `2026-10-06-setup-toy-inputs-plan.md` | implemented (uncommitted) | venv, toy problem, stage-00 tables |
-| `2026-10-06-stage01-02-preprocessing-tf-activities-plan.md` | proposed | stage 01 preprocessing + stage 02 TF activities; 6 open questions |
+| `2026-10-06-stage01-02-preprocessing-tf-activities-plan.md` | implemented in part; revised by `2026-10-09-stage01-02-revision-plan.md` | parent implementation retained; revised plan changes primary medium/lipid normalisation and the contrast statistic |
+| `2026-10-09-stage01-02-revision-plan.md` | implemented; real-data run completed 2026-10-09 | D1-D5 confirmed by the implementation request; audit in `doc/reviews/2026-10-09-stage01-02-implementation-audit.md` |
+| `2026-10-09-hgnc-ambiguous-mapping-plan.md` | implemented; stages 01 and 02 completed 2026-10-09 | ambiguous approved Ensembl IDs are excluded and recorded rather than assigned arbitrarily |

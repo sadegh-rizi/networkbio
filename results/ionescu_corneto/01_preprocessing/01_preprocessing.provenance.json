@@ -1,0 +1,267 @@
+{
+  "stage": "01_preprocessing",
+  "created_utc": "2026-10-09T09:27:04+00:00",
+  "inputs": {
+    "results/ionescu_corneto/00_inputs/00_inputs.provenance.json": "0feebe02d6f716658f9985ef3823b629c2ae984f1532fc179fd05935927b8a91",
+    "results/ionescu_corneto/00_inputs/rnaseq/counts_raw_baseline.tsv.gz": "38a3d012d93f07e91794115cdb4984dc005254b16c98db25c8f69cb5baf0b542",
+    "results/ionescu_corneto/00_inputs/rnaseq/samples.tsv": "26a941edf9c6f371cd5eea777083aa7abdeedb21d185f303acd707a5074dca38",
+    "results/ionescu_corneto/00_inputs/rnaseq/library_sizes.tsv": "768069446c209a054912100741430754da07509f921e00a715a487e361151e03",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003331/features.tsv": "7bfe16d43aaa084e3926bbbfbfe4a7cb93727c21d74489626458ddc2a51c1f5c",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003331/samples.tsv": "ef31140b9fc1e99ddd9dc447dcae46a51ee14a7d733d82057c7596affdb35f18",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003331/values.tsv.gz": "57509abae2db46c866dfca2288a3225a91b5480550a2f81aef5022383427351a",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003332/features.tsv": "b93968cfd2d25dc8fcf764dead470044d113ae8ef81c174639dc401b4667e606",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003332/samples.tsv": "64c10d540712691185455f7205f980c65b8adfb1997c2550f03af88fd872f5b5",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003332/values.tsv.gz": "1dff1055fac60596dcc54742e82b6964cb05723c4c39d1105eda4224497451e9",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003328/features.tsv": "e19342c04e5eed89d1baadc6f20d520b67ebcdfed188f2aa44f187c01e7e470e",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003328/samples.tsv": "47363d1d8923808d06ee4edb8a45d0bb968b92b0f5f17803438af6df25bd9e09",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003328/values.tsv.gz": "e61d594299c279c4c4ed1e0894ad846b7aac480dd2d6aa7ef3b5a8963bd5d0f4"
+  },
+  "resources": {
+    "hgnc": {
+      "resource": "HGNC complete set",
+      "release": "2026-10-06",
+      "url": "https://storage.googleapis.com/public-download-files/hgnc/archive/archive/quarterly/tsv/hgnc_complete_set_2026-10-06.txt",
+      "downloaded_utc": "2026-10-09T08:41:05.229893+00:00",
+      "sha256": "8bf6f686e640dbc864a346484626953621b0500d900d26cd085a35c2782d725d",
+      "row_count": 45233,
+      "path": "data/resources/hgnc/hgnc_complete_set_2026-10-06.txt"
+    }
+  },
+  "parameters": {
+    "unit": "cell line; study-specific identities, no cross-study pairing",
+    "rnaseq": {
+      "mapping": "HGNC Approved Ensembl IDs to symbols; exclude IDs with multiple distinct Approved symbols; sum counts for shared symbols",
+      "cpm_min": 1,
+      "min_libraries": 3,
+      "filter_denominator": "original unfiltered library sizes",
+      "filter_order": "map/collapse then filter; independently check pre-mapping gene count",
+      "normalisation": "log2(CPM+1), library sizes recomputed after symbol filtering",
+      "sensitivity": "DESeq2 median-of-ratios size factors on filtered symbol counts",
+      "expected_pre_mapping_genes": 14490,
+      "minimum_mapping_fraction": 0.9,
+      "batch_correction": null,
+      "baseline_groups": {
+        "C1": "Ctrl",
+        "C2": "Ctrl",
+        "C3": "Ctrl",
+        "C4": "PMS",
+        "C5": "PMS",
+        "C6": "PMS"
+      }
+    },
+    "metabolomics": {
+      "pool_keys": [
+        "analysis_id",
+        "kegg_id"
+      ],
+      "pool_sum_min_count": 1,
+      "fractional_labelling": "labelled sum / deposited isotopologue sum, uncorrected",
+      "ST003331_primary": "per-analysis sample total scaled to median total, then log2",
+      "ST003331_variant": "log2 of deposited isotopologue sum without per-total scaling",
+      "ST003332_primary": "log2 peak area, then subtract available blank log2 mean",
+      "ST003332_variant": "per-total sample scaling including blanks, then log2 and blank reference",
+      "ST003328_primary": "log2 peak area without per-total scaling",
+      "ST003328_variant": "per-total sample scaling across all 42 samples, then log2",
+      "ST003328_conditions": [
+        "SV",
+        "untreated"
+      ],
+      "imputation": null,
+      "line_aggregation": "mean log2; minimum 2 of 3 non-missing replicates",
+      "max_missing_line_fraction": 0.1,
+      "excluded_layer": "ST003330"
+    },
+    "labelling": {
+      "plain_rows": "registered M+0 interpretation; R0 found no total-pool statement",
+      "classes": [
+        "isotopologue_sum_partial",
+        "m0_unconfounded",
+        "m0_confounded"
+      ],
+      "natural_abundance_correction": false
+    },
+    "qc": {
+      "pca": "complete features, centred not scaled; numpy SVD",
+      "ST003332_qc": "normalised log2 peak areas including blanks, before blank subtraction",
+      "correlation": "Pearson, pairwise complete log2 features, minimum 2",
+      "interpretation": "exploratory only; no statistical tests"
+    },
+    "seed": null
+  },
+  "code": {
+    "scripts/analysis/02_preprocess.py": "c48c44820a8ce262216196d34743dd50249ac966ba2e486d34ef7052c9747a45",
+    "src/preprocess.py": "195a2de1c6cc7e8cfb5d9b8213d9db6e116a6d666045dc999ac0ee3841d8e8f9",
+    "src/plot_config.py": "bb0e5d9f5e4ce36927a4e24053e8318780db26011c34a76341399d6fa93df3a1",
+    "src/labelling.py": "e09de3fb1d4441c9f1e9ad48fbe9d56d516bb47f87ada915ff8e4d09721549ae",
+    "scripts/download/07_resources.sh": "3f9211e5690b9a4423f19923115ea1622c1fb587b37c0f459a37460b277f42f7",
+    "requirements.lock.txt": "03f51bcb86971777907c6ac6bdc8f97064af09fac91b7e3021c810a91cecc58a",
+    "doc/decisions/2026-10-06-stage01-02-preprocessing-tf-activities-plan.md": "c3ddbf7dd67726b4da5e3f03b5cf7ef3fb952a1bc9c483896c971c7d56536765"
+  },
+  "git_commit": "7b1fa5106e7e744a7cb4173234ba1d6588f06fd6",
+  "git_dirty": true,
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "decoupler": "2.2.0",
+    "omnipath": "1.0.12"
+  },
+  "python": "3.12.3",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "accessions": {
+    "GSE297192": "Park et al. 2025, Neuron",
+    "ST003328": "Ionescu et al. 2024, Cell Stem Cell",
+    "ST003331": "Ionescu et al. 2024, Cell Stem Cell",
+    "ST003332": "Ionescu et al. 2024, Cell Stem Cell"
+  },
+  "qc": {
+    "GSE297192": {
+      "pca_complete_features": 13530,
+      "pca_variance_ratio": [
+        0.6901806966952678,
+        0.13456842902975952
+      ],
+      "correlation_missing_cells": 0
+    },
+    "GSE297192_sizefactor": {
+      "pca_complete_features": 13530,
+      "pca_variance_ratio": [
+        0.6683400391984268,
+        0.16317811392714196
+      ],
+      "correlation_missing_cells": 0
+    },
+    "ST003331": {
+      "pca_complete_features": 143,
+      "pca_variance_ratio": [
+        0.4921785343438341,
+        0.1531670344651225
+      ],
+      "correlation_missing_cells": 0
+    },
+    "ST003331_none": {
+      "pca_complete_features": 143,
+      "pca_variance_ratio": [
+        0.6013617188833688,
+        0.11290261156615748
+      ],
+      "correlation_missing_cells": 0
+    },
+    "ST003332": {
+      "pca_complete_features": 126,
+      "pca_variance_ratio": [
+        0.48707090426618344,
+        0.2452844603965034
+      ],
+      "correlation_missing_cells": 0
+    },
+    "ST003332_pertotal_authors": {
+      "pca_complete_features": 126,
+      "pca_variance_ratio": [
+        0.4701681222650543,
+        0.24448402610064024
+      ],
+      "correlation_missing_cells": 0
+    },
+    "ST003328": {
+      "pca_complete_features": 639,
+      "pca_variance_ratio": [
+        0.5908718302051112,
+        0.19029154174047447
+      ],
+      "correlation_missing_cells": 0
+    },
+    "ST003328_pertotal_all42": {
+      "pca_complete_features": 639,
+      "pca_variance_ratio": [
+        0.4149952145624603,
+        0.218850400319195
+      ],
+      "correlation_missing_cells": 0
+    }
+  },
+  "outputs": {
+    "figures/pca_GSE297192.pdf": "4e743d5c8d76e0936a4234d01ee9adf30c464fea1f0e4ac64fc4f5e13b5b8c5c",
+    "figures/pca_GSE297192_manuscript.png": "0bc50e448dddd756b33504e5c1daab87dc574b88e6c924b58e12e04ff73c62de",
+    "figures/pca_GSE297192_presentation.png": "1940b61cc946cdc0136a694777849e581774384aea2d4814386d051c0f00e35b",
+    "figures/pca_GSE297192_sizefactor.pdf": "18bb4e1847205ce2aad0ee62a3ef0949a3c5b05e5dc1df5e3a3b3cf0dfc05051",
+    "figures/pca_GSE297192_sizefactor_manuscript.png": "33e792d6c5d93c4cf3c2b517875be1861c8c8b19bd712159b17fbb2da600ef1b",
+    "figures/pca_GSE297192_sizefactor_presentation.png": "12be5f0fc7c0172a5b1a1a5f04244b851058e7d18a2b09b1d65043ece9c35a35",
+    "figures/pca_ST003328.pdf": "52f5bf49272b1bb59d56e827936837e75945ffb95d5a697dfaa43c2a39b3b04b",
+    "figures/pca_ST003328_manuscript.png": "7911acad082f51db2acb71e2b7d508a613a7f539b6987780f1f2f6ad54806727",
+    "figures/pca_ST003328_pertotal_all42.pdf": "4bf5f10038826a0174ffaa898b27a5ac8703650e2b371d7b66b14867c50f93c0",
+    "figures/pca_ST003328_pertotal_all42_manuscript.png": "cb7638b4e152d16dfa9b2ceccc77d06f051dd39ee78e9a75812447643da1c7bf",
+    "figures/pca_ST003328_pertotal_all42_presentation.png": "bf0967da82f8312a8e8cb12775bd22baf9a8af9f271e58af01c4926c1262875a",
+    "figures/pca_ST003328_presentation.png": "7c7b73596b4a6c7748298aa6c0a2014df72d1fd8c441eff476dd7105498421b8",
+    "figures/pca_ST003331.pdf": "18e9edd5775c920bdafb28f69ba860ab89674ebd07a00c5fc5195e1b0e3802d6",
+    "figures/pca_ST003331_manuscript.png": "100e83dd07664edb3a7b886da7b82c1b964a5465d3063deb4405e1ea6fc76ee0",
+    "figures/pca_ST003331_none.pdf": "9e87be7b6f5b56c79aae6bc5f188b0b155c11e12f23f0f4889a62ad59c740ff1",
+    "figures/pca_ST003331_none_manuscript.png": "2e9ae74dbed3de126c16945dbfb444df5983b22b33e85bd9b66d20b685e8c878",
+    "figures/pca_ST003331_none_presentation.png": "fe1b8cc2d2ce5da51562f387d9c0b88e33407a2d65098fa05e1dae7d647c5e32",
+    "figures/pca_ST003331_presentation.png": "5167b08ed9afce93f7078c00432694198f664e23110b73bede395a9e7ac44676",
+    "figures/pca_ST003332.pdf": "0989fda363707a179a86c52b6b3e209f4247a89063221b13c622d7857e76eff4",
+    "figures/pca_ST003332_manuscript.png": "ee04359710373516b3441812e66a6505d5076860a15c1819cac8ff575ed18c7d",
+    "figures/pca_ST003332_pertotal_authors.pdf": "92e605873f621555578770bd99776af4b4d261849b0b3f3aebb66a042e4c6d99",
+    "figures/pca_ST003332_pertotal_authors_manuscript.png": "5941346a2e1b05f3f63bdc67b9e3ad35434ccd2137c5b67579b020ffe793d9ff",
+    "figures/pca_ST003332_pertotal_authors_presentation.png": "5781953e6a355b2e6f9229c32830f21ffdb67594d57f40bb2e8b24513f479d87",
+    "figures/pca_ST003332_presentation.png": "392f003876011b73747db61409dc0ff845ee32f70866104c477c4365a9f9ff30",
+    "figures/replicate_correlation_GSE297192.pdf": "00d1fbdaf8db4d04b8c308ded2c950cec5002fe6f884c56939e59dcbcc134655",
+    "figures/replicate_correlation_GSE297192_manuscript.png": "ba012aea18b2ad03756e87eb2889d3ca639612b2fe45f6d96d722fa15d08c07c",
+    "figures/replicate_correlation_GSE297192_presentation.png": "2fb88ff10c798db7cda3b4b2cbfa3dcaf130b9559db63b99ba7dacf20d3c5af8",
+    "figures/replicate_correlation_GSE297192_sizefactor.pdf": "14b256b60843d741162c9f870fc16f1be2bf5edbac6fe996fb39c7a3ce02ae7e",
+    "figures/replicate_correlation_GSE297192_sizefactor_manuscript.png": "342f25e96a35dadb2f7554aa4d69ab16d3f5529b692ea415cdbbbeec232b24e7",
+    "figures/replicate_correlation_GSE297192_sizefactor_presentation.png": "ca8d7033fc82c1af85c710b289e56134bf94a428fecc4eeb0226974012a7b487",
+    "figures/replicate_correlation_ST003328.pdf": "11b99ac79dcf44ebd50223f62aaa6d37bb49d83aebcde99333e536fc809e8241",
+    "figures/replicate_correlation_ST003328_manuscript.png": "77e79e6bf2aa1e7c96b27404f0439d51b873db945914b166ffbc17555c62b01b",
+    "figures/replicate_correlation_ST003328_pertotal_all42.pdf": "7fa522a0b0f2ca377734590ea95852b64115b73cc4ba1026e34672e5fd65bc4e",
+    "figures/replicate_correlation_ST003328_pertotal_all42_manuscript.png": "153ca1f21f0f6946b5d835e9a2e7f1e03dc3597d90406aa5375d57d2ad1d099a",
+    "figures/replicate_correlation_ST003328_pertotal_all42_presentation.png": "d1c5408f4302bfa4689e3d806bc684278730ede8c4030089a5d8f3dd1be8b9ea",
+    "figures/replicate_correlation_ST003328_presentation.png": "3e4444a4fa0f75d118d39d4903dc39bccde54d026ce0bfafffed2cbc96be4731",
+    "figures/replicate_correlation_ST003331.pdf": "27bd3a0f001136c410dbb5afec95a204b9bd6795031dd59564993db505fc5cbd",
+    "figures/replicate_correlation_ST003331_manuscript.png": "b0a0761d2b3007af7d47b45b4203993ae7111211d6700e84d8f3942bf8dee053",
+    "figures/replicate_correlation_ST003331_none.pdf": "c9543d7189252e4ee11c04c3f0f17538344d51ea07ff74116f66cadf5318ce6c",
+    "figures/replicate_correlation_ST003331_none_manuscript.png": "986dd3a7460157c25c58d49cdc5cfddf902d303522fbcbb8629a07f5a2a649e7",
+    "figures/replicate_correlation_ST003331_none_presentation.png": "e68516c4f22513f4a0682e12f5e66afc95b361606c442b605560983557283450",
+    "figures/replicate_correlation_ST003331_presentation.png": "e89414fdd56e6f82709bd07d1c7a467750b775b2dc57d0c914fe6d3b1e27830d",
+    "figures/replicate_correlation_ST003332.pdf": "b217289a7da6f93e666a7f3f563bcc121ac2d0f21964e86100e3469c22d20b65",
+    "figures/replicate_correlation_ST003332_manuscript.png": "1818a7fde34c446db643a72c69c0534290f8b2ce2303bc1025bf3c09a85bec7f",
+    "figures/replicate_correlation_ST003332_pertotal_authors.pdf": "b911d7982baaa067cbad8930e1a1ce2ed118b70bb5e21213fda87a7867cc7f2f",
+    "figures/replicate_correlation_ST003332_pertotal_authors_manuscript.png": "d3eebbb9d0fcbff8c2b2538ebdf8d922da7f77beebd28192c2d69ffe25cafbc8",
+    "figures/replicate_correlation_ST003332_pertotal_authors_presentation.png": "6c142702e2a2466d7b2a479118684959c5726d509c0989d966f94ccd3ea95651",
+    "figures/replicate_correlation_ST003332_presentation.png": "8c75dd5d9402df7afa381e845ccfd1e934e965bc96f107be4f6aef9f3b198469",
+    "metabolomics/ST003328/features.tsv": "e19342c04e5eed89d1baadc6f20d520b67ebcdfed188f2aa44f187c01e7e470e",
+    "metabolomics/ST003328/line_log2.tsv": "67118b3bd763f4e5266b23c858aa4adc2b1151ba20d9682410854caef3f595bb",
+    "metabolomics/ST003328/line_samples.tsv": "99cd8d537693df2296a767059e411bfb11ff9ee9c4917c61b9c08e8d97751e9e",
+    "metabolomics/ST003328/replicate_log2.tsv": "9d3630492ad5ad656eba33d39d2a959cb707880f12009d4b8a19b1ab0fb2912b",
+    "metabolomics/ST003328/variants/pertotal_all42/features.tsv": "e19342c04e5eed89d1baadc6f20d520b67ebcdfed188f2aa44f187c01e7e470e",
+    "metabolomics/ST003328/variants/pertotal_all42/line_log2.tsv": "2ef7f8807fb27c4f03f23586dff74760b4349a28a974700d1e0d491dcee94db7",
+    "metabolomics/ST003328/variants/pertotal_all42/line_samples.tsv": "99cd8d537693df2296a767059e411bfb11ff9ee9c4917c61b9c08e8d97751e9e",
+    "metabolomics/ST003328/variants/pertotal_all42/replicate_log2.tsv": "acd62e40da99a1f9461fa00d33a5ee75fbf5f1a8b5594c00c8599c4b59c984fe",
+    "metabolomics/ST003331/features.tsv": "a1ee6c8f846db534c6175410df46bfd84b3e1483de8572646005ee8340cf5ab4",
+    "metabolomics/ST003331/fractional_labelling_uncorrected.tsv": "6ed036e002636133807544dd550ada1a37b0ba0646708a9ad70eb098fad10eea",
+    "metabolomics/ST003331/line_log2.tsv": "8f281766605f7e5cf8653a20c12d5de6f247e0c354856694a669a1b814c8f91e",
+    "metabolomics/ST003331/line_samples.tsv": "19c69f2aee6f6ecf43411c2fbaab6542344e542659abc2ef5ed178d8a3b321ef",
+    "metabolomics/ST003331/replicate_log2.tsv": "53cfc7840bbbc01fe2751cf15116a4d5ca8ff798a40ee8d393ceb47fbb622f65",
+    "metabolomics/ST003331/variants/none/features.tsv": "a1ee6c8f846db534c6175410df46bfd84b3e1483de8572646005ee8340cf5ab4",
+    "metabolomics/ST003331/variants/none/line_log2.tsv": "8b8a168954c5656ca605bad7f4d86f3e39fb8df5c66e622e8a9ca59a565d00d1",
+    "metabolomics/ST003331/variants/none/line_samples.tsv": "19c69f2aee6f6ecf43411c2fbaab6542344e542659abc2ef5ed178d8a3b321ef",
+    "metabolomics/ST003331/variants/none/replicate_log2.tsv": "908d6288fd4572629bbda61fb87b4c10d457466e7335a9160b12862491505d83",
+    "metabolomics/ST003332/features.tsv": "3c42a30159532b9d73ad231d1454463057d0c4939f9b4185776d021ebb5feadf",
+    "metabolomics/ST003332/line_log2_vs_blank.tsv": "96d3853f078bb90329f7ef190e5a0b3f40e280d75766970586fed33081eb5b56",
+    "metabolomics/ST003332/line_samples.tsv": "d6ff19f9844c7020f0d7949c5858adde0131a6da82169bd14dd12e80107b27e9",
+    "metabolomics/ST003332/replicate_log2_vs_blank.tsv": "fd7c3bcf63ab7fa6d4a5cd7d92b2823a3958e0a8ca84fc096cfdcb84856ab5b7",
+    "metabolomics/ST003332/variants/pertotal_authors/features.tsv": "3c42a30159532b9d73ad231d1454463057d0c4939f9b4185776d021ebb5feadf",
+    "metabolomics/ST003332/variants/pertotal_authors/line_log2_vs_blank.tsv": "1b5b62b5ba70a2f7518b2aad48ba36b56ca83daf7ed19240a44c83cead7a251c",
+    "metabolomics/ST003332/variants/pertotal_authors/line_samples.tsv": "d6ff19f9844c7020f0d7949c5858adde0131a6da82169bd14dd12e80107b27e9",
+    "metabolomics/ST003332/variants/pertotal_authors/replicate_log2_vs_blank.tsv": "34d6940a6da2bc12d1517281c5d130b5898108d544d7a8925668aa19ce1df2d9",
+    "rnaseq/gene_map.tsv": "9ae4f8b017b31358a5919d5d9e6b102cdfc8dc772a1536918b72138731845e52",
+    "rnaseq/log2cpm.tsv": "54b8970957e927556b5572ccc72fcdbe8381ee6c9cb78372971645d03c41143f",
+    "rnaseq/samples.tsv": "0e21d1500bbe81aea5c4fd1dbbad1ada95e59f3e6a9b0b30d219e243da2c9217",
+    "rnaseq/variants/sizefactor/log2norm.tsv": "404c3279889834d5231bee10a4dd21c48bf1402aec2ec089c7772e233608c4c3",
+    "rnaseq/variants/sizefactor/size_factors.tsv": "9f795d5a2b105276146d62f4f91b29d5f54178aa0c70cac25f5edaa7f44db55d",
+    "summary/counts.tsv": "635779f1aa661b3dc7f10bacb786db76c47ba518c462a22101e04e9e01a84050",
+    "summary/exclusions.tsv": "9b34e4c73346f64273d6dbfff5a824add256dac07050c55e1158372f08b5095f",
+    "summary/labelling_convention.md": "f9bb80a27656ddd0b6d5ea0bc0e207242f83ca8b09f51ac2b2d3b574a96db295"
+  }
+}
