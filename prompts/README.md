@@ -67,4 +67,4 @@ Transcript: prompts/session-<id>.md (or: not saved)
 | 2026-10-06 | stage-01 preprocessing and stage-02 TF activities | `2026-10-06-stage01-02-implementation.md` |
 | 2026-10-09 | stage-01/02 revision plan (review fixes) | `2026-10-09-stage01-02-revision-plan.md` |
 | 2026-10-09 | stage-01/02 revision implementation (review fixes) | `2026-10-09-stage01-02-revision-implementation.md` |
-| 2026-10-09 | toy CORNETO network figure (branch `viz/toy-network`) | `2026-10-09-toy-network-figure.md` |
+| 2026-10-09 | toy CORNETO network figure | `2026-10-09-toy-network-figure.md` |

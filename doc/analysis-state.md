@@ -109,8 +109,7 @@ validation circular, the PKN, the solver, and the course deliverable.
 
 - `00_toy_corneto.py` uses `lambda_reg=0.1` and a 12-node, 12-edge graph; it
   says nothing about run time on a real PKN. Its figure and Cytoscape tables
-  come from `scripts/analysis/00b_plot_toy_network.py` (branch
-  `viz/toy-network`).
+  come from `scripts/analysis/00b_plot_toy_network.py`.
 - `networkcommons` could not be installed (pins graphviz<0.18, conflicts
   with corneto 1.0.0rc8); the COSMOS meta-PKN has to be fetched directly.
 
