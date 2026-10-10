@@ -1,0 +1,6 @@
+variant	step	description	n_rows	n_edges	n_nodes	n_removed_rows	n_removed_nodes	n_self_loop_rows	n_conflicting_pairs	n_gene_nodes	n_enzyme_or_reaction_nodes	n_transport_or_pseudo_nodes	n_metabolite_nodes	n_metabolite_numeric_id_nodes	n_metabolite_model_id_nodes	n_other_nodes	conflicting_pairs	conflicting_rows	identical_rows_merged	pruned
+unpruned	raw	COSMOS resource	83557	82673	36415	0	0													
+unpruned	P7_self_loops	remove self-loops	83556	82672	36415	1	0	1.0												
+unpruned	P7_duplicate_sign_average	average duplicate signs and retain exactly +/-1	81788	81788	36363	1768	52		884.0											
+unpruned	P5_hgnc	canonicalize COSMOS genes and metabolites (unique node counts by type)	81788	81788	36363	0	0			5777.0	15101.0	4429.0	3488.0	3935.0	3308.0	325.0	0.0	0.0	0.0	
+unpruned	P6_expression	expression pruning skipped	81788	81788	36363	0	0													False

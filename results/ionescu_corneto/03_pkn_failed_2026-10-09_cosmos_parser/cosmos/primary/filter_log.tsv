@@ -1,0 +1,6 @@
+variant	step	description	n_rows	n_edges	n_nodes	n_removed_rows	n_removed_nodes	n_self_loop_rows	n_conflicting_pairs	n_gene_nodes	n_metabolite_nodes	n_enzyme_reaction_nodes	conflicting_pairs	conflicting_rows	identical_rows_merged	pruned
+primary	raw	COSMOS resource	83557	82673	36415	0	0									
+primary	P7_self_loops	remove self-loops	83556	82672	36415	1	0	1.0								
+primary	P7_duplicate_sign_average	average duplicate signs and retain exactly +/-1	81788	81788	36363	1768	52		884.0							
+primary	P5_hgnc	canonicalize COSMOS genes and metabolites	81787	81787	36241	1	122			55286.0	54883.0	47383.0	0.0	0.0	1.0	
+primary	P6_expression	retain expressed genes and all metabolites	36088	36088	16951	45699	19290									True

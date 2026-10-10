@@ -1,7 +1,7 @@
 # Stage 02 addendum: limma-trend contrast and the stage-04 TF-selection rule
 
 Date: 2026-10-09
-Status: proposed
+Status: confirmed by user (2026-10-09); E1 deferred by user (2026-10-10): stage 04 uses the constant-prior moderated t and limma-trend becomes a later sensitivity. E2–E4 are implemented in stage 04 (`2026-10-10-stage04-inference-plan.md`).
 
 Adds to `2026-10-09-stage01-02-revision-plan.md`. Origin: audit findings F1
 and F3 (`doc/reviews/2026-10-09-stage01-02-implementation-audit.md`). Both
@@ -18,7 +18,11 @@ What has been exposed so far:
 - `02_activities/figures/tf_activity_heatmap_collectri.*` shows per-line
   scores for those TFs.
 - User: has the heatmap, `tf_activity_per_line.tsv` or any
-  `tf_activity_contrast*.tsv` been opened? _To be filled by the user._
+  `tf_activity_contrast*.tsv` been opened? **Heatmap only** (recorded
+  2026-10-09, before E1–E4 were confirmed). No per-line or contrast table
+  had been opened.
+- E1–E4 confirmed by the user on 2026-10-09. The contrast tables were opened
+  for the first time after confirmation.
 
 Per-line variance does not show the PMS-vs-Ctrl direction, so the contrast is
 still blind if only the heatmap was seen. Record it either way.
