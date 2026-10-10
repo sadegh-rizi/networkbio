@@ -70,3 +70,4 @@ Transcript: prompts/session-<id>.md (or: not saved)
 | 2026-10-09 | toy CORNETO network figure | `2026-10-09-toy-network-figure.md` |
 | 2026-10-09 | stage-03 PKN implementation | `2026-10-09-stage03-implementation.md` |
 | 2026-10-09 | stage-03 COSMOS parser correction | `2026-10-09-stage03-cosmos-correction.md` |
+| 2026-10-10 | stage-04 audit fixes | `2026-10-10-stage04-audit-fixes.md` |

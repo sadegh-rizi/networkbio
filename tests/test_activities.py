@@ -16,7 +16,8 @@ sys.path.insert(0, str(ROOT / "src"))
 import activities  # noqa: E402
 import plot_config  # noqa: E402
 from activities import (  # noqa: E402
-    centre_genes, load_regulon, moderated_t_statistics, run_ulm, welch_statistics,
+    centre_genes, leave_one_line_out_ulm, load_regulon, moderated_t_statistics,
+    run_ulm, select_stable_top_tfs, welch_statistics,
 )
 from labelling import TRACED_METABOLITES  # noqa: E402
 from preprocess import sha256  # noqa: E402
@@ -91,6 +92,45 @@ def test_moderated_t_shrinks_a_low_variance_gene():
     result, _ = moderated_t_statistics(expression, groups)
     ordinary = result["mean_log2cpm_difference"] / np.sqrt(result["pooled_s2"] * (2 / 3))
     assert abs(result.loc["low", "moderated_t"]) < abs(ordinary.loc["low"])
+
+
+def test_moderated_t_accepts_three_vs_four_lines():
+    expression = pd.DataFrame(
+        [[1, 2, 3, 5, 7, 9, 11], [8, 9, 10, 1, 3, 4, 5]],
+        index=["up", "down"],
+        columns=["Ctrl_A", "Ctrl_B", "Ctrl_C", "PMS_D", "PMS_E", "PMS_F", "PMS_G"],
+        dtype=float,
+    )
+    groups = pd.Series(["Ctrl"] * 3 + ["PMS"] * 4, index=expression.columns)
+    result, prior = moderated_t_statistics(expression, groups)
+    assert prior["df_g"] == 5
+    assert result.loc["up", "mean_log2cpm_difference"] == pytest.approx(6.0)
+    assert result.loc["down", "mean_log2cpm_difference"] == pytest.approx(-5.75)
+
+
+def test_leave_one_line_out_contrasts_and_stable_top_k_selection():
+    expression = pd.DataFrame(
+        [
+            [0, 0.2, -0.1, 3.0, 3.2, 2.8],
+            [0, 0.1, -0.2, -3.0, -3.1, -2.9],
+        ] + [[float(i), float(i) + 0.1, float(i) - 0.1,
+              float(i) + 1, float(i) + 1.1, float(i) + 0.9] for i in range(8)],
+        index=[f"g{i}" for i in range(10)],
+        columns=[f"C{i}" for i in range(1, 7)],
+    )
+    groups = pd.Series(["Ctrl"] * 3 + ["PMS"] * 3, index=expression.columns)
+    loo = leave_one_line_out_ulm(expression, groups, toy_regulon(), tmin=5)
+    assert loo.shape[1] == 6
+    assert list(loo.columns) == [f"without_C{i}" for i in range(1, 7)]
+    primary = pd.Series({"TF_A": 4.0, "TF_B": -2.0}, name="score")
+    stable, table = select_stable_top_tfs(
+        primary,
+        pd.DataFrame({f"without_C{i}": [4.0, -2.0] for i in range(1, 7)}, index=primary.index),
+        {"TF_A", "TF_B"},
+        k=1,
+    )
+    assert stable == ["TF_A"]
+    assert table.set_index("TF").loc["TF_B", "drop_reason"] == "outside_top_k"
 
 
 def test_resource_fetch_then_offline_reuse_and_checksum_failure(tmp_path, monkeypatch):

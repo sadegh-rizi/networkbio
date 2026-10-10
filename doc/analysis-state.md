@@ -158,5 +158,7 @@ and stage-03 resource choice are settled in
 3. Stage 03: done in commit `c7f3719`. The corrected PKNs, identifier maps,
    leg-labelled Aim-5 structure table, rewiring null and capped-width figures
    are in `results/ionescu_corneto/03_pkn/`.
-4. Stage 04: CORNETO runs, with the controls fixed beforehand and the COSMOS
-   endpoint mismatch explicitly reported.
+4. Stage 04 implementation is on `task/stage04-inference`: CORNETO data
+   construction, fixed controls, lambda selection, solver acceptance, stage-05
+   runner and synthetic tests are present. The non-repair runs can proceed;
+   `cosmos_repair` is recorded as not run until Aim 5 creates its PKN.
