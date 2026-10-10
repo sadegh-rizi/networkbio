@@ -129,6 +129,11 @@ def main() -> int:
     variants = {"primary": primary_edges, "unpruned": unpruned_edges, "repaired": repaired_edges}
     waypoints = waypoint_table(variants, steps)
     path_variants, path_edges = path_variant_tables(variants, steps, cofactors)
+    if not path_variants.empty:
+        path_variant_columns = [
+            column for column in path_variants.columns if column not in {"path", "branch"}
+        ] + ["path", "branch"]
+        path_variants = path_variants[path_variant_columns]
     # The registered stage-03 null is defined on the primary COSMOS PKN. The
     # repaired PKN is a route diagnostic, not a second null family.
     cholesterol = sorted(node for node in set(primary_edges["source"]) | set(primary_edges["target"]) if node.startswith(CHOLESTEROL_NODE_PREFIX))
