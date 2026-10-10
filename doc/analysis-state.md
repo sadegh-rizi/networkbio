@@ -1,6 +1,6 @@
 # Analysis state: read this first
 
-Last updated: 2026-10-09. Update this file whenever a decision is made or a
+Last updated: 2026-10-10. Update this file whenever a decision is made or a
 run changes a number. Detail and sources are in `doc/context/`.
 
 ## Question
@@ -162,3 +162,9 @@ and stage-03 resource choice are settled in
    construction, fixed controls, lambda selection, solver acceptance, stage-05
    runner and synthetic tests are present. The non-repair runs can proceed;
    `cosmos_repair` is recorded as not run until Aim 5 creates its PKN.
+5. Aim 5 implementation is on `task/aim5-metabolic-route`. The structural
+   run reproduced the expected `r0170` and `HMR_1465` gaps, the 5,938 / 1,616
+   genome-wide gap count, and a repaired PKN with exactly four added edges.
+   The restricted route reaches Lanosterol but not the final Cholesterol
+   waypoint because 19 canonical rows remain present but unconnected after
+   endpoint mapping; this is reported as a residual resource/mapping issue.

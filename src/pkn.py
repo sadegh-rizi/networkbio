@@ -1089,6 +1089,74 @@ def rewire_signed_graph(edges: Iterable[Edge] | pd.DataFrame, *, seed: int, acce
     return sorted(current)
 
 
+def rewire_type_preserving_signed_graph(
+    edges: Iterable[Edge] | pd.DataFrame,
+    *,
+    seed: int,
+    accepted_swaps: int | None = None,
+) -> list[Edge]:
+    """Swap targets within source-type/target-type/sign classes.
+
+    COSMOS contains protein, reaction and metabolite nodes.  Keeping these
+    classes fixed makes the Aim-5 null less permissive than the stage-03
+    degree/sign-preserving null while preserving directed degrees and signs.
+    """
+    if isinstance(edges, pd.DataFrame):
+        current = [
+            (str(source), int(sign), str(target))
+            for source, sign, target in edges[["source", "sign", "target"]].itertuples(index=False, name=None)
+        ]
+    else:
+        current = [(str(source), int(sign), str(target)) for source, sign, target in edges]
+    if len({(source, target) for source, _, target in current}) != len(current):
+        raise ValueError("Rewiring requires unique source-target pairs")
+    target_swaps = accepted_swaps if accepted_swaps is not None else 3 * len(current)
+    if target_swaps <= 0:
+        return sorted(current)
+
+    def node_type(node: str) -> str:
+        if node.startswith("Metab__"):
+            return "metabolite"
+        if node.startswith("Gene"):
+            return "reaction"
+        return "protein"
+
+    groups: dict[tuple[str, str, int], list[int]] = defaultdict(list)
+    for index, (source, sign, target) in enumerate(current):
+        groups[(node_type(source), node_type(target), sign)].append(index)
+    candidates = [indices for indices in groups.values() if len(indices) >= 2]
+    if not candidates:
+        raise RuntimeError("No type/sign class contains two edges to swap")
+
+    rng = random.Random(seed)
+    edge_keys = {(source, target) for source, _, target in current}
+    accepted = 0
+    attempts = 0
+    max_attempts = max(1000, target_swaps * 200)
+    while accepted < target_swaps and attempts < max_attempts:
+        attempts += 1
+        first_index, second_index = rng.sample(rng.choice(candidates), 2)
+        source_a, sign_a, target_b = current[first_index]
+        source_c, sign_c, target_d = current[second_index]
+        proposed = [(source_a, sign_a, target_d), (source_c, sign_c, target_b)]
+        proposed_keys = [(source, target) for source, _, target in proposed]
+        old_keys = {(source_a, target_b), (source_c, target_d)}
+        if (
+            source_a == target_d
+            or source_c == target_b
+            or proposed_keys[0] == proposed_keys[1]
+            or any(key in edge_keys and key not in old_keys for key in proposed_keys)
+        ):
+            continue
+        current[first_index], current[second_index] = proposed
+        edge_keys.difference_update(old_keys)
+        edge_keys.update(proposed_keys)
+        accepted += 1
+    if accepted < target_swaps:
+        raise RuntimeError(f"Could not complete {target_swaps} type-preserving swaps after {attempts} attempts")
+    return sorted(current)
+
+
 def positive_shortest_lengths(
     edges: Iterable[Edge] | pd.DataFrame,
     sources: Iterable[str],

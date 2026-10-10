@@ -75,5 +75,5 @@ For what has actually been run and decided, see `doc/analysis-state.md`.
 | `2026-10-09-stage03-pkn-plan.md` | implemented (commit c7f3719) | COSMOS parser and Aim-5 correction completed; figure width capped; original outputs archived |
 | `2026-10-09-stage03-cosmos-correction-plan.md` | implemented (commit c7f3719) | Correct NetworkCommons grammar, three-leg Aim-5 query, complete provenance, and figure validation |
 | `2026-10-09-stage02-trend-and-tf-selection-addendum.md` | confirmed; E1 deferred by user 2026-10-10 | E2–E4 implemented within stage 04; limma-trend becomes a later sensitivity |
-| `2026-10-10-aim5-metabolic-route-plan.md` | proposed | ordered canonical-route test, FDFT1 gap audit and repair variant, cofactor removal and degree-weighted paths, type-preserving null |
+| `2026-10-10-aim5-metabolic-route-plan.md` | confirmed by user (2026-10-10) | ordered canonical-route test, canonical-only FDFT1 gap repair, cofactor removal and degree-weighted primary path, type-preserving null |
 | `2026-10-10-stage04-inference-plan.md` | confirmed by user (2026-10-10) | CORNETO implementation added on `task/stage04-inference`; repaired run awaits the canonical-repair PKN |
