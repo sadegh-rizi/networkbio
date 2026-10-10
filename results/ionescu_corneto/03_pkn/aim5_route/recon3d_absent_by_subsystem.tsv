@@ -1,0 +1,97 @@
+subsystem	n_gene_associated_reactions	n_absent_from_cosmos
+Alanine and aspartate metabolism	12	0
+Alkaloid synthesis	1	0
+Aminosugar metabolism	26	4
+Androgen and estrogen synthesis and metabolism	19	0
+Arachidonic acid metabolism	27	2
+Arginine and proline metabolism	31	1
+Beta-Alanine metabolism	8	0
+Bile acid synthesis	164	1
+Biotin metabolism	8	0
+Blood group synthesis	46	0
+Butanoate metabolism	3	0
+C5-branched dibasic acid metabolism	4	0
+Cholesterol metabolism	236	4
+Chondroitin sulfate degradation	34	0
+Chondroitin synthesis	42	0
+Citric acid cycle	19	0
+CoA catabolism	2	1
+CoA synthesis	12	2
+Cytochrome metabolism	15	0
+D-alanine metabolism	2	1
+Drug metabolism	173	19
+Eicosanoid metabolism	46	0
+Exchange/demand reaction	2	0
+Fatty acid oxidation	843	38
+Fatty acid synthesis	202	2
+Folate metabolism	59	0
+Fructose and mannose metabolism	21	0
+Galactose metabolism	13	0
+Glutamate metabolism	14	2
+Glutathione metabolism	15	2
+Glycerophospholipid metabolism	149	35
+Glycine, serine, alanine, and threonine metabolism	38	0
+Glycolysis/gluconeogenesis	42	3
+Glycosphingolipid metabolism	62	0
+Glyoxylate and dicarboxylate metabolism	10	1
+Heme degradation	3	0
+Heme synthesis	11	3
+Heparan sulfate degradation	18	0
+Histidine metabolism	10	0
+Hyaluronan metabolism	5	0
+Inositol phosphate metabolism	46	0
+Keratan sulfate degradation	74	0
+Keratan sulfate synthesis	22	0
+Leukotriene metabolism	8	0
+Limonene and pinene degradation	3	0
+Linoleate metabolism	4	0
+Lipoate metabolism	1	0
+Lysine metabolism	17	1
+Methionine and cysteine metabolism	31	1
+Miscellaneous	118	10
+N-glycan degradation	10	0
+N-glycan metabolism	5	2
+N-glycan synthesis	4	3
+NAD metabolism	23	7
+Nucleotide interconversion	157	19
+Nucleotide metabolism	1	1
+Nucleotide salvage pathway	3	0
+Nucleotide sugar metabolism	1	0
+O-glycan metabolism	13	0
+Oxidative phosphorylation	9	5
+Pentose phosphate pathway	28	4
+Phenylalanine metabolism	25	0
+Phosphatidylinositol phosphate metabolism	35	0
+Propanoate metabolism	9	2
+Purine catabolism	25	5
+Purine synthesis	11	0
+Pyrimidine catabolism	28	0
+Pyrimidine synthesis	16	0
+Pyruvate metabolism	28	2
+ROS detoxification	6	6
+Sphingolipid metabolism	121	0
+Squalene and cholesterol synthesis	5	0
+Starch and sucrose metabolism	40	6
+Steroid metabolism	85	0
+Taurine and hypotaurine metabolism	5	0
+Tetrahydrobiopterin metabolism	14	0
+Thiamine metabolism	2	0
+Transport, endoplasmic reticular	35	13
+Transport, extracellular	1886	1195
+Transport, golgi apparatus	14	7
+Transport, lysosomal	11	5
+Transport, mitochondrial	255	187
+Transport, nuclear	2	0
+Transport, peroxisomal	38	3
+Triacylglycerol synthesis	9	0
+Tryptophan metabolism	35	3
+Tyrosine metabolism	61	6
+Ubiquinone synthesis	9	0
+Urea cycle	28	0
+Valine, leucine, and isoleucine metabolism	33	0
+Vitamin A metabolism	17	1
+Vitamin B2 metabolism	7	1
+Vitamin B6 metabolism	11	0
+Vitamin C metabolism	2	0
+Vitamin D metabolism	5	0
+__TOTAL__	5938	1616
