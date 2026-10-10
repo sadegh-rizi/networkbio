@@ -1,7 +1,7 @@
 # Stage 03: prior-knowledge networks, identifier mapping, Aim-5 structure check
 
 Date: 2026-10-09
-Status: correction in progress; original COSMOS outputs invalidated by audit
+Status: implemented (commit c7f3719)
 
 Implements step 4 of `2026-09-29-corneto-ionescu-inscs-plan.md` and settles
 its open question Q6 (PKN), split below into P1-P10. No CORNETO run, no λ and

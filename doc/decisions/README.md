@@ -72,5 +72,5 @@ For what has actually been run and decided, see `doc/analysis-state.md`.
 | `2026-10-06-stage01-02-preprocessing-tf-activities-plan.md` | implemented in part; revised by `2026-10-09-stage01-02-revision-plan.md` | parent implementation retained; revised plan changes primary medium/lipid normalisation and the contrast statistic |
 | `2026-10-09-stage01-02-revision-plan.md` | implemented; real-data run completed 2026-10-09 | D1-D5 confirmed by the implementation request; audit in `doc/reviews/2026-10-09-stage01-02-implementation-audit.md` |
 | `2026-10-09-hgnc-ambiguous-mapping-plan.md` | implemented; stages 01 and 02 completed 2026-10-09 | ambiguous approved Ensembl IDs are excluded and recorded rather than assigned arbitrarily |
-| `2026-10-09-stage03-pkn-plan.md` | correction in progress | Original implementation audited; COSMOS parser and Aim-5 scope correction recorded in the companion plan |
-| `2026-10-09-stage03-cosmos-correction-plan.md` | confirmed | Correct NetworkCommons grammar, three-leg Aim-5 query, complete provenance, and figure validation |
+| `2026-10-09-stage03-pkn-plan.md` | implemented (commit c7f3719) | COSMOS parser and Aim-5 correction completed; figure width capped; original outputs archived |
+| `2026-10-09-stage03-cosmos-correction-plan.md` | implemented (commit c7f3719) | Correct NetworkCommons grammar, three-leg Aim-5 query, complete provenance, and figure validation |
