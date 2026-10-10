@@ -3,9 +3,10 @@
 The functions in this module deliberately keep resource retrieval separate
 from filtering.  A cached resource is never silently replaced, and every
 filter returns a row in a log that can be written next to the resulting PKN.
-The COSMOS resource is distributed with internal numeric identifiers; these
-are converted to HGNC symbols and the canonical metabolite names used by the
-rest of the project before expression pruning and path analysis.
+The selected NetworkCommons COSMOS resource uses reaction-indexed enzyme
+nodes and model metabolite identifiers. Enzyme suffixes are mapped to HGNC
+symbols for expression pruning, while raw reaction and numeric metabolite
+names remain unchanged in the PKN.
 """
 
 from __future__ import annotations
@@ -374,73 +375,70 @@ def clean_cosmos_edges(raw: pd.DataFrame) -> pd.DataFrame:
     return mean_sign[["source", "sign", "target"]].sort_values(["source", "target"]).reset_index(drop=True)
 
 
+COSMOS_NODE_TYPES = (
+    "gene",
+    "enzyme_or_reaction",
+    "transport_or_pseudo",
+    "metabolite",
+    "metabolite_numeric_id",
+    "metabolite_model_id",
+    "other",
+)
+
+
 def parse_cosmos_node(node: str, hgnc_maps: Mapping[str, Any]) -> dict[str, Any]:
     """Parse and canonicalize one COSMOS node.
 
-    The downloaded 2020 file uses internal prefixes.  Numeric XMetab IDs are
-    HMDB numbers, X<Entrez> nodes are proteins, and XGene<Entrez>__<reaction>
-    nodes are enzyme/reaction intermediates associated with that gene.
+    The selected NetworkCommons file uses ``Gene<reaction>__<suffix>`` enzyme
+    nodes. The reaction number is not an Entrez identifier; HGNC symbols are
+    recovered from the suffix instead. Nodes without a recognized gene token
+    are retained as transport or other pseudo-reactions.
     """
     raw = str(node).strip()
-    metabolite = re.fullmatch(r"XMetab__(.+)___([a-z])____", raw)
-    canonical_metabolite = re.fullmatch(r"Metab__([^_]+)_([a-z])", raw)
-    if metabolite:
-        identifier, compartment = metabolite.groups()
-        if identifier.isdigit():
-            hmdb = f"HMDB{int(identifier):07d}"
-            canonical = f"Metab__{hmdb}_{compartment}"
-        else:
-            hmdb = _normalise_hmdb(identifier)
-            canonical = f"Metab__{hmdb or identifier}_{compartment}"
-        return {
-            "raw_node": raw,
-            "node": canonical,
-            "type": "metabolite",
-            "approved_symbol": None,
-            "expressed": True,
-            "hmdb_id": hmdb,
-            "compartment": compartment,
-        }
+    # The OmniPath-hosted metaPKN file uses X<Entrez>, XGene<rxn>__<Entrez>
+    # and XMetab__... nodes. Plain HGNC symbols such as XBP1 or XIAP also
+    # start with "X", so only the incompatible grammar is rejected.
+    if re.match(r"X(?:\d|Gene\d|Metab__)", raw):
+        raise ValueError(f"Unsupported X-prefixed COSMOS node grammar: {raw}")
+    # Model metabolite identifiers can contain underscores (gd1b2_hs, 2hibup_S);
+    # the compartment is the final single lower-case letter.
+    canonical_metabolite = re.fullmatch(r"Metab__(.+)_([a-z])", raw)
     if canonical_metabolite:
         identifier, compartment = canonical_metabolite.groups()
-        hmdb = _normalise_hmdb(identifier)
-        if hmdb is None and identifier.isdigit():
-            hmdb = f"HMDB{int(identifier):07d}"
+        # The resource contains a few padded IDs such as "Metab__HMDB10384 _c".
+        hmdb = _normalise_hmdb(identifier) if re.fullmatch(r"\s*HMDB\s*\d+\s*", identifier) else None
         return {
             "raw_node": raw,
-            "node": f"Metab__{hmdb or identifier}_{compartment}",
-            "type": "metabolite",
+            "node": f"Metab__{hmdb}_{compartment}" if hmdb else raw,
+            "type": "metabolite" if hmdb else "metabolite_numeric_id" if identifier.isdigit() else "metabolite_model_id",
             "approved_symbol": None,
+            "approved_symbols": (),
             "expressed": True,
             "hmdb_id": hmdb,
             "compartment": compartment,
         }
 
-    enzyme = re.fullmatch(r"(?:X)?Gene(\d+)__(.+)", raw)
+    enzyme = re.fullmatch(r"Gene\d+__(.+)", raw)
     if enzyme:
-        gene_id = enzyme.group(1)
-        symbols = hgnc_maps.get("entrez", {}).get(gene_id, set())
-        approved = next(iter(symbols)) if len(symbols) == 1 else None
+        suffix = re.sub(r"_reverse$", "", enzyme.group(1))
+        symbols: set[str] = set()
+        pseudo_name = bool(
+            re.match(r"(?:EX|DM|SK|SINK|DEMAND|TRANSPORT|EXCHANGE)(?:_|$)", suffix, flags=re.IGNORECASE)
+        )
+        if not pseudo_name:
+            for token in suffix.split("_"):
+                canonical, reason = harmonise_symbol(token, hgnc_maps)
+                if reason in {"approved", "previous_symbol", "alias_symbol"}:
+                    symbols.add(canonical)
+        approved_symbols = tuple(sorted(symbols))
+        is_pseudo = not approved_symbols
         return {
             "raw_node": raw,
             "node": raw,
-            "type": "enzyme_or_reaction",
-            "approved_symbol": approved,
-            "expressed": approved in hgnc_maps.get("expressed", set()),
-            "hmdb_id": None,
-            "compartment": None,
-        }
-
-    gene = re.fullmatch(r"X(\d+)", raw)
-    if gene:
-        symbols = hgnc_maps.get("entrez", {}).get(gene.group(1), set())
-        approved = next(iter(symbols)) if len(symbols) == 1 else None
-        return {
-            "raw_node": raw,
-            "node": approved or raw,
-            "type": "gene",
-            "approved_symbol": approved,
-            "expressed": approved in hgnc_maps.get("expressed", set()),
+            "type": "transport_or_pseudo" if is_pseudo else "enzyme_or_reaction",
+            "approved_symbol": ";".join(approved_symbols) or None,
+            "approved_symbols": approved_symbols,
+            "expressed": True if is_pseudo else bool(set(approved_symbols) & hgnc_maps.get("expressed", set())),
             "hmdb_id": None,
             "compartment": None,
         }
@@ -452,6 +450,7 @@ def parse_cosmos_node(node: str, hgnc_maps: Mapping[str, Any]) -> dict[str, Any]
             "node": canonical_symbol,
             "type": "gene",
             "approved_symbol": canonical_symbol,
+            "approved_symbols": (canonical_symbol,),
             "expressed": canonical_symbol in hgnc_maps.get("expressed", set()),
             "hmdb_id": None,
             "compartment": None,
@@ -461,6 +460,7 @@ def parse_cosmos_node(node: str, hgnc_maps: Mapping[str, Any]) -> dict[str, Any]
         "node": raw,
         "type": "other",
         "approved_symbol": None,
+        "approved_symbols": (),
         "expressed": None,
         "hmdb_id": None,
         "compartment": None,
@@ -472,22 +472,20 @@ def cosmos_node_grammar(raw: pd.DataFrame) -> str:
     nodes = sorted(set(raw["source"]) | set(raw["target"]))
     rows: dict[str, list[str]] = defaultdict(list)
     for node in nodes:
-        if re.fullmatch(r"XMetab__\d+___[a-z]____", node):
-            category = "metabolite: numeric HMDB"
-        elif re.fullmatch(r"XMetab__[^_]+___[a-z]____", node):
+        if re.fullmatch(r"Metab__HMDB\d+_[a-z]", node):
+            category = "metabolite: HMDB"
+        elif re.fullmatch(r"Metab__\d+_[a-z]", node):
+            category = "metabolite: numeric model identifier"
+        elif re.fullmatch(r"Metab__[^_]+_[a-z]", node):
             category = "metabolite: model identifier"
-        elif re.fullmatch(r"(?:X)?Gene\d+__.+", node):
-            category = "enzyme_or_reaction: XGene Entrez plus reaction"
-        elif re.fullmatch(r"X\d+", node):
-            category = "gene: X Entrez"
+        elif re.fullmatch(r"Gene\d+__.+", node):
+            category = "enzyme_or_reaction: reaction index plus suffix"
         elif re.fullmatch(r"Metab__.+_[a-z]", node):
-            category = "metabolite: canonical HMDB or model identifier"
+            category = "metabolite: canonical or model identifier"
         elif re.fullmatch(r"[A-Za-z0-9.-]+", node):
             category = "gene: plain symbol"
         elif "_" in node:
             category = "complex: underscore-joined symbols"
-        elif node.startswith("X"):
-            category = "other: X-prefixed"
         else:
             category = "other"
         if len(rows[category]) < 5:
@@ -495,31 +493,29 @@ def cosmos_node_grammar(raw: pd.DataFrame) -> str:
     lines = [
         "# COSMOS meta-PKN node grammar",
         "",
-        "The 2020 resource was inspected before filtering. Node identifiers are",
-        "kept in `raw_node` provenance; PKN outputs use canonical names where a",
-        "gene or numeric HMDB identifier can be resolved.",
+        "The selected NetworkCommons resource was inspected before filtering.",
+        "Reaction indices in `Gene<index>__<suffix>` are not Entrez IDs. PKN",
+        "outputs preserve reaction and numeric model-metabolite node names.",
         "",
         "| Pattern | Unique nodes | Examples |",
         "|---|---:|---|",
     ]
     counts = Counter()
     for node in nodes:
-        if re.fullmatch(r"XMetab__\d+___[a-z]____", node):
-            counts["metabolite: numeric HMDB"] += 1
-        elif re.fullmatch(r"XMetab__[^_]+___[a-z]____", node):
+        if re.fullmatch(r"Metab__HMDB\d+_[a-z]", node):
+            counts["metabolite: HMDB"] += 1
+        elif re.fullmatch(r"Metab__\d+_[a-z]", node):
+            counts["metabolite: numeric model identifier"] += 1
+        elif re.fullmatch(r"Metab__[^_]+_[a-z]", node):
             counts["metabolite: model identifier"] += 1
-        elif re.fullmatch(r"(?:X)?Gene\d+__.+", node):
-            counts["enzyme_or_reaction: XGene Entrez plus reaction"] += 1
-        elif re.fullmatch(r"X\d+", node):
-            counts["gene: X Entrez"] += 1
+        elif re.fullmatch(r"Gene\d+__.+", node):
+            counts["enzyme_or_reaction: reaction index plus suffix"] += 1
         elif re.fullmatch(r"Metab__.+_[a-z]", node):
-            counts["metabolite: canonical HMDB or model identifier"] += 1
+            counts["metabolite: canonical or model identifier"] += 1
         elif re.fullmatch(r"[A-Za-z0-9.-]+", node):
             counts["gene: plain symbol"] += 1
         elif "_" in node:
             counts["complex: underscore-joined symbols"] += 1
-        elif node.startswith("X"):
-            counts["other: X-prefixed"] += 1
         else:
             counts["other"] += 1
     for category in sorted(counts):
@@ -580,17 +576,18 @@ def filter_cosmos(
     edges["source"] = source_info.map(lambda item: item["node"])
     edges["target"] = target_info.map(lambda item: item["node"])
     edges, duplicate_stats = _deduplicate_edges(edges)
-    mapping_reasons = [item["type"] for item in list(source_info) + list(target_info)]
+    node_types = {
+        item["node"]: item["type"] for item in list(source_info) + list(target_info)
+    }
+    type_counts = Counter(node_types.values())
     _log_filter(
         log_rows,
         variant,
         "P5_hgnc",
-        "canonicalize COSMOS genes and metabolites",
+        "canonicalize COSMOS genes and metabolites (unique node counts by type)",
         before,
         edges,
-        n_gene_nodes=sum(kind == "gene" for kind in mapping_reasons),
-        n_metabolite_nodes=sum(kind == "metabolite" for kind in mapping_reasons),
-        n_enzyme_reaction_nodes=sum(kind == "enzyme_or_reaction" for kind in mapping_reasons),
+        **{f"n_{kind}_nodes": int(type_counts.get(kind, 0)) for kind in COSMOS_NODE_TYPES},
         **duplicate_stats,
     )
 
@@ -599,10 +596,34 @@ def filter_cosmos(
     else:
         before = edges
         info = {node: parse_cosmos_node(node, local_maps) for node in set(edges["source"]) | set(edges["target"])}
-        keep = edges["source"].map(lambda node: info[node]["type"] == "metabolite" or info[node]["approved_symbol"] in expressed)
-        keep &= edges["target"].map(lambda node: info[node]["type"] == "metabolite" or info[node]["approved_symbol"] in expressed)
+        def keep_node(node: str) -> bool:
+            node_info = info[node]
+            if node_info["type"] in {
+                "metabolite",
+                "metabolite_numeric_id",
+                "metabolite_model_id",
+                "transport_or_pseudo",
+            }:
+                return True
+            return bool(set(node_info["approved_symbols"]) & expressed)
+
+        keep = edges["source"].map(keep_node)
+        keep &= edges["target"].map(keep_node)
         edges = edges.loc[keep].copy()
-        _log_filter(log_rows, variant, "P6_expression", "retain expressed genes and all metabolites", before, edges, pruned=True)
+        remaining = set(edges["source"]) | set(edges["target"])
+        removed_counts = Counter(
+            node_info["type"] for node, node_info in info.items() if node not in remaining
+        )
+        _log_filter(
+            log_rows,
+            variant,
+            "P6_expression",
+            "retain expressed genes and all metabolites; other = complexes or unparsed nodes",
+            before,
+            edges,
+            pruned=True,
+            **{f"n_removed_{kind}_nodes": int(removed_counts.get(kind, 0)) for kind in COSMOS_NODE_TYPES},
+        )
 
     edges = edges[["source", "sign", "target"]].sort_values(["source", "target", "sign"]).reset_index(drop=True)
     nodes = _cosmos_nodes_table(edges, local_maps)

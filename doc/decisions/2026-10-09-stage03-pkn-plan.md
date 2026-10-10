@@ -1,7 +1,7 @@
 # Stage 03: prior-knowledge networks, identifier mapping, Aim-5 structure check
 
 Date: 2026-10-09
-Status: implemented (commit 75597e3)
+Status: correction in progress; original COSMOS outputs invalidated by audit
 
 Implements step 4 of `2026-09-29-corneto-ionescu-inscs-plan.md` and settles
 its open question Q6 (PKN), split below into P1-P10. No CORNETO run, no λ and
@@ -31,9 +31,11 @@ no TF activity values are used in this stage.
   data server (`networkcommons/data/network/_moon.py`; server
   `https://commons.omnipathdb.org/`, URL not opened from the sandbox), and
   OmniPath hosts `https://metapkn.omnipathdb.org/metapkn__20200122.txt`
-  (blocked in the sandbox, not opened). Metabolite nodes look like
-  `Metab__HMDB0000067_c` (HMDB ID plus compartment); the grammar of enzyme
-  and gene nodes is **not yet verified** (step R1).
+  (blocked in the sandbox, not opened). Metabolite nodes include
+  `Metab__HMDB0000067_c` and numeric model identifiers such as
+  `Metab__2676_c`. Enzyme nodes use `Gene<reaction-index>__<suffix>`; the
+  reaction index is not an Entrez ID and gene symbols are parsed from the
+  suffix. Nodes without a recognized gene token are retained as pseudo-reactions.
 - Recon3D model with metabolite cross-references (BiGG,
   `http://bigg.ucsd.edu/static/models/Recon3D.json`; not opened yet). This is
   the namespace the COSMOS metabolic layer was built from.
@@ -88,18 +90,20 @@ mapping is to exactly one approved symbol; otherwise leave the node as is
 **P6. Expression pruning.** Remove gene/protein nodes whose approved symbol
 is not among the 13,530 expressed symbols (the stage-01 filter, CPM >= 1 in at
 least 3 libraries), as COSMOS does. Metabolite nodes are not pruned. Variant
-`unpruned`. For COSMOS enzyme or reaction nodes, the gene symbol is parsed
-from the node name (R1) and the node is removed if that gene is not
-expressed.
+  `unpruned`. For COSMOS enzyme or reaction nodes, recognized HGNC symbols are
+  parsed from the suffix after `Gene<reaction-index>__`; multi-gene nodes are
+  retained if any recognized gene is expressed. Nodes without a recognized
+  gene token are retained as pseudo-reactions. Numeric model metabolite
+  identifiers remain numeric and are not relabelled as HMDB IDs.
 
-**P7. COSMOS meta-PKN version and clean-up.** The 2020 build as distributed by
-NetworkCommons (`meta_network.sif`), cleaned as NetworkCommons
+**P7. COSMOS meta-PKN version and clean-up.** The NetworkCommons build
+  downloaded on 2026-10-09 (`meta_network.sif`), cleaned as NetworkCommons
 `meta_network_cleanup` does: drop self-loops, average the sign of duplicate
 source-target pairs, keep only edges whose result is exactly +1 or -1. Then
 P5 and P6 on its gene nodes. If the NetworkCommons server is unreachable from
 WSL, use the OmniPath-hosted `metapkn__20200122.txt` and record which was
-used. The two must give the same edge set after clean-up; this is checked if
-both can be fetched.
+  used. The two available endpoints are checked, but they currently expose
+  different namespaces and edge sets; they are not treated as interchangeable.
 
 **P8. Metabolite mapping.** KEGG -> HMDB from the Recon3D metabolite
 annotations first (all HMDB IDs listed for that KEGG ID), then Metabolomics
@@ -114,13 +118,15 @@ species are listed as unmapped. Every mapping row carries the feature's
 
 **P9. Aim-5 structure check.**
 - Sources: HMGCR, SREBF1, SREBF2, SCAP, INSIG1. Targets: E2F1, EGR1, WT1, SP1,
-  JUN, JUNB. In COSMOS also report the route through the mevalonate/cholesterol
-  metabolite nodes (HMDB0000227, HMDB0000067, any compartment).
-- For each source-target pair: shortest directed path length, the signs it can
+  JUN, JUNB. In COSMOS report three legs: HMGCR to mevalonate or cholesterol
+  with cap 80; mevalonate or cholesterol nodes to the six TFs with cap 8; and
+  the five source genes to the six TFs with cap 8. Metabolite nodes include
+  HMDB0000227 and HMDB0000067 in any available compartment.
+- For each leg's source-target pair: shortest directed path length, the signs it can
   have (breadth-first search on (node, sign) states, so a path's sign is the
   product of its edge signs), the number of shortest paths of each sign, and
-  whether any shortest path passes a metabolite node. Path length capped at
-  8 edges.
+  whether any shortest path passes a metabolite node. The path cap is
+  leg-specific as stated above.
 - Registered now: this plan reads Ionescu et al. 2024 as predicting a net
   positive sign from HMGCR to the six TFs (statin lowers cholesterol, which
   lowers their activity). The user confirms this reading against the paper
@@ -144,8 +150,9 @@ stored; stage 04 regenerates them from the same seeds and code.
 R1. Inspect before coding the parser: download the COSMOS meta-PKN and
     record in `03_pkn/summary/cosmos_node_grammar.md` the node-name patterns
     (metabolites, genes, enzymes, reaction or direction suffixes) with counts
-    and five examples each. If gene symbols cannot be parsed unambiguously,
-    stop and report.
+    and five examples each. Treat the reaction index as an internal index,
+    parse recognized HGNC tokens from enzyme suffixes, preserve numeric model
+    metabolites, and retain pseudo-reactions without recognized gene tokens.
 S1. Fetch and cache resources with checksum sidecars, the pattern of
     `src/activities.py::load_regulon`: OmniPath interactions, COSMOS
     meta-PKN, Recon3D JSON, and the Metabolomics Workbench lookups for the
@@ -155,16 +162,20 @@ S2. OmniPath PKN: P2 -> P3 -> P4 -> P5 -> P6, logging nodes and edges after each
     step (`filter_log.tsv`). Variants: `signor_only`, `nc_rule`, `unpruned`
     (each changes one step).
 S3. COSMOS PKN: P7 clean-up -> P5 -> P6, same logging. Variant `unpruned`.
-S4. Node tables: node, type (gene, metabolite, enzyme or reaction, other),
-    approved symbol, expressed, in/out degree.
+    The primary parser uses the NetworkCommons grammar; an incompatible
+    X-prefixed grammar raises rather than being silently reinterpreted.
+S4. Node tables: node, type (gene, metabolite, numeric/model metabolite,
+    enzyme or reaction, transport or pseudo, other), approved symbol,
+    expressed, in/out degree.
 S5. Mapping tables (P8, plus TF coverage): which stage-02 TFs (names from
     `regulon_summary.tsv`, kept after tmin) exist as nodes in each PKN, per
     resource; for AP1 and NFKB, which member genes exist.
-S6. Aim-5 path table and null (P9, P10).
+S6. Aim-5 path table and null (P9, P10), with explicit leg and path-cap
+    columns.
 S7. Figure: the union of the shortest positive and negative paths from P9, per
     PKN, drawn with `src/network_plot.py` (path edges highlighted, other edges
-    among those nodes dashed). Caption states PKN, filters, path cap, and
-    that no data values are shown.
+    among those nodes dashed). Caption states PKN, filters, leg-specific path
+    caps, and that no data values are shown.
 
 ## Open questions
 

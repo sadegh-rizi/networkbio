@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from pkn import (  # noqa: E402
@@ -14,6 +15,7 @@ from pkn import (  # noqa: E402
     filter_omnipath,
     load_hgnc_maps,
     map_metabolite_features,
+    parse_cosmos_node,
     rewire_signed_graph,
     signed_shortest_paths,
 )
@@ -27,6 +29,13 @@ def _maps() -> dict:
         "entrez": {"1": {"A"}, "2": {"B"}},
         "expressed": {"A", "B", "C", "D"},
     }
+
+
+def _cosmos_maps() -> dict:
+    maps = _maps()
+    maps["approved"] = set(maps["approved"]) | {"HMGCR", "SREBF1", "SLC7A6"}
+    maps["expressed"] = set(maps["expressed"]) | {"HMGCR"}
+    return maps
 
 
 def _omni_row(source, target, *, direction=True, stimulation=True, inhibition=False, sources="x"):
@@ -87,15 +96,91 @@ def test_symbol_harmonisation_prefers_unique_previous_or_alias_only():
 def test_expression_pruning_keeps_metabolites_but_removes_unexpressed_genes():
     raw = pd.DataFrame(
         [
-            ("X1", 1, "XMetab__67___c____"),
-            ("XMetab__67___c____", 1, "X2"),
+            ("HMGCR", 1, "Gene1600__HMGCR"),
+            ("Gene1600__HMGCR_reverse", 1, "Metab__HMDB0000227_c"),
+            ("Metab__2676_c", 1, "Gene1601__EX_glc__D_e"),
+            ("Gene1602__HMGCR_SREBF1", 1, "Metab__2676_c"),
+            ("Metab__HMDB0000227_c", 1, "Gene1603__B"),
         ],
         columns=["source", "sign", "target"],
     )
-    edges, _, nodes = filter_cosmos(raw, hgnc_maps=_maps(), expressed={"A"})
-    assert set(map(tuple, edges.itertuples(index=False, name=None))) == {("A", 1, "Metab__HMDB0000067_c")}
-    assert "Metab__HMDB0000067_c" in set(nodes["node"])
-    assert "B" not in set(nodes["node"])
+    edges, _, nodes = filter_cosmos(raw, hgnc_maps=_cosmos_maps(), expressed={"HMGCR"})
+    edge_set = set(map(tuple, edges.itertuples(index=False, name=None)))
+    assert ("HMGCR", 1, "Gene1600__HMGCR") in edge_set
+    assert ("Gene1600__HMGCR_reverse", 1, "Metab__HMDB0000227_c") in edge_set
+    assert ("Metab__2676_c", 1, "Gene1601__EX_glc__D_e") in edge_set
+    assert ("Gene1602__HMGCR_SREBF1", 1, "Metab__2676_c") in edge_set
+    assert "Metab__2676_c" in set(nodes["node"])
+    assert "Gene1603__B" not in set(nodes["node"])
+
+
+def test_cosmos_parser_uses_suffix_genes_and_preserves_numeric_ids():
+    enzyme = parse_cosmos_node("Gene1600__HMGCR_reverse", _cosmos_maps())
+    multi_gene = parse_cosmos_node("Gene1602__HMGCR_SREBF1", _cosmos_maps())
+    transport_gene = parse_cosmos_node("Gene10001__SLC7A6_TRANSPORTER1", _cosmos_maps())
+    pseudo = parse_cosmos_node("Gene1601__EX_glc__D_e", _cosmos_maps())
+    numeric = parse_cosmos_node("Metab__2676_c", _cosmos_maps())
+
+    assert enzyme["approved_symbol"] == "HMGCR"
+    assert enzyme["type"] == "enzyme_or_reaction"
+    assert multi_gene["approved_symbol"] == "HMGCR;SREBF1"
+    assert transport_gene["approved_symbol"] == "SLC7A6"
+    assert transport_gene["type"] == "enzyme_or_reaction"
+    assert pseudo["type"] == "transport_or_pseudo"
+    assert numeric["node"] == "Metab__2676_c"
+    assert numeric["type"] == "metabolite_numeric_id"
+
+
+def test_cosmos_parser_rejects_incompatible_x_grammar():
+    for node in ("XMetab__227___c____", "X3156", "XGene1600__3156"):
+        with pytest.raises(ValueError, match="X-prefixed"):
+            parse_cosmos_node(node, _cosmos_maps())
+
+
+def test_cosmos_parser_accepts_plain_symbols_starting_with_x():
+    maps = _cosmos_maps()
+    maps["approved"] = set(maps["approved"]) | {"XBP1", "XIAP"}
+    maps["expressed"] = set(maps["expressed"]) | {"XBP1"}
+    xbp1 = parse_cosmos_node("XBP1", maps)
+    xiap = parse_cosmos_node("XIAP", maps)
+    assert (xbp1["type"], xbp1["node"], xbp1["expressed"]) == ("gene", "XBP1", True)
+    assert (xiap["type"], xiap["expressed"]) == ("gene", False)
+
+
+def test_cosmos_parser_keeps_model_metabolites_with_underscores():
+    for node, compartment in (("Metab__gd1b2_hs_g", "g"), ("Metab__2hibup_S_r", "r"), ("Metab__pa_hs_e", "e")):
+        parsed = parse_cosmos_node(node, _cosmos_maps())
+        assert parsed["type"] == "metabolite_model_id"
+        assert parsed["node"] == node
+        assert parsed["compartment"] == compartment
+        assert parsed["hmdb_id"] is None
+    hmdb = parse_cosmos_node("Metab__HMDB0000067_c", _cosmos_maps())
+    assert (hmdb["type"], hmdb["node"], hmdb["compartment"]) == ("metabolite", "Metab__HMDB0000067_c", "c")
+    padded = parse_cosmos_node("Metab__HMDB10384 _c", _cosmos_maps())
+    assert (padded["type"], padded["node"]) == ("metabolite", "Metab__HMDB0010384_c")
+
+
+def test_cosmos_pruning_keeps_model_metabolites_and_logs_removed_types():
+    raw = pd.DataFrame(
+        [
+            ("Gene1600__HMGCR", 1, "Metab__gd1b2_hs_g"),
+            ("Metab__gd1b2_hs_g", 1, "HMGCR"),
+            ("HMGCR", 1, "Gene1600__HMGCR"),
+            ("A_B", 1, "HMGCR"),
+            ("B", 1, "HMGCR"),
+        ],
+        columns=["source", "sign", "target"],
+    )
+    edges, log, nodes = filter_cosmos(raw, hgnc_maps=_cosmos_maps(), expressed={"HMGCR"})
+    assert "Metab__gd1b2_hs_g" in set(nodes["node"])
+    assert {"A_B", "B"}.isdisjoint(set(nodes["node"]))
+    steps = log.set_index("step")
+    assert steps.loc["P5_hgnc", "n_metabolite_model_id_nodes"] == 1
+    assert steps.loc["P5_hgnc", "n_other_nodes"] == 1
+    assert steps.loc["P5_hgnc", "n_gene_nodes"] == 2
+    assert steps.loc["P6_expression", "n_removed_other_nodes"] == 1
+    assert steps.loc["P6_expression", "n_removed_gene_nodes"] == 1
+    assert steps.loc["P6_expression", "n_removed_metabolite_model_id_nodes"] == 0
 
 
 def test_cosmos_duplicate_signs_average_to_zero_and_drop():

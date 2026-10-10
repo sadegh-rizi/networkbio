@@ -6,17 +6,12 @@ stage-00/01/02 outputs but does not read TF activity values or run CORNETO.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
-import json
-from importlib.metadata import version
 from pathlib import Path
-import subprocess
 import sys
 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import FancyArrowPatch, Patch
-import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,9 +21,9 @@ from network_plot import layered_positions  # noqa: E402
 from pkn import (  # noqa: E402
     CHOLESTEROL_HMDB,
     COMPLEX_MEMBERS,
+    MEVALONATE_HMDB,
     SOURCE_GENES,
     TARGET_TFS,
-    clean_cosmos_edges,
     cosmos_node_grammar,
     degree_preserving_null_summary,
     fetch_cosmos,
@@ -39,13 +34,13 @@ from pkn import (  # noqa: E402
     filter_omnipath,
     load_hgnc_maps,
     map_metabolite_features,
-    parse_cosmos_node,
     recon3d_hmdb_by_kegg,
     sha256,
     shortest_path_edges,
     signed_shortest_paths,
 )
 from plot_config import NODE_ROLE_COLORS, apply_plot_style, save_figure  # noqa: E402
+from preprocess import stage_provenance, write_stage_provenance  # noqa: E402
 
 
 ANALYSIS = ROOT / "results/ionescu_corneto/03_pkn"
@@ -55,6 +50,7 @@ ACTIVITIES = ROOT / "results/ionescu_corneto/02_activities"
 PKN_RESOURCES = ROOT / "data/resources/pkn"
 METABOLITE_RESOURCES = ROOT / "data/resources/metabolite_ids"
 SEED_BASE = 20261009
+MAX_PATH_FIGURE_WIDTH_INCHES = 24
 
 
 def _write_pkn(folder: Path, edges: pd.DataFrame, nodes: pd.DataFrame, log: pd.DataFrame) -> None:
@@ -128,33 +124,57 @@ def _tf_coverage(node_tables: dict[str, pd.DataFrame]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _aim5_pairs(pkn_name: str, node_tables: dict[str, pd.DataFrame]) -> list[tuple[str, list[str], list[str], int]]:
+    pairs = [("source_tf_to_tf", list(SOURCE_GENES), list(TARGET_TFS), 8)]
+    if pkn_name == "cosmos":
+        cosmos_nodes = set(node_tables[pkn_name]["node"])
+        metabolite_nodes = sorted(
+            node
+            for node in cosmos_nodes
+            if node.startswith(f"Metab__{MEVALONATE_HMDB}_") or node.startswith(f"Metab__{CHOLESTEROL_HMDB}_")
+        )
+        pairs.insert(0, ("hmgcr_to_metabolite", ["HMGCR"], metabolite_nodes, 80))
+        pairs.insert(1, ("metabolite_to_tf", metabolite_nodes, list(TARGET_TFS), 8))
+    return pairs
+
+
 def _aim5_paths(node_tables: dict[str, pd.DataFrame], edge_tables: dict[str, pd.DataFrame]) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     path_rows: list[pd.DataFrame] = []
     edge_rows: list[pd.DataFrame] = []
     null_rows: list[pd.DataFrame] = []
-    pair_sources = list(SOURCE_GENES)
-    pair_targets = list(TARGET_TFS)
     for pkn_name in ("omnipath", "cosmos"):
-        paths = signed_shortest_paths(edge_tables[pkn_name], pair_sources, pair_targets, max_length=8)
-        paths.insert(0, "pkn", pkn_name)
-        path_rows.append(paths)
-        pkn_paths = paths[paths["pkn"].eq(pkn_name)].drop(columns="pkn")
-        path_edges = shortest_path_edges(edge_tables[pkn_name], pkn_paths, max_paths_per_pair_sign=100)
-        if not path_edges.empty:
-            path_edges.insert(0, "pkn", pkn_name)
-            edge_rows.append(path_edges)
         n_replicates = 100 if pkn_name == "omnipath" else 20
-        null = degree_preserving_null_summary(
-            edge_tables[pkn_name],
-            pkn_paths,
-            n_replicates=n_replicates,
-            seed_base=SEED_BASE,
-        )
-        null.insert(0, "pkn", pkn_name)
-        null_rows.append(null)
+        for leg, pair_sources, pair_targets, path_cap in _aim5_pairs(pkn_name, node_tables):
+            paths = signed_shortest_paths(
+                edge_tables[pkn_name],
+                pair_sources,
+                pair_targets,
+                max_length=path_cap,
+            )
+            paths.insert(0, "path_cap", path_cap)
+            paths.insert(0, "leg", leg)
+            paths.insert(0, "pkn", pkn_name)
+            path_rows.append(paths)
+            pkn_paths = paths.drop(columns=["pkn", "leg", "path_cap"])
+            path_edges = shortest_path_edges(edge_tables[pkn_name], pkn_paths, max_paths_per_pair_sign=100)
+            if not path_edges.empty:
+                path_edges.insert(0, "path_cap", path_cap)
+                path_edges.insert(0, "leg", leg)
+                path_edges.insert(0, "pkn", pkn_name)
+                edge_rows.append(path_edges)
+            null = degree_preserving_null_summary(
+                edge_tables[pkn_name],
+                pkn_paths,
+                n_replicates=n_replicates,
+                seed_base=SEED_BASE,
+            )
+            null.insert(0, "path_cap", path_cap)
+            null.insert(0, "leg", leg)
+            null.insert(0, "pkn", pkn_name)
+            null_rows.append(null)
     path_table = pd.concat(path_rows, ignore_index=True)
     path_edge_columns = [
-        "pkn", "source", "target", "path_sign", "path_length", "path_index", "edge_index",
+        "pkn", "leg", "path_cap", "source", "target", "path_sign", "path_length", "path_index", "edge_index",
         "edge_source", "edge_sign", "edge_target",
     ]
     path_edge_table = pd.concat(edge_rows, ignore_index=True) if edge_rows else pd.DataFrame(columns=path_edge_columns)
@@ -174,9 +194,10 @@ def _path_figure(pkn_name: str, edges: pd.DataFrame, paths: pd.DataFrame, path_e
         edges["source"].isin(selected_nodes) & edges["target"].isin(selected_nodes)
     ].drop_duplicates(["source", "target"])
     nodes = sorted(selected_nodes)
-    fig, ax = plt.subplots(figsize=(max(10, 1.4 * max(len(nodes), 1)), 7))
+    figure_width = min(max(10, 1.4 * max(len(nodes), 1)), MAX_PATH_FIGURE_WIDTH_INCHES)
+    fig, ax = plt.subplots(figsize=(figure_width, 7))
     if not nodes:
-        ax.text(0.5, 0.5, "No path within the eight-edge cap", ha="center", va="center")
+        ax.text(0.5, 0.5, "No path within the registered path caps", ha="center", va="center")
         ax.set_axis_off()
         save_figure(fig, stem)
         plt.close(fig)
@@ -222,7 +243,7 @@ def _path_figure(pkn_name: str, edges: pd.DataFrame, paths: pd.DataFrame, path_e
         ax.text(*positions[node], node, ha="center", va="center", fontsize=6.5, zorder=3)
     ax.set_title(
         f"{pkn_name}: shortest signed paths, no activity values shown\n"
-        f"path cap 8; highlighted edges are in a shortest positive or negative path",
+        "metabolic leg cap 80; signalling legs cap 8; highlighted edges are shortest paths",
         loc="left",
     )
     ax.legend(
@@ -263,46 +284,10 @@ def _summary_counts(filter_logs: dict[str, pd.DataFrame], mapping: pd.DataFrame,
         rows.append({"section": "tf_coverage", "pkn": pkn_name, "metric": "rows_present", "value": int(group["node_present"].sum())})
         rows.append({"section": "tf_coverage", "pkn": pkn_name, "metric": "rows_total", "value": len(group)})
     if not paths.empty:
-        for pkn_name, group in paths.groupby("pkn"):
-            rows.append({"section": "aim5", "pkn": pkn_name, "metric": "positive_routes_present", "value": int(group["positive_route_present"].sum())})
-            rows.append({"section": "aim5", "pkn": pkn_name, "metric": "pairs", "value": len(group)})
+        for (pkn_name, leg), group in paths.groupby(["pkn", "leg"]):
+            rows.append({"section": "aim5", "pkn": pkn_name, "metric": f"{leg}:positive_routes_present", "value": int(group["positive_route_present"].sum())})
+            rows.append({"section": "aim5", "pkn": pkn_name, "metric": f"{leg}:pairs", "value": len(group)})
     return pd.DataFrame(rows)
-
-
-def _provenance(inputs: list[Path], resource_metadata: dict, counts: pd.DataFrame) -> dict:
-    try:
-        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    except (OSError, subprocess.CalledProcessError):
-        commit = None
-    package_versions = {}
-    for package in ("numpy", "pandas", "scipy", "matplotlib", "omnipath", "networkx"):
-        try:
-            package_versions[package] = version(package)
-        except Exception:
-            package_versions[package] = None
-    return {
-        "stage": "03_pkn",
-        "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "script": "scripts/analysis/04_build_pkn.py",
-        "code_commit": commit,
-        "inputs": {str(path): sha256(path) for path in inputs if path.exists()},
-        "resource_metadata": resource_metadata,
-        "settings": {
-            "omnipath_variants": ["primary", "signor_only", "nc_rule", "unpruned"],
-            "cosmos_variants": ["primary", "unpruned"],
-            "curation_effort_minimum": 2,
-            "expression_pruning": "stage-01 log2cpm symbol index, CPM >= 1 in at least 3 libraries",
-            "aim5_path_cap": 8,
-            "rewiring": "3 x |E| accepted directed double-edge swaps, sign-preserving",
-            "rewiring_seed_base": SEED_BASE,
-            "rewiring_replicates": {"omnipath": 100, "cosmos": 20},
-            "source_genes": list(SOURCE_GENES),
-            "target_tfs": list(TARGET_TFS),
-        },
-        "counts_rows": len(counts),
-        "versions": package_versions,
-        "python": sys.version,
-    }
 
 
 def main() -> int:
@@ -388,18 +373,60 @@ def main() -> int:
     counts = _summary_counts(filter_logs, mapping, tf_coverage, paths)
     counts.to_csv(ANALYSIS / "summary/counts.tsv", sep="\t", index=False)
     provenance_inputs = [hgnc_path, omni_resource_path, recon_path]
-    provenance_inputs.extend(path for path in [INPUTS / "summary/feature_id_coverage.tsv", PREPROCESSED / "rnaseq/log2cpm.tsv"] if path.exists())
-    provenance = _provenance(
+    provenance_inputs.extend(
+        path for path in [
+            PKN_RESOURCES / "cosmos_meta_network.sif",
+            PKN_RESOURCES / "cosmos_metapkn__20200122.txt",
+            METABOLITE_RESOURCES / "metabolomics_workbench_kegg_hmdb.tsv",
+            INPUTS / "metabolomics/ST003328/features.tsv",
+            PREPROCESSED / "metabolomics/ST003331/features.tsv",
+            PREPROCESSED / "metabolomics/ST003332/features.tsv",
+            PREPROCESSED / "rnaseq/log2cpm.tsv",
+            ACTIVITIES / "collectri/regulon_summary.tsv",
+            ACTIVITIES / "collectri_nocomplex/regulon_summary.tsv",
+            ACTIVITIES / "dorothea_ABC/regulon_summary.tsv",
+        ] if path.exists()
+    )
+    code_paths = [
+        ROOT / "src/pkn.py",
+        ROOT / "src/network_plot.py",
+        ROOT / "src/plot_config.py",
+        ROOT / "src/preprocess.py",
+        ROOT / "scripts/analysis/04_build_pkn.py",
+    ]
+    settings = {
+        "omnipath_variants": ["primary", "signor_only", "nc_rule", "unpruned"],
+        "cosmos_variants": ["primary", "unpruned"],
+        "curation_effort_minimum": 2,
+        "expression_pruning": "stage-01 log2cpm symbol index, CPM >= 1 in at least 3 libraries",
+        "cosmos_parser": {
+            "enzyme_gene_tokens": "recognized HGNC suffix tokens",
+            "multi_gene_rule": "retain if any recognized gene is expressed",
+            "pseudo_reaction_rule": "retain nodes without recognized gene tokens",
+            "numeric_metabolite_rule": "preserve numeric model identifiers; do not relabel as HMDB",
+        },
+        "aim5_path_caps": {"hmgcr_to_metabolite": 80, "metabolite_to_tf": 8, "source_tf_to_tf": 8},
+        "rewiring": "3 x |E| accepted directed double-edge swaps, sign-preserving",
+        "rewiring_seed_base": SEED_BASE,
+        "rewiring_replicates": {"omnipath": 100, "cosmos": 20},
+        "source_genes": list(SOURCE_GENES),
+        "target_tfs": list(TARGET_TFS),
+    }
+    provenance = stage_provenance(
+        ROOT,
+        "03_pkn",
         provenance_inputs,
         {"omnipath": omni_metadata, "cosmos": cosmos_metadata, "recon3d": recon_metadata, "workbench": {"row_count": len(workbench), "sha256": sha256(METABOLITE_RESOURCES / "metabolomics_workbench_kegg_hmdb.tsv")}},
-        counts,
+        settings,
+        code_paths,
     )
-    (ANALYSIS / "03_pkn.provenance.json").write_text(json.dumps(provenance, indent=2, default=str))
+    provenance["diagnostics"] = {"counts_rows": len(counts)}
+    write_stage_provenance(ANALYSIS, provenance)
 
     print("Stage 03 PKN build finished")
     print(counts.to_string(index=False))
     print()
-    print(paths[["pkn", "source", "target", "shortest_length", "shortest_signs", "positive_route_present"]].to_string(index=False))
+    print(paths[["pkn", "leg", "path_cap", "source", "target", "shortest_length", "shortest_signs", "positive_route_present"]].to_string(index=False))
     return 0
 
 
