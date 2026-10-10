@@ -1,0 +1,187 @@
+{
+  "stage": "03_pkn",
+  "created_utc": "2026-10-10T10:07:13+00:00",
+  "inputs": {
+    "data/resources/hgnc/hgnc_complete_set_2026-10-06.txt": "8bf6f686e640dbc864a346484626953621b0500d900d26cd085a35c2782d725d",
+    "data/resources/pkn/omnipath_interactions.tsv.gz": "22e0f236236eda7310258125f8c4fea6c4b6d693411f907eb7a85385416120b0",
+    "data/resources/pkn/Recon3D.json": "aba925f17547a42f9fdb4c1f685d89364cbf4979bbe7862e9f793af7169b26d5",
+    "data/resources/pkn/cosmos_meta_network.sif": "77468042abcc35ef8cfc0b1f98f7d43f3c0757bf534791508cf458b549cf29f4",
+    "data/resources/pkn/cosmos_metapkn__20200122.txt": "0ce7028a9184e29dc4bfb9b6dcf70526c78d9a579a20e19ae235300dd3f82eb9",
+    "data/resources/metabolite_ids/metabolomics_workbench_kegg_hmdb.tsv": "c135a95b632e549b07cc46339df1fa44ac1e06f00658b46a361aa5aedbc47b0a",
+    "results/ionescu_corneto/00_inputs/metabolomics/ST003328/features.tsv": "e19342c04e5eed89d1baadc6f20d520b67ebcdfed188f2aa44f187c01e7e470e",
+    "results/ionescu_corneto/01_preprocessing/metabolomics/ST003331/features.tsv": "a1ee6c8f846db534c6175410df46bfd84b3e1483de8572646005ee8340cf5ab4",
+    "results/ionescu_corneto/01_preprocessing/metabolomics/ST003332/features.tsv": "3c42a30159532b9d73ad231d1454463057d0c4939f9b4185776d021ebb5feadf",
+    "results/ionescu_corneto/01_preprocessing/rnaseq/log2cpm.tsv": "54b8970957e927556b5572ccc72fcdbe8381ee6c9cb78372971645d03c41143f",
+    "results/ionescu_corneto/02_activities/collectri/regulon_summary.tsv": "fa1f7c11a526cabf8c698db3267910f10b0b0054dcafdedebb2748672f74b0c7",
+    "results/ionescu_corneto/02_activities/collectri_nocomplex/regulon_summary.tsv": "f36187e8272e50978c7777e646463eb42379a76a66df863fcae1197558195940",
+    "results/ionescu_corneto/02_activities/dorothea_ABC/regulon_summary.tsv": "fb6fd8e3843807e004aa76ce7463ced5940b32b7b8e0bccf17240a74f1e188bc"
+  },
+  "resources": {
+    "omnipath": {
+      "resource": "OmniPath omnipath dataset",
+      "url": "omnipath.interactions.OmniPath.get",
+      "downloaded_utc": "2026-10-09T11:37:35+00:00",
+      "sha256": "22e0f236236eda7310258125f8c4fea6c4b6d693411f907eb7a85385416120b0",
+      "row_count": 72272,
+      "columns": [
+        "source",
+        "target",
+        "source_genesymbol",
+        "target_genesymbol",
+        "is_directed",
+        "is_stimulation",
+        "is_inhibition",
+        "consensus_direction",
+        "consensus_stimulation",
+        "consensus_inhibition",
+        "sources",
+        "references",
+        "curation_effort",
+        "n_sources",
+        "n_primary_sources",
+        "n_references",
+        "references_stripped"
+      ],
+      "omnipath_version": "1.0.12"
+    },
+    "cosmos": {
+      "selected": "networkcommons",
+      "sources_available": [
+        "networkcommons",
+        "omnipath"
+      ],
+      "source_failures": {},
+      "same_after_cleanup": false,
+      "clean_edge_counts": {
+        "networkcommons": 81788,
+        "omnipath": 65138
+      },
+      "resource_metadata": {
+        "networkcommons": {
+          "url": "https://commons.omnipathdb.org/prior_knowledge/meta_network.sif",
+          "downloaded_utc": "2026-10-09T11:37:36+00:00",
+          "sha256": "77468042abcc35ef8cfc0b1f98f7d43f3c0757bf534791508cf458b549cf29f4",
+          "byte_count": 2776094
+        },
+        "omnipath": {
+          "url": "https://metapkn.omnipathdb.org/metapkn__20200122.txt",
+          "downloaded_utc": "2026-10-09T11:37:36+00:00",
+          "sha256": "0ce7028a9184e29dc4bfb9b6dcf70526c78d9a579a20e19ae235300dd3f82eb9",
+          "byte_count": 2864491
+        }
+      }
+    },
+    "recon3d": {
+      "url": "https://bigg.ucsd.edu/static/models/Recon3D.json",
+      "downloaded_utc": "2026-10-09T11:49:34+00:00",
+      "sha256": "aba925f17547a42f9fdb4c1f685d89364cbf4979bbe7862e9f793af7169b26d5",
+      "byte_count": 7839114
+    },
+    "workbench": {
+      "row_count": 214,
+      "sha256": "c135a95b632e549b07cc46339df1fa44ac1e06f00658b46a361aa5aedbc47b0a"
+    }
+  },
+  "parameters": {
+    "omnipath_variants": [
+      "primary",
+      "signor_only",
+      "nc_rule",
+      "unpruned"
+    ],
+    "cosmos_variants": [
+      "primary",
+      "unpruned"
+    ],
+    "curation_effort_minimum": 2,
+    "expression_pruning": "stage-01 log2cpm symbol index, CPM >= 1 in at least 3 libraries",
+    "cosmos_parser": {
+      "enzyme_gene_tokens": "recognized HGNC suffix tokens",
+      "multi_gene_rule": "retain if any recognized gene is expressed",
+      "pseudo_reaction_rule": "retain nodes without recognized gene tokens",
+      "numeric_metabolite_rule": "preserve numeric model identifiers; do not relabel as HMDB"
+    },
+    "aim5_path_caps": {
+      "hmgcr_to_metabolite": 80,
+      "metabolite_to_tf": 8,
+      "source_tf_to_tf": 8
+    },
+    "rewiring": "3 x |E| accepted directed double-edge swaps, sign-preserving",
+    "rewiring_seed_base": 20261009,
+    "rewiring_replicates": {
+      "omnipath": 100,
+      "cosmos": 20
+    },
+    "source_genes": [
+      "HMGCR",
+      "SREBF1",
+      "SREBF2",
+      "SCAP",
+      "INSIG1"
+    ],
+    "target_tfs": [
+      "E2F1",
+      "EGR1",
+      "WT1",
+      "SP1",
+      "JUN",
+      "JUNB"
+    ]
+  },
+  "code": {
+    "src/pkn.py": "46ccbba01cc45f07daacca515227bc39292ae18bd8328b987ca5226ded9b5a4a",
+    "src/network_plot.py": "cd88c55a96f57f41fb3a216ef70639eba4e875bb94607c81ac3cf8552f3a2d8a",
+    "src/plot_config.py": "bb0e5d9f5e4ce36927a4e24053e8318780db26011c34a76341399d6fa93df3a1",
+    "src/preprocess.py": "195a2de1c6cc7e8cfb5d9b8213d9db6e116a6d666045dc999ac0ee3841d8e8f9",
+    "scripts/analysis/04_build_pkn.py": "3a6c43efbf63c47a57849b1aefdf3c9fa89fe688a6567c48bd75564815b1090c"
+  },
+  "git_commit": "c7f371947be3963aff30f7800a845003a9b5746e",
+  "git_dirty": true,
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "decoupler": "2.2.0",
+    "omnipath": "1.0.12"
+  },
+  "python": "3.12.3",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "diagnostics": {
+    "counts_rows": 260
+  },
+  "outputs": {
+    "aim5/null_summary.tsv": "d822e9b738120873617f88427ea35c90e3641de89d2cff6c0877070094c94db6",
+    "aim5/path_edges.tsv": "1ea15157ad41b1f21cc68961752390b53e8fb81144ad9be8f3852f161413cc3b",
+    "aim5/paths.tsv": "112c3a1237cbae15d88bb44b3dc147d50abdeb9b206995d226eb6a08b8d96d37",
+    "cosmos/primary/filter_log.tsv": "0623b82bd265496a2667858b4fca8b88974593162780fd0092666b7332b2a95a",
+    "cosmos/primary/nodes.tsv": "439824611df73eab1efed058bc17b1a992d92ee8da60b75180f8615e05143390",
+    "cosmos/primary/pkn.tsv": "cd7b0471ee7903dc1d551acd2bb088f24a984c3ffd45057531822b71775a389b",
+    "cosmos/variants/unpruned/filter_log.tsv": "b7e9fd91e1199cf59b189da18eeb16781beebd9ab17798b6b3a7af3465a086f7",
+    "cosmos/variants/unpruned/nodes.tsv": "2fdd6fe7787d5a4aa6163e1abaf0bddc6dba8bd5590cdd8daa3a0535c0b60b52",
+    "cosmos/variants/unpruned/pkn.tsv": "d61411b6a484fe57a5555d9a3be40adf98cb3036d81875ee7da34d035572a461",
+    "figures/aim5_paths_cosmos.pdf": "fed0d98a596bab56d175580ed91d18b36113055f389834d76918d1abc2fee885",
+    "figures/aim5_paths_cosmos_manuscript.png": "c2c2efa7797e876ebe973f5473b753e05244936dd7152a888afa7ad43d6b04e6",
+    "figures/aim5_paths_cosmos_presentation.png": "963f8033f19b5c29e8b4265e9f2677bf2321e636ce1faa0e52c0b5dbfe4159c5",
+    "figures/aim5_paths_omnipath.pdf": "59acd4ab13d41d73de777beb4377350f3183b32531223dc738564478beff251b",
+    "figures/aim5_paths_omnipath_manuscript.png": "67e364c91ed87cd95097f973071484104c777aecc054238c1d19473a67a4bda6",
+    "figures/aim5_paths_omnipath_presentation.png": "b4bcaa1677759a3cd31cb59b4680381439e765d4b9da198459c33f883004dbfc",
+    "mapping/lipid_mapping.tsv": "b4d667f6e74994bd63222fa90299acf085a48690994f8653ac4f512bc61463f2",
+    "mapping/metabolite_mapping.tsv": "587a8e29418730402ed31cccb0131fa6abe8ae6b0cd3feb30afc5fc7ddda0c00",
+    "mapping/tf_node_coverage.tsv": "ba45325f2abf244d6273ec5afef690cf5add7b9a279f06015afac84195bbf347",
+    "omnipath/primary/filter_log.tsv": "cfeb5ddff8428a7131ff13eee49c2f4eaae91c31df8e55bb475fa591c60f1e5d",
+    "omnipath/primary/nodes.tsv": "dde2ba79ff15ff6d78db333e29c5fd3f04ce5f86351692af8586c32fed4ba6f1",
+    "omnipath/primary/pkn.tsv": "d41087ad712399e7ccbc21ecf44d42086046ba3ca445336ac212725ab122dc19",
+    "omnipath/variants/nc_rule/filter_log.tsv": "f8a86af5e0adf570c71cb7fb4104a3629ff6cea4c99511b9ae64aca86dfeb1a4",
+    "omnipath/variants/nc_rule/nodes.tsv": "67e7651137706a432fd9f46cf7a6ae9d4434c8e6d673efd814b6549cb6327b91",
+    "omnipath/variants/nc_rule/pkn.tsv": "79001798b5df058e0ace0e39d1cba160d8d7c45deeffbfb5ae52bd84e46f9828",
+    "omnipath/variants/signor_only/filter_log.tsv": "fd5f9739792e8dc643263e2058feac74925175f0ffb2e27804394c9ee0b4c037",
+    "omnipath/variants/signor_only/nodes.tsv": "1d41f6b8b451a7ee7c5f05265dcd8b621fb8217cf70f5d59ab94b9046a0b7427",
+    "omnipath/variants/signor_only/pkn.tsv": "5bbb1b882fc4563aeae674867d94d96b94ab1f99c381478c811337c0c6659f45",
+    "omnipath/variants/unpruned/filter_log.tsv": "4cddc50fe1c2a2505a6a9e4ad39411791ed94d13561382106d42827f867161e9",
+    "omnipath/variants/unpruned/nodes.tsv": "e441c1446b91288d8298b3cac90741245091a57758bfff681d89ff76c1a473cf",
+    "omnipath/variants/unpruned/pkn.tsv": "11660bf80f4b3d371221380613782fc83224513ae9389cbb0aee3425a342ab6a",
+    "summary/cosmos_node_grammar.md": "11698f684abd5948eecebaebf434655c7a09c9c7c5775d792e6f78571dbe3359",
+    "summary/counts.tsv": "b37083ff87f0902ba77c98a88f27d8ecd952929e50204068ab658bf0edae330e"
+  }
+}

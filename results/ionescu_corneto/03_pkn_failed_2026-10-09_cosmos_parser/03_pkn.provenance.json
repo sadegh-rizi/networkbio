@@ -1,0 +1,125 @@
+{
+  "stage": "03_pkn",
+  "created_utc": "2026-10-09T13:44:57+00:00",
+  "script": "scripts/analysis/04_build_pkn.py",
+  "code_commit": "75597e30da9a62716ce3bdd2fcb64525d7a2475d",
+  "inputs": {
+    "/mnt/d/#University/#MS-SystemsBio/Master_Thesis/repos/networkbio/data/resources/hgnc/hgnc_complete_set_2026-10-06.txt": "8bf6f686e640dbc864a346484626953621b0500d900d26cd085a35c2782d725d",
+    "/mnt/d/#University/#MS-SystemsBio/Master_Thesis/repos/networkbio/data/resources/pkn/omnipath_interactions.tsv.gz": "22e0f236236eda7310258125f8c4fea6c4b6d693411f907eb7a85385416120b0",
+    "/mnt/d/#University/#MS-SystemsBio/Master_Thesis/repos/networkbio/data/resources/pkn/Recon3D.json": "aba925f17547a42f9fdb4c1f685d89364cbf4979bbe7862e9f793af7169b26d5",
+    "/mnt/d/#University/#MS-SystemsBio/Master_Thesis/repos/networkbio/results/ionescu_corneto/00_inputs/summary/feature_id_coverage.tsv": "dcfacc88f03618f64eb04f6736a9781275a7c02397036e82900c61e70d00db6a",
+    "/mnt/d/#University/#MS-SystemsBio/Master_Thesis/repos/networkbio/results/ionescu_corneto/01_preprocessing/rnaseq/log2cpm.tsv": "54b8970957e927556b5572ccc72fcdbe8381ee6c9cb78372971645d03c41143f"
+  },
+  "resource_metadata": {
+    "omnipath": {
+      "resource": "OmniPath omnipath dataset",
+      "url": "omnipath.interactions.OmniPath.get",
+      "downloaded_utc": "2026-10-09T11:37:35+00:00",
+      "sha256": "22e0f236236eda7310258125f8c4fea6c4b6d693411f907eb7a85385416120b0",
+      "row_count": 72272,
+      "columns": [
+        "source",
+        "target",
+        "source_genesymbol",
+        "target_genesymbol",
+        "is_directed",
+        "is_stimulation",
+        "is_inhibition",
+        "consensus_direction",
+        "consensus_stimulation",
+        "consensus_inhibition",
+        "sources",
+        "references",
+        "curation_effort",
+        "n_sources",
+        "n_primary_sources",
+        "n_references",
+        "references_stripped"
+      ],
+      "omnipath_version": "1.0.12"
+    },
+    "cosmos": {
+      "selected": "networkcommons",
+      "sources_available": [
+        "networkcommons",
+        "omnipath"
+      ],
+      "source_failures": {},
+      "same_after_cleanup": false,
+      "clean_edge_counts": {
+        "networkcommons": 81788,
+        "omnipath": 65138
+      },
+      "resource_metadata": {
+        "networkcommons": {
+          "url": "https://commons.omnipathdb.org/prior_knowledge/meta_network.sif",
+          "downloaded_utc": "2026-10-09T11:37:36+00:00",
+          "sha256": "77468042abcc35ef8cfc0b1f98f7d43f3c0757bf534791508cf458b549cf29f4",
+          "byte_count": 2776094
+        },
+        "omnipath": {
+          "url": "https://metapkn.omnipathdb.org/metapkn__20200122.txt",
+          "downloaded_utc": "2026-10-09T11:37:36+00:00",
+          "sha256": "0ce7028a9184e29dc4bfb9b6dcf70526c78d9a579a20e19ae235300dd3f82eb9",
+          "byte_count": 2864491
+        }
+      }
+    },
+    "recon3d": {
+      "url": "https://bigg.ucsd.edu/static/models/Recon3D.json",
+      "downloaded_utc": "2026-10-09T11:49:34+00:00",
+      "sha256": "aba925f17547a42f9fdb4c1f685d89364cbf4979bbe7862e9f793af7169b26d5",
+      "byte_count": 7839114
+    },
+    "workbench": {
+      "row_count": 214,
+      "sha256": "c135a95b632e549b07cc46339df1fa44ac1e06f00658b46a361aa5aedbc47b0a"
+    }
+  },
+  "settings": {
+    "omnipath_variants": [
+      "primary",
+      "signor_only",
+      "nc_rule",
+      "unpruned"
+    ],
+    "cosmos_variants": [
+      "primary",
+      "unpruned"
+    ],
+    "curation_effort_minimum": 2,
+    "expression_pruning": "stage-01 log2cpm symbol index, CPM >= 1 in at least 3 libraries",
+    "aim5_path_cap": 8,
+    "rewiring": "3 x |E| accepted directed double-edge swaps, sign-preserving",
+    "rewiring_seed_base": 20261009,
+    "rewiring_replicates": {
+      "omnipath": 100,
+      "cosmos": 20
+    },
+    "source_genes": [
+      "HMGCR",
+      "SREBF1",
+      "SREBF2",
+      "SCAP",
+      "INSIG1"
+    ],
+    "target_tfs": [
+      "E2F1",
+      "EGR1",
+      "WT1",
+      "SP1",
+      "JUN",
+      "JUNB"
+    ]
+  },
+  "counts_rows": 256,
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "omnipath": "1.0.12",
+    "networkx": "3.7"
+  },
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+}

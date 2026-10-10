@@ -1,0 +1,10 @@
+variant	step	description	n_rows	n_edges	n_nodes	n_removed_rows	n_removed_nodes	n_both_sign_rows	n_no_consensus_direction	n_complex_rows	n_self_loop_rows	conflicting_pairs	conflicting_rows	identical_rows_merged	n_approved_symbol_mappings	n_previous_symbol_mappings	n_alias_symbol_mappings	n_ambiguous_symbols	n_unmapped_symbols	pruned
+signor_only	raw	OmniPath response	72272	71789	7154	0	0													
+signor_only	P1_signor	retain rows citing SIGNOR	65253	64847	6179	7019	975													
+signor_only	P2_direction_sign	directed and signed consensus rows	64744	64373	6158	509	21	91.0	418.0											
+signor_only	P3_curation	curation_effort >= 2	9743	9610	4274	55001	1884													
+signor_only	P4_complexes	remove complex identifiers	9550	9419	4193	193	81			193.0										
+signor_only	P4_self_loops	remove self-loops	9550	9419	4193	0	0				0.0									
+signor_only	P4_duplicates	remove sign conflicts and merge identical pairs	9419	9419	4193	131	0					0.0	0.0	131.0						
+signor_only	P5_hgnc	approved, previous and unique alias symbol harmonisation	9419	9419	4193	0	0					0.0	0.0	0.0	18812.0	25.0	0.0	0.0	1.0	
+signor_only	P6_expression	retain genes expressed in stage 01	6832	6832	2921	2587	1272													True

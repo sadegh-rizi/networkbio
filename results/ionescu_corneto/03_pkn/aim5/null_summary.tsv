@@ -1,0 +1,124 @@
+pkn	leg	path_cap	source	target	n_replicates	n_observed_positive	n_rewired_no_longer_than_observed	fraction_no_longer_than_observed	seed_base
+omnipath	source_tf_to_tf	8	HMGCR	E2F1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	HMGCR	EGR1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	HMGCR	WT1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	HMGCR	SP1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	HMGCR	JUN	100	0	0		20261009
+omnipath	source_tf_to_tf	8	HMGCR	JUNB	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF1	E2F1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF1	EGR1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF1	WT1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF1	SP1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF1	JUN	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF1	JUNB	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF2	E2F1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF2	EGR1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF2	WT1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF2	SP1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF2	JUN	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SREBF2	JUNB	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SCAP	E2F1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SCAP	EGR1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SCAP	WT1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SCAP	SP1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SCAP	JUN	100	0	0		20261009
+omnipath	source_tf_to_tf	8	SCAP	JUNB	100	0	0		20261009
+omnipath	source_tf_to_tf	8	INSIG1	E2F1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	INSIG1	EGR1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	INSIG1	WT1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	INSIG1	SP1	100	0	0		20261009
+omnipath	source_tf_to_tf	8	INSIG1	JUN	100	0	0		20261009
+omnipath	source_tf_to_tf	8	INSIG1	JUNB	100	0	0		20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000067_c	20	20	20	1.0	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000067_e	20	20	20	1.0	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000067_g	20	20	19	0.95	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000067_l	20	20	20	1.0	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000067_m	20	20	19	0.95	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000067_r	20	20	20	1.0	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000227_c	20	20	0	0.0	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000227_e	20	20	0	0.0	20261009
+cosmos	hmgcr_to_metabolite	80	HMGCR	Metab__HMDB0000227_x	20	20	0	0.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_c	E2F1	20	20	2	0.1	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_c	EGR1	20	20	5	0.25	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_c	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_c	SP1	20	20	4	0.2	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_c	JUN	20	20	5	0.25	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_c	JUNB	20	20	5	0.25	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_e	E2F1	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_e	EGR1	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_e	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_e	SP1	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_e	JUN	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_e	JUNB	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_g	E2F1	20	20	12	0.6	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_g	EGR1	20	20	14	0.7	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_g	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_g	SP1	20	20	13	0.65	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_g	JUN	20	20	14	0.7	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_g	JUNB	20	20	12	0.6	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_l	E2F1	20	20	10	0.5	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_l	EGR1	20	20	14	0.7	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_l	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_l	SP1	20	20	14	0.7	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_l	JUN	20	20	13	0.65	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_l	JUNB	20	20	13	0.65	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_m	E2F1	20	20	18	0.9	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_m	EGR1	20	20	19	0.95	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_m	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_m	SP1	20	20	18	0.9	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_m	JUN	20	20	19	0.95	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_m	JUNB	20	20	16	0.8	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_r	E2F1	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_r	EGR1	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_r	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_r	SP1	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_r	JUN	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000067_r	JUNB	20	20	20	1.0	20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_c	E2F1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_c	EGR1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_c	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_c	SP1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_c	JUN	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_c	JUNB	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_e	E2F1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_e	EGR1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_e	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_e	SP1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_e	JUN	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_e	JUNB	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_x	E2F1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_x	EGR1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_x	WT1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_x	SP1	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_x	JUN	20	0	0		20261009
+cosmos	metabolite_to_tf	8	Metab__HMDB0000227_x	JUNB	20	0	0		20261009
+cosmos	source_tf_to_tf	8	HMGCR	E2F1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	HMGCR	EGR1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	HMGCR	WT1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	HMGCR	SP1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	HMGCR	JUN	20	0	0		20261009
+cosmos	source_tf_to_tf	8	HMGCR	JUNB	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF1	E2F1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF1	EGR1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF1	WT1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF1	SP1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF1	JUN	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF1	JUNB	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF2	E2F1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF2	EGR1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF2	WT1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF2	SP1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF2	JUN	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SREBF2	JUNB	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SCAP	E2F1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SCAP	EGR1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SCAP	WT1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SCAP	SP1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SCAP	JUN	20	0	0		20261009
+cosmos	source_tf_to_tf	8	SCAP	JUNB	20	0	0		20261009
+cosmos	source_tf_to_tf	8	INSIG1	E2F1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	INSIG1	EGR1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	INSIG1	WT1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	INSIG1	SP1	20	0	0		20261009
+cosmos	source_tf_to_tf	8	INSIG1	JUN	20	0	0		20261009
+cosmos	source_tf_to_tf	8	INSIG1	JUNB	20	0	0		20261009

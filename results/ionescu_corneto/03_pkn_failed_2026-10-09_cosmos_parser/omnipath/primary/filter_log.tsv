@@ -1,0 +1,10 @@
+variant	step	description	n_rows	n_edges	n_nodes	n_removed_rows	n_removed_nodes	n_both_sign_rows	n_no_consensus_direction	n_complex_rows	n_self_loop_rows	conflicting_pairs	conflicting_rows	identical_rows_merged	n_approved_symbol_mappings	n_previous_symbol_mappings	n_alias_symbol_mappings	n_ambiguous_symbols	n_unmapped_symbols	pruned
+primary	raw	OmniPath response	72272	71789	7154	0	0													
+primary	P1_source	all OmniPath resources	72272	71789	7154	0	0													
+primary	P2_direction_sign	directed and signed consensus rows	71116	70674	7134	1156	20	134.0	1022.0											
+primary	P3_curation	curation_effort >= 2	15278	15080	5371	55838	1763													
+primary	P4_complexes	remove complex identifiers	14640	14448	5144	638	227			638.0										
+primary	P4_self_loops	remove self-loops	14640	14448	5144	0	0				0.0									
+primary	P4_duplicates	remove sign conflicts and merge identical pairs	14448	14448	5144	192	0					0.0	0.0	192.0						
+primary	P5_hgnc	approved, previous and unique alias symbol harmonisation	14448	14448	5144	0	0					0.0	0.0	0.0	28852.0	33.0	1.0	0.0	10.0	
+primary	P6_expression	retain genes expressed in stage 01	9870	9870	3443	4578	1701													True

@@ -1,0 +1,1304 @@
+study	feature_id	feature_name	kegg_id	hmdb_id	compartment	pkn_node	mapping_source	labelling_class	mapped_to_pkn
+ST003328	AN005452|Cer(d18:1_16:0)	Cer(d18:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|Cer(d18:1_18:0)	Cer(d18:1_18:0)					unmapped	not_labelled	False
+ST003328	AN005452|Cer(d18:1_24:1)	Cer(d18:1_24:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(14:0_16:1_16:1_18:1)	CL(14:0_16:1_16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:0_16:0_18:1_18:1)	CL(16:0_16:0_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:0_16:1_18:1_18:1)	CL(16:0_16:1_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:0_18:1_18:1_18:1)	CL(16:0_18:1_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:1_16:1_16:1_18:1)	CL(16:1_16:1_16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:1_16:1_18:1_18:1)	CL(16:1_16:1_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:1_16:1_18:1_18:2)	CL(16:1_16:1_18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|CL(16:1_18:1_18:1_18:2)	CL(16:1_18:1_18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|CL(18:1_18:1_18:1_18:1)	CL(18:1_18:1_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|CL(18:1_18:1_18:1_18:2)	CL(18:1_18:1_18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|CL(18:1_18:1_18:2_18:2)	CL(18:1_18:1_18:2_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|FA(14:1)	FA(14:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(15:0)	FA(15:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(15:1)	FA(15:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(16:0)	FA(16:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(16:1)	FA(16:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(16:2)	FA(16:2)					unmapped	not_labelled	False
+ST003328	AN005452|FA(17:0)	FA(17:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(17:1)	FA(17:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(18:0)	FA(18:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(18:1)	FA(18:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(18:2)	FA(18:2)					unmapped	not_labelled	False
+ST003328	AN005452|FA(19:0)	FA(19:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(19:1)	FA(19:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(20:0)	FA(20:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(20:1)	FA(20:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(20:2)	FA(20:2)					unmapped	not_labelled	False
+ST003328	AN005452|FA(20:3)	FA(20:3)					unmapped	not_labelled	False
+ST003328	AN005452|FA(21:0)	FA(21:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(22:0)	FA(22:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(22:1)	FA(22:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(22:2)	FA(22:2)					unmapped	not_labelled	False
+ST003328	AN005452|FA(22:3)	FA(22:3)					unmapped	not_labelled	False
+ST003328	AN005452|FA(22:4)	FA(22:4)					unmapped	not_labelled	False
+ST003328	AN005452|FA(23:0)	FA(23:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(24:0)	FA(24:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(24:1)	FA(24:1)					unmapped	not_labelled	False
+ST003328	AN005452|FA(24:2)	FA(24:2)					unmapped	not_labelled	False
+ST003328	AN005452|FA(24:4)	FA(24:4)					unmapped	not_labelled	False
+ST003328	AN005452|FA(25:0)	FA(25:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(26:0)	FA(26:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(26:4)	FA(26:4)					unmapped	not_labelled	False
+ST003328	AN005452|FA(27:0)	FA(27:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(28:0)	FA(28:0)					unmapped	not_labelled	False
+ST003328	AN005452|FA(30:0)	FA(30:0)					unmapped	not_labelled	False
+ST003328	AN005452|LPC(17:0)	LPC(17:0)					unmapped	not_labelled	False
+ST003328	AN005452|LPC(19:0)	LPC(19:0)					unmapped	not_labelled	False
+ST003328	AN005452|LPC(19:1)	LPC(19:1)					unmapped	not_labelled	False
+ST003328	AN005452|LPE(18:0)	LPE(18:0)					unmapped	not_labelled	False
+ST003328	AN005452|LPE(18:1)	LPE(18:1)					unmapped	not_labelled	False
+ST003328	AN005452|LPE(22:3)	LPE(22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PA(O-18:2_19:2)	PA(O-18:2_19:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(14:0_15:0)	PC(14:0_15:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(14:0_16:0)	PC(14:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(14:0_16:1)	PC(14:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(14:1_16:1)	PC(14:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(15:0_16:0)	PC(15:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_16:0)	PC(16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_17:0)	PC(16:0_17:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_18:1)	PC(16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_19:1)	PC(16:0_19:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_20:1)	PC(16:0_20:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_20:3)	PC(16:0_20:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_22:2)	PC(16:0_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_23:4)	PC(16:0_23:4)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:0_24:5)	PC(16:0_24:5)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:1_16:2)	PC(16:1_16:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:1_17:1)	PC(16:1_17:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:1_18:1)	PC(16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:1_18:3)	PC(16:1_18:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(16:1_19:1)	PC(16:1_19:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(17:0_16:1)	PC(17:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(17:1_14:0)	PC(17:1_14:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_18:1)	PC(18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_19:1)	PC(18:1_19:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_19:2)	PC(18:1_19:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_21:1)	PC(18:1_21:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_21:2)	PC(18:1_21:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_21:4)	PC(18:1_21:4)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_22:2)	PC(18:1_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(18:1_22:3)	PC(18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(19:0_16:0)	PC(19:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(19:1_16:0)	PC(19:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(19:1_22:3)	PC(19:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(19:2_16:1)	PC(19:2_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(21:1_16:0)	PC(21:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(21:2_22:3)	PC(21:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(21:4_16:0)	PC(21:4_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(23:4_18:1)	PC(23:4_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(23:6_16:0)	PC(23:6_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(25:2_16:0)	PC(25:2_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(25:6_16:0)	PC(25:6_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(27:2_16:0)	PC(27:2_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(27:4_16:0)	PC(27:4_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(27:6_16:0)	PC(27:6_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(31:2)	PC(31:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-14:1_16:0)	PC(O-14:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-14:1_20:1)	PC(O-14:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-14:1_22:2)	PC(O-14:1_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-14:1_22:4)	PC(O-14:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-14:1_22:6)	PC(O-14:1_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:1_16:0)	PC(O-16:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:1_22:2)	PC(O-16:1_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:1_22:3)	PC(O-16:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:2_16:0)	PC(O-16:2_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:2_18:1)	PC(O-16:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:2_22:3)	PC(O-16:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:2_22:4)	PC(O-16:2_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-16:2_22:6)	PC(O-16:2_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-17:0_16:0)	PC(O-17:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-17:0_16:1)	PC(O-17:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-19:0_16:1)	PC(O-19:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-19:0_18:1)	PC(O-19:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PC(O-19:1_16:0)	PC(O-19:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(14:0_16:0)	PE(14:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:0_16:0)	PE(16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:0_16:1)	PE(16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:0_18:0)	PE(16:0_18:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:0_20:4)	PE(16:0_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:1_16:1)	PE(16:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:1_18:1)	PE(16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(16:1_18:2)	PE(16:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:0_16:0)	PE(18:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:0_18:1)	PE(18:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:0_20:1)	PE(18:0_20:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:0_22:2)	PE(18:0_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:0_22:3)	PE(18:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_18:1)	PE(18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_18:2)	PE(18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_20:1)	PE(18:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_20:2)	PE(18:1_20:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_20:3)	PE(18:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_20:4)	PE(18:1_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_22:3)	PE(18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_22:4)	PE(18:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(18:1_24:2)	PE(18:1_24:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(20:1_22:3)	PE(20:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(20:2_22:3)	PE(20:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(23:3)	PE(23:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(24:6_18:1)	PE(24:6_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_16:0)	PE(O-16:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_16:1)	PE(O-16:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_20:1)	PE(O-16:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_20:3)	PE(O-16:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_20:4)	PE(O-16:1_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_20:5)	PE(O-16:1_20:5)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_22:2)	PE(O-16:1_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_22:3)	PE(O-16:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_22:4)	PE(O-16:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-16:1_22:6)	PE(O-16:1_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:1_16:0)	PE(O-18:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:1_20:1)	PE(O-18:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:1_22:2)	PE(O-18:1_22:2)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:1_22:3)	PE(O-18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_16:0)	PE(O-18:2_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_18:1)	PE(O-18:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_20:4)	PE(O-18:2_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_22:3)	PE(O-18:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_22:4)	PE(O-18:2_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_22:5)	PE(O-18:2_22:5)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-18:2_22:6)	PE(O-18:2_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-20:2_22:3)	PE(O-20:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-24:6_18:1)	PE(O-24:6_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-24:7_18:1)	PE(O-24:7_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PE(O-26:6_16:0)	PE(O-26:6_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PG(16:0_18:1)	PG(16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PG(16:1_18:1)	PG(16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PG(18:0_18:1)	PG(18:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PG(18:1_18:1)	PG(18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PG(18:1_20:2)	PG(18:1_20:2)					unmapped	not_labelled	False
+ST003328	AN005452|PG(18:1_22:3)	PG(18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PG(18:1_22:6)	PG(18:1_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PG(22:6_22:6)	PG(22:6_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PI(16:0_16:1)	PI(16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PI(16:0_18:1)	PI(16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PI(16:0_20:4)	PI(16:0_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PI(16:1_18:1)	PI(16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:0_20:4)	PI(18:0_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_18:1)	PI(18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_18:2)	PI(18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_20:2)	PI(18:1_20:2)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_20:3)	PI(18:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_20:4)	PI(18:1_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_22:3)	PI(18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PI(18:1_22:4)	PI(18:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PI(20:1_22:3)	PI(20:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PI(20:2_22:3)	PI(20:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PI(20:3_20:3)	PI(20:3_20:3)					unmapped	not_labelled	False
+ST003328	AN005452|PI(20:3_20:4)	PI(20:3_20:4)					unmapped	not_labelled	False
+ST003328	AN005452|PI(20:3_22:3)	PI(20:3_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PI(20:4_18:2)	PI(20:4_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:0_16:0)	PS(16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:0_16:1)	PS(16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:0_18:0)	PS(16:0_18:0)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:0_18:1)	PS(16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:0_22:1)	PS(16:0_22:1)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:0_22:3)	PS(16:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PS(16:1_18:1)	PS(16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:0_18:1)	PS(18:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:0_20:2)	PS(18:0_20:2)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:0_22:3)	PS(18:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:0_22:4)	PS(18:0_22:4)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:0_22:5)	PS(18:0_22:5)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:0_22:6)	PS(18:0_22:6)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:1_18:1)	PS(18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:1_18:2)	PS(18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005452|PS(18:1_24:2)	PS(18:1_24:2)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d33:1)	SM(d33:1)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d35:0)	SM(d35:0)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d35:1)	SM(d35:1)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d35:2)	SM(d35:2)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d37:1)	SM(d37:1)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d43:2)	SM(d43:2)					unmapped	not_labelled	False
+ST003328	AN005452|SM(d43:3)	SM(d43:3)					unmapped	not_labelled	False
+ST003328	AN005453|AcCa(2:0)	AcCa(2:0)					unmapped	not_labelled	False
+ST003328	AN005453|AcCa(21:3)	AcCa(21:3)					unmapped	not_labelled	False
+ST003328	AN005453|AcCa(4:0)	AcCa(4:0)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d16:0_28:1)	Cer(d16:0_28:1)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d18:1_14:0)	Cer(d18:1_14:0)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d18:1_22:0)	Cer(d18:1_22:0)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d18:1_22:1)	Cer(d18:1_22:1)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d18:1_24:0)	Cer(d18:1_24:0)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d18:2_24:1)	Cer(d18:2_24:1)					unmapped	not_labelled	False
+ST003328	AN005453|Cer(d20:1_24:1)	Cer(d20:1_24:1)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(16:1)	ChE(16:1)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(18:1)	ChE(18:1)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(18:2)	ChE(18:2)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(18:3)	ChE(18:3)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(20:1)	ChE(20:1)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(20:3)	ChE(20:3)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(20:4)	ChE(20:4)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(20:5)	ChE(20:5)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(22:1)	ChE(22:1)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(22:3)	ChE(22:3)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(22:4)	ChE(22:4)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(22:5)	ChE(22:5)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(22:6)	ChE(22:6)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(24:1)	ChE(24:1)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(24:2)	ChE(24:2)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(24:3)	ChE(24:3)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(24:4)	ChE(24:4)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(24:6)	ChE(24:6)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(26:2)	ChE(26:2)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(26:3)	ChE(26:3)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(26:4)	ChE(26:4)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(26:5)	ChE(26:5)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(28:4)	ChE(28:4)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(28:5)	ChE(28:5)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(28:6)	ChE(28:6)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(28:7)	ChE(28:7)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(30:4)	ChE(30:4)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(30:5)	ChE(30:5)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(30:6)	ChE(30:6)					unmapped	not_labelled	False
+ST003328	AN005453|ChE(30:8)	ChE(30:8)					unmapped	not_labelled	False
+ST003328	AN005453|cholesterol	cholesterol		HMDB0000067	c	Metab__HMDB0000067_c	lipid_name_hmdb	not_labelled	True
+ST003328	AN005453|cholesterol	cholesterol		HMDB0000067	m	Metab__HMDB0000067_m	lipid_name_hmdb	not_labelled	True
+ST003328	AN005453|CL(68:4)	CL(68:4)					unmapped	not_labelled	False
+ST003328	AN005453|CL(70:4)	CL(70:4)					unmapped	not_labelled	False
+ST003328	AN005453|CL(70:5)	CL(70:5)					unmapped	not_labelled	False
+ST003328	AN005453|CL(72:4)	CL(72:4)					unmapped	not_labelled	False
+ST003328	AN005453|Co(Q10)	Co(Q10)					unmapped	not_labelled	False
+ST003328	AN005453|Co(Q9)	Co(Q9)					unmapped	not_labelled	False
+ST003328	AN005453|DG(14:0_16:0)	DG(14:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_16:0)	DG(16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_16:1)	DG(16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_18:0)	DG(16:0_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_18:1)	DG(16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_20:1)	DG(16:0_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_22:3)	DG(16:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_22:5)	DG(16:0_22:5)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_26:2)	DG(16:0_26:2)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:0_26:4)	DG(16:0_26:4)					unmapped	not_labelled	False
+ST003328	AN005453|DG(16:1_18:1)	DG(16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:0_18:0)	DG(18:0_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:0_20:4)	DG(18:0_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:0_22:3)	DG(18:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_18:1)	DG(18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_18:2)	DG(18:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_20:1)	DG(18:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_22:3)	DG(18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_22:4)	DG(18:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_24:2)	DG(18:1_24:2)					unmapped	not_labelled	False
+ST003328	AN005453|DG(18:1_26:2)	DG(18:1_26:2)					unmapped	not_labelled	False
+ST003328	AN005453|DG(20:2_22:3)	DG(20:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|DG(34:3)	DG(34:3)					unmapped	not_labelled	False
+ST003328	AN005453|DG(O-15:1_20:1)	DG(O-15:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(O-15:1_22:1)	DG(O-15:1_22:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(O-17:1_17:2)	DG(O-17:1_17:2)					unmapped	not_labelled	False
+ST003328	AN005453|DG(O-17:1_22:1)	DG(O-17:1_22:1)					unmapped	not_labelled	False
+ST003328	AN005453|DG(O-6:0_21:5)	DG(O-6:0_21:5)					unmapped	not_labelled	False
+ST003328	AN005453|DG(P-12:1_22:0)	DG(P-12:1_22:0)					unmapped	not_labelled	False
+ST003328	AN005453|Hex1Cer(d18:1_16:0)	Hex1Cer(d18:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|Hex1Cer(d18:1_18:0)	Hex1Cer(d18:1_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|Hex1Cer(d18:1_24:1)	Hex1Cer(d18:1_24:1)					unmapped	not_labelled	False
+ST003328	AN005453|Hex2Cer(d18:1_16:0)	Hex2Cer(d18:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|Hex2Cer(d18:1_18:0)	Hex2Cer(d18:1_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|Hex2Cer(d18:1_24:1)	Hex2Cer(d18:1_24:1)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(16:0)	LPC(16:0)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(16:1)	LPC(16:1)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(18:0)	LPC(18:0)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(18:1)	LPC(18:1)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(20:1)	LPC(20:1)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(26:0)	LPC(26:0)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(28:0)	LPC(28:0)					unmapped	not_labelled	False
+ST003328	AN005453|LPC(30:0)	LPC(30:0)					unmapped	not_labelled	False
+ST003328	AN005453|LPE(20:3)	LPE(20:3)					unmapped	not_labelled	False
+ST003328	AN005453|LPE(20:4)	LPE(20:4)					unmapped	not_labelled	False
+ST003328	AN005453|LPE(22:4)	LPE(22:4)					unmapped	not_labelled	False
+ST003328	AN005453|LPE(24:5)	LPE(24:5)					unmapped	not_labelled	False
+ST003328	AN005453|MG(21:5)	MG(21:5)					unmapped	not_labelled	False
+ST003328	AN005453|MG(O-24:6)	MG(O-24:6)					unmapped	not_labelled	False
+ST003328	AN005453|MG(P-24:6)	MG(P-24:6)					unmapped	not_labelled	False
+ST003328	AN005453|PA(22:5_18:0)	PA(22:5_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-18:2_16:0)	PA(O-18:2_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-18:2_16:1)	PA(O-18:2_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-18:2_20:5)	PA(O-18:2_20:5)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-18:2_22:6)	PA(O-18:2_22:6)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-20:2_16:0)	PA(O-20:2_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-20:2_18:1)	PA(O-20:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PA(O-20:3_16:1)	PA(O-20:3_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PA(P-12:1_16:0)	PA(P-12:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(15:1_16:0)	PC(15:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(17:2_18:0)	PC(17:2_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(17:2_18:1)	PC(17:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(17:3_16:1)	PC(17:3_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(17:3_18:1)	PC(17:3_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(17:3_22:1)	PC(17:3_22:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(19:2_18:1)	PC(19:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(19:4_18:1)	PC(19:4_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(19:4_21:3)	PC(19:4_21:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(26:0)	PC(26:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(28:0)	PC(28:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(28:1)	PC(28:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(29:0)	PC(29:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(30:0)	PC(30:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(30:1)	PC(30:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(30:2)	PC(30:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(30:3)	PC(30:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(31:0)	PC(31:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(31:3)	PC(31:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(32:1)	PC(32:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(32:2)	PC(32:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(32:3)	PC(32:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(33:0)	PC(33:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(33:2)	PC(33:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(34:0)	PC(34:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(34:3)	PC(34:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(35:1)	PC(35:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(35:2)	PC(35:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(36:1)	PC(36:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(36:2)	PC(36:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(36:3)	PC(36:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(36:4)	PC(36:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(36:6)	PC(36:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(37:2)	PC(37:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(37:6)	PC(37:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:1)	PC(38:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:2)	PC(38:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:3)	PC(38:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:4)	PC(38:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:5)	PC(38:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:6)	PC(38:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(38:7)	PC(38:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(39:2)	PC(39:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(39:3)	PC(39:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(39:5)	PC(39:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(39:6)	PC(39:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(39:7)	PC(39:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(40:1)	PC(40:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(40:2)	PC(40:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(40:3)	PC(40:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(40:4)	PC(40:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(40:5)	PC(40:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(40:6)	PC(40:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(41:6)	PC(41:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:1)	PC(42:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:10)	PC(42:10)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:2)	PC(42:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:3)	PC(42:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:4)	PC(42:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:5)	PC(42:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:6)	PC(42:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:7)	PC(42:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:8)	PC(42:8)					unmapped	not_labelled	False
+ST003328	AN005453|PC(42:9)	PC(42:9)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:1)	PC(44:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:2)	PC(44:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:3)	PC(44:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:4)	PC(44:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:5)	PC(44:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:6)	PC(44:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:7)	PC(44:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:8)	PC(44:8)					unmapped	not_labelled	False
+ST003328	AN005453|PC(44:9)	PC(44:9)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:2)	PC(46:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:3)	PC(46:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:5)	PC(46:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:6)	PC(46:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:7)	PC(46:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:8)	PC(46:8)					unmapped	not_labelled	False
+ST003328	AN005453|PC(46:9)	PC(46:9)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:12)	PC(48:12)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:2)	PC(48:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:4)	PC(48:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:5)	PC(48:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:6)	PC(48:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:7)	PC(48:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:8)	PC(48:8)					unmapped	not_labelled	False
+ST003328	AN005453|PC(48:9)	PC(48:9)					unmapped	not_labelled	False
+ST003328	AN005453|PC(50:4)	PC(50:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(50:5)	PC(50:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(50:6)	PC(50:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(50:7)	PC(50:7)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-13:1_20:1)	PC(O-13:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-13:1_20:5)	PC(O-13:1_20:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-13:1_22:6)	PC(O-13:1_22:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:1_16:0)	PC(O-15:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:1_20:1)	PC(O-15:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:1_22:1)	PC(O-15:1_22:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:2_22:2)	PC(O-15:2_22:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:2_22:4)	PC(O-15:2_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:2_22:5)	PC(O-15:2_22:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-15:2_22:6)	PC(O-15:2_22:6)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-17:2_22:3)	PC(O-17:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-17:2_22:4)	PC(O-17:2_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-17:3_22:4)	PC(O-17:3_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-18:2_18:1)	PC(O-18:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-21:4_23:4)	PC(O-21:4_23:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-32:0)	PC(O-32:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-32:1)	PC(O-32:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-32:2)	PC(O-32:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-34:0)	PC(O-34:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-34:1)	PC(O-34:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-34:2)	PC(O-34:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-34:3)	PC(O-34:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-36:1)	PC(O-36:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-36:2)	PC(O-36:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-36:4)	PC(O-36:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-37:8)	PC(O-37:8)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-38:1)	PC(O-38:1)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-38:2)	PC(O-38:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-38:3)	PC(O-38:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-38:4)	PC(O-38:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-38:5)	PC(O-38:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-39:3)	PC(O-39:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-39:4)	PC(O-39:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-39:8)	PC(O-39:8)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-40:2)	PC(O-40:2)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-40:3)	PC(O-40:3)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-40:4)	PC(O-40:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-40:5)	PC(O-40:5)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-41:11)	PC(O-41:11)					unmapped	not_labelled	False
+ST003328	AN005453|PC(O-41:9)	PC(O-41:9)					unmapped	not_labelled	False
+ST003328	AN005453|PC(P-13:1_20:4)	PC(P-13:1_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(P-15:2_20:4)	PC(P-15:2_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|PC(P-21:6_16:0)	PC(P-21:6_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PC(P-23:7_16:0)	PC(P-23:7_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(16:0_22:4)	PE(16:0_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(18:0_20:2)	PE(18:0_20:2)					unmapped	not_labelled	False
+ST003328	AN005453|PE(20:1_18:0)	PE(20:1_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(20:3_16:1)	PE(20:3_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(23:4)	PE(23:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(30:0)	PE(30:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(30:1)	PE(30:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(36:4)	PE(36:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(40:2)	PE(40:2)					unmapped	not_labelled	False
+ST003328	AN005453|PE(42:2)	PE(42:2)					unmapped	not_labelled	False
+ST003328	AN005453|PE(O-16:2_20:3)	PE(O-16:2_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|PE(O-18:2_14:0)	PE(O-18:2_14:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(O-18:2_16:1)	PE(O-18:2_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(O-20:2_22:4)	PE(O-20:2_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-10:0_16:0)	PE(P-10:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_16:0)	PE(P-16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_16:1)	PE(P-16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_18:3)	PE(P-16:0_18:3)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_20:1)	PE(P-16:0_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_20:3)	PE(P-16:0_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_20:4)	PE(P-16:0_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_20:5)	PE(P-16:0_20:5)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_22:2)	PE(P-16:0_22:2)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_22:3)	PE(P-16:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_22:4)	PE(P-16:0_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-16:0_22:6)	PE(P-16:0_22:6)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:0_16:0)	PE(P-18:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:0_20:1)	PE(P-18:0_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:0_22:2)	PE(P-18:0_22:2)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:0_22:3)	PE(P-18:0_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_16:0)	PE(P-18:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_16:1)	PE(P-18:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_18:1)	PE(P-18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_20:4)	PE(P-18:1_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_22:3)	PE(P-18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_22:4)	PE(P-18:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-18:1_22:6)	PE(P-18:1_22:6)					unmapped	not_labelled	False
+ST003328	AN005453|PE(P-20:1_22:3)	PE(P-20:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|PG(16:2_16:1)	PG(16:2_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PG(16:3_18:0)	PG(16:3_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(16:3_18:1)	PG(16:3_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PG(17:3_19:0)	PG(17:3_19:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(18:1_16:0)	PG(18:1_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(22:5_18:0)	PG(22:5_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(22:6_18:0)	PG(22:6_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(22:7_18:0)	PG(22:7_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(24:7_18:0)	PG(24:7_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(24:8_16:1)	PG(24:8_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|PG(32:1)	PG(32:1)					unmapped	not_labelled	False
+ST003328	AN005453|PG(34:2)	PG(34:2)					unmapped	not_labelled	False
+ST003328	AN005453|PG(36:1)	PG(36:1)					unmapped	not_labelled	False
+ST003328	AN005453|PG(36:2)	PG(36:2)					unmapped	not_labelled	False
+ST003328	AN005453|PG(O-16:3_17:0)	PG(O-16:3_17:0)					unmapped	not_labelled	False
+ST003328	AN005453|PG(O-30:1_20:4)	PG(O-30:1_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|PI(18:0_18:0)	PI(18:0_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(18:0_18:1)	PI(18:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:2_18:0)	PI(20:2_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:2_18:1)	PI(20:2_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:3_16:0)	PI(20:3_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:3_18:0)	PI(20:3_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:3_18:1)	PI(20:3_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:4_16:0)	PI(20:4_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:4_18:1)	PI(20:4_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(20:4_20:1)	PI(20:4_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(22:3_18:0)	PI(22:3_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(22:3_18:1)	PI(22:3_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(34:1)	PI(34:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(34:3)	PI(34:3)					unmapped	not_labelled	False
+ST003328	AN005453|PI(38:0)	PI(38:0)					unmapped	not_labelled	False
+ST003328	AN005453|PI(38:1)	PI(38:1)					unmapped	not_labelled	False
+ST003328	AN005453|PI(40:7)	PI(40:7)					unmapped	not_labelled	False
+ST003328	AN005453|PI(40:8)	PI(40:8)					unmapped	not_labelled	False
+ST003328	AN005453|PI(42:4)	PI(42:4)					unmapped	not_labelled	False
+ST003328	AN005453|PI(42:5)	PI(42:5)					unmapped	not_labelled	False
+ST003328	AN005453|PS(20:3_18:0)	PS(20:3_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PS(20:3_18:1)	PS(20:3_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|PS(24:5_18:0)	PS(24:5_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PS(24:6_18:0)	PS(24:6_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PS(26:7_18:0)	PS(26:7_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|PS(30:0)	PS(30:0)					unmapped	not_labelled	False
+ST003328	AN005453|PS(36:3)	PS(36:3)					unmapped	not_labelled	False
+ST003328	AN005453|PS(38:5)	PS(38:5)					unmapped	not_labelled	False
+ST003328	AN005453|PS(38:6)	PS(38:6)					unmapped	not_labelled	False
+ST003328	AN005453|PS(40:3)	PS(40:3)					unmapped	not_labelled	False
+ST003328	AN005453|PS(40:6)	PS(40:6)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d32:0)	SM(d32:0)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d32:1)	SM(d32:1)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d34:0)	SM(d34:0)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d34:1)	SM(d34:1)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d34:2)	SM(d34:2)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d36:1)	SM(d36:1)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d36:2)	SM(d36:2)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d36:4)	SM(d36:4)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d42:2)	SM(d42:2)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d42:3)	SM(d42:3)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d43:5)	SM(d43:5)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d44:2)	SM(d44:2)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d44:3)	SM(d44:3)					unmapped	not_labelled	False
+ST003328	AN005453|SM(d44:5)	SM(d44:5)					unmapped	not_labelled	False
+ST003328	AN005453|SPH(d18:0)	SPH(d18:0)					unmapped	not_labelled	False
+ST003328	AN005453|SPH(d18:1)	SPH(d18:1)					unmapped	not_labelled	False
+ST003328	AN005453|SPH(d20:0)	SPH(d20:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(12:0_12:0_12:0)	TG(12:0_12:0_12:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(12:0_12:0_14:0)	TG(12:0_12:0_14:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(12:0_14:0_14:0)	TG(12:0_14:0_14:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(12:0_14:0_16:0)	TG(12:0_14:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(12:0_16:0_16:1)	TG(12:0_16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(12:0_16:1_18:1)	TG(12:0_16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_14:0_15:0)	TG(14:0_14:0_15:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_14:0_16:0)	TG(14:0_14:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_14:1_16:1)	TG(14:0_14:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_15:0_16:0)	TG(14:0_15:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_16:0_16:1)	TG(14:0_16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_16:0_18:0)	TG(14:0_16:0_18:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_16:0_18:1)	TG(14:0_16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:0_16:1_18:1)	TG(14:0_16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(14:1_16:1_18:1)	TG(14:1_16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(15:0_16:0_16:0)	TG(15:0_16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(15:0_16:0_16:1)	TG(15:0_16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(15:0_16:0_18:1)	TG(15:0_16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_16:0_17:0)	TG(16:0_16:0_17:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_16:1_18:1)	TG(16:0_16:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_16:1_18:2)	TG(16:0_16:1_18:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:0_18:1)	TG(16:0_18:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:0_20:1)	TG(16:0_18:0_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:0_22:1)	TG(16:0_18:0_22:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_18:1)	TG(16:0_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_19:1)	TG(16:0_18:1_19:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_20:1)	TG(16:0_18:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_20:3)	TG(16:0_18:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_22:2)	TG(16:0_18:1_22:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_22:3)	TG(16:0_18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_24:1)	TG(16:0_18:1_24:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_18:1_26:5)	TG(16:0_18:1_26:5)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_20:1_24:2)	TG(16:0_20:1_24:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:0_24:2_22:3)	TG(16:0_24:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_16:1_20:3)	TG(16:1_16:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_18:1_16:2)	TG(16:1_18:1_16:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_18:1_18:1)	TG(16:1_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_18:1_20:3)	TG(16:1_18:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_18:1_22:4)	TG(16:1_18:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_18:2_20:3)	TG(16:1_18:2_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(16:1_3:0_3:0)	TG(16:1_3:0_3:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(17:1_16:0_18:1)	TG(17:1_16:0_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:0_18:1_20:1)	TG(18:0_18:1_20:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_18:1_20:3)	TG(18:1_18:1_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_18:1_22:3)	TG(18:1_18:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_18:1_24:2)	TG(18:1_18:1_24:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_18:1_26:2)	TG(18:1_18:1_26:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_20:1_22:3)	TG(18:1_20:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_20:2_20:3)	TG(18:1_20:2_20:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_20:3_22:3)	TG(18:1_20:3_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_20:3_22:4)	TG(18:1_20:3_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_22:3_22:3)	TG(18:1_22:3_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:1_22:3_24:4)	TG(18:1_22:3_24:4)					unmapped	not_labelled	False
+ST003328	AN005453|TG(18:2_18:1_22:4)	TG(18:2_18:1_22:4)					unmapped	not_labelled	False
+ST003328	AN005453|TG(20:1_16:0_26:2)	TG(20:1_16:0_26:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(20:1_24:2_22:3)	TG(20:1_24:2_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(20:2_20:1_24:2)	TG(20:2_20:1_24:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(20:3_22:3_22:3)	TG(20:3_22:3_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(20:4_20:4_20:4)	TG(20:4_20:4_20:4)					unmapped	not_labelled	False
+ST003328	AN005453|TG(21:1)	TG(21:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(22:2_16:0_26:2)	TG(22:2_16:0_26:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(23:1)	TG(23:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(26:2_21:4_21:4)	TG(26:2_21:4_21:4)					unmapped	not_labelled	False
+ST003328	AN005453|TG(28:0_18:3)	TG(28:0_18:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(30:2_18:1_18:1)	TG(30:2_18:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(31:1_16:1)	TG(31:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(36:2_22:6)	TG(36:2_22:6)					unmapped	not_labelled	False
+ST003328	AN005453|TG(41:0_25:5)	TG(41:0_25:5)					unmapped	not_labelled	False
+ST003328	AN005453|TG(46:5_18:1)	TG(46:5_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(48:7_16:0)	TG(48:7_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(50:3_16:0)	TG(50:3_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-10:0_6:0_22:5)	TG(O-10:0_6:0_22:5)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-13:0_16:0_3:0)	TG(O-13:0_16:0_3:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-16:0_16:0_16:1)	TG(O-16:0_16:0_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-18:1_16:0_16:0)	TG(O-18:1_16:0_16:0)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-18:1_16:0_20:2)	TG(O-18:1_16:0_20:2)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-20:1_16:1_16:1)	TG(O-20:1_16:1_16:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-24:0_16:0_12:1)	TG(O-24:0_16:0_12:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-34:1_22:3)	TG(O-34:1_22:3)					unmapped	not_labelled	False
+ST003328	AN005453|TG(O-6:0_12:1_18:1)	TG(O-6:0_12:1_18:1)					unmapped	not_labelled	False
+ST003328	AN005453|TG(P-10:0_8:0_18:1)	TG(P-10:0_8:0_18:1)					unmapped	not_labelled	False
+ST003331	AN005456|2/3-Phospho-D-glycerate	2/3-Phospho-D-glycerate	C00631	HMDB0000362	c	Metab__HMDB0000362_c	recon3d	m0_confounded	True
+ST003331	AN005456|2/3-Phospho-D-glycerate	2/3-Phospho-D-glycerate	C00631	HMDB0000362	m	Metab__HMDB0000362_m	recon3d	m0_confounded	False
+ST003331	AN005456|2/3-Phospho-D-glycerate	2/3-Phospho-D-glycerate	C00631	HMDB0003391	c	Metab__HMDB0003391_c	recon3d	m0_confounded	False
+ST003331	AN005456|2/3-Phospho-D-glycerate	2/3-Phospho-D-glycerate	C00631	HMDB0003391	m	Metab__HMDB0003391_m	recon3d	m0_confounded	False
+ST003331	AN005456|2/3-Phospho-D-glycerate	2/3-Phospho-D-glycerate	C00631	HMDB0062707	c	Metab__HMDB0062707_c	recon3d	m0_confounded	False
+ST003331	AN005456|2/3-Phospho-D-glycerate	2/3-Phospho-D-glycerate	C00631	HMDB0062707	m	Metab__HMDB0062707_m	recon3d	m0_confounded	False
+ST003331	AN005456|2-Aminomuconate	2-Aminomuconate	C00322	HMDB0000225	c	Metab__HMDB0000225_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|2-Aminomuconate	2-Aminomuconate	C00322	HMDB0000225	m	Metab__HMDB0000225_m	recon3d	m0_unconfounded	True
+ST003331	AN005456|2-Hydroxyglutarate/Citramalate	2-Hydroxyglutarate/Citramalate	C02630	HMDB0000694	c	Metab__HMDB0000694_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|2-Hydroxyglutarate/Citramalate	2-Hydroxyglutarate/Citramalate	C02630	HMDB0000694	m	Metab__HMDB0000694_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|2-Hydroxyglutarate/Citramalate	2-Hydroxyglutarate/Citramalate	C02630	HMDB0059655	c	Metab__HMDB0059655_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|2-Hydroxyglutarate/Citramalate	2-Hydroxyglutarate/Citramalate	C02630	HMDB0059655	m	Metab__HMDB0059655_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|2-Oxoglutaramate	2-Oxoglutaramate	C00940	HMDB0001552	c	Metab__HMDB0001552_c	recon3d	m0_confounded	True
+ST003331	AN005456|2-Oxoglutaramate	2-Oxoglutaramate	C00940	HMDB0001552	m	Metab__HMDB0001552_m	recon3d	m0_confounded	True
+ST003331	AN005456|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0000208	c	Metab__HMDB0000208_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0000208	m	Metab__HMDB0000208_m	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0002812	c	Metab__HMDB0002812_c	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0002812	m	Metab__HMDB0002812_m	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0062781	c	Metab__HMDB0062781_c	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0062781	m	Metab__HMDB0062781_m	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|3',5'-Cyclic AMP	3',5'-Cyclic AMP	C00575	HMDB0000058	c	Metab__HMDB0000058_c	recon3d	m0_confounded	True
+ST003331	AN005456|3',5'-Cyclic AMP	3',5'-Cyclic AMP	C00575	HMDB0000058	m	Metab__HMDB0000058_m	recon3d	m0_confounded	False
+ST003331	AN005456|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0003681	c	Metab__HMDB0003681_c	recon3d	m0_confounded	True
+ST003331	AN005456|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0003681	m	Metab__HMDB0003681_m	recon3d	m0_confounded	False
+ST003331	AN005456|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0006238	c	Metab__HMDB0006238_c	recon3d	m0_confounded	False
+ST003331	AN005456|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0006238	m	Metab__HMDB0006238_m	recon3d	m0_confounded	False
+ST003331	AN005456|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0060265	c	Metab__HMDB0060265_c	recon3d	m0_confounded	False
+ST003331	AN005456|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0060265	m	Metab__HMDB0060265_m	recon3d	m0_confounded	False
+ST003331	AN005456|5-10-Methenyltetrahydrofolate	5-10-Methenyltetrahydrofolate	C00445	HMDB0001354	c	Metab__HMDB0001354_c	recon3d	m0_confounded	False
+ST003331	AN005456|5-10-Methenyltetrahydrofolate	5-10-Methenyltetrahydrofolate	C00445	HMDB0001354	m	Metab__HMDB0001354_m	recon3d	m0_confounded	False
+ST003331	AN005456|5-10-Methenyltetrahydrofolate	5-10-Methenyltetrahydrofolate	C00445	HMDB0062623	c	Metab__HMDB0062623_c	recon3d	m0_confounded	True
+ST003331	AN005456|5-10-Methenyltetrahydrofolate	5-10-Methenyltetrahydrofolate	C00445	HMDB0062623	m	Metab__HMDB0062623_m	recon3d	m0_confounded	True
+ST003331	AN005456|5-6-Dihydrouracil	5-6-Dihydrouracil	C00429	HMDB0000076	c	Metab__HMDB0000076_c	recon3d	m0_confounded	True
+ST003331	AN005456|5-6-Dihydrouracil	5-6-Dihydrouracil	C00429	HMDB0000076	m	Metab__HMDB0000076_m	recon3d	m0_confounded	False
+ST003331	AN005456|5-Oxoproline	5-Oxoproline	C01879	HMDB0000267	c	Metab__HMDB0000267_c	recon3d	m0_confounded	True
+ST003331	AN005456|5-Oxoproline	5-Oxoproline	C01879	HMDB0000267	m	Metab__HMDB0000267_m	recon3d	m0_confounded	False
+ST003331	AN005456|5-Oxoproline	5-Oxoproline	C01879	HMDB0000805	c	Metab__HMDB0000805_c	recon3d	m0_confounded	False
+ST003331	AN005456|5-Oxoproline	5-Oxoproline	C01879	HMDB0000805	m	Metab__HMDB0000805_m	recon3d	m0_confounded	False
+ST003331	AN005456|5-Oxoproline	5-Oxoproline	C01879	HMDB0060262	c	Metab__HMDB0060262_c	recon3d	m0_confounded	False
+ST003331	AN005456|5-Oxoproline	5-Oxoproline	C01879	HMDB0060262	m	Metab__HMDB0060262_m	recon3d	m0_confounded	False
+ST003331	AN005456|(7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid	(7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid	C16513	HMDB0006528	c	Metab__HMDB0006528_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|(7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid	(7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid	C16513	HMDB0006528	m	Metab__HMDB0006528_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|(8Z-11Z-14Z)-Icosatrienoic acid	(8Z-11Z-14Z)-Icosatrienoic acid	C03242	HMDB0002925	c	Metab__HMDB0002925_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|(8Z-11Z-14Z)-Icosatrienoic acid	(8Z-11Z-14Z)-Icosatrienoic acid	C03242	HMDB0002925	m	Metab__HMDB0002925_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0000050	c	Metab__HMDB0000050_c	recon3d	m0_confounded	True
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0000050	m	Metab__HMDB0000050_m	recon3d	m0_confounded	True
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0004401	c	Metab__HMDB0004401_c	recon3d	m0_confounded	False
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0004401	m	Metab__HMDB0004401_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0004402	c	Metab__HMDB0004402_c	recon3d	m0_confounded	False
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0004402	m	Metab__HMDB0004402_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0004421	c	Metab__HMDB0004421_c	recon3d	m0_confounded	False
+ST003331	AN005456|Adenosine	Adenosine	C00212	HMDB0004421	m	Metab__HMDB0004421_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0000536	c	Metab__HMDB0000536_c	recon3d	m0_confounded	True
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0000536	m	Metab__HMDB0000536_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0001332	c	Metab__HMDB0001332_c	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0001332	m	Metab__HMDB0001332_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0011633	c	Metab__HMDB0011633_c	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0011633	m	Metab__HMDB0011633_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0059653	c	Metab__HMDB0059653_c	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylosuccinic acid	Adenylosuccinic acid	C03794	HMDB0059653	m	Metab__HMDB0059653_m	recon3d	m0_confounded	False
+ST003331	AN005456|Adenylyl sulfate	Adenylyl sulfate	C00224	HMDB0001003	c	Metab__HMDB0001003_c	recon3d	m0_confounded	True
+ST003331	AN005456|Adenylyl sulfate	Adenylyl sulfate	C00224	HMDB0001003	m	Metab__HMDB0001003_m	recon3d	m0_confounded	False
+ST003331	AN005456|ADP	ADP	C00008	HMDB0001341	c	Metab__HMDB0001341_c	recon3d	m0_confounded	False
+ST003331	AN005456|ADP	ADP	C00008	HMDB0001341	m	Metab__HMDB0001341_m	recon3d	m0_confounded	False
+ST003331	AN005456|alpha-D-Glucosamine 1-phosphate	alpha-D-Glucosamine 1-phosphate	C06156	HMDB0001109	c	Metab__HMDB0001109_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|alpha-D-Glucosamine 1-phosphate	alpha-D-Glucosamine 1-phosphate	C06156	HMDB0001109	m	Metab__HMDB0001109_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|alpha-D-Ribose 1-phosphate	alpha-D-Ribose 1-phosphate	C00620	HMDB0001489	c	Metab__HMDB0001489_c	recon3d	m0_confounded	True
+ST003331	AN005456|alpha-D-Ribose 1-phosphate	alpha-D-Ribose 1-phosphate	C00620	HMDB0001489	m	Metab__HMDB0001489_m	recon3d	m0_confounded	False
+ST003331	AN005456|Arachidonic acid (Eicosatetraenoic acid)	Arachidonic acid (Eicosatetraenoic acid)	C00219	HMDB0001043	c	Metab__HMDB0001043_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Arachidonic acid (Eicosatetraenoic acid)	Arachidonic acid (Eicosatetraenoic acid)	C00219	HMDB0001043	m	Metab__HMDB0001043_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Argininosuccinate	Argininosuccinate	C03406	HMDB0000052	c	Metab__HMDB0000052_c	recon3d	m0_confounded	True
+ST003331	AN005456|Argininosuccinate	Argininosuccinate	C03406	HMDB0000052	m	Metab__HMDB0000052_m	recon3d	m0_confounded	False
+ST003331	AN005456|Argininosuccinate	Argininosuccinate	C03406	HMDB0001006	c	Metab__HMDB0001006_c	recon3d	m0_confounded	False
+ST003331	AN005456|Argininosuccinate	Argininosuccinate	C03406	HMDB0001006	m	Metab__HMDB0001006_m	recon3d	m0_confounded	False
+ST003331	AN005456|Ascorbate	Ascorbate	C00072	HMDB0000044	c	Metab__HMDB0000044_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|Ascorbate	Ascorbate	C00072	HMDB0000044	m	Metab__HMDB0000044_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|Ascorbate	Ascorbate	C00072	HMDB0014273	c	Metab__HMDB0014273_c	recon3d	m0_unconfounded	False
+ST003331	AN005456|Ascorbate	Ascorbate	C00072	HMDB0014273	m	Metab__HMDB0014273_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|Ascorbate	Ascorbate	C00072	HMDB0029945	c	Metab__HMDB0029945_c	recon3d	m0_unconfounded	False
+ST003331	AN005456|Ascorbate	Ascorbate	C00072	HMDB0029945	m	Metab__HMDB0029945_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|ATP	ATP	C00002	HMDB0000538	c	Metab__HMDB0000538_c	recon3d	m0_confounded	True
+ST003331	AN005456|ATP	ATP	C00002	HMDB0000538	m	Metab__HMDB0000538_m	recon3d	m0_confounded	False
+ST003331	AN005456|Butanoic/Butyric acid	Butanoic/Butyric acid	C00246	HMDB0000039	c	Metab__HMDB0000039_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Butanoic/Butyric acid	Butanoic/Butyric acid	C00246	HMDB0000039	m	Metab__HMDB0000039_m	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|CDP	CDP	C00112	HMDB0001546	c	Metab__HMDB0001546_c	recon3d	m0_confounded	True
+ST003331	AN005456|CDP	CDP	C00112	HMDB0001546	m	Metab__HMDB0001546_m	recon3d	m0_confounded	True
+ST003331	AN005456|cis-Aconitate	cis-Aconitate	C00417	HMDB0000072	c	Metab__HMDB0000072_c	metabolomics_workbench	isotopologue_sum_partial	True
+ST003331	AN005456|cis-Aconitate	cis-Aconitate	C00417	HMDB0000072	m	Metab__HMDB0000072_m	metabolomics_workbench	isotopologue_sum_partial	True
+ST003331	AN005456|Citrate	Citrate	C00158	HMDB0000094	c	Metab__HMDB0000094_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|Citrate	Citrate	C00158	HMDB0000094	m	Metab__HMDB0000094_m	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|CMP	CMP	C00055	HMDB0000095	c	Metab__HMDB0000095_c	recon3d	m0_confounded	True
+ST003331	AN005456|CMP	CMP	C00055	HMDB0000095	m	Metab__HMDB0000095_m	recon3d	m0_confounded	True
+ST003331	AN005456|CMP-N-acetylneuraminate	CMP-N-acetylneuraminate	C00128	HMDB0001040	c	Metab__HMDB0001040_c	recon3d	m0_confounded	False
+ST003331	AN005456|CMP-N-acetylneuraminate	CMP-N-acetylneuraminate	C00128	HMDB0001040	m	Metab__HMDB0001040_m	recon3d	m0_confounded	False
+ST003331	AN005456|CMP-N-acetylneuraminate	CMP-N-acetylneuraminate	C00128	HMDB0001176	c	Metab__HMDB0001176_c	recon3d	m0_confounded	True
+ST003331	AN005456|CMP-N-acetylneuraminate	CMP-N-acetylneuraminate	C00128	HMDB0001176	m	Metab__HMDB0001176_m	recon3d	m0_confounded	False
+ST003331	AN005456|CMP-N-acetylneuraminate	CMP-N-acetylneuraminate	C00128	HMDB0062695	c	Metab__HMDB0062695_c	recon3d	m0_confounded	False
+ST003331	AN005456|CMP-N-acetylneuraminate	CMP-N-acetylneuraminate	C00128	HMDB0062695	m	Metab__HMDB0062695_m	recon3d	m0_confounded	False
+ST003331	AN005456|Cystathionine	Cystathionine	C00542	HMDB0000455	c	Metab__HMDB0000455_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Cystathionine	Cystathionine	C00542	HMDB0000455	m	Metab__HMDB0000455_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|D-4--Phosphopantothenate	D-4--Phosphopantothenate	C03492	HMDB0001016	c	Metab__HMDB0001016_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|D-4--Phosphopantothenate	D-4--Phosphopantothenate	C03492	HMDB0001016	m	Metab__HMDB0001016_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|D-4--Phosphopantothenate	D-4--Phosphopantothenate	C03492	HMDB0062700	c	Metab__HMDB0062700_c	recon3d	m0_unconfounded	False
+ST003331	AN005456|D-4--Phosphopantothenate	D-4--Phosphopantothenate	C03492	HMDB0062700	m	Metab__HMDB0062700_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|D-Arabitol	D-Arabitol	C01904	HMDB0000568	c	Metab__HMDB0000568_c	recon3d	m0_confounded	True
+ST003331	AN005456|D-Arabitol	D-Arabitol	C01904	HMDB0000568	m	Metab__HMDB0000568_m	recon3d	m0_confounded	False
+ST003331	AN005456|Dehydroascorbate	Dehydroascorbate	C05422	HMDB0001264	c	Metab__HMDB0001264_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|Dehydroascorbate	Dehydroascorbate	C05422	HMDB0001264	m	Metab__HMDB0001264_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|Dehydroascorbate	Dehydroascorbate	C05422	HMDB0062706	c	Metab__HMDB0062706_c	recon3d	m0_unconfounded	False
+ST003331	AN005456|Dehydroascorbate	Dehydroascorbate	C05422	HMDB0062706	m	Metab__HMDB0062706_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|D-Fructose 1-6-bisphosphate	D-Fructose 1-6-bisphosphate	C00354				unmapped	m0_confounded	False
+ST003331	AN005456|D-Glucose	D-Glucose	C00031	HMDB0000122	c	Metab__HMDB0000122_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|D-Glucose	D-Glucose	C00031	HMDB0000122	m	Metab__HMDB0000122_m	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|D-Glucose	D-Glucose	C00031	HMDB0006564	c	Metab__HMDB0006564_c	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|D-Glucose	D-Glucose	C00031	HMDB0006564	m	Metab__HMDB0006564_m	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|D-Glucose 6-phosphate	D-Glucose 6-phosphate	C02965	HMDB0246205	c	Metab__HMDB0246205_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|D-Glucose 6-phosphate	D-Glucose 6-phosphate	C02965	HMDB0246205	m	Metab__HMDB0246205_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Dimethylglycine	Dimethylglycine	C01026	HMDB0000092	c	Metab__HMDB0000092_c	recon3d	m0_confounded	True
+ST003331	AN005456|Dimethylglycine	Dimethylglycine	C01026	HMDB0000092	m	Metab__HMDB0000092_m	recon3d	m0_confounded	True
+ST003331	AN005456|Diphosphate	Diphosphate	C00013	HMDB0000250	c	Metab__HMDB0000250_c	recon3d	m0_confounded	True
+ST003331	AN005456|Diphosphate	Diphosphate	C00013	HMDB0000250	m	Metab__HMDB0000250_m	recon3d	m0_confounded	False
+ST003331	AN005456|Docosahexaenoic acid	Docosahexaenoic acid	C06429	HMDB0002183	c	Metab__HMDB0002183_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Docosahexaenoic acid	Docosahexaenoic acid	C06429	HMDB0002183	m	Metab__HMDB0002183_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Dodecanedioic acid	Dodecanedioic acid	C02678	HMDB0000623	c	Metab__HMDB0000623_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Dodecanedioic acid	Dodecanedioic acid	C02678	HMDB0000623	m	Metab__HMDB0000623_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0000224	c	Metab__HMDB0000224_c	recon3d	m0_confounded	True
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0000224	m	Metab__HMDB0000224_m	recon3d	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0012279	c	Metab__HMDB0012279_c	recon3d	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0012279	m	Metab__HMDB0012279_m	recon3d	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0060151	c	Metab__HMDB0060151_c	recon3d	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0060151	m	Metab__HMDB0060151_m	recon3d	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0060152	c	Metab__HMDB0060152_c	recon3d	m0_confounded	False
+ST003331	AN005456|Ethanolamine phosphate	Ethanolamine phosphate	C00346	HMDB0060152	m	Metab__HMDB0060152_m	recon3d	m0_confounded	False
+ST003331	AN005456|Fumarate	Fumarate	C00122	HMDB0000134	c	Metab__HMDB0000134_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|Fumarate	Fumarate	C00122	HMDB0000134	m	Metab__HMDB0000134_m	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|gamma-Glutamyl-Se-methylselenocysteine	gamma-Glutamyl-Se-methylselenocysteine	C05695	HMDB0010716	c	Metab__HMDB0010716_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|gamma-Glutamyl-Se-methylselenocysteine	gamma-Glutamyl-Se-methylselenocysteine	C05695	HMDB0010716	m	Metab__HMDB0010716_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|gamma-L-Glutamyl-D-alanine	gamma-L-Glutamyl-D-alanine	C03738				unmapped	m0_confounded	False
+ST003331	AN005456|GDP	GDP	C00035	HMDB0001201	c	Metab__HMDB0001201_c	recon3d	m0_confounded	True
+ST003331	AN005456|GDP	GDP	C00035	HMDB0001201	m	Metab__HMDB0001201_m	recon3d	m0_confounded	True
+ST003331	AN005456|Glycerol 3-phosphate	Glycerol 3-phosphate	C00093	HMDB0000126	c	Metab__HMDB0000126_c	recon3d	m0_confounded	True
+ST003331	AN005456|Glycerol 3-phosphate	Glycerol 3-phosphate	C00093	HMDB0000126	m	Metab__HMDB0000126_m	recon3d	m0_confounded	True
+ST003331	AN005456|Glycerol 3-phosphate	Glycerol 3-phosphate	C00093	HMDB0002722	c	Metab__HMDB0002722_c	recon3d	m0_confounded	False
+ST003331	AN005456|Glycerol 3-phosphate	Glycerol 3-phosphate	C00093	HMDB0002722	m	Metab__HMDB0002722_m	recon3d	m0_confounded	False
+ST003331	AN005456|GMP	GMP	C00144	HMDB0001397	c	Metab__HMDB0001397_c	recon3d	m0_confounded	True
+ST003331	AN005456|GMP	GMP	C00144	HMDB0001397	m	Metab__HMDB0001397_m	recon3d	m0_confounded	False
+ST003331	AN005456|g-Oxalo-crotonate	g-Oxalo-crotonate	C03453				unmapped	m0_confounded	False
+ST003331	AN005456|Guanidinoacetate	Guanidinoacetate	C00581	HMDB0000128	c	Metab__HMDB0000128_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Guanidinoacetate	Guanidinoacetate	C00581	HMDB0000128	m	Metab__HMDB0000128_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Heptanoic acid	Heptanoic acid	C17714	HMDB0000666	c	Metab__HMDB0000666_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Heptanoic acid	Heptanoic acid	C17714	HMDB0000666	m	Metab__HMDB0000666_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0003229	c	Metab__HMDB0003229_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0003229	m	Metab__HMDB0003229_m	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0012328	c	Metab__HMDB0012328_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0012328	m	Metab__HMDB0012328_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0247596	c	Metab__HMDB0247596_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0247596	m	Metab__HMDB0247596_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hexanoic acid (caproate)	Hexanoic acid (caproate)	C01585	HMDB0000535	c	Metab__HMDB0000535_c	recon3d	m0_confounded	True
+ST003331	AN005456|Hexanoic acid (caproate)	Hexanoic acid (caproate)	C01585	HMDB0000535	m	Metab__HMDB0000535_m	recon3d	m0_confounded	True
+ST003331	AN005456|Hexanoic acid (caproate)	Hexanoic acid (caproate)	C01585	HMDB0061883	c	Metab__HMDB0061883_c	recon3d	m0_confounded	False
+ST003331	AN005456|Hexanoic acid (caproate)	Hexanoic acid (caproate)	C01585	HMDB0061883	m	Metab__HMDB0061883_m	recon3d	m0_confounded	False
+ST003331	AN005456|Hydroxyindole-acetylglycine	Hydroxyindole-acetylglycine	C05832	HMDB0004185	c	Metab__HMDB0004185_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hydroxyindole-acetylglycine	Hydroxyindole-acetylglycine	C05832	HMDB0004185	m	Metab__HMDB0004185_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Hypotaurine	Hypotaurine	C00519	HMDB0000965	c	Metab__HMDB0000965_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005456|Hypotaurine	Hypotaurine	C00519	HMDB0000965	m	Metab__HMDB0000965_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005456|Indole	Indole	C00463	HMDB0000738	c	Metab__HMDB0000738_c	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005456|Indole	Indole	C00463	HMDB0000738	m	Metab__HMDB0000738_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005456|Indolepyruvate	Indolepyruvate	C00331	HMDB0060484	c	Metab__HMDB0060484_c	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005456|Indolepyruvate	Indolepyruvate	C00331	HMDB0060484	m	Metab__HMDB0060484_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005456|Indoxyl	Indoxyl	C05658	HMDB0004094	c	Metab__HMDB0004094_c	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005456|Indoxyl	Indoxyl	C05658	HMDB0004094	m	Metab__HMDB0004094_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005456|Inosine	Inosine	C00294	HMDB0000195	c	Metab__HMDB0000195_c	recon3d	m0_confounded	True
+ST003331	AN005456|Inosine	Inosine	C00294	HMDB0000195	m	Metab__HMDB0000195_m	recon3d	m0_confounded	False
+ST003331	AN005456|Itaconate	Itaconate	C00490	HMDB0002092	c	Metab__HMDB0002092_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|Itaconate	Itaconate	C00490	HMDB0002092	m	Metab__HMDB0002092_m	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|L-alanine	L-alanine	C00041	HMDB0000161	c	Metab__HMDB0000161_c	recon3d	m0_confounded	True
+ST003331	AN005456|L-alanine	L-alanine	C00041	HMDB0000161	m	Metab__HMDB0000161_m	recon3d	m0_confounded	True
+ST003331	AN005456|L-alanine	L-alanine	C00041	HMDB0062251	c	Metab__HMDB0062251_c	recon3d	m0_confounded	False
+ST003331	AN005456|L-alanine	L-alanine	C00041	HMDB0062251	m	Metab__HMDB0062251_m	recon3d	m0_confounded	False
+ST003331	AN005456|L-asparagine	L-asparagine	C00152	HMDB0000168	c	Metab__HMDB0000168_c	recon3d	m0_confounded	True
+ST003331	AN005456|L-asparagine	L-asparagine	C00152	HMDB0000168	m	Metab__HMDB0000168_m	recon3d	m0_confounded	True
+ST003331	AN005456|L-aspartate	L-aspartate	C00049	HMDB0000191	c	Metab__HMDB0000191_c	recon3d	m0_confounded	True
+ST003331	AN005456|L-aspartate	L-aspartate	C00049	HMDB0000191	m	Metab__HMDB0000191_m	recon3d	m0_confounded	True
+ST003331	AN005456|L-aspartate	L-aspartate	C00049	HMDB0062186	c	Metab__HMDB0062186_c	recon3d	m0_confounded	False
+ST003331	AN005456|L-aspartate	L-aspartate	C00049	HMDB0062186	m	Metab__HMDB0062186_m	recon3d	m0_confounded	False
+ST003331	AN005456|L-aspartate	L-aspartate	C00049	HMDB0062501	c	Metab__HMDB0062501_c	recon3d	m0_confounded	False
+ST003331	AN005456|L-aspartate	L-aspartate	C00049	HMDB0062501	m	Metab__HMDB0062501_m	recon3d	m0_confounded	False
+ST003331	AN005456|L-Cysteate	L-Cysteate	C00506				unmapped	m0_confounded	False
+ST003331	AN005456|L-cysteine	L-cysteine	C00097	HMDB0000574	c	Metab__HMDB0000574_c	recon3d	m0_confounded	True
+ST003331	AN005456|L-cysteine	L-cysteine	C00097	HMDB0000574	m	Metab__HMDB0000574_m	recon3d	m0_confounded	True
+ST003331	AN005456|L-glutamate	L-glutamate	C00025	HMDB0000148	c	Metab__HMDB0000148_c	recon3d	m0_confounded	True
+ST003331	AN005456|L-glutamate	L-glutamate	C00025	HMDB0000148	m	Metab__HMDB0000148_m	recon3d	m0_confounded	True
+ST003331	AN005456|L-glutamate	L-glutamate	C00025	HMDB0060475	c	Metab__HMDB0060475_c	recon3d	m0_confounded	False
+ST003331	AN005456|L-glutamate	L-glutamate	C00025	HMDB0060475	m	Metab__HMDB0060475_m	recon3d	m0_confounded	False
+ST003331	AN005456|L-glutamine	L-glutamine	C00064	HMDB0000641	c	Metab__HMDB0000641_c	recon3d	m0_confounded	True
+ST003331	AN005456|L-glutamine	L-glutamine	C00064	HMDB0000641	m	Metab__HMDB0000641_m	recon3d	m0_confounded	True
+ST003331	AN005456|Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	C01595	HMDB0000673	c	Metab__HMDB0000673_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	C01595	HMDB0000673	m	Metab__HMDB0000673_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|L-Selenomethionine	L-Selenomethionine	C05335	HMDB0003966	c	Metab__HMDB0003966_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|L-Selenomethionine	L-Selenomethionine	C05335	HMDB0003966	m	Metab__HMDB0003966_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|L-threonine	L-threonine	C00188	HMDB0000167	c	Metab__HMDB0000167_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|L-threonine	L-threonine	C00188	HMDB0000167	m	Metab__HMDB0000167_m	recon3d	m0_unconfounded	True
+ST003331	AN005456|(S)-Malate	(S)-Malate	C00149	HMDB0000156	c	Metab__HMDB0000156_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|(S)-Malate	(S)-Malate	C00149	HMDB0000156	m	Metab__HMDB0000156_m	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|N-Acetylneuraminate	N-Acetylneuraminate	C00270	HMDB0000230	c	Metab__HMDB0000230_c	recon3d	m0_confounded	True
+ST003331	AN005456|N-Acetylneuraminate	N-Acetylneuraminate	C00270	HMDB0000230	m	Metab__HMDB0000230_m	recon3d	m0_confounded	False
+ST003331	AN005456|N-Acetylneuraminate	N-Acetylneuraminate	C00270	HMDB0000800	c	Metab__HMDB0000800_c	recon3d	m0_confounded	False
+ST003331	AN005456|N-Acetylneuraminate	N-Acetylneuraminate	C00270	HMDB0000800	m	Metab__HMDB0000800_m	recon3d	m0_confounded	False
+ST003331	AN005456|NADPH	NADPH	C00005	HMDB0000221	c	Metab__HMDB0000221_c	recon3d	m0_confounded	False
+ST003331	AN005456|NADPH	NADPH	C00005	HMDB0000221	m	Metab__HMDB0000221_m	recon3d	m0_confounded	False
+ST003331	AN005456|NADPH	NADPH	C00005	HMDB0000799	c	Metab__HMDB0000799_c	recon3d	m0_confounded	False
+ST003331	AN005456|NADPH	NADPH	C00005	HMDB0000799	m	Metab__HMDB0000799_m	recon3d	m0_confounded	False
+ST003331	AN005456|NADPH	NADPH	C00005	HMDB0006341	c	Metab__HMDB0006341_c	recon3d	m0_confounded	False
+ST003331	AN005456|NADPH	NADPH	C00005	HMDB0006341	m	Metab__HMDB0006341_m	recon3d	m0_confounded	False
+ST003331	AN005456|N-formyl kynurenine	N-formyl kynurenine	C02700	HMDB0001200	c	Metab__HMDB0001200_c	recon3d	m0_unconfounded	False
+ST003331	AN005456|N-formyl kynurenine	N-formyl kynurenine	C02700	HMDB0001200	m	Metab__HMDB0001200_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|N-formyl kynurenine	N-formyl kynurenine	C02700	HMDB0060485	c	Metab__HMDB0060485_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|N-formyl kynurenine	N-formyl kynurenine	C02700	HMDB0060485	m	Metab__HMDB0060485_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|Octadecenoic acid (Oleic acid)	Octadecenoic acid (Oleic acid)	C00712	HMDB0000207	c	Metab__HMDB0000207_c	recon3d	m0_confounded	True
+ST003331	AN005456|Octadecenoic acid (Oleic acid)	Octadecenoic acid (Oleic acid)	C00712	HMDB0000207	m	Metab__HMDB0000207_m	recon3d	m0_confounded	False
+ST003331	AN005456|Octadecenoic acid (Oleic acid)	Octadecenoic acid (Oleic acid)	C00712	HMDB0002066	c	Metab__HMDB0002066_c	recon3d	m0_confounded	False
+ST003331	AN005456|Octadecenoic acid (Oleic acid)	Octadecenoic acid (Oleic acid)	C00712	HMDB0002066	m	Metab__HMDB0002066_m	recon3d	m0_confounded	False
+ST003331	AN005456|Octanoic acid (caprylate)	Octanoic acid (caprylate)	C06423	HMDB0000482	c	Metab__HMDB0000482_c	recon3d	m0_confounded	True
+ST003331	AN005456|Octanoic acid (caprylate)	Octanoic acid (caprylate)	C06423	HMDB0000482	m	Metab__HMDB0000482_m	recon3d	m0_confounded	False
+ST003331	AN005456|Octanoic acid (caprylate)	Octanoic acid (caprylate)	C06423	HMDB0062511	c	Metab__HMDB0062511_c	recon3d	m0_confounded	False
+ST003331	AN005456|Octanoic acid (caprylate)	Octanoic acid (caprylate)	C06423	HMDB0062511	m	Metab__HMDB0062511_m	recon3d	m0_confounded	False
+ST003331	AN005456|Pantothenol	Pantothenol	C00864	HMDB0000210	c	Metab__HMDB0000210_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|Pantothenol	Pantothenol	C00864	HMDB0000210	m	Metab__HMDB0000210_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|Pantothenol	Pantothenol	C00864	HMDB0062717	c	Metab__HMDB0062717_c	recon3d	m0_unconfounded	False
+ST003331	AN005456|Pantothenol	Pantothenol	C00864	HMDB0062717	m	Metab__HMDB0062717_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0000973	c	Metab__HMDB0000973_c	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0000973	m	Metab__HMDB0000973_m	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0001429	c	Metab__HMDB0001429_c	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0001429	m	Metab__HMDB0001429_m	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0002105	c	Metab__HMDB0002105_c	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0002105	m	Metab__HMDB0002105_m	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0002142	c	Metab__HMDB0002142_c	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0002142	m	Metab__HMDB0002142_m	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0005947	c	Metab__HMDB0005947_c	recon3d	m0_confounded	False
+ST003331	AN005456|Phosphate	Phosphate	C00009	HMDB0005947	m	Metab__HMDB0005947_m	recon3d	m0_confounded	False
+ST003331	AN005456|phosphomevalonate M-2H	phosphomevalonate M-2H	C01107	HMDB0001343	c	Metab__HMDB0001343_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|phosphomevalonate M-2H	phosphomevalonate M-2H	C01107	HMDB0001343	m	Metab__HMDB0001343_m	recon3d	isotopologue_sum_partial	False
+ST003331	AN005456|Pyruvate	Pyruvate	C00022	HMDB0000243	c	Metab__HMDB0000243_c	recon3d	m0_confounded	True
+ST003331	AN005456|Pyruvate	Pyruvate	C00022	HMDB0000243	m	Metab__HMDB0000243_m	recon3d	m0_confounded	True
+ST003331	AN005456|quinolinic acid	quinolinic acid	C03722	HMDB0000232	c	Metab__HMDB0000232_c	recon3d	m0_unconfounded	True
+ST003331	AN005456|quinolinic acid	quinolinic acid	C03722	HMDB0000232	m	Metab__HMDB0000232_m	recon3d	m0_unconfounded	False
+ST003331	AN005456|(R)-Mevalonate	(R)-Mevalonate	C00418	HMDB0000227	c	Metab__HMDB0000227_c	recon3d	m0_confounded	True
+ST003331	AN005456|(R)-Mevalonate	(R)-Mevalonate	C00418	HMDB0000227	m	Metab__HMDB0000227_m	recon3d	m0_confounded	False
+ST003331	AN005456|(R)-Mevalonate	(R)-Mevalonate	C00418	HMDB0059629	c	Metab__HMDB0059629_c	recon3d	m0_confounded	False
+ST003331	AN005456|(R)-Mevalonate	(R)-Mevalonate	C00418	HMDB0059629	m	Metab__HMDB0059629_m	recon3d	m0_confounded	False
+ST003331	AN005456|Sedoheptulose 1-phosphate	Sedoheptulose 1-phosphate	C06222				unmapped	m0_confounded	False
+ST003331	AN005456|Succinate	Succinate	C00042	HMDB0000254	c	Metab__HMDB0000254_c	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|Succinate	Succinate	C00042	HMDB0000254	m	Metab__HMDB0000254_m	recon3d	isotopologue_sum_partial	True
+ST003331	AN005456|Thymidine	Thymidine	C00214	HMDB0000273	c	Metab__HMDB0000273_c	recon3d	m0_confounded	True
+ST003331	AN005456|Thymidine	Thymidine	C00214	HMDB0000273	m	Metab__HMDB0000273_m	recon3d	m0_confounded	True
+ST003331	AN005456|Thymine	Thymine	C00178	HMDB0000262	c	Metab__HMDB0000262_c	recon3d	m0_confounded	True
+ST003331	AN005456|Thymine	Thymine	C00178	HMDB0000262	m	Metab__HMDB0000262_m	recon3d	m0_confounded	True
+ST003331	AN005456|trans-4-Hydroxy-L-proline	trans-4-Hydroxy-L-proline	C01157	HMDB0000725	c	Metab__HMDB0000725_c	recon3d	m0_confounded	True
+ST003331	AN005456|trans-4-Hydroxy-L-proline	trans-4-Hydroxy-L-proline	C01157	HMDB0000725	m	Metab__HMDB0000725_m	recon3d	m0_confounded	True
+ST003331	AN005456|trans-4-Hydroxy-L-proline	trans-4-Hydroxy-L-proline	C01157	HMDB0036576	c	Metab__HMDB0036576_c	recon3d	m0_confounded	False
+ST003331	AN005456|trans-4-Hydroxy-L-proline	trans-4-Hydroxy-L-proline	C01157	HMDB0036576	m	Metab__HMDB0036576_m	recon3d	m0_confounded	False
+ST003331	AN005456|UDP-glucose	UDP-glucose	C00029	HMDB0060079	c	Metab__HMDB0060079_c	recon3d	m0_confounded	False
+ST003331	AN005456|UDP-glucose	UDP-glucose	C00029	HMDB0060079	m	Metab__HMDB0060079_m	recon3d	m0_confounded	False
+ST003331	AN005456|UDP-N-acetyl-D-glucosamine	UDP-N-acetyl-D-glucosamine	C00043	HMDB0000290	c	Metab__HMDB0000290_c	recon3d	m0_confounded	False
+ST003331	AN005456|UDP-N-acetyl-D-glucosamine	UDP-N-acetyl-D-glucosamine	C00043	HMDB0000290	m	Metab__HMDB0000290_m	recon3d	m0_confounded	False
+ST003331	AN005456|UDP-N-acetyl-D-glucosamine	UDP-N-acetyl-D-glucosamine	C00043	HMDB0062760	c	Metab__HMDB0062760_c	recon3d	m0_confounded	False
+ST003331	AN005456|UDP-N-acetyl-D-glucosamine	UDP-N-acetyl-D-glucosamine	C00043	HMDB0062760	m	Metab__HMDB0062760_m	recon3d	m0_confounded	False
+ST003331	AN005456|UMP	UMP	C00105	HMDB0000288	c	Metab__HMDB0000288_c	recon3d	m0_confounded	True
+ST003331	AN005456|UMP	UMP	C00105	HMDB0000288	m	Metab__HMDB0000288_m	recon3d	m0_confounded	False
+ST003331	AN005456|UTP	UTP	C00075	HMDB0000285	c	Metab__HMDB0000285_c	recon3d	m0_confounded	True
+ST003331	AN005456|UTP	UTP	C00075	HMDB0000285	m	Metab__HMDB0000285_m	recon3d	m0_confounded	False
+ST003331	AN005457|3-Methyleneoxindole	3-Methyleneoxindole	C02796				unmapped	m0_unconfounded	False
+ST003331	AN005457|5-6-Dihydrothymine	5-6-Dihydrothymine	C00906	HMDB0000079	c	Metab__HMDB0000079_c	recon3d	m0_confounded	True
+ST003331	AN005457|5-6-Dihydrothymine	5-6-Dihydrothymine	C00906	HMDB0000079	m	Metab__HMDB0000079_m	recon3d	m0_confounded	True
+ST003331	AN005457|5-Guanidino-2-oxopentanoate	5-Guanidino-2-oxopentanoate	C03771	HMDB0004225	c	Metab__HMDB0004225_c	recon3d	m0_confounded	True
+ST003331	AN005457|5-Guanidino-2-oxopentanoate	5-Guanidino-2-oxopentanoate	C03771	HMDB0004225	m	Metab__HMDB0004225_m	recon3d	m0_confounded	False
+ST003331	AN005457|5-Guanidino-2-oxopentanoate	5-Guanidino-2-oxopentanoate	C03771	HMDB0006815	c	Metab__HMDB0006815_c	recon3d	m0_confounded	False
+ST003331	AN005457|5-Guanidino-2-oxopentanoate	5-Guanidino-2-oxopentanoate	C03771	HMDB0006815	m	Metab__HMDB0006815_m	recon3d	m0_confounded	False
+ST003331	AN005457|5-Hydroxyindoleacetate	5-Hydroxyindoleacetate	C05635	HMDB0000763	c	Metab__HMDB0000763_c	metabolomics_workbench	m0_unconfounded	True
+ST003331	AN005457|5-Hydroxyindoleacetate	5-Hydroxyindoleacetate	C05635	HMDB0000763	m	Metab__HMDB0000763_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|5-Hydroxyindoleacetate	5-Hydroxyindoleacetate	C05635	HMDB0257587	c	Metab__HMDB0257587_c	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|5-Hydroxyindoleacetate	5-Hydroxyindoleacetate	C05635	HMDB0257587	m	Metab__HMDB0257587_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|5-Hydroxyisourate	5-Hydroxyisourate	C11821	HMDB0030097	c	Metab__HMDB0030097_c	recon3d	m0_confounded	True
+ST003331	AN005457|5-Hydroxyisourate	5-Hydroxyisourate	C11821	HMDB0030097	m	Metab__HMDB0030097_m	recon3d	m0_confounded	False
+ST003331	AN005457|(5-L-Glutamyl)-L-glutamine	(5-L-Glutamyl)-L-glutamine	C05283	HMDB0011738	c	Metab__HMDB0011738_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|(5-L-Glutamyl)-L-glutamine	(5-L-Glutamyl)-L-glutamine	C05283	HMDB0011738	m	Metab__HMDB0011738_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0001128	c	Metab__HMDB0001128_c	recon3d	m0_confounded	False
+ST003331	AN005457|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0001128	m	Metab__HMDB0001128_m	recon3d	m0_confounded	False
+ST003331	AN005457|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0002347	c	Metab__HMDB0002347_c	recon3d	m0_confounded	False
+ST003331	AN005457|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0002347	m	Metab__HMDB0002347_m	recon3d	m0_confounded	False
+ST003331	AN005457|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0062576	c	Metab__HMDB0062576_c	recon3d	m0_confounded	True
+ST003331	AN005457|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0062576	m	Metab__HMDB0062576_m	recon3d	m0_confounded	False
+ST003331	AN005457|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000201	c	Metab__HMDB0000201_c	recon3d	m0_confounded	True
+ST003331	AN005457|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000201	m	Metab__HMDB0000201_m	recon3d	m0_confounded	True
+ST003331	AN005457|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000456	c	Metab__HMDB0000456_c	recon3d	m0_confounded	False
+ST003331	AN005457|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000456	m	Metab__HMDB0000456_m	recon3d	m0_confounded	False
+ST003331	AN005457|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000515	c	Metab__HMDB0000515_c	recon3d	m0_confounded	False
+ST003331	AN005457|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000515	m	Metab__HMDB0000515_m	recon3d	m0_confounded	False
+ST003331	AN005457|Acetylcholine	Acetylcholine	C01996	HMDB0000895	c	Metab__HMDB0000895_c	recon3d	m0_confounded	True
+ST003331	AN005457|Acetylcholine	Acetylcholine	C01996	HMDB0000895	m	Metab__HMDB0000895_m	recon3d	m0_confounded	False
+ST003331	AN005457|acyl-C18:2 (Linoleoyl-CoA)	acyl-C18:2 (Linoleoyl-CoA)	HMDB01064				unmapped	m0_confounded	False
+ST003331	AN005457|acyl-C4-DC	acyl-C4-DC	HMDB13133				unmapped	m0_confounded	False
+ST003331	AN005457|acyl-C4-OH	acyl-C4-OH	HMDB13127				unmapped	m0_confounded	False
+ST003331	AN005457|acyl-C5:1	acyl-C5:1	HMDB02366				unmapped	m0_confounded	False
+ST003331	AN005457|acyl-C5-OH	acyl-C5-OH	ac107				unmapped	m0_confounded	False
+ST003331	AN005457|Allantoate	Allantoate	C00499	HMDB0001209	c	Metab__HMDB0001209_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|Allantoate	Allantoate	C00499	HMDB0001209	m	Metab__HMDB0001209_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|AMP	AMP	C00020	HMDB0000045	c	Metab__HMDB0000045_c	recon3d	m0_confounded	True
+ST003331	AN005457|AMP	AMP	C00020	HMDB0000045	m	Metab__HMDB0000045_m	recon3d	m0_confounded	False
+ST003331	AN005457|Anthranilate	Anthranilate	C00108	HMDB0001123	c	Metab__HMDB0001123_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|Anthranilate	Anthranilate	C00108	HMDB0001123	m	Metab__HMDB0001123_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|butanoyl-l-carnitine (acyl-C4)	butanoyl-l-carnitine (acyl-C4)	C02862	HMDB0002013	c	Metab__HMDB0002013_c	recon3d	m0_confounded	True
+ST003331	AN005457|butanoyl-l-carnitine (acyl-C4)	butanoyl-l-carnitine (acyl-C4)	C02862	HMDB0002013	m	Metab__HMDB0002013_m	recon3d	m0_confounded	True
+ST003331	AN005457|butanoyl-l-carnitine (acyl-C4)	butanoyl-l-carnitine (acyl-C4)	C02862	HMDB0062510	c	Metab__HMDB0062510_c	recon3d	m0_confounded	False
+ST003331	AN005457|butanoyl-l-carnitine (acyl-C4)	butanoyl-l-carnitine (acyl-C4)	C02862	HMDB0062510	m	Metab__HMDB0062510_m	recon3d	m0_confounded	False
+ST003331	AN005457|Choline	Choline	C00114	HMDB0000097	c	Metab__HMDB0000097_c	recon3d	m0_confounded	True
+ST003331	AN005457|Choline	Choline	C00114	HMDB0000097	m	Metab__HMDB0000097_m	recon3d	m0_confounded	True
+ST003331	AN005457|Creatine	Creatine	C00300	HMDB0000064	c	Metab__HMDB0000064_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|Creatine	Creatine	C00300	HMDB0000064	m	Metab__HMDB0000064_m	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|Cys-Gly	Cys-Gly	C01419	HMDB0000078	c	Metab__HMDB0000078_c	recon3d	m0_confounded	True
+ST003331	AN005457|Cys-Gly	Cys-Gly	C01419	HMDB0000078	m	Metab__HMDB0000078_m	recon3d	m0_confounded	False
+ST003331	AN005457|Cys-Gly	Cys-Gly	C01419	HMDB0028775	c	Metab__HMDB0028775_c	recon3d	m0_confounded	False
+ST003331	AN005457|Cys-Gly	Cys-Gly	C01419	HMDB0028775	m	Metab__HMDB0028775_m	recon3d	m0_confounded	False
+ST003331	AN005457|Cytosine	Cytosine	C00380	HMDB0000630	c	Metab__HMDB0000630_c	recon3d	m0_confounded	True
+ST003331	AN005457|Cytosine	Cytosine	C00380	HMDB0000630	m	Metab__HMDB0000630_m	recon3d	m0_confounded	False
+ST003331	AN005457|dAMP	dAMP	C00360	HMDB0000905	c	Metab__HMDB0000905_c	recon3d	m0_confounded	True
+ST003331	AN005457|dAMP	dAMP	C00360	HMDB0000905	m	Metab__HMDB0000905_m	recon3d	m0_confounded	False
+ST003331	AN005457|Dihydrofolate	Dihydrofolate	C00415	HMDB0001056	c	Metab__HMDB0001056_c	recon3d	m0_confounded	True
+ST003331	AN005457|Dihydrofolate	Dihydrofolate	C00415	HMDB0001056	m	Metab__HMDB0001056_m	recon3d	m0_confounded	True
+ST003331	AN005457|gamma-Glutamyl-gamma-aminobutyrate	gamma-Glutamyl-gamma-aminobutyrate	C15767	HMDB0012161	c	Metab__HMDB0012161_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|gamma-Glutamyl-gamma-aminobutyrate	gamma-Glutamyl-gamma-aminobutyrate	C15767	HMDB0012161	m	Metab__HMDB0012161_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|gamma-L-Glutamyl-L-cysteine	gamma-L-Glutamyl-L-cysteine	C00669	HMDB0001049	c	Metab__HMDB0001049_c	recon3d	m0_confounded	True
+ST003331	AN005457|gamma-L-Glutamyl-L-cysteine	gamma-L-Glutamyl-L-cysteine	C00669	HMDB0001049	m	Metab__HMDB0001049_m	recon3d	m0_confounded	False
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0000125	c	Metab__HMDB0000125_c	recon3d	m0_confounded	True
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0000125	m	Metab__HMDB0000125_m	recon3d	m0_confounded	True
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0001463	c	Metab__HMDB0001463_c	recon3d	m0_confounded	False
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0001463	m	Metab__HMDB0001463_m	recon3d	m0_confounded	False
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0006960	c	Metab__HMDB0006960_c	recon3d	m0_confounded	False
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0006960	m	Metab__HMDB0006960_m	recon3d	m0_confounded	False
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0062697	c	Metab__HMDB0062697_c	recon3d	m0_confounded	True
+ST003331	AN005457|Glutathione	Glutathione	C00051	HMDB0062697	m	Metab__HMDB0062697_m	recon3d	m0_confounded	False
+ST003331	AN005457|Glutathione disulfide	Glutathione disulfide	C00127	HMDB0003337	c	Metab__HMDB0003337_c	recon3d	m0_confounded	True
+ST003331	AN005457|Glutathione disulfide	Glutathione disulfide	C00127	HMDB0003337	m	Metab__HMDB0003337_m	recon3d	m0_confounded	True
+ST003331	AN005457|Guanine	Guanine	C00242	HMDB0000132	c	Metab__HMDB0000132_c	recon3d	m0_confounded	True
+ST003331	AN005457|Guanine	Guanine	C00242	HMDB0000132	m	Metab__HMDB0000132_m	recon3d	m0_confounded	False
+ST003331	AN005457|Hexadecenoyl-carnitine (acyl-C16:1)	Hexadecenoyl-carnitine (acyl-C16:1)	HMDB06317				unmapped	m0_confounded	False
+ST003331	AN005457|hexanoyl-L-carnitine (acyl-C6)	hexanoyl-L-carnitine (acyl-C6)	HMDB00756				unmapped	m0_confounded	False
+ST003331	AN005457|Hypoxanthine	Hypoxanthine	C00262	HMDB0000157	c	Metab__HMDB0000157_c	recon3d	m0_confounded	True
+ST003331	AN005457|Hypoxanthine	Hypoxanthine	C00262	HMDB0000157	m	Metab__HMDB0000157_m	recon3d	m0_confounded	False
+ST003331	AN005457|IMP	IMP	C00130	HMDB0000175	c	Metab__HMDB0000175_c	recon3d	m0_confounded	True
+ST003331	AN005457|IMP	IMP	C00130	HMDB0000175	m	Metab__HMDB0000175_m	recon3d	m0_confounded	False
+ST003331	AN005457|Indole-3-acetaldehyde	Indole-3-acetaldehyde	C00637	HMDB0001190	c	Metab__HMDB0001190_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|Indole-3-acetaldehyde	Indole-3-acetaldehyde	C00637	HMDB0001190	m	Metab__HMDB0001190_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-Adrenaline	L-Adrenaline	C00788	HMDB0000068	c	Metab__HMDB0000068_c	metabolomics_workbench	m0_unconfounded	True
+ST003331	AN005457|L-Adrenaline	L-Adrenaline	C00788	HMDB0000068	m	Metab__HMDB0000068_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|L-arginine	L-arginine	C00062	HMDB0000517	c	Metab__HMDB0000517_c	recon3d	m0_confounded	True
+ST003331	AN005457|L-arginine	L-arginine	C00062	HMDB0000517	m	Metab__HMDB0000517_m	recon3d	m0_confounded	True
+ST003331	AN005457|L-arginine	L-arginine	C00062	HMDB0062762	c	Metab__HMDB0062762_c	recon3d	m0_confounded	False
+ST003331	AN005457|L-arginine	L-arginine	C00062	HMDB0062762	m	Metab__HMDB0062762_m	recon3d	m0_confounded	False
+ST003331	AN005457|L-Carnitine	L-Carnitine	C00318	HMDB0000062	c	Metab__HMDB0000062_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-Carnitine	L-Carnitine	C00318	HMDB0000062	m	Metab__HMDB0000062_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-Carnitine	L-Carnitine	C00318	HMDB0001467	c	Metab__HMDB0001467_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-Carnitine	L-Carnitine	C00318	HMDB0001467	m	Metab__HMDB0001467_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-Carnitine	L-Carnitine	C00318	HMDB0062496	c	Metab__HMDB0062496_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-Carnitine	L-Carnitine	C00318	HMDB0062496	m	Metab__HMDB0062496_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-histidine	L-histidine	C00135	HMDB0000177	c	Metab__HMDB0000177_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-histidine	L-histidine	C00135	HMDB0000177	m	Metab__HMDB0000177_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-histidine	L-histidine	C00135	HMDB0003412	c	Metab__HMDB0003412_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-histidine	L-histidine	C00135	HMDB0003412	m	Metab__HMDB0003412_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-leucine/isoleucine	L-leucine/isoleucine	C00123	HMDB0000687	c	Metab__HMDB0000687_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-leucine/isoleucine	L-leucine/isoleucine	C00123	HMDB0000687	m	Metab__HMDB0000687_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-leucine/isoleucine	L-leucine/isoleucine	C00123	HMDB0062203	c	Metab__HMDB0062203_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-leucine/isoleucine	L-leucine/isoleucine	C00123	HMDB0062203	m	Metab__HMDB0062203_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-lysine	L-lysine	C00047	HMDB0000182	c	Metab__HMDB0000182_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-lysine	L-lysine	C00047	HMDB0000182	m	Metab__HMDB0000182_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-lysine	L-lysine	C00047	HMDB0003405	c	Metab__HMDB0003405_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-lysine	L-lysine	C00047	HMDB0003405	m	Metab__HMDB0003405_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-lysine	L-lysine	C00047	HMDB0062809	c	Metab__HMDB0062809_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-lysine	L-lysine	C00047	HMDB0062809	m	Metab__HMDB0062809_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-methionine	L-methionine	C00073	HMDB0000696	c	Metab__HMDB0000696_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-methionine	L-methionine	C00073	HMDB0000696	m	Metab__HMDB0000696_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-methionine	L-methionine	C00073	HMDB0033951	c	Metab__HMDB0033951_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-methionine	L-methionine	C00073	HMDB0033951	m	Metab__HMDB0033951_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-Methionine S-oxide	L-Methionine S-oxide	C02989	HMDB0002005	c	Metab__HMDB0002005_c	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|L-Methionine S-oxide	L-Methionine S-oxide	C02989	HMDB0002005	m	Metab__HMDB0002005_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|L-Palmitoylcarnitine (acyl-C16)	L-Palmitoylcarnitine (acyl-C16)	C02990	HMDB0000222	c	Metab__HMDB0000222_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|L-Palmitoylcarnitine (acyl-C16)	L-Palmitoylcarnitine (acyl-C16)	C02990	HMDB0000222	m	Metab__HMDB0000222_m	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|L-phenylalanine	L-phenylalanine	C00079	HMDB0000159	c	Metab__HMDB0000159_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-phenylalanine	L-phenylalanine	C00079	HMDB0000159	m	Metab__HMDB0000159_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-phenylalanine	L-phenylalanine	C00079	HMDB0000612	c	Metab__HMDB0000612_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-phenylalanine	L-phenylalanine	C00079	HMDB0000612	m	Metab__HMDB0000612_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-proline	L-proline	C00148	HMDB0000162	c	Metab__HMDB0000162_c	recon3d	m0_confounded	True
+ST003331	AN005457|L-proline	L-proline	C00148	HMDB0000162	m	Metab__HMDB0000162_m	recon3d	m0_confounded	True
+ST003331	AN005457|L-serine	L-serine	C00065	HMDB0000187	c	Metab__HMDB0000187_c	recon3d	m0_confounded	True
+ST003331	AN005457|L-serine	L-serine	C00065	HMDB0000187	m	Metab__HMDB0000187_m	recon3d	m0_confounded	True
+ST003331	AN005457|L-serine	L-serine	C00065	HMDB0000589	c	Metab__HMDB0000589_c	recon3d	m0_confounded	False
+ST003331	AN005457|L-serine	L-serine	C00065	HMDB0000589	m	Metab__HMDB0000589_m	recon3d	m0_confounded	False
+ST003331	AN005457|L-serine	L-serine	C00065	HMDB0062263	c	Metab__HMDB0062263_c	recon3d	m0_confounded	False
+ST003331	AN005457|L-serine	L-serine	C00065	HMDB0062263	m	Metab__HMDB0062263_m	recon3d	m0_confounded	False
+ST003331	AN005457|L-tryptophan	L-tryptophan	C00078	HMDB0000929	c	Metab__HMDB0000929_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-tryptophan	L-tryptophan	C00078	HMDB0000929	m	Metab__HMDB0000929_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-tryptophan	L-tryptophan	C00078	HMDB0030396	c	Metab__HMDB0030396_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-tryptophan	L-tryptophan	C00078	HMDB0030396	m	Metab__HMDB0030396_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-tyrosine	L-tyrosine	C00082	HMDB0000158	c	Metab__HMDB0000158_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-tyrosine	L-tyrosine	C00082	HMDB0000158	m	Metab__HMDB0000158_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-tyrosine	L-tyrosine	C00082	HMDB0000647	c	Metab__HMDB0000647_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-tyrosine	L-tyrosine	C00082	HMDB0000647	m	Metab__HMDB0000647_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-valine	L-valine	C00183	HMDB0000883	c	Metab__HMDB0000883_c	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-valine	L-valine	C00183	HMDB0000883	m	Metab__HMDB0000883_m	recon3d	m0_unconfounded	True
+ST003331	AN005457|L-valine	L-valine	C00183	HMDB0034366	c	Metab__HMDB0034366_c	recon3d	m0_unconfounded	False
+ST003331	AN005457|L-valine	L-valine	C00183	HMDB0034366	m	Metab__HMDB0034366_m	recon3d	m0_unconfounded	False
+ST003331	AN005457|NAD+	NAD+	C00003	HMDB0000902	c	Metab__HMDB0000902_c	recon3d	m0_confounded	True
+ST003331	AN005457|NAD+	NAD+	C00003	HMDB0000902	m	Metab__HMDB0000902_m	recon3d	m0_confounded	False
+ST003331	AN005457|NADP+	NADP+	C00006	HMDB0000217	c	Metab__HMDB0000217_c	recon3d	m0_confounded	False
+ST003331	AN005457|NADP+	NADP+	C00006	HMDB0000217	m	Metab__HMDB0000217_m	recon3d	m0_confounded	False
+ST003331	AN005457|Octadecanoyl-L-carnitine (acyl-C18)	Octadecanoyl-L-carnitine (acyl-C18)	HMDB00848				unmapped	m0_confounded	False
+ST003331	AN005457|O-dodecanoyl-carnitine (acyl-C12)	O-dodecanoyl-carnitine (acyl-C12)	HMDB02250				unmapped	m0_confounded	False
+ST003331	AN005457|O-octadecenoyl-L-carnitine (acyl-C18:1)	O-octadecenoyl-L-carnitine (acyl-C18:1)	HMDB06351				unmapped	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0000214	c	Metab__HMDB0000214_c	recon3d	m0_confounded	True
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0000214	m	Metab__HMDB0000214_m	recon3d	m0_confounded	True
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0000818	c	Metab__HMDB0000818_c	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0000818	m	Metab__HMDB0000818_m	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0004984	c	Metab__HMDB0004984_c	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0004984	m	Metab__HMDB0004984_m	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0032455	c	Metab__HMDB0032455_c	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0032455	m	Metab__HMDB0032455_m	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0062654	c	Metab__HMDB0062654_c	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0062654	m	Metab__HMDB0062654_m	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0062718	c	Metab__HMDB0062718_c	recon3d	m0_confounded	False
+ST003331	AN005457|Ornithine	Ornithine	C01602	HMDB0062718	m	Metab__HMDB0062718_m	recon3d	m0_confounded	False
+ST003331	AN005457|O-tetradecanoyl-L-carnitine (acyl-C14)	O-tetradecanoyl-L-carnitine (acyl-C14)	HMDB05066				unmapped	m0_confounded	False
+ST003331	AN005457|Phosphocreatine	Phosphocreatine	C02305	HMDB0001511	c	Metab__HMDB0001511_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|Phosphocreatine	Phosphocreatine	C02305	HMDB0001511	m	Metab__HMDB0001511_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|Phosphoserine	Phosphoserine	C02532				unmapped	m0_confounded	False
+ST003331	AN005457|Picolinic acid	Picolinic acid	C10164	HMDB0002243	c	Metab__HMDB0002243_c	metabolomics_workbench	m0_unconfounded	True
+ST003331	AN005457|Picolinic acid	Picolinic acid	C10164	HMDB0002243	m	Metab__HMDB0002243_m	metabolomics_workbench	m0_unconfounded	False
+ST003331	AN005457|propionyl-carnitine (acyl-C3)	propionyl-carnitine (acyl-C3)	C03017	HMDB0000824	c	Metab__HMDB0000824_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|propionyl-carnitine (acyl-C3)	propionyl-carnitine (acyl-C3)	C03017	HMDB0000824	m	Metab__HMDB0000824_m	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|propionyl-carnitine (acyl-C3)	propionyl-carnitine (acyl-C3)	C03017	HMDB0062514	c	Metab__HMDB0062514_c	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|propionyl-carnitine (acyl-C3)	propionyl-carnitine (acyl-C3)	C03017	HMDB0062514	m	Metab__HMDB0062514_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|Putrescine	Putrescine	C00134	HMDB0001414	c	Metab__HMDB0001414_c	recon3d	m0_confounded	True
+ST003331	AN005457|Putrescine	Putrescine	C00134	HMDB0001414	m	Metab__HMDB0001414_m	recon3d	m0_confounded	True
+ST003331	AN005457|Putrescine	Putrescine	C00134	HMDB0060243	c	Metab__HMDB0060243_c	recon3d	m0_confounded	False
+ST003331	AN005457|Putrescine	Putrescine	C00134	HMDB0060243	m	Metab__HMDB0060243_m	recon3d	m0_confounded	False
+ST003331	AN005457|S-Adenosyl-L-homocysteine	S-Adenosyl-L-homocysteine	C00021	HMDB0000939	c	Metab__HMDB0000939_c	recon3d	m0_confounded	True
+ST003331	AN005457|S-Adenosyl-L-homocysteine	S-Adenosyl-L-homocysteine	C00021	HMDB0000939	m	Metab__HMDB0000939_m	recon3d	m0_confounded	True
+ST003331	AN005457|S-Adenosyl-L-methionine	S-Adenosyl-L-methionine	C00019	HMDB0001185	c	Metab__HMDB0001185_c	recon3d	m0_confounded	True
+ST003331	AN005457|S-Adenosyl-L-methionine	S-Adenosyl-L-methionine	C00019	HMDB0001185	m	Metab__HMDB0001185_m	recon3d	m0_confounded	True
+ST003331	AN005457|S-Adenosyl-L-methionine	S-Adenosyl-L-methionine	C00019	HMDB0062709	c	Metab__HMDB0062709_c	recon3d	m0_confounded	False
+ST003331	AN005457|S-Adenosyl-L-methionine	S-Adenosyl-L-methionine	C00019	HMDB0062709	m	Metab__HMDB0062709_m	recon3d	m0_confounded	False
+ST003331	AN005457|(S)(+)-Allantoin	(S)(+)-Allantoin	C02350	HMDB0000462	c	Metab__HMDB0000462_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|(S)(+)-Allantoin	(S)(+)-Allantoin	C02350	HMDB0000462	m	Metab__HMDB0000462_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|Spermidine	Spermidine	C00315	HMDB0001257	c	Metab__HMDB0001257_c	recon3d	m0_confounded	True
+ST003331	AN005457|Spermidine	Spermidine	C00315	HMDB0001257	m	Metab__HMDB0001257_m	recon3d	m0_confounded	False
+ST003331	AN005457|Spermine	Spermine	C00750	HMDB0001256	c	Metab__HMDB0001256_c	recon3d	m0_confounded	True
+ST003331	AN005457|Spermine	Spermine	C00750	HMDB0001256	m	Metab__HMDB0001256_m	recon3d	m0_confounded	False
+ST003331	AN005457|Sphingosine	Sphingosine	C00319	HMDB0000252	c	Metab__HMDB0000252_c	metabolomics_workbench	m0_confounded	True
+ST003331	AN005457|Sphingosine	Sphingosine	C00319	HMDB0000252	m	Metab__HMDB0000252_m	metabolomics_workbench	m0_confounded	False
+ST003331	AN005457|Tetradecenoyl Carnitine (acyl-C14:1)	Tetradecenoyl Carnitine (acyl-C14:1)	HMDB13329				unmapped	m0_confounded	False
+ST003331	AN005457|Xanthine	Xanthine	C00385	HMDB0000292	c	Metab__HMDB0000292_c	recon3d	m0_confounded	True
+ST003331	AN005457|Xanthine	Xanthine	C00385	HMDB0000292	m	Metab__HMDB0000292_m	recon3d	m0_confounded	False
+ST003332	AN005458|10-Formyltetrahydrofolate	10-Formyltetrahydrofolate	C00234	HMDB0000972	e	Metab__HMDB0000972_e	recon3d	m0_confounded	True
+ST003332	AN005458|1-4-beta-D-Xylan	1-4-beta-D-Xylan	C02352				unmapped	m0_confounded	False
+ST003332	AN005458|2-Aminomuconate	2-Aminomuconate	C02220	HMDB0001241	e	Metab__HMDB0001241_e	recon3d	m0_confounded	False
+ST003332	AN005458|2-Aminomuconate	2-Aminomuconate	C02220	HMDB0002018	e	Metab__HMDB0002018_e	recon3d	m0_confounded	False
+ST003332	AN005458|2-Hydroxyglutarate/Citramalate	2-Hydroxyglutarate/Citramalate	C02630	HMDB0000694	e	Metab__HMDB0000694_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|2-Hydroxyglutarate/Citramalate	2-Hydroxyglutarate/Citramalate	C02630	HMDB0059655	e	Metab__HMDB0059655_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0000208	e	Metab__HMDB0000208_e	recon3d	m0_confounded	True
+ST003332	AN005458|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0002812	e	Metab__HMDB0002812_e	recon3d	m0_confounded	False
+ST003332	AN005458|2-Oxoglutarate	2-Oxoglutarate	C00026	HMDB0062781	e	Metab__HMDB0062781_e	recon3d	m0_confounded	False
+ST003332	AN005458|2S-5S-Methionine sulfoximine	2S-5S-Methionine sulfoximine	C03829				unmapped	m0_confounded	False
+ST003332	AN005458|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0003681	e	Metab__HMDB0003681_e	recon3d	m0_confounded	True
+ST003332	AN005458|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0006238	e	Metab__HMDB0006238_e	recon3d	m0_confounded	False
+ST003332	AN005458|4-Acetamidobutanoate	4-Acetamidobutanoate	C02946	HMDB0060265	e	Metab__HMDB0060265_e	recon3d	m0_confounded	False
+ST003332	AN005458|5-6-Dihydrothymine	5-6-Dihydrothymine	C00906	HMDB0000079	e	Metab__HMDB0000079_e	recon3d	m0_confounded	True
+ST003332	AN005458|5-Hydroxyindoleacetate	5-Hydroxyindoleacetate	C05635	HMDB0000763	e	Metab__HMDB0000763_e	metabolomics_workbench	m0_unconfounded	False
+ST003332	AN005458|5-Hydroxyindoleacetate	5-Hydroxyindoleacetate	C05635	HMDB0257587	e	Metab__HMDB0257587_e	metabolomics_workbench	m0_unconfounded	False
+ST003332	AN005458|(5-L-Glutamyl)-L-glutamine	(5-L-Glutamyl)-L-glutamine	C05283	HMDB0011738	e	Metab__HMDB0011738_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|5-Oxoproline	5-Oxoproline	C01879	HMDB0000267	e	Metab__HMDB0000267_e	recon3d	m0_confounded	True
+ST003332	AN005458|5-Oxoproline	5-Oxoproline	C01879	HMDB0000805	e	Metab__HMDB0000805_e	recon3d	m0_confounded	False
+ST003332	AN005458|5-Oxoproline	5-Oxoproline	C01879	HMDB0060262	e	Metab__HMDB0060262_e	recon3d	m0_confounded	False
+ST003332	AN005458|5-Phospho-alpha-D-ribose 1-diphosphate	5-Phospho-alpha-D-ribose 1-diphosphate	C00119	HMDB0000280	e	Metab__HMDB0000280_e	recon3d	m0_confounded	False
+ST003332	AN005458|5-Phospho-alpha-D-ribose 1-diphosphate	5-Phospho-alpha-D-ribose 1-diphosphate	C00119	HMDB0062643	e	Metab__HMDB0062643_e	recon3d	m0_confounded	True
+ST003332	AN005458|a-Linolenic acid (Octadecatrienoic acid)	a-Linolenic acid (Octadecatrienoic acid)	C06427	HMDB0001388	e	Metab__HMDB0001388_e	recon3d	m0_confounded	True
+ST003332	AN005458|alpha-D-Glucosamine 1-phosphate	alpha-D-Glucosamine 1-phosphate	C06156	HMDB0001109	e	Metab__HMDB0001109_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Arachidonic acid (Eicosatetraenoic acid)	Arachidonic acid (Eicosatetraenoic acid)	C00219	HMDB0001043	e	Metab__HMDB0001043_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Bis-gamma-glutamylcystine	Bis-gamma-glutamylcystine	C03646				unmapped	m0_confounded	False
+ST003332	AN005458|Butanoic/Butyric acid	Butanoic/Butyric acid	C00246	HMDB0000039	e	Metab__HMDB0000039_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Citrate	Citrate	C00158	HMDB0000094	e	Metab__HMDB0000094_e	recon3d	m0_confounded	True
+ST003332	AN005458|D-4--Phosphopantothenate	D-4--Phosphopantothenate	C03492	HMDB0001016	e	Metab__HMDB0001016_e	recon3d	m0_unconfounded	False
+ST003332	AN005458|D-4--Phosphopantothenate	D-4--Phosphopantothenate	C03492	HMDB0062700	e	Metab__HMDB0062700_e	recon3d	m0_unconfounded	False
+ST003332	AN005458|D-Arabitol	D-Arabitol	C01904	HMDB0000568	e	Metab__HMDB0000568_e	recon3d	m0_confounded	True
+ST003332	AN005458|dCMP	dCMP	C00239	HMDB0001202	e	Metab__HMDB0001202_e	recon3d	m0_confounded	True
+ST003332	AN005458|Decanoic acid (capric acid)	Decanoic acid (capric acid)	C01571	HMDB0000511	e	Metab__HMDB0000511_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Dehydroascorbate	Dehydroascorbate	C05422	HMDB0001264	e	Metab__HMDB0001264_e	recon3d	m0_unconfounded	True
+ST003332	AN005458|Dehydroascorbate	Dehydroascorbate	C05422	HMDB0062706	e	Metab__HMDB0062706_e	recon3d	m0_unconfounded	False
+ST003332	AN005458|D-Glucose	D-Glucose	C00031	HMDB0000122	e	Metab__HMDB0000122_e	recon3d	m0_confounded	True
+ST003332	AN005458|D-Glucose	D-Glucose	C00031	HMDB0006564	e	Metab__HMDB0006564_e	recon3d	m0_confounded	False
+ST003332	AN005458|D-Glyceraldehyde 3-phosphate/Glycerone phosphate	D-Glyceraldehyde 3-phosphate/Glycerone phosphate	C00118	HMDB0001112	e	Metab__HMDB0001112_e	recon3d	m0_confounded	False
+ST003332	AN005458|Dihomo-gamma-linolenic acid ((8Z-11Z-14Z)-Icosatrienoic acid)	Dihomo-gamma-linolenic acid ((8Z-11Z-14Z)-Icosatrienoic acid)	C03242	HMDB0002925	e	Metab__HMDB0002925_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Dimethylglycine	Dimethylglycine	C01026	HMDB0000092	e	Metab__HMDB0000092_e	recon3d	m0_confounded	True
+ST003332	AN005458|Diphosphate	Diphosphate	C00013	HMDB0000250	e	Metab__HMDB0000250_e	recon3d	m0_confounded	False
+ST003332	AN005458|Docosahexaenoic acid	Docosahexaenoic acid	C06429	HMDB0002183	e	Metab__HMDB0002183_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Docosapentaenoic acid ((7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid)	Docosapentaenoic acid ((7Z-10Z-13Z-16Z-19Z)-Docosa-7-10-13-16-19-pentaenoic acid)	C16513	HMDB0006528	e	Metab__HMDB0006528_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Dodecanoic acid (lauric acid)	Dodecanoic acid (lauric acid)	C02679	HMDB0000638	e	Metab__HMDB0000638_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|D-Ribose	D-Ribose	C00121	HMDB0000283	e	Metab__HMDB0000283_e	recon3d	m0_confounded	True
+ST003332	AN005458|dTMP	dTMP	C00364	HMDB0001227	e	Metab__HMDB0001227_e	recon3d	m0_confounded	True
+ST003332	AN005458|Eicosapentaenoic acid	Eicosapentaenoic acid	C06428	HMDB0001999	e	Metab__HMDB0001999_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Fumarate	Fumarate	C00122	HMDB0000134	e	Metab__HMDB0000134_e	recon3d	m0_confounded	True
+ST003332	AN005458|gamma-Glutamyl-gamma-aminobutyrate	gamma-Glutamyl-gamma-aminobutyrate	C15767	HMDB0012161	e	Metab__HMDB0012161_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|gamma-L-Glutamyl-D-alanine	gamma-L-Glutamyl-D-alanine	C03738				unmapped	m0_confounded	False
+ST003332	AN005458|gamma-L-Glutamyl-L-cysteine	gamma-L-Glutamyl-L-cysteine	C00669	HMDB0001049	e	Metab__HMDB0001049_e	recon3d	m0_confounded	True
+ST003332	AN005458|Glutathione	Glutathione	C00051	HMDB0000125	e	Metab__HMDB0000125_e	recon3d	m0_confounded	True
+ST003332	AN005458|Glutathione	Glutathione	C00051	HMDB0001463	e	Metab__HMDB0001463_e	recon3d	m0_confounded	False
+ST003332	AN005458|Glutathione	Glutathione	C00051	HMDB0006960	e	Metab__HMDB0006960_e	recon3d	m0_confounded	False
+ST003332	AN005458|Glutathione	Glutathione	C00051	HMDB0062697	e	Metab__HMDB0062697_e	recon3d	m0_confounded	False
+ST003332	AN005458|Glycerol 3-phosphate	Glycerol 3-phosphate	C00093	HMDB0000126	e	Metab__HMDB0000126_e	recon3d	m0_confounded	True
+ST003332	AN005458|Glycerol 3-phosphate	Glycerol 3-phosphate	C00093	HMDB0002722	e	Metab__HMDB0002722_e	recon3d	m0_confounded	False
+ST003332	AN005458|Guanidinoacetate	Guanidinoacetate	C00581	HMDB0000128	e	Metab__HMDB0000128_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Guanosine	Guanosine	C00387	HMDB0000133	e	Metab__HMDB0000133_e	recon3d	m0_confounded	True
+ST003332	AN005458|Heptanoic acid	Heptanoic acid	C17714	HMDB0000666	e	Metab__HMDB0000666_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Hexadecanoic acid (palmitic acid)	Hexadecanoic acid (palmitic acid)	C00249	HMDB0000220	e	Metab__HMDB0000220_e	recon3d	m0_confounded	True
+ST003332	AN005458|Hexadecanoic acid (palmitic acid)	Hexadecanoic acid (palmitic acid)	C00249	HMDB0060083	e	Metab__HMDB0060083_e	recon3d	m0_confounded	False
+ST003332	AN005458|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0003229	e	Metab__HMDB0003229_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0012328	e	Metab__HMDB0012328_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Hexadecenoic acid (Palmitoleic acid)	Hexadecenoic acid (Palmitoleic acid)	C08362	HMDB0247596	e	Metab__HMDB0247596_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Hexanoic acid (caproate)	Hexanoic acid (caproate)	C01585	HMDB0000535	e	Metab__HMDB0000535_e	recon3d	m0_confounded	True
+ST003332	AN005458|Hexanoic acid (caproate)	Hexanoic acid (caproate)	C01585	HMDB0061883	e	Metab__HMDB0061883_e	recon3d	m0_confounded	False
+ST003332	AN005458|Hydroxyindole-acetylglycine	Hydroxyindole-acetylglycine	C05832	HMDB0004185	e	Metab__HMDB0004185_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Indolepyruvate	Indolepyruvate	C00331	HMDB0060484	e	Metab__HMDB0060484_e	metabolomics_workbench	m0_unconfounded	False
+ST003332	AN005458|Inosine	Inosine	C00294	HMDB0000195	e	Metab__HMDB0000195_e	recon3d	m0_confounded	True
+ST003332	AN005458|Lactate	Lactate	C01432				unmapped	m0_confounded	False
+ST003332	AN005458|L-cystine	L-cystine	C00491	HMDB0000192	e	Metab__HMDB0000192_e	recon3d	m0_confounded	False
+ST003332	AN005458|Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	Linoleic acid ((9Z,12Z)-Octadecadienoic acid)	C01595	HMDB0000673	e	Metab__HMDB0000673_e	recon3d	m0_unconfounded	True
+ST003332	AN005458|Malate	Malate	C00149	HMDB0000156	e	Metab__HMDB0000156_e	recon3d	m0_confounded	True
+ST003332	AN005458|Mannitol	Mannitol	C00392	HMDB0000765	e	Metab__HMDB0000765_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Mercaptopyruvate	Mercaptopyruvate	C00957	HMDB0001368	e	Metab__HMDB0001368_e	recon3d	m0_confounded	False
+ST003332	AN005458|N-Acetyl-L-citrulline	N-Acetyl-L-citrulline	C15532	HMDB0000856	e	Metab__HMDB0000856_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|N-Acetylneuraminate	N-Acetylneuraminate	C00270	HMDB0000230	e	Metab__HMDB0000230_e	recon3d	m0_confounded	True
+ST003332	AN005458|N-Acetylneuraminate	N-Acetylneuraminate	C00270	HMDB0000800	e	Metab__HMDB0000800_e	recon3d	m0_confounded	False
+ST003332	AN005458|N-Acetylornithine	N-Acetylornithine	C00437	HMDB0003357	e	Metab__HMDB0003357_e	recon3d	m0_confounded	True
+ST003332	AN005458|N-Acetylornithine	N-Acetylornithine	C00437	HMDB0006489	e	Metab__HMDB0006489_e	recon3d	m0_confounded	False
+ST003332	AN005458|N-formyl kynurenine	N-formyl kynurenine	C02700	HMDB0001200	e	Metab__HMDB0001200_e	recon3d	m0_unconfounded	False
+ST003332	AN005458|N-formyl kynurenine	N-formyl kynurenine	C02700	HMDB0060485	e	Metab__HMDB0060485_e	recon3d	m0_unconfounded	False
+ST003332	AN005458|Nonanoic acid (pelargonic acid)	Nonanoic acid (pelargonic acid)	C01601	HMDB0000847	e	Metab__HMDB0000847_e	recon3d	m0_confounded	True
+ST003332	AN005458|N-Succinyl-L-glutamate 5-semialdehyde	N-Succinyl-L-glutamate 5-semialdehyde	C05932	HMDB0001180	e	Metab__HMDB0001180_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Octadecanoic acid (stearic acid)	Octadecanoic acid (stearic acid)	C01530	HMDB0000827	e	Metab__HMDB0000827_e	recon3d	m0_confounded	True
+ST003332	AN005458|Octadecenoic acid (Oleic acid)	Octadecenoic acid (Oleic acid)	C00712	HMDB0000207	e	Metab__HMDB0000207_e	recon3d	m0_confounded	True
+ST003332	AN005458|Octadecenoic acid (Oleic acid)	Octadecenoic acid (Oleic acid)	C00712	HMDB0002066	e	Metab__HMDB0002066_e	recon3d	m0_confounded	False
+ST003332	AN005458|Octanoic acid (caprylic acid)	Octanoic acid (caprylic acid)	C06423	HMDB0000482	e	Metab__HMDB0000482_e	recon3d	m0_confounded	True
+ST003332	AN005458|Octanoic acid (caprylic acid)	Octanoic acid (caprylic acid)	C06423	HMDB0062511	e	Metab__HMDB0062511_e	recon3d	m0_confounded	False
+ST003332	AN005458|Pentanoate (valerate)	Pentanoate (valerate)	C00803	HMDB0000892	e	Metab__HMDB0000892_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Phosphoserine	Phosphoserine	C02532				unmapped	m0_confounded	False
+ST003332	AN005458|Pyridoxal	Pyridoxal	C00250	HMDB0001545	e	Metab__HMDB0001545_e	recon3d	m0_confounded	True
+ST003332	AN005458|Pyruvate	Pyruvate	C00022	HMDB0000243	e	Metab__HMDB0000243_e	recon3d	m0_confounded	True
+ST003332	AN005458|Sedoheptulose 1-phosphate	Sedoheptulose 1-phosphate	C06222				unmapped	m0_confounded	False
+ST003332	AN005458|S-Glutathionyl-L-cysteine	S-Glutathionyl-L-cysteine	C05526	HMDB0000656	e	Metab__HMDB0000656_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Succinate	Succinate	C00042	HMDB0000254	e	Metab__HMDB0000254_e	recon3d	m0_confounded	True
+ST003332	AN005458|Tetradecanoic acid (myristic acid)	Tetradecanoic acid (myristic acid)	C06424	HMDB0000806	e	Metab__HMDB0000806_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005458|Tetradecenoic acid (myristoleic acid)	Tetradecenoic acid (myristoleic acid)	C08322	HMDB0002000	e	Metab__HMDB0002000_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Thiocysteine	Thiocysteine	C01962	HMDB0003585	e	Metab__HMDB0003585_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005458|Thiosulfate	Thiosulfate	C00320	HMDB0000257	e	Metab__HMDB0000257_e	recon3d	m0_confounded	True
+ST003332	AN005458|Thiosulfate	Thiosulfate	C00320	HMDB0060293	e	Metab__HMDB0060293_e	recon3d	m0_confounded	False
+ST003332	AN005458|Thymine	Thymine	C00178	HMDB0000262	e	Metab__HMDB0000262_e	recon3d	m0_confounded	True
+ST003332	AN005458|trans-4-Hydroxy-L-proline	trans-4-Hydroxy-L-proline	C01157	HMDB0000725	e	Metab__HMDB0000725_e	recon3d	m0_confounded	True
+ST003332	AN005458|trans-4-Hydroxy-L-proline	trans-4-Hydroxy-L-proline	C01157	HMDB0036576	e	Metab__HMDB0036576_e	recon3d	m0_confounded	False
+ST003332	AN005458|UDP	UDP	C00015	HMDB0000295	e	Metab__HMDB0000295_e	recon3d	m0_confounded	False
+ST003332	AN005458|Xanthine	Xanthine	C00385	HMDB0000292	e	Metab__HMDB0000292_e	recon3d	m0_confounded	True
+ST003332	AN005459|3-Methyldioxyindole	3-Methyldioxyindole	C05834	HMDB0004186	e	Metab__HMDB0004186_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005459|4-Pyridoxate	4-Pyridoxate	C00847	HMDB0000017	e	Metab__HMDB0000017_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005459|5-Hydroxyisourate	5-Hydroxyisourate	C11821	HMDB0030097	e	Metab__HMDB0030097_e	recon3d	m0_confounded	False
+ST003332	AN005459|5-L-Glutamyl-taurine	5-L-Glutamyl-taurine	C05844	HMDB0004195	e	Metab__HMDB0004195_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005459|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0001128	e	Metab__HMDB0001128_e	recon3d	m0_confounded	False
+ST003332	AN005459|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0002347	e	Metab__HMDB0002347_e	recon3d	m0_confounded	False
+ST003332	AN005459|5-Phosphoribosylamine	5-Phosphoribosylamine	C03090	HMDB0062576	e	Metab__HMDB0062576_e	recon3d	m0_confounded	False
+ST003332	AN005459|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000201	e	Metab__HMDB0000201_e	recon3d	m0_confounded	True
+ST003332	AN005459|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000456	e	Metab__HMDB0000456_e	recon3d	m0_confounded	False
+ST003332	AN005459|acetyl-carnitine (acyl-C2)	acetyl-carnitine (acyl-C2)	C02571	HMDB0000515	e	Metab__HMDB0000515_e	recon3d	m0_confounded	False
+ST003332	AN005459|Acetylcholine	Acetylcholine	C01996	HMDB0000895	e	Metab__HMDB0000895_e	recon3d	m0_confounded	True
+ST003332	AN005459|Allantoate	Allantoate	C00499	HMDB0001209	e	Metab__HMDB0001209_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005459|Ascorbate	Ascorbate	C00072	HMDB0000044	e	Metab__HMDB0000044_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|Ascorbate	Ascorbate	C00072	HMDB0014273	e	Metab__HMDB0014273_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|Ascorbate	Ascorbate	C00072	HMDB0029945	e	Metab__HMDB0029945_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|butanoyl-l-carnitine (acyl-C4)	butanoyl-l-carnitine (acyl-C4)	C02862	HMDB0002013	e	Metab__HMDB0002013_e	recon3d	m0_confounded	True
+ST003332	AN005459|butanoyl-l-carnitine (acyl-C4)	butanoyl-l-carnitine (acyl-C4)	C02862	HMDB0062510	e	Metab__HMDB0062510_e	recon3d	m0_confounded	False
+ST003332	AN005459|Choline	Choline	C00114	HMDB0000097	e	Metab__HMDB0000097_e	recon3d	m0_confounded	True
+ST003332	AN005459|Cytidine	Cytidine	C00475	HMDB0000089	e	Metab__HMDB0000089_e	recon3d	m0_confounded	True
+ST003332	AN005459|dAMP	dAMP	C00360	HMDB0000905	e	Metab__HMDB0000905_e	recon3d	m0_confounded	False
+ST003332	AN005459|D-Glucosamine	D-Glucosamine	C00329	HMDB0001514	e	Metab__HMDB0001514_e	recon3d	m0_confounded	True
+ST003332	AN005459|D-Glucosamine	D-Glucosamine	C00329	HMDB0006479	e	Metab__HMDB0006479_e	recon3d	m0_confounded	False
+ST003332	AN005459|D-Glucosamine	D-Glucosamine	C00329	HMDB0015410	e	Metab__HMDB0015410_e	recon3d	m0_confounded	False
+ST003332	AN005459|D-Glucose 6-phosphate	D-Glucose 6-phosphate	C02965	HMDB0246205	e	Metab__HMDB0246205_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005459|gamma-Glutamyl-Se-methylselenocysteine	gamma-Glutamyl-Se-methylselenocysteine	C05695	HMDB0010716	e	Metab__HMDB0010716_e	metabolomics_workbench	m0_confounded	False
+ST003332	AN005459|g-Oxalo-crotonate	g-Oxalo-crotonate	C03453				unmapped	m0_confounded	False
+ST003332	AN005459|Hypoxanthine	Hypoxanthine	C00262	HMDB0000157	e	Metab__HMDB0000157_e	recon3d	m0_confounded	True
+ST003332	AN005459|Indole	Indole	C00463	HMDB0000738	e	Metab__HMDB0000738_e	metabolomics_workbench	m0_unconfounded	False
+ST003332	AN005459|Indole-3-acetaldehyde	Indole-3-acetaldehyde	C00637	HMDB0001190	e	Metab__HMDB0001190_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|Indole-3-acetate	Indole-3-acetate	C00954	HMDB0000197	e	Metab__HMDB0000197_e	recon3d	m0_confounded	True
+ST003332	AN005459|Indoxyl	Indoxyl	C05658	HMDB0004094	e	Metab__HMDB0004094_e	metabolomics_workbench	m0_unconfounded	False
+ST003332	AN005459|L-alanine	L-alanine	C00041	HMDB0000161	e	Metab__HMDB0000161_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-alanine	L-alanine	C00041	HMDB0062251	e	Metab__HMDB0062251_e	recon3d	m0_confounded	False
+ST003332	AN005459|L-arginine	L-arginine	C00062	HMDB0000517	e	Metab__HMDB0000517_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-arginine	L-arginine	C00062	HMDB0062762	e	Metab__HMDB0062762_e	recon3d	m0_confounded	False
+ST003332	AN005459|L-asparagine	L-asparagine	C00152	HMDB0000168	e	Metab__HMDB0000168_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-Carnitine	L-Carnitine	C00318	HMDB0000062	e	Metab__HMDB0000062_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-Carnitine	L-Carnitine	C00318	HMDB0001467	e	Metab__HMDB0001467_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-Carnitine	L-Carnitine	C00318	HMDB0062496	e	Metab__HMDB0062496_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-glutamate	L-glutamate	C00025	HMDB0000148	e	Metab__HMDB0000148_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-glutamate	L-glutamate	C00025	HMDB0060475	e	Metab__HMDB0060475_e	recon3d	m0_confounded	False
+ST003332	AN005459|L-glutamine	L-glutamine	C00064	HMDB0000641	e	Metab__HMDB0000641_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-histidine	L-histidine	C00135	HMDB0000177	e	Metab__HMDB0000177_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-histidine	L-histidine	C00135	HMDB0003412	e	Metab__HMDB0003412_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-leucine	L-leucine	C00123	HMDB0000687	e	Metab__HMDB0000687_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-leucine	L-leucine	C00123	HMDB0062203	e	Metab__HMDB0062203_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-lysine	L-lysine	C00047	HMDB0000182	e	Metab__HMDB0000182_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-lysine	L-lysine	C00047	HMDB0003405	e	Metab__HMDB0003405_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-lysine	L-lysine	C00047	HMDB0062809	e	Metab__HMDB0062809_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-methionine	L-methionine	C00073	HMDB0000696	e	Metab__HMDB0000696_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-methionine	L-methionine	C00073	HMDB0033951	e	Metab__HMDB0033951_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-Methionine S-oxide	L-Methionine S-oxide	C02989	HMDB0002005	e	Metab__HMDB0002005_e	metabolomics_workbench	m0_unconfounded	False
+ST003332	AN005459|L-octanoylcarnitine (acyl-C8)	L-octanoylcarnitine (acyl-C8)	C02838	HMDB0000791	e	Metab__HMDB0000791_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005459|L-proline	L-proline	C00148	HMDB0000162	e	Metab__HMDB0000162_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-serine	L-serine	C00065	HMDB0000187	e	Metab__HMDB0000187_e	recon3d	m0_confounded	True
+ST003332	AN005459|L-serine	L-serine	C00065	HMDB0000589	e	Metab__HMDB0000589_e	recon3d	m0_confounded	False
+ST003332	AN005459|L-serine	L-serine	C00065	HMDB0062263	e	Metab__HMDB0062263_e	recon3d	m0_confounded	False
+ST003332	AN005459|L-threonine	L-threonine	C00188	HMDB0000167	e	Metab__HMDB0000167_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-tryptophan	L-tryptophan	C00078	HMDB0000929	e	Metab__HMDB0000929_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-tryptophan	L-tryptophan	C00078	HMDB0030396	e	Metab__HMDB0030396_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-tyrosine	L-tyrosine	C00082	HMDB0000158	e	Metab__HMDB0000158_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-tyrosine	L-tyrosine	C00082	HMDB0000647	e	Metab__HMDB0000647_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|L-valine	L-valine	C00183	HMDB0000883	e	Metab__HMDB0000883_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|L-valine	L-valine	C00183	HMDB0034366	e	Metab__HMDB0034366_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|Nicotinamide	Nicotinamide	C00153	HMDB0001406	e	Metab__HMDB0001406_e	recon3d	m0_confounded	True
+ST003332	AN005459|Nicotinate ribonucleotide	Nicotinate ribonucleotide	C01185	HMDB0059646	e	Metab__HMDB0059646_e	recon3d	m0_confounded	False
+ST003332	AN005459|O-Decenoyl-L-carnitine (acyl-C10:1)	O-Decenoyl-L-carnitine (acyl-C10:1)	CID57357170				unmapped	m0_confounded	False
+ST003332	AN005459|O-dodecenoyl-carnitine (acyl-C12:1)	O-dodecenoyl-carnitine (acyl-C12:1)	HMDB13326				unmapped	m0_confounded	False
+ST003332	AN005459|Ornithine	Ornithine	C01602	HMDB0000214	e	Metab__HMDB0000214_e	recon3d	m0_confounded	True
+ST003332	AN005459|Ornithine	Ornithine	C01602	HMDB0000818	e	Metab__HMDB0000818_e	recon3d	m0_confounded	False
+ST003332	AN005459|Ornithine	Ornithine	C01602	HMDB0004984	e	Metab__HMDB0004984_e	recon3d	m0_confounded	False
+ST003332	AN005459|Ornithine	Ornithine	C01602	HMDB0032455	e	Metab__HMDB0032455_e	recon3d	m0_confounded	False
+ST003332	AN005459|Ornithine	Ornithine	C01602	HMDB0062654	e	Metab__HMDB0062654_e	recon3d	m0_confounded	False
+ST003332	AN005459|Ornithine	Ornithine	C01602	HMDB0062718	e	Metab__HMDB0062718_e	recon3d	m0_confounded	False
+ST003332	AN005459|Pantothenate	Pantothenate	C00864	HMDB0000210	e	Metab__HMDB0000210_e	recon3d	m0_unconfounded	True
+ST003332	AN005459|Pantothenate	Pantothenate	C00864	HMDB0062717	e	Metab__HMDB0062717_e	recon3d	m0_unconfounded	False
+ST003332	AN005459|Phosphate	Phosphate	C00009	HMDB0000973	e	Metab__HMDB0000973_e	recon3d	m0_confounded	False
+ST003332	AN005459|Phosphate	Phosphate	C00009	HMDB0001429	e	Metab__HMDB0001429_e	recon3d	m0_confounded	False
+ST003332	AN005459|Phosphate	Phosphate	C00009	HMDB0002105	e	Metab__HMDB0002105_e	recon3d	m0_confounded	False
+ST003332	AN005459|Phosphate	Phosphate	C00009	HMDB0002142	e	Metab__HMDB0002142_e	recon3d	m0_confounded	False
+ST003332	AN005459|Phosphate	Phosphate	C00009	HMDB0005947	e	Metab__HMDB0005947_e	recon3d	m0_confounded	False
+ST003332	AN005459|Putrescine	Putrescine	C00134	HMDB0001414	e	Metab__HMDB0001414_e	recon3d	m0_confounded	True
+ST003332	AN005459|Putrescine	Putrescine	C00134	HMDB0060243	e	Metab__HMDB0060243_e	recon3d	m0_confounded	False
+ST003332	AN005459|Pyridoxamine 5'-phosphate	Pyridoxamine 5'-phosphate	C00647	HMDB0001555	e	Metab__HMDB0001555_e	recon3d	m0_confounded	False
+ST003332	AN005459|S-Adenosyl-L-homocysteine	S-Adenosyl-L-homocysteine	C00021	HMDB0000939	e	Metab__HMDB0000939_e	recon3d	m0_confounded	True
+ST003332	AN005459|(S)(+)-Allantoin	(S)(+)-Allantoin	C02350	HMDB0000462	e	Metab__HMDB0000462_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005459|Spermine	Spermine	C00750	HMDB0001256	e	Metab__HMDB0001256_e	recon3d	m0_confounded	True
+ST003332	AN005459|Sphinganine 1-phosphate	Sphinganine 1-phosphate	C01120	HMDB0001383	e	Metab__HMDB0001383_e	recon3d	m0_confounded	True
+ST003332	AN005459|Sphingosine	Sphingosine	C00319	HMDB0000252	e	Metab__HMDB0000252_e	metabolomics_workbench	m0_confounded	True
+ST003332	AN005459|Tetradecenoyl Carnitine (acyl-C14:1)	Tetradecenoyl Carnitine (acyl-C14:1)	HMDB13329				unmapped	m0_confounded	False
+ST003332	AN005459|UMP	UMP	C00105	HMDB0000288	e	Metab__HMDB0000288_e	recon3d	m0_confounded	True
+ST003332	AN005459|Urate	Urate	C00366	HMDB0000289	e	Metab__HMDB0000289_e	recon3d	m0_confounded	True
