@@ -4,7 +4,7 @@ Date: 2026-10-10
 Model: gpt-5.6-luna
 Settings: default
 Plan: doc/decisions/2026-10-10-stage04-inference-plan.md
-Commit(s): pending
+Commit(s): f75d9ea
 Transcript: not saved
 
 ## Prompt actually used
