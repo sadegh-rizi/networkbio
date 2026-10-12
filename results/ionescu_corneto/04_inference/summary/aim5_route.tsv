@@ -1,0 +1,11 @@
+run	hmgcr_state	n_canonical_reaction_nodes_active	canonical_reaction_nodes_active	cholesterol_nodes_active	cholesterol_to_target	target_state	selected_route_exists
+cosmos_multi	0	0		Metab__HMDB0000067_c:1	E2F1	0	False
+cosmos_multi	0	0		Metab__HMDB0000067_c:1	EGR1	1	False
+cosmos_multi	0	0		Metab__HMDB0000067_c:1	SP1	1	False
+cosmos_multi	0	0		Metab__HMDB0000067_c:1	JUN	1	False
+cosmos_multi	0	0		Metab__HMDB0000067_c:1	JUNB	1	False
+cosmos_repair	0	0		Metab__HMDB0000067_c:1	E2F1	0	False
+cosmos_repair	0	0		Metab__HMDB0000067_c:1	EGR1	1	False
+cosmos_repair	0	0		Metab__HMDB0000067_c:1	SP1	1	False
+cosmos_repair	0	0		Metab__HMDB0000067_c:1	JUN	1	False
+cosmos_repair	0	0		Metab__HMDB0000067_c:1	JUNB	1	False

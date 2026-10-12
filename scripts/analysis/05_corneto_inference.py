@@ -7,7 +7,11 @@ hand and it does not cap path length before CORNETO preprocessing.
 
 from __future__ import annotations
 
+import hashlib
 import inspect
+import json
+import re
+import subprocess
 import sys
 from collections import deque
 from pathlib import Path
@@ -39,6 +43,7 @@ from inference import (  # noqa: E402
     SOLVER_THREADS,
     choose_lambda,
     is_excluded_input,
+    make_corneto_data,
     lambda_grid_table,
     lambda_label,
     read_pkn,
@@ -293,38 +298,204 @@ def _draw_result(out: Path, run_name: str, edges: list[tuple[str, int, str]], re
     plt.close(fig)
 
 
+def _parse_backfill_log(path: Path) -> dict[tuple[str, float], dict[str, Any]]:
+    """Read per-lambda solver lines ("<run>: lambda=<x>" then "status=... error=...")."""
+    records: dict[tuple[str, float], dict[str, Any]] = {}
+    current: tuple[str, float] | None = None
+    header = re.compile(r"^(\w+): lambda=([0-9.eE+-]+)$")
+    status = re.compile(r"^\s*status=(\S+) accepted=(\S+) gap=(\S+) seconds=(\S+) error=(\S+)$")
+    for line in Path(path).read_text(errors="replace").splitlines():
+        if match := header.match(line.strip()):
+            current = (match.group(1), float(match.group(2)))
+        elif current and (match := status.match(line)):
+            records[current] = {
+                "status": match.group(1),
+                "accepted": match.group(2) == "True",
+                "mip_gap": float(match.group(3)),
+                "solve_seconds": float(match.group(4)),
+                "weighted_fitting_error": float(match.group(5)),
+            }
+            current = None
+    return records
+
+
+def _check_resume_inputs(out: Path, measured_tfs: pd.DataFrame, metabolites: pd.DataFrame) -> None:
+    """Refuse to resume if the measurements differ from the interrupted run's."""
+    for name, new, keys in (
+        ("measured_tfs.tsv", measured_tfs, ["pkn", "TF", "score"]),
+        ("measured_metabolites.tsv", metabolites, ["pkn_node", "value"]),
+    ):
+        path = out / "inputs" / name
+        if not path.exists():
+            raise ValueError(f"Cannot resume: {path} is missing")
+        old = pd.read_csv(path, sep="\t")[keys].sort_values(keys[:-1]).reset_index(drop=True)
+        cur = new[keys].sort_values(keys[:-1]).reset_index(drop=True)
+        same = old[keys[:-1]].astype(str).equals(cur[keys[:-1]].astype(str)) and np.allclose(
+            old[keys[-1]].to_numpy(float), cur[keys[-1]].to_numpy(float), rtol=0, atol=1e-12)
+        if not same:
+            raise ValueError(f"Cannot resume: {name} differs from the interrupted run; archive the folder instead")
+
+
+def _task_signature(task: dict[str, Any]) -> str:
+    """Stable hash of everything that defines one (run, lambda) problem."""
+    payload = json.dumps(task, sort_keys=True, default=str).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _solve_worker(task_path: Path) -> int:
+    """Solve one (run, lambda) problem in this process and write its tables.
+
+    Called as a separate Python process for every problem, so all solver
+    memory is returned to the operating system when it exits (two stage-04
+    runs on 2026-10-11 were killed when problems were solved in one process).
+    """
+    task = json.loads(task_path.read_text())
+    edges = read_pkn(ROOT / task["pkn_path"])
+    result = solve_carnival(
+        edges,
+        task["measurements"],
+        float(task["lambda_reg"]),
+        time_limit=int(task["time_limit"]),
+        solver=SOLVER,
+        solver_relative_gap=SOLVER_RELATIVE_GAP,
+        threads=SOLVER_THREADS,
+        seed=SOLVER_SEED,
+    )
+    directory = task_path.parent
+    _write_lambda_result(directory, result)
+    summary = {
+        key: result[key] for key in (
+            "lambda_reg", "status", "accepted", "mip_gap", "objectives", "weighted_fitting_error",
+            "inputs", "missing_measurements", "n_missing_measurements",
+            "preprocessed_node_count", "preprocessed_edge_count", "solve_seconds",
+        )
+    }
+    summary["accepted"] = bool(summary["accepted"])
+    summary["task_signature"] = task["signature"]
+    (directory / "result.json").write_text(json.dumps(summary, default=float))
+    print(f"  status={result['status']} accepted={result['accepted']} gap={result['mip_gap']:.4g} "
+          f"seconds={result['solve_seconds']:.0f} error={result['weighted_fitting_error']:.3f}", flush=True)
+    return 0
+
+
+def _read_table(path: Path, columns: list[str] | None = None) -> pd.DataFrame:
+    try:
+        return pd.read_csv(path, sep="\t", dtype={"sample": str, "source": str, "target": str, "node": str})
+    except (FileNotFoundError, pd.errors.EmptyDataError):
+        return pd.DataFrame(columns=columns or [])
+
+
+def _load_lambda_result(directory: Path, lambda_reg: float) -> dict[str, Any]:
+    """Rebuild the in-memory result dict from a worker's written tables."""
+    summary = json.loads((directory / "result.json").read_text())
+    edges = _read_table(directory / "edges.tsv", ["sample", "source", "target", "edge_value", "pkn_sign"])
+    nodes = _read_table(directory / "nodes.tsv", ["sample", "node", "state", "is_measured", "observed_value", "is_input", "reachability"])
+    fit = _read_table(directory / "fit.tsv") if summary["accepted"] else pd.DataFrame()
+    states: dict[str, dict[str, int]] = {}
+    for row in nodes.itertuples(index=False):
+        if row.reachability == "reachable" or int(row.state) != 0:
+            states.setdefault(str(row.sample), {})[str(row.node)] = int(row.state)
+    summary.update({"lambda_reg": float(lambda_reg), "selected_edges": edges, "nodes": nodes, "fit": fit, "states": states})
+    return summary
+
+
+def _failed_result(lambda_reg: float, status: str) -> dict[str, Any]:
+    return {
+        "lambda_reg": float(lambda_reg), "status": status, "accepted": False, "mip_gap": float("nan"),
+        "objectives": {}, "weighted_fitting_error": float("nan"), "inputs": [], "missing_measurements": {},
+        "n_missing_measurements": 0, "preprocessed_node_count": 0, "preprocessed_edge_count": 0,
+        "solve_seconds": float("nan"),
+        "selected_edges": pd.DataFrame(columns=["sample", "source", "target", "edge_value", "pkn_sign"]),
+        "nodes": pd.DataFrame(columns=["sample", "node", "state", "is_measured", "observed_value", "is_input", "reachability"]),
+        "fit": pd.DataFrame(), "states": {},
+    }
+
+
 def _run_one(
     out: Path,
     run_name: str,
+    pkn_path: Path,
     edges: list[tuple[str, int, str]],
     measurements: dict[str, dict[str, float]],
     time_limit: int,
     lambdas: tuple[float, ...] = LAMBDA_GRID,
+    *,
+    resume: bool = False,
+    backfill: dict[tuple[str, float], dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], float | None]:
+    """Solve every lambda of one run, each in a fresh Python process."""
     output = out / run_name
     results = []
+    backfill_inputs: dict[str, tuple[list[str], dict[str, list[str]]]] = {}
     for lambda_reg in lambdas:
-        print(f"{run_name}: lambda={lambda_reg:g}")
-        result = solve_carnival(
-            edges,
-            measurements,
-            lambda_reg,
-            time_limit=time_limit,
-            solver=SOLVER,
-            solver_relative_gap=SOLVER_RELATIVE_GAP,
-            threads=SOLVER_THREADS,
-            seed=SOLVER_SEED,
-        )
-        results.append(result)
-        print(f"  status={result['status']} accepted={result['accepted']} gap={result['mip_gap']:.4g} "
-              f"seconds={result['solve_seconds']:.0f} error={result['weighted_fitting_error']:.3f}")
-        _write_lambda_result(output / f"lambda_{lambda_label(lambda_reg)}", result)
+        directory = output / f"lambda_{lambda_label(lambda_reg)}"
+        task = {
+            "run": run_name, "pkn_path": _portable_path(pkn_path),
+            "pkn_sha256": _file_sha256(pkn_path),
+            "measurements": measurements, "lambda_reg": float(lambda_reg), "time_limit": int(time_limit),
+            "solver": [SOLVER, SOLVER_RELATIVE_GAP, SOLVER_THREADS, SOLVER_SEED],
+        }
+        task["signature"] = _task_signature(task)
+        done = directory / "result.json"
+        tables_exist = all((directory / name).exists() for name in ("edges.tsv", "nodes.tsv", "fit.tsv"))
+        logged = (backfill or {}).get((run_name, float(lambda_reg)))
+        if resume and not done.exists() and tables_exist and logged is not None:
+            # One-time backfill for results written before result.json existed
+            # (interrupted run of 2026-10-11): solver fields come from the run log.
+            if run_name not in backfill_inputs:
+                _, used, missing = make_corneto_data(edges, measurements)
+                backfill_inputs[run_name] = (used, missing)
+            used, missing = backfill_inputs[run_name]
+            done.write_text(json.dumps({
+                "lambda_reg": float(lambda_reg), **logged, "objectives": {},
+                # full-precision error from fit.tsv (the log prints 3 decimals)
+                "weighted_fitting_error": float(pd.read_csv(directory / "fit.tsv", sep="\t")["weighted_fitting_error"].sum()),
+                "inputs": used, "missing_measurements": missing,
+                "n_missing_measurements": sum(len(nodes) for nodes in missing.values()),
+                "preprocessed_node_count": float("nan"), "preprocessed_edge_count": float("nan"),
+                "backfilled_from_log": True, "task_signature": task["signature"],
+            }))
+            print(f"{run_name}: lambda={lambda_reg:g} (backfilled from log)", flush=True)
+            results.append(_load_lambda_result(directory, lambda_reg))
+            continue
+        if resume and done.exists() and json.loads(done.read_text()).get("task_signature") == task["signature"]:
+            print(f"{run_name}: lambda={lambda_reg:g} (resumed from {done.relative_to(out)})", flush=True)
+            results.append(_load_lambda_result(directory, lambda_reg))
+            continue
+        directory.mkdir(parents=True, exist_ok=True)
+        done.unlink(missing_ok=True)
+        task_path = directory / "task.json"
+        task_path.write_text(json.dumps(task))
+        print(f"{run_name}: lambda={lambda_reg:g}", flush=True)
+        completed = subprocess.run([sys.executable, str(Path(__file__).resolve()), "--worker", str(task_path)], check=False)
+        if completed.returncode != 0 or not done.exists():
+            status = f"worker_failed_exit_{completed.returncode}"
+            print(f"  {status}", flush=True)
+            results.append(_failed_result(lambda_reg, status))
+            continue
+        results.append(_load_lambda_result(directory, lambda_reg))
     # The lambda rule needs the lambda = 0 baseline; a pilot without it selects nothing.
     chosen = choose_lambda(results)
     if chosen is not None:
         chosen_result = next(result for result in results if result["lambda_reg"] == chosen)
         _draw_result(out, run_name, edges, chosen_result, measurements)
     return results, chosen
+
+
+def _portable_path(path: Path) -> str:
+    """Repository-relative path (identical under Windows and WSL mounts), else absolute."""
+    try:
+        return Path(path).resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return Path(path).resolve().as_posix()
+
+
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def _overlap_rows(selected: dict[str, dict[str, Any]]) -> pd.DataFrame:
@@ -415,6 +586,10 @@ def _parse_args(argv: list[str] | None) -> Any:
     parser = argparse.ArgumentParser(description="Stage 04 CORNETO inference")
     parser.add_argument("--runs", nargs="+", choices=RUN_NAMES, default=list(RUN_NAMES))
     parser.add_argument("--lambdas", nargs="+", type=float, default=list(LAMBDA_GRID))
+    parser.add_argument("--resume", action="store_true",
+                        help="reuse finished (run, lambda) results in an incomplete output folder")
+    parser.add_argument("--backfill-log", type=Path, default=None,
+                        help="with --resume: stage-04 log of an interrupted run whose finished lambdas lack result.json")
     args = parser.parse_args(argv)
     unregistered = [value for value in args.lambdas if value not in LAMBDA_GRID]
     if unregistered:
@@ -442,6 +617,8 @@ def _inputs_rows(run_name: str, edges: list[tuple[str, int, str]], used_inputs: 
 
 
 def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
+    if argv and argv[0] == "--worker":
+        return _solve_worker(Path(argv[1]))
     args = _parse_args(argv)
     pilot = args.runs != list(RUN_NAMES) or args.lambdas != tuple(LAMBDA_GRID)
     smoke_corneto()
@@ -467,8 +644,13 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     metabolites_sensitivity = _metabolite_table(root, sensitivity=True)
 
     out = root / (ANALYSIS + "_pilot" if pilot else ANALYSIS)
-    if out.exists() and any(out.iterdir()) and not (out / "04_inference.provenance.json").exists():
-        raise ValueError(f"Incomplete stage directory {out}; archive it before rerunning")
+    if out.exists() and any(out.iterdir()) and not (out / "04_inference.provenance.json").exists() and not args.resume:
+        raise ValueError(f"Incomplete stage directory {out}; archive it or rerun with --resume")
+    if args.backfill_log is not None and not args.resume:
+        raise ValueError("--backfill-log requires --resume")
+    backfill = _parse_backfill_log(args.backfill_log) if args.backfill_log is not None else {}
+    if args.resume and (out / "inputs").exists():
+        _check_resume_inputs(out, measured_tfs, metabolites)
     (out / "inputs").mkdir(parents=True, exist_ok=True)
     measured_tfs.to_csv(out / "inputs/measured_tfs.tsv", sep="\t", index=False)
     selection.to_csv(out / "inputs/tf_selection_loo.tsv", sep="\t", index=False)
@@ -497,9 +679,15 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     input_rows: list[dict[str, Any]] = []
     chosen: dict[str, dict[str, Any]] = {}
     for run_name, (edges, measurements, time_limit) in run_specs.items():
-        results, selected_lambda = _run_one(out, run_name, edges, measurements, time_limit, args.lambdas)
+        results, selected_lambda = _run_one(
+            out, run_name, pkn_paths[run_name], edges, measurements, time_limit, args.lambdas,
+            resume=args.resume, backfill=backfill,
+        )
         measured_nodes = {node for values in measurements.values() for node in values}
-        input_rows.extend(_inputs_rows(run_name, edges, results[0]["inputs"], measured_nodes))
+        used_inputs = next((result["inputs"] for result in results if result["inputs"]), None)
+        if used_inputs is None:
+            used_inputs = make_corneto_data(edges, measurements)[1]
+        input_rows.extend(_inputs_rows(run_name, edges, used_inputs, measured_nodes))
         all_grid.append(lambda_grid_table(results).assign(run=run_name))
         if selected_lambda is None:
             statuses.append({"run": run_name, "status": "no_accepted_lambda", "selected_lambda": np.nan,
@@ -563,6 +751,8 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
         "node_states": "CORNETO vertex_value",
         "canonical_cholesterol_genes": sorted(CANONICAL_CHOLESTEROL_GENES),
         "e1": "constant-prior moderated t; limma-trend deferred",
+        "execution": "one Python process per (run, lambda); resume=" + str(args.resume),
+        "backfilled_from_log": sorted(f"{run}:{lam:g}" for run, lam in backfill),
     }
     code = [
         root / "src/inference.py", root / "src/activities.py", root / "src/network_plot.py",

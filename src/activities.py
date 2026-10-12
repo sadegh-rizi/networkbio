@@ -179,6 +179,54 @@ def moderated_t_statistics(
                     "n_genes_prior": int(usable.sum())}
 
 
+def one_sample_moderated_t(
+    differences: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, float | int]]:
+    """Paired (one-sample) empirical-Bayes moderated t on per-line differences.
+
+    ``differences`` holds one column per biological line (for example
+    log2 SV minus log2 untreated of the same line) and one row per feature.
+    The scaled-inverse-chi-square prior (d0, s0^2) is fitted to the sample
+    variances of all rows with the same moment estimator as
+    :func:`moderated_t_statistics` (Smyth 2004), so pass every complete
+    feature of the study, not only the feature of interest.
+    """
+    differences = differences.dropna()
+    n = differences.shape[1]
+    if n < 3:
+        raise ValueError("The paired moderated t needs at least 3 lines")
+    df_g = n - 1
+    mean = differences.mean(axis=1)
+    s2 = differences.var(axis=1, ddof=1)
+    usable = s2.gt(0) & np.isfinite(s2)
+    if usable.sum() < 2:
+        raise ValueError("At least two positive feature variances are needed for the prior")
+    z = np.log(s2.loc[usable].to_numpy())
+    e = z - special.digamma(df_g / 2) + np.log(df_g / 2)
+    e_bar = float(np.mean(e))
+    v = float(np.var(e, ddof=1) - special.polygamma(1, df_g / 2))
+    if v > 0:
+        root = optimize.brentq(lambda x: float(special.polygamma(1, x) - v), 1e-8, 1e8)
+        d0 = float(2 * root)
+        s0_squared = float(np.exp(e_bar + special.digamma(root) - np.log(root)))
+        posterior = (d0 * s0_squared + df_g * s2) / (d0 + df_g)
+        moderated_df = d0 + df_g
+    else:
+        d0 = float("inf")
+        s0_squared = float(np.exp(e_bar))
+        posterior = pd.Series(s0_squared, index=s2.index)
+        moderated_df = float("inf")
+    moderated_t = mean / np.sqrt(posterior / n)
+    result = pd.DataFrame({
+        "mean_difference": mean,
+        "s2": s2,
+        "posterior_variance": posterior,
+        "moderated_t": moderated_t,
+        "moderated_df": moderated_df,
+    })
+    return result, {"df_g": df_g, "d0": d0, "s0_squared": s0_squared, "n_features_prior": int(usable.sum())}
+
+
 def leave_one_line_out_ulm(
     log2cpm: pd.DataFrame,
     groups: pd.Series,

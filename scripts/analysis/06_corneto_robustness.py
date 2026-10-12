@@ -1,10 +1,27 @@
-"""Stage 05: stability, analysis-choice and topology controls for stage 04."""
+"""Stage 05: stability, analysis-choice and topology controls for stage 04.
+
+Implements steps 16-21 of doc/decisions/2026-10-10-stage04-inference-plan.md
+and the controls added in doc/decisions/2026-10-11-stage05-robustness-addendum.md
+(tighter-gap re-solve, simvastatin positive control, receptor-only inputs).
+
+Every CORNETO solve runs in its own Python process (src/corneto_worker.py),
+because solving several problems in one process exhausted memory twice in
+stage 04.  Finished solves are reused with ``--resume``.
+
+The OmniPath controls (about 3 h on the course laptop) run by default.  COSMOS
+controls take 45-95 min per solve and run only with ``--cosmos``:
+
+    python scripts/analysis/06_corneto_robustness.py                 # OmniPath + SV + receptors
+    python scripts/analysis/06_corneto_robustness.py --resume --cosmos
+"""
 
 from __future__ import annotations
 
+import argparse
 import itertools
-import random
+import json
 import sys
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -20,23 +37,27 @@ from activities import (  # noqa: E402
     leave_one_line_out_ulm,
     load_regulon,
     moderated_t_statistics,
+    one_sample_moderated_t,
     run_ulm,
     select_stable_top_tfs,
 )
+from corneto_worker import make_task, solve_in_subprocess  # noqa: E402
 from inference import (  # noqa: E402
-    LAMBDA_GRID,
-    OMNIPATH_TIME_LIMIT,
+    CANONICAL_CHOLESTEROL_GENES,
     COSMOS_TIME_LIMIT,
+    LAMBDA_GRID,
+    MEVALONATE_HMDB,
+    OMNIPATH_TIME_LIMIT,
     SOLVER,
     SOLVER_RELATIVE_GAP,
     SOLVER_SEED,
     SOLVER_THREADS,
+    choose_lambda,
+    is_excluded_input,
     lambda_label,
     read_pkn,
-    sample_edges,
-    solve_carnival,
 )
-from pkn import rewire_signed_graph  # noqa: E402
+from pkn import _fetch_bytes, rewire_signed_graph, rewire_type_preserving_signed_graph  # noqa: E402
 from plot_config import save_figure  # noqa: E402
 from preprocess import stage_provenance, write_stage_provenance  # noqa: E402
 
@@ -46,25 +67,90 @@ ACTIVITIES = "results/ionescu_corneto/02_activities"
 PREPROCESSED = "results/ionescu_corneto/01_preprocessing"
 PKN = "results/ionescu_corneto/03_pkn"
 PLAN = "doc/decisions/2026-10-10-stage04-inference-plan.md"
+ADDENDUM = "doc/decisions/2026-10-11-stage05-robustness-addendum.md"
 SEED_BASE = 20261010
 
+PARTS = ("sampling", "loo", "grid", "permutations", "rewired", "receptors", "sv_control", "tight_gap",
+         "no_drug_inputs")
+STAGE04_RUNS = ("omnipath", "cosmos_tf", "cosmos_multi", "cosmos_repair", "omnipath_lines")
+COSMOS_RUNS = frozenset({"cosmos_tf", "cosmos_multi", "cosmos_repair"})
+RUN_PKN = {
+    "omnipath": "omnipath", "omnipath_lines": "omnipath",
+    "cosmos_tf": "cosmos", "cosmos_multi": "cosmos", "cosmos_repair": "cosmos_repair",
+}
+N_SAMPLES = 30
+DEFAULT_COSMOS_SAMPLES = 10
+N_OMNIPATH_REWIRED = 10
+N_COSMOS_REWIRED = 5
+CORE_THRESHOLD = 0.8
+TIGHT_GAP = 1e-4
+TIGHT_LAMBDAS = (0.0, 0.01, 0.03, 0.1, 0.3)
+SV_LAMBDA = 0.01
+RECEPTOR_URL = "https://omnipathdb.org/intercell?categories=receptor&format=tsv"
+RECEPTOR_CACHE = "data/resources/pkn/omnipath_intercell_receptor.tsv"
 
-def _edges(root: Path, variant: str = "primary") -> list[tuple[str, int, str]]:
-    if variant == "primary":
-        path = root / PKN / "omnipath/primary/pkn.tsv"
-    else:
-        path = root / PKN / f"omnipath/variants/{variant}/pkn.tsv"
-    return read_pkn(path)
+
+# --------------------------------------------------------------------------
+# inputs
+# --------------------------------------------------------------------------
+
+def _pkn_path(root: Path, name: str) -> Path:
+    paths = {
+        "omnipath": PKN + "/omnipath/primary/pkn.tsv",
+        "nc_rule": PKN + "/omnipath/variants/nc_rule/pkn.tsv",
+        "signor_only": PKN + "/omnipath/variants/signor_only/pkn.tsv",
+        "unpruned": PKN + "/omnipath/variants/unpruned/pkn.tsv",
+        "cosmos": PKN + "/cosmos/primary/pkn.tsv",
+        "cosmos_repair": PKN + "/cosmos/variants/canonical_repair/pkn.tsv",
+    }
+    return root / paths[name]
 
 
-def _selected_lambda(root: Path, run: str) -> float:
+def _time_limit(pkn_name: str) -> int:
+    return COSMOS_TIME_LIMIT if pkn_name.startswith("cosmos") else OMNIPATH_TIME_LIMIT
+
+
+def _nodes(edges: list[tuple[str, int, str]]) -> set[str]:
+    return {node for source, _, target in edges for node in (source, target)}
+
+
+def _stage04_selected(root: Path) -> dict[str, float]:
     table = pd.read_csv(root / STAGE04 / "summary/selected_lambda.tsv", sep="\t")
-    row = table[table["run"].eq(run)]
-    if len(row) != 1:
-        raise ValueError(f"Stage 04 has no selected lambda for {run}")
-    return float(row.iloc[0]["selected_lambda"])
+    return {str(row.run): float(row.selected_lambda) for row in table.itertuples(index=False)}
 
 
+def _stage04_edges(root: Path, run: str, lambda_reg: float) -> pd.DataFrame:
+    return pd.read_csv(root / STAGE04 / run / f"lambda_{lambda_label(lambda_reg)}/edges.tsv", sep="\t",
+                       dtype={"source": str, "target": str})
+
+
+def _stage04_measurements(root: Path, run: str) -> dict[str, dict[str, float]]:
+    """Rebuild the measurements stage 04 used for ``run`` from its input tables."""
+    measured = pd.read_csv(root / STAGE04 / "inputs/measured_tfs.tsv", sep="\t")
+    tfs = measured[measured["pkn"].eq(run)]
+    values = {str(tf): float(score) for tf, score in zip(tfs["TF"], tfs["score"])}
+    if run == "omnipath_lines":
+        per_line = pd.read_csv(root / ACTIVITIES / "collectri/tf_activity_per_line.tsv", sep="\t", index_col=0)
+        return {str(line): {tf: float(per_line.loc[tf, line]) for tf in values} for line in per_line.columns}
+    if run in ("cosmos_multi", "cosmos_repair"):
+        metabolites = pd.read_csv(root / STAGE04 / "inputs/measured_metabolites.tsv", sep="\t")
+        values.update({str(node): float(value) for node, value in zip(metabolites["pkn_node"], metabolites["value"])})
+    return {"PMS_vs_Ctrl": values}
+
+
+def _check_against_stage04_task(root: Path, run: str, lambda_reg: float, measurements: dict) -> None:
+    """Where stage 04 left a task.json, the rebuilt measurements must match it."""
+    path = root / STAGE04 / run / f"lambda_{lambda_label(lambda_reg)}/task.json"
+    if not path.exists():
+        return
+    stored = json.loads(path.read_text())["measurements"]
+    for sample, values in measurements.items():
+        other = stored.get(sample, {})
+        if set(other) != set(values) or any(abs(float(other[node]) - values[node]) > 1e-9 for node in values):
+            raise ValueError(f"Rebuilt measurements for {run} differ from {path}")
+
+
+@lru_cache(maxsize=None)
 def _expression_inputs(root: Path, regulon_name: str = "collectri") -> tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.DataFrame]:
     expression = pd.read_csv(root / PREPROCESSED / "rnaseq/log2cpm.tsv", sep="\t", index_col=0)
     samples = pd.read_csv(root / PREPROCESSED / "rnaseq/samples.tsv", sep="\t").set_index("column")
@@ -80,31 +166,21 @@ def _primary_score(root: Path, statistic: str, regulon_name: str) -> pd.Series:
         "welch": "tf_activity_contrast_welch.tsv",
         "logFC": "tf_activity_contrast_logfc.tsv",
     }[statistic]
-    table = pd.read_csv(root / ACTIVITIES / regulon_name / file_name, sep="\t", index_col=0)
-    return table["score"]
+    return pd.read_csv(root / ACTIVITIES / regulon_name / file_name, sep="\t", index_col=0)["score"]
 
 
-def _measurements_for_selection(
-    root: Path,
-    edges: list[tuple[str, int, str]],
-    *,
-    statistic: str = "moderated_t",
-    regulon_name: str = "collectri",
-    k: int = 50,
-) -> tuple[dict[str, dict[str, float]], list[str]]:
-    expression, groups, regulon, loo = _expression_inputs(root, regulon_name)
-    primary = _primary_score(root, statistic, regulon_name)
-    selected, _ = select_stable_top_tfs(
-        primary,
-        loo,
-        {node for source, _, target in edges for node in (source, target)},
-        k=k,
-    )
-    return {"PMS_vs_Ctrl": {tf: float(primary[tf]) for tf in selected}}, selected
-
+# --------------------------------------------------------------------------
+# helpers
+# --------------------------------------------------------------------------
 
 def _edge_set(edges: pd.DataFrame) -> set[tuple[str, str]]:
+    if edges is None or edges.empty:
+        return set()
     return {(str(row.source), str(row.target)) for row in edges.itertuples(index=False)}
+
+
+def _node_set(edges: set[tuple[str, str]]) -> set[str]:
+    return {node for edge in edges for node in edge}
 
 
 def _jaccard(left: set[Any], right: set[Any]) -> float:
@@ -112,448 +188,682 @@ def _jaccard(left: set[Any], right: set[Any]) -> float:
     return len(left & right) / len(union) if union else np.nan
 
 
-def _save_edges(directory: Path, edges: pd.DataFrame) -> None:
-    directory.mkdir(parents=True, exist_ok=True)
-    edges.to_csv(directory / "edges.tsv", sep="\t", index=False)
+def _solve(
+    root: Path, out: Path, subdir: str, label: str, pkn_path: Path,
+    measurements: dict[str, dict[str, float]], lambda_reg: float, time_limit: int, *,
+    resume: bool, gap: float = SOLVER_RELATIVE_GAP, inputs: dict[str, float] | None = None,
+    max_samples: int = 0,
+) -> dict[str, Any]:
+    task = make_task(
+        label=label, pkn_path=pkn_path, measurements=measurements, lambda_reg=lambda_reg,
+        time_limit=time_limit, solver_relative_gap=gap, inputs=inputs, max_samples=max_samples, root=root,
+    )
+    return solve_in_subprocess(task, out / subdir, resume=resume, root=root)
 
 
-def _node_type(node: str) -> str:
-    if node.startswith("Metab__"):
-        return "metabolite"
-    if node.startswith("Gene"):
-        return "reaction"
-    return "protein"
-
-
-def _rewire_type_preserving(
-    edges: list[tuple[str, int, str]], *, seed: int, accepted_swaps: int | None = None
-) -> list[tuple[str, int, str]]:
-    """Swap targets only within source-type/target-type/sign classes."""
-    current = list(edges)
-    target_swaps = accepted_swaps if accepted_swaps is not None else 3 * len(current)
-    rng = random.Random(seed)
-    edge_keys = {(source, target) for source, _, target in current}
-    groups: dict[tuple[str, str, int], list[int]] = {}
-    for index, (source, sign, target) in enumerate(current):
-        groups.setdefault((_node_type(source), _node_type(target), sign), []).append(index)
-    accepted = 0
-    attempts = 0
-    max_attempts = max(1000, target_swaps * 200)
-    while accepted < target_swaps and attempts < max_attempts:
-        attempts += 1
-        candidates = [indices for indices in groups.values() if len(indices) >= 2]
-        if not candidates:
-            break
-        first, second = rng.sample(rng.choice(candidates), 2)
-        source_a, sign_a, target_b = current[first]
-        source_c, sign_c, target_d = current[second]
-        proposed = [(source_a, sign_a, target_d), (source_c, sign_c, target_b)]
-        proposed_keys = [(source, target) for source, _, target in proposed]
-        old_keys = {(source_a, target_b), (source_c, target_d)}
-        if (source_a == target_d or source_c == target_b or
-                proposed_keys[0] == proposed_keys[1] or
-                any(key in edge_keys and key not in old_keys for key in proposed_keys)):
-            continue
-        current[first], current[second] = proposed
-        edge_keys.difference_update(old_keys)
-        edge_keys.update(proposed_keys)
-        accepted += 1
-    if accepted < target_swaps:
-        raise RuntimeError(f"Could not complete {target_swaps} type-preserving swaps after {attempts} attempts")
-    return sorted(current)
-
-
-def _sample_stage04_runs(root: Path, out: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Sample alternatives by rebuilding each accepted stage-04 problem."""
-    rows = []
-    frequencies = []
-    run_settings = {
-        "omnipath": (_edges(root), OMNIPATH_TIME_LIMIT),
-        "cosmos_tf": (read_pkn(root / PKN / "cosmos/primary/pkn.tsv"), COSMOS_TIME_LIMIT),
-        "cosmos_multi": (read_pkn(root / PKN / "cosmos/primary/pkn.tsv"), COSMOS_TIME_LIMIT),
-        "cosmos_repair": (read_pkn(root / PKN / "cosmos/variants/canonical_repair/pkn.tsv"), COSMOS_TIME_LIMIT),
-        "omnipath_lines": (_edges(root), OMNIPATH_TIME_LIMIT),
+def _fit_columns(result: dict[str, Any]) -> dict[str, Any]:
+    """Fit summary shared by every control table (NaN when unsolved)."""
+    fit = result.get("fit")
+    has_fit = isinstance(fit, pd.DataFrame) and not fit.empty
+    total = (lambda column: float(fit[column].sum()) if has_fit and column in fit else np.nan)
+    edges = _edge_set(result["selected_edges"])
+    return {
+        "status": result["status"],
+        "accepted": bool(result["accepted"]),
+        "mip_gap": result["mip_gap"],
+        "solve_seconds": result["solve_seconds"],
+        "weighted_fitting_error": result["weighted_fitting_error"],
+        "n_edges": len(edges) if result["accepted"] else np.nan,
+        "n_nodes": len(_node_set(edges)) if result["accepted"] else np.nan,
+        "n_measurements": total("n_measurements"),
+        "n_reachable": total("n_reachable"),
+        "n_measurements_correct_sign": total("n_measurements_correct_sign"),
+        "n_inputs_offered": len(result.get("inputs", [])),
     }
-    measured = pd.read_csv(root / STAGE04 / "inputs/measured_tfs.tsv", sep="\t")
-    for run, (edges, time_limit) in run_settings.items():
-        selected_table = pd.read_csv(root / STAGE04 / "summary/selected_lambda.tsv", sep="\t")
-        selected_row = selected_table[selected_table["run"].eq(run)]
-        if len(selected_row) != 1:
-            rows.append({"run": run, "status": "stage04_unsolved"})
+
+
+def _comparison(result: dict[str, Any], reference: set[tuple[str, str]]) -> dict[str, float]:
+    if not result["accepted"]:
+        return {"edge_jaccard": np.nan, "node_jaccard": np.nan}
+    edges = _edge_set(result["selected_edges"])
+    return {"edge_jaccard": _jaccard(edges, reference), "node_jaccard": _jaccard(_node_set(edges), _node_set(reference))}
+
+
+def _write(table: pd.DataFrame, out: Path, name: str) -> pd.DataFrame:
+    (out / "summary").mkdir(parents=True, exist_ok=True)
+    table.to_csv(out / "summary" / name, sep="\t", index=False)
+    return table
+
+
+def _write_pkn(path: Path, edges: list[tuple[str, int, str]]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    frame = pd.DataFrame(edges, columns=["source", "sign", "target"])
+    path.write_bytes(frame.to_csv(sep="\t", index=False, lineterminator="\n").encode("utf-8"))
+    return path
+
+
+# --------------------------------------------------------------------------
+# step 16: alternative solutions
+# --------------------------------------------------------------------------
+
+def _sampling(root: Path, out: Path, runs: list[str], samples: dict[str, int], resume: bool) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Re-solve each selected stage-04 problem and sample alternatives in the same worker.
+
+    The ensemble for edge frequencies is the re-solved optimum plus every
+    alternative within the 5 % objective tolerance (addendum, item 1).
+    """
+    selected = _stage04_selected(root)
+    rows, frequencies = [], []
+    for run in runs:
+        if run not in selected:
+            rows.append({"run": run, "status": "stage04_no_selected_lambda"})
             continue
-        lambda_reg = float(selected_row.iloc[0]["selected_lambda"])
-        tf = measured[measured["pkn"].eq(run)]
-        measurement = {"PMS_vs_Ctrl": dict(zip(tf["TF"], tf["score"]))}
-        if run == "omnipath_lines":
-            per_line = pd.read_csv(root / ACTIVITIES / "collectri/tf_activity_per_line.tsv", sep="\t", index_col=0)
-            measurement = {
-                line: {tf_name: float(per_line.loc[tf_name, line]) for tf_name in tf["TF"]}
-                for line in per_line.columns
-            }
-        result = solve_carnival(edges, measurement, lambda_reg, time_limit=time_limit)
+        lambda_reg = selected[run]
+        if lambda_reg == 0.0:
+            # Without the sparsity penalty every sign-consistent edge set is
+            # optimal, so alternatives say nothing about stability (omnipath_lines:
+            # no incumbent for any lambda > 0 within 1,800 s in stage 04).
+            rows.append({"run": run, "lambda_reg": lambda_reg, "status": "skipped_selected_lambda_0"})
+            continue
+        measurements = _stage04_measurements(root, run)
+        _check_against_stage04_task(root, run, lambda_reg, measurements)
+        pkn_name = RUN_PKN[run]
+        result = _solve(root, out, f"sampling/{run}", f"sampling {run}", _pkn_path(root, pkn_name),
+                        measurements, lambda_reg, _time_limit(pkn_name), resume=resume, max_samples=samples[run])
+        stage04 = _edge_set(_stage04_edges(root, run, lambda_reg))
+        rows.append({
+            "run": run, "lambda_reg": lambda_reg, "requested_alternatives": samples[run],
+            **_fit_columns(result), "sampling_status": result.get("sampling_status"),
+            "n_alternatives": result.get("n_alternatives", 0),
+            "resolve_edge_jaccard_with_stage04": _comparison(result, stage04)["edge_jaccard"],
+        })
         if not result["accepted"]:
-            rows.append({"run": run, "status": "unsolved"})
             continue
-        alternatives = sample_edges(result["problem"], result["method"], time_limit=time_limit)
-        n_alternatives = int(alternatives["alternative"].nunique()) if not alternatives.empty else 0
-        rows.append({"run": run, "status": "accepted", "n_alternatives": n_alternatives, "lambda_reg": lambda_reg})
+        networks = [_edge_set(result["selected_edges"])]
+        alternatives = result["alternatives"]
         if not alternatives.empty:
-            run_frequency = (
-                alternatives.groupby(["source", "target"], as_index=False)
-                .agg(n_alternatives=("alternative", "nunique"))
-                .assign(run=run, n_total_alternatives=n_alternatives,
-                        frequency=lambda x: x["n_alternatives"] / max(n_alternatives, 1))
-            )
-            (out / "sampling" / run).mkdir(parents=True, exist_ok=True)
-            run_frequency.to_csv(out / "sampling" / run / "edge_frequency.tsv", sep="\t", index=False)
-            frequencies.append(run_frequency)
-    frequency_table = pd.concat(frequencies, ignore_index=True) if frequencies else pd.DataFrame()
+            networks += [
+                {(str(s), str(t)) for s, t in group[["source", "target"]].itertuples(index=False, name=None)}
+                for _, group in alternatives.groupby("alternative")
+            ]
+        counts: dict[tuple[str, str], int] = {}
+        for network in networks:
+            for edge in network:
+                counts[edge] = counts.get(edge, 0) + 1
+        frequencies.append(pd.DataFrame(
+            [{"run": run, "source": s, "target": t, "n_present": n, "n_networks": len(networks),
+              "frequency": n / len(networks), "in_stage04_network": (s, t) in stage04}
+             for (s, t), n in sorted(counts.items())]
+        ))
+    frequency_table = pd.concat(frequencies, ignore_index=True) if frequencies else pd.DataFrame(
+        columns=["run", "source", "target", "n_present", "n_networks", "frequency", "in_stage04_network"])
     return pd.DataFrame(rows), frequency_table
 
 
-def _loo_controls(
-    root: Path,
-    out: Path,
-    lambda_reg: float,
-    *,
-    pkn_edges: list[tuple[str, int, str]] | None = None,
-    directory_prefix: str = "",
-    time_limit: int = OMNIPATH_TIME_LIMIT,
-    extra_measurements: dict[str, float] | None = None,
-) -> tuple[pd.DataFrame, list[pd.DataFrame]]:
-    expression, groups, regulon, full_loo = _expression_inputs(root)
-    edges = pkn_edges if pkn_edges is not None else _edges(root)
-    pkn_nodes = {node for source, _, target in edges for node in (source, target)}
-    rows = []
-    edge_tables = []
+# --------------------------------------------------------------------------
+# step 17: leave one line out
+# --------------------------------------------------------------------------
+
+def _loo(root: Path, out: Path, run: str, lambda_reg: float, resume: bool) -> tuple[pd.DataFrame, list[pd.DataFrame]]:
+    """Redo TF selection and the solve without each RNA-seq line.
+
+    With one line removed the LOO-of-LOO stability filter would need 1-vs-3
+    contrasts, which the moderated t cannot estimate; the stage-04 six-LOO
+    sign filter is therefore applied to the LOO contrast (addendum, item 2).
+    Metabolite measurements (cosmos_multi) come from different cell lines and
+    are kept unchanged.
+    """
+    expression, _, _, full_loo = _expression_inputs(root)
+    pkn_name = RUN_PKN[run]
+    pkn_path = _pkn_path(root, pkn_name)
+    pkn_nodes = _nodes(read_pkn(pkn_path))
+    extra = {}
+    if run == "cosmos_multi":
+        extra = {node: value for node, value in _stage04_measurements(root, run)["PMS_vs_Ctrl"].items()
+                 if node.startswith("Metab__")}
+    reference = _edge_set(_stage04_edges(root, run, lambda_reg))
+    rows, tables = [], []
     for left_out in expression.columns:
-        primary = full_loo[f"without_{left_out}"]
-        selected, selection = select_stable_top_tfs(primary, full_loo, pkn_nodes, k=50)
-        measurements = {"without_" + left_out: {tf: float(primary[tf]) for tf in selected}}
-        if extra_measurements:
-            measurements["without_" + left_out].update(extra_measurements)
-        result = solve_carnival(edges, measurements, lambda_reg, time_limit=time_limit)
-        directory = out / "loo" / directory_prefix / left_out if directory_prefix else out / "loo" / left_out
-        directory.mkdir(parents=True, exist_ok=True)
+        contrast = full_loo[f"without_{left_out}"]
+        selected, selection = select_stable_top_tfs(contrast, full_loo, pkn_nodes, k=50)
+        values = {tf: float(contrast[tf]) for tf in selected}
+        values.update(extra)
+        subdir = f"loo/{run}/{left_out}"
+        result = _solve(root, out, subdir, f"loo {run} without {left_out}", pkn_path,
+                        {f"without_{left_out}": values}, lambda_reg, _time_limit(pkn_name), resume=resume)
+        selection.to_csv(out / subdir / "tf_selection.tsv", sep="\t", index=False)
+        rows.append({"run": run, "left_out": left_out, "n_selected_tfs": len(selected),
+                     **_fit_columns(result), **_comparison(result, reference)})
         if result["accepted"]:
-            _save_edges(directory, result["selected_edges"])
-            edge_tables.append(result["selected_edges"].assign(
-                loo=left_out, pkn=directory_prefix or "omnipath"
-            ))
-        selection.to_csv(directory / "tf_selection.tsv", sep="\t", index=False)
-        rows.append({
-            "left_out": left_out,
-            "status": result["status"],
-            "accepted": result["accepted"],
-            "n_selected_tfs": len(selected),
-            "n_edges": len(result["selected_edges"]),
-            "weighted_fitting_error": result["weighted_fitting_error"],
-        })
-    return pd.DataFrame(rows), edge_tables
+            tables.append(result["selected_edges"].assign(loo=left_out, run=run))
+    return pd.DataFrame(rows), tables
 
 
-def _choice_grid(root: Path, out: Path, primary_edges: pd.DataFrame, primary_measurements: dict[str, dict[str, float]], lambda_reg: float) -> pd.DataFrame:
-    rows = []
-    factors = [
+# --------------------------------------------------------------------------
+# step 18: analysis-choice grid (OmniPath)
+# --------------------------------------------------------------------------
+
+def _choice_grid(root: Path, out: Path, lambda_reg: float, resume: bool) -> pd.DataFrame:
+    """One factor at a time around the stage-04 OmniPath run.
+
+    For the Welch and logFC levels the LOO sign filter still uses the
+    moderated-t LOO contrasts (stage 02 stores no per-statistic LOO).
+    """
+    reference = _edge_set(_stage04_edges(root, "omnipath", lambda_reg))
+    factors: list[tuple[str, Any]] = [
         ("statistic", "welch"), ("statistic", "logFC"),
         ("regulon", "dorothea_ABC"), ("regulon", "collectri_nocomplex"),
         ("k", 25), ("k", 100),
         ("pkn", "nc_rule"), ("pkn", "signor_only"), ("pkn", "unpruned"),
     ]
-    lambda_index = list(LAMBDA_GRID).index(lambda_reg)
-    factors.extend(
-        ("lambda", value)
-        for value in LAMBDA_GRID[max(0, lambda_index - 1):min(len(LAMBDA_GRID), lambda_index + 2)]
-    )
+    index = list(LAMBDA_GRID).index(lambda_reg)
+    factors += [("lambda", value) for value in LAMBDA_GRID[max(0, index - 1):index + 2]]
+    rows = []
     for factor, level in factors:
-        edges = _edges(root, level) if factor == "pkn" else _edges(root)
-        kwargs = {
-            "statistic": level if factor == "statistic" else "moderated_t",
-            "regulon_name": level if factor == "regulon" else "collectri",
-            "k": level if factor == "k" else 50,
-        }
-        measurements, selected = _measurements_for_selection(root, edges, **kwargs)
+        pkn_name = str(level) if factor == "pkn" else "omnipath"
+        pkn_path = _pkn_path(root, pkn_name)
+        statistic = str(level) if factor == "statistic" else "moderated_t"
+        regulon_name = str(level) if factor == "regulon" else "collectri"
+        k = int(level) if factor == "k" else 50
+        _, _, _, loo = _expression_inputs(root, regulon_name)
+        primary = _primary_score(root, statistic, regulon_name)
+        selected, _ = select_stable_top_tfs(primary, loo, _nodes(read_pkn(pkn_path)), k=k)
         solve_lambda = float(level) if factor == "lambda" else lambda_reg
-        result = solve_carnival(edges, measurements, solve_lambda, time_limit=OMNIPATH_TIME_LIMIT)
-        edge_set = _edge_set(result["selected_edges"])
-        baseline_edges = _edge_set(primary_edges)
+        result = _solve(root, out, f"grid/{factor}/{level}", f"grid {factor}={level}", pkn_path,
+                        {"PMS_vs_Ctrl": {tf: float(primary[tf]) for tf in selected}},
+                        solve_lambda, OMNIPATH_TIME_LIMIT, resume=resume)
         rows.append({
-            "factor": factor,
-            "level": str(level),
-            "status": result["status"],
-            "accepted": result["accepted"],
-            "n_selected_tfs": len(selected),
-            "edge_jaccard": _jaccard(edge_set, baseline_edges),
-            "node_jaccard": _jaccard(
-                {node for edge in edge_set for node in edge},
-                {node for edge in baseline_edges for node in edge},
-            ),
-            "weighted_fitting_error": result["weighted_fitting_error"],
+            "factor": factor, "level": str(level),
+            "is_stage04_setting": factor == "lambda" and solve_lambda == lambda_reg,
+            "n_selected_tfs": len(selected), **_fit_columns(result), **_comparison(result, reference),
         })
-        _save_edges(out / "grid" / factor / str(level), result["selected_edges"])
     return pd.DataFrame(rows)
 
 
-def _permutations(root: Path, out: Path, lambda_reg: float) -> pd.DataFrame:
-    expression = pd.read_csv(root / PREPROCESSED / "rnaseq/log2cpm.tsv", sep="\t", index_col=0)
-    edges = _edges(root)
-    regulon, _, _ = load_regulon(root / "data/resources/regulons", "collectri")
-    rows = []
-    true_edges: set[tuple[str, str]] | None = None
-    for assignment_index, ctrl_tuple in enumerate(itertools.combinations(expression.columns, 3)):
+# --------------------------------------------------------------------------
+# step 19: group-label permutations (OmniPath)
+# --------------------------------------------------------------------------
+
+def _permutations(root: Path, out: Path, lambda_reg: float, resume: bool) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """All 20 three-vs-three assignments of the six RNA-seq lines.
+
+    Inputs are free-sign sources, so most assignments are fitted perfectly
+    (error 0) and the fit error cannot rank them.  The table therefore also
+    reports signal statistics computed before CORNETO (number of LOO-stable
+    TFs, summed |score| of the selected TFs) and the rank of the true split
+    for each statistic (addendum, item 3).
+    """
+    expression, _, regulon, _ = _expression_inputs(root)
+    pkn_path = _pkn_path(root, "omnipath")
+    pkn_nodes = _nodes(read_pkn(pkn_path))
+    stage04_tfs = set(pd.read_csv(root / STAGE04 / "inputs/measured_tfs.tsv", sep="\t").query("pkn == 'omnipath'")["TF"])
+    rows, networks = [], {}
+    true_ctrl, mirror_ctrl = "C1,C2,C3", "C4,C5,C6"
+    for index, ctrl_tuple in enumerate(itertools.combinations(expression.columns, 3)):
         ctrl = set(ctrl_tuple)
         groups = pd.Series(["Ctrl" if line in ctrl else "PMS" for line in expression.columns], index=expression.columns)
         moderated, _ = moderated_t_statistics(expression, groups)
-        vector = pd.DataFrame([moderated["moderated_t"]], index=["PMS_vs_Ctrl"])
-        scores, _, _, _ = run_ulm(vector, regulon, tmin=5)
+        scores, _, _, _ = run_ulm(pd.DataFrame([moderated["moderated_t"]], index=["PMS_vs_Ctrl"]), regulon, tmin=5)
         loo = leave_one_line_out_ulm(expression, groups, regulon, tmin=5)
-        selected, _ = select_stable_top_tfs(
-            scores.loc["PMS_vs_Ctrl"], loo, {node for source, _, target in edges for node in (source, target)}, k=50,
-        )
-        measurements = {"PMS_vs_Ctrl": {tf: float(scores.loc["PMS_vs_Ctrl", tf]) for tf in selected}}
-        result = solve_carnival(edges, measurements, lambda_reg, time_limit=OMNIPATH_TIME_LIMIT)
-        edge_set = _edge_set(result["selected_edges"])
-        if ctrl == {"C1", "C2", "C3"}:
-            true_edges = edge_set
+        selected, _ = select_stable_top_tfs(scores.loc["PMS_vs_Ctrl"], loo, pkn_nodes, k=50)
+        values = {tf: float(scores.loc["PMS_vs_Ctrl", tf]) for tf in selected}
+        result = _solve(root, out, f"permutation/{index}", f"permutation {index}", pkn_path,
+                        {"PMS_vs_Ctrl": values}, lambda_reg, OMNIPATH_TIME_LIMIT, resume=resume)
+        ctrl_label = ",".join(sorted(ctrl))
+        networks[index] = _edge_set(result["selected_edges"]) if result["accepted"] else None
         rows.append({
-            "assignment": assignment_index,
-            "ctrl_lines": ",".join(sorted(ctrl)),
+            "assignment": index, "ctrl_lines": ctrl_label,
             "pms_lines": ",".join(sorted(set(expression.columns) - ctrl)),
-            "status": result["status"],
-            "accepted": result["accepted"],
-            "weighted_fitting_error": result["weighted_fitting_error"],
-            "n_edges": len(edge_set),
-            "n_selected_tfs": len(selected),
-            "jaccard_with_true": np.nan if true_edges is None else _jaccard(edge_set, true_edges),
+            "role": "true" if ctrl_label == true_ctrl else "mirror_of_true" if ctrl_label == mirror_ctrl else "permuted",
+            "n_stable_tfs": len(selected),
+            "sum_abs_score_selected": float(sum(abs(value) for value in values.values())),
+            "matches_stage04_selection": set(selected) == stage04_tfs if ctrl_label == true_ctrl else np.nan,
+            **_fit_columns(result),
         })
-        _save_edges(out / "permutation" / str(assignment_index), result["selected_edges"])
     table = pd.DataFrame(rows)
-    if true_edges is not None:
-        table.loc[table["ctrl_lines"].eq("C1,C2,C3"), "jaccard_with_true"] = 1.0
-    table["rank_by_error"] = table["weighted_fitting_error"].rank(method="min")
-    return table
-
-
-def _rewired(
-    root: Path,
-    out: Path,
-    measurements: dict[str, dict[str, float]],
-    lambda_reg: float,
-    cosmos_measurements: dict[str, dict[str, float]] | None = None,
-    cosmos_lambda: float | None = None,
-) -> pd.DataFrame:
-    edges = _edges(root)
-    real_edge_set = {(source, target) for source, _, target in edges}
-    rows = []
-    for replicate in range(10):
-        rewired = rewire_signed_graph(edges, seed=SEED_BASE + replicate)
-        result = solve_carnival(rewired, measurements, lambda_reg, time_limit=OMNIPATH_TIME_LIMIT)
-        selected = _edge_set(result["selected_edges"])
-        rows.append({
-            "pkn": "omnipath",
-            "replicate": replicate,
-            "status": result["status"],
-            "accepted": result["accepted"],
-            "weighted_fitting_error": result["weighted_fitting_error"],
-            "n_edges": len(selected),
-            "jaccard_with_real": _jaccard(selected, real_edge_set),
+    true_index = int(table.loc[table["role"].eq("true"), "assignment"].iloc[0])
+    true_edges = networks[true_index]
+    table["edge_jaccard_with_true"] = [
+        _jaccard(networks[i], true_edges) if networks[i] is not None and true_edges is not None else np.nan
+        for i in table["assignment"]
+    ]
+    summary_rows = []
+    for statistic, ascending in (("n_stable_tfs", False), ("sum_abs_score_selected", False),
+                                 ("weighted_fitting_error", True), ("n_edges", True)):
+        ranks = table[statistic].rank(method="min", ascending=ascending)
+        summary_rows.append({
+            "statistic": statistic, "better_is": "lower" if ascending else "higher",
+            "true_value": table.loc[table["role"].eq("true"), statistic].iloc[0],
+            "true_rank_of_20": int(ranks[table["role"].eq("true")].iloc[0]),
+            "n_ties_with_true": int((table[statistic] == table.loc[table["role"].eq("true"), statistic].iloc[0]).sum() - 1),
+            "median_permuted": float(table.loc[table["role"].eq("permuted"), statistic].median()),
         })
-        _save_edges(out / "rewired" / "omnipath" / str(replicate), result["selected_edges"])
-    if cosmos_measurements is not None and cosmos_lambda is not None:
-        cosmos_edges = read_pkn(root / PKN / "cosmos/primary/pkn.tsv")
-        for replicate in range(5):
-            rewired = _rewire_type_preserving(cosmos_edges, seed=SEED_BASE + replicate)
-            result = solve_carnival(
-                rewired, cosmos_measurements, cosmos_lambda, time_limit=COSMOS_TIME_LIMIT
-            )
-            selected = _edge_set(result["selected_edges"])
-            rows.append({
-                "pkn": "cosmos",
-                "replicate": replicate,
-                "status": result["status"],
-                "accepted": result["accepted"],
-                "weighted_fitting_error": result["weighted_fitting_error"],
-                "n_edges": len(selected),
-                "jaccard_with_real": np.nan,
-            })
-            _save_edges(out / "rewired" / "cosmos" / str(replicate), result["selected_edges"])
+    return table, pd.DataFrame(summary_rows)
+
+
+# --------------------------------------------------------------------------
+# step 20: rewired PKNs
+# --------------------------------------------------------------------------
+
+def _rewired(root: Path, out: Path, pkn_name: str, run: str, lambda_reg: float, replicates: int, resume: bool) -> pd.DataFrame:
+    """Solve the stage-04 measurements on degree/sign-preserving rewired PKNs.
+
+    Overlap is measured against the real stage-04 *selected* network (nodes
+    and edges), not against the whole PKN (addendum, item 4).
+    """
+    edges = read_pkn(_pkn_path(root, pkn_name))
+    measurements = _stage04_measurements(root, run)
+    reference = _edge_set(_stage04_edges(root, run, lambda_reg))
+    rows = []
+    for replicate in range(replicates):
+        seed = SEED_BASE + replicate
+        rewired = (rewire_type_preserving_signed_graph if pkn_name.startswith("cosmos") else rewire_signed_graph)(edges, seed=seed)
+        pkn_path = _write_pkn(out / "rewired" / pkn_name / str(replicate) / "pkn.tsv", rewired)
+        result = _solve(root, out, f"rewired/{pkn_name}/{replicate}", f"rewired {pkn_name} {replicate}", pkn_path,
+                        measurements, lambda_reg, _time_limit(pkn_name), resume=resume)
+        rows.append({"pkn": pkn_name, "run": run, "replicate": replicate, "seed": seed,
+                     **_fit_columns(result), **_comparison(result, reference)})
     return pd.DataFrame(rows)
 
 
-def _hub_bias(root: Path, frequencies: pd.DataFrame, out: Path, rewired_nodes: set[str] | None = None) -> pd.DataFrame:
-    frequencies = frequencies[frequencies["run"].eq("omnipath")] if not frequencies.empty else frequencies
-    if frequencies.empty and not rewired_nodes:
-        return pd.DataFrame(columns=["network", "odds_ratio_per_degree_doubling", "pvalue"])
-    edges = _edges(root)
+# --------------------------------------------------------------------------
+# step 21: hub bias
+# --------------------------------------------------------------------------
+
+def _hub_bias(root: Path, frequencies: pd.DataFrame, out: Path) -> pd.DataFrame:
+    """Logistic regression of node selection on log2 PKN degree.
+
+    Measured TFs are forced into every network as outputs and are removed
+    from the regression (addendum, item 5).
+    """
+    edges = read_pkn(_pkn_path(root, "omnipath"))
     degree: dict[str, int] = {}
     for source, _, target in edges:
         degree[source] = degree.get(source, 0) + 1
         degree[target] = degree.get(target, 0) + 1
-    selected_nodes = set(frequencies.loc[frequencies["frequency"].gt(0), "source"]) | set(
-        frequencies.loc[frequencies["frequency"].gt(0), "target"]
-    ) if not frequencies.empty else set()
-    nodes = sorted(degree)
-    model_data = pd.DataFrame({
-        "selected": [int(node in selected_nodes) for node in nodes],
-        "log2_degree": [np.log2(degree[node]) for node in nodes],
-    })
+    measured = set(pd.read_csv(root / STAGE04 / "inputs/measured_tfs.tsv", sep="\t").query("pkn == 'omnipath'")["TF"])
+    nodes = sorted(set(degree) - measured)
+    networks = {}
+    real = frequencies[frequencies["run"].eq("omnipath")] if not frequencies.empty else frequencies
+    if not real.empty:
+        networks["omnipath_ensemble"] = set(real["source"]) | set(real["target"])
+    rewired_nodes: set[str] = set()
+    for path in sorted((out / "rewired/omnipath").glob("*/edges.tsv")):
+        table = pd.read_csv(path, sep="\t", dtype={"source": str, "target": str})
+        rewired_nodes.update(table["source"]); rewired_nodes.update(table["target"])
+    if rewired_nodes:
+        networks["rewired_omnipath_union"] = rewired_nodes
     rows = []
-    for network, network_nodes in (("omnipath", selected_nodes), ("rewired_omnipath", rewired_nodes or set())):
-        if not network_nodes:
+    log_degree = sm.add_constant(pd.Series([np.log2(degree[node]) for node in nodes], name="log2_degree"))
+    for network, selected in networks.items():
+        outcome = pd.Series([int(node in selected) for node in nodes], name="selected")
+        try:
+            fit = sm.Logit(outcome, log_degree).fit(disp=False)
+            odds, pvalue, note = float(np.exp(fit.params["log2_degree"])), float(fit.pvalues["log2_degree"]), ""
+        except Exception as error:  # e.g. perfect separation
+            odds, pvalue, note = np.nan, np.nan, f"{type(error).__name__}: {error}"
+        rows.append({"network": network, "n_nodes_tested": len(nodes), "n_selected": int(outcome.sum()),
+                     "odds_ratio_per_degree_doubling": odds, "pvalue": pvalue, "note": note})
+    return pd.DataFrame(rows, columns=["network", "n_nodes_tested", "n_selected",
+                                       "odds_ratio_per_degree_doubling", "pvalue", "note"])
+
+
+def _core_network(frequencies: pd.DataFrame, loo_tables: list[pd.DataFrame], out: Path) -> pd.DataFrame:
+    """Edge frequency over the OmniPath ensemble plus accepted LOO networks.
+
+    Every edge shares one denominator: networks in the ensemble plus accepted
+    LOO networks.
+    """
+    networks: list[set[tuple[str, str]]] = []
+    real = frequencies[frequencies["run"].eq("omnipath")] if not frequencies.empty else frequencies
+    counts: dict[tuple[str, str], int] = {}
+    n_ensemble = int(real["n_networks"].iloc[0]) if not real.empty else 0
+    for row in real.itertuples(index=False):
+        counts[(row.source, row.target)] = int(row.n_present)
+    for table in loo_tables:
+        if table["run"].iloc[0] == "omnipath":
+            networks.append(_edge_set(table))
+    for network in networks:
+        for edge in network:
+            counts[edge] = counts.get(edge, 0) + 1
+    total = n_ensemble + len(networks)
+    if total == 0:
+        return pd.DataFrame(columns=["source", "target", "n_present", "n_networks", "frequency", "core"])
+    core = pd.DataFrame([{"source": s, "target": t, "n_present": n} for (s, t), n in sorted(counts.items())])
+    core["n_networks"] = total
+    core["frequency"] = core["n_present"] / total
+    core["core"] = core["frequency"].ge(CORE_THRESHOLD)
+    fig, ax = plt.subplots(figsize=(4.5, 3))
+    ax.hist(core["frequency"], bins=np.linspace(0, 1, 11), color="#0072B2", edgecolor="white")
+    ax.axvline(CORE_THRESHOLD, color="0.3", linestyle="--", linewidth=1)
+    ax.set(xlabel=f"Edge frequency ({n_ensemble} sampled + {len(networks)} LOO networks)", ylabel="Edges")
+    save_figure(fig, out / "figures/edge_frequency")
+    plt.close(fig)
+    return core
+
+
+# --------------------------------------------------------------------------
+# addendum controls
+# --------------------------------------------------------------------------
+
+def _receptor_list(root: Path) -> tuple[set[str], dict[str, Any]]:
+    """OmniPath intercell receptors (cached with a checksum sidecar)."""
+    path, metadata = _fetch_bytes(root / RECEPTOR_CACHE, RECEPTOR_URL)
+    table = pd.read_csv(path, sep="\t", dtype=str)
+    required = {"category", "genesymbol"}
+    if not required.issubset(table.columns):
+        raise ValueError(f"OmniPath intercell table lacks {sorted(required - set(table.columns))}: {path}")
+    table = table[table["category"].eq("receptor")]
+    if "parent" in table:
+        table = table[table["parent"].eq("receptor")]
+    if "entity_type" in table:
+        table = table[table["entity_type"].eq("protein")]
+    receptors = {symbol for symbol in table["genesymbol"].dropna() if symbol and not symbol.startswith("COMPLEX:")}
+    if not receptors:
+        raise ValueError("No receptors left after filtering the OmniPath intercell table")
+    return receptors, metadata
+
+
+def _receptor_inputs(root: Path, out: Path, lambda_reg: float, resume: bool) -> pd.DataFrame:
+    """OmniPath run with inputs restricted to expressed receptors in the PKN."""
+    receptors, metadata = _receptor_list(root)
+    pkn_path = _pkn_path(root, "omnipath")
+    edges = read_pkn(pkn_path)
+    measurements = _stage04_measurements(root, "omnipath")
+    measured = set(measurements["PMS_vs_Ctrl"])
+    inputs = {node: 0.0 for node in sorted(_nodes(edges) & receptors)
+              if node not in measured and not is_excluded_input(node)}
+    sources = {source for source, _, _ in edges} - {target for _, _, target in edges}
+    (out / "receptors").mkdir(parents=True, exist_ok=True)
+    pd.DataFrame({"node": sorted(inputs), "is_pkn_source": [node in sources for node in sorted(inputs)]}).to_csv(
+        out / "receptors/inputs.tsv", sep="\t", index=False)
+    result = _solve(root, out, "receptors/omnipath", "receptor-only inputs", pkn_path, measurements,
+                    lambda_reg, OMNIPATH_TIME_LIMIT, resume=resume, inputs=inputs)
+    reference = _edge_set(_stage04_edges(root, "omnipath", lambda_reg))
+    return pd.DataFrame([{
+        "run": "omnipath", "lambda_reg": lambda_reg, "n_receptors_in_resource": len(receptors),
+        "n_receptor_inputs": len(inputs), "n_receptor_inputs_that_are_pkn_sources": len(set(inputs) & sources),
+        "receptor_resource_sha256": metadata.get("sha256"), **_fit_columns(result), **_comparison(result, reference),
+    }])
+
+
+def _sv_measurement(root: Path) -> tuple[str, pd.DataFrame]:
+    """Free cholesterol, simvastatin vs untreated, paired within each line."""
+    directory = root / PREPROCESSED / "metabolomics/ST003328"
+    features = pd.read_csv(directory / "features.tsv", sep="\t", dtype=str).set_index("feature_id")
+    values = pd.read_csv(directory / "line_log2.tsv", sep="\t", index_col=0)
+    lines = sorted({column.rsplit("_", 1)[0] for column in values.columns})
+    if any(f"{line}_SV" not in values or f"{line}_untreated" not in values for line in lines):
+        raise ValueError("Every ST003328 line needs an SV and an untreated column")
+    differences = pd.DataFrame({line: values[f"{line}_SV"] - values[f"{line}_untreated"] for line in lines})
+    contrast, prior = one_sample_moderated_t(differences)
+    cholesterol = features.index[features["metabolite_name"].str.lower().eq("cholesterol")]
+    if len(cholesterol) != 1 or cholesterol[0] not in contrast.index:
+        raise ValueError("Expected one complete free-cholesterol feature in ST003328")
+    metabolites = pd.read_csv(root / STAGE04 / "inputs/measured_metabolites.tsv", sep="\t")
+    node = str(metabolites.loc[metabolites["study"].eq("ST003328"), "pkn_node"].iloc[0])
+    row = contrast.loc[[cholesterol[0]]].assign(feature_id=cholesterol[0], pkn_node=node, n_lines=len(lines), **prior)
+    return node, row.reset_index(drop=True)
+
+
+def _reaction_genes(nodes_path: Path) -> dict[str, set[str]]:
+    nodes = pd.read_csv(nodes_path, sep="\t", dtype=str)
+    reactions = nodes[nodes["type"].eq("enzyme_or_reaction")]
+    return {str(row.node): {s for s in str(row.approved_symbol).split(";") if s and s != "nan"}
+            for row in reactions.itertuples(index=False)}
+
+
+def _metabolic_pkn(root: Path, out: Path, pkn_name: str) -> Path:
+    """Metabolism-only, cofactor-free signed PKN (the Aim-5 route graph).
+
+    Keeps metabolite-reaction edges and each enzyme's edges to its own
+    reactions (src/metabolic_route.metabolism_graph) and drops the registered
+    non-protected cofactor nodes of doc/decisions/2026-10-10-aim5-metabolic-route-plan.md.
+    """
+    from metabolic_route import metabolism_graph, read_pkn as read_pkn_table
+
+    table = read_pkn_table(_pkn_path(root, pkn_name))
+    cofactors = pd.read_csv(root / PKN / "aim5_route/cofactor_nodes.tsv", sep="\t")
+    drop = set(cofactors.loc[cofactors["mapped"].astype(bool) & ~cofactors["protected"].astype(bool), "pkn_node"])
+    keep = {(u, v) for u, v in metabolism_graph(table).edges() if u not in drop and v not in drop}
+    edges = [(str(s), int(sign), str(t)) for s, sign, t in table[["source", "sign", "target"]].itertuples(index=False, name=None)
+             if (str(s), str(t)) in keep]
+    return _write_pkn(out / "sv_control" / f"{pkn_name}_metabolic" / "pkn.tsv", edges)
+
+
+def _sv_control(root: Path, out: Path, resume: bool, full: bool = False) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Positive control: known input HMGCR = -1, measured SV cholesterol drop.
+
+    Asks whether CORNETO connects a known perturbation to its known metabolic
+    consequence, and through which reactions, on the full and the
+    metabolism-only (cofactor-free) PKN, each primary and canonically
+    repaired (addendum, item B).
+    """
+    node, contrast = _sv_measurement(root)
+    rows = []
+    for pkn_name in ("cosmos", "cosmos_repair"):
+        if not _pkn_path(root, pkn_name).exists():
+            rows.append({"pkn": pkn_name, "status": "missing_pkn"})
             continue
-        model_data["selected"] = [int(node in network_nodes) for node in nodes]
-        fit = sm.Logit(model_data["selected"], sm.add_constant(model_data["log2_degree"])).fit(disp=False)
+        genes = _reaction_genes(_pkn_path(root, pkn_name).with_name("nodes.tsv"))
+        # Full-PKN scopes found no incumbent in 600 s trials; they run only with --sv-full.
+        for scope in (("full", "metabolic") if full else ("metabolic",)):
+            pkn_path = _pkn_path(root, pkn_name) if scope == "full" else _metabolic_pkn(root, out, pkn_name)
+            result = _solve(root, out, f"sv_control/{pkn_name}_{scope}", f"SV control {pkn_name} {scope}", pkn_path,
+                            {"SV_vs_untreated": {node: float(contrast["moderated_t"].iloc[0])}},
+                            SV_LAMBDA, COSMOS_TIME_LIMIT, resume=resume, inputs={"HMGCR": -1.0})
+            active = result["nodes"][result["nodes"]["state"].ne(0)] if result["accepted"] else result["nodes"].iloc[0:0]
+            active_nodes = set(active["node"].astype(str))
+            canonical = sorted({g for n in active_nodes for g in genes.get(n, set()) & CANONICAL_CHOLESTEROL_GENES})
+            rows.append({
+                "pkn": pkn_name, "scope": scope, "lambda_reg": SV_LAMBDA, "input": "HMGCR=-1", "measured_node": node,
+                "measured_t": float(contrast["moderated_t"].iloc[0]), **_fit_columns(result),
+                "cholesterol_state": int(active.loc[active["node"].eq(node), "state"].iloc[0]) if node in active_nodes else 0,
+                "mevalonate_active": any(MEVALONATE_HMDB in n for n in active_nodes),
+                "n_reaction_nodes_active": sum(n in genes for n in active_nodes),
+                "n_metabolite_nodes_active": sum(n.startswith("Metab__") for n in active_nodes),
+                "canonical_genes_used": ",".join(canonical),
+                "n_canonical_genes_used": len(canonical),
+                "n_canonical_genes_total": len(CANONICAL_CHOLESTEROL_GENES),
+            })
+    return pd.DataFrame(rows), contrast
+
+
+def _tight_gap(root: Path, out: Path, resume: bool) -> pd.DataFrame:
+    """Re-solve cosmos_multi at mip_rel_gap 1e-4 to test the lambda choice."""
+    measurements = _stage04_measurements(root, "cosmos_multi")
+    grid = pd.read_csv(root / STAGE04 / "summary/lambda_grid.tsv", sep="\t").query("run == 'cosmos_multi'")
+    selected = _stage04_selected(root).get("cosmos_multi", np.nan)
+    rows, results = [], []
+    for lambda_reg in TIGHT_LAMBDAS:
+        result = _solve(root, out, f"tight_gap/cosmos_multi/lambda_{lambda_label(lambda_reg)}",
+                        f"tight gap cosmos_multi lambda={lambda_reg:g}", _pkn_path(root, "cosmos"), measurements, lambda_reg,
+                        COSMOS_TIME_LIMIT, resume=resume, gap=TIGHT_GAP)
+        results.append(result)
+        stage04 = grid[grid["lambda_reg"].eq(lambda_reg)]
+        reference = _edge_set(_stage04_edges(root, "cosmos_multi", lambda_reg))
         rows.append({
-            "network": network,
-            "odds_ratio_per_degree_doubling": float(np.exp(fit.params["log2_degree"])),
-            "pvalue": float(fit.pvalues["log2_degree"]),
-            "n_nodes": len(nodes),
+            "lambda_reg": lambda_reg, "requested_gap": TIGHT_GAP, **_fit_columns(result),
+            "stage04_error": float(stage04["weighted_fitting_error"].iloc[0]) if len(stage04) else np.nan,
+            "stage04_gap": float(stage04["mip_gap"].iloc[0]) if len(stage04) else np.nan,
+            **_comparison(result, reference),
         })
     table = pd.DataFrame(rows)
-    table.to_csv(out / "summary/hub_bias.tsv", sep="\t", index=False)
+    # lambda = 1 is not re-solved: its stage-04 error (28.8) is far outside the
+    # 10 % band of any lambda = 0 error in this run.
+    chosen = choose_lambda(results)
+    table["tight_selected_lambda"] = chosen if chosen is not None else np.nan
+    table["stage04_selected_lambda"] = selected
     return table
 
 
-def main(root: Path = ROOT) -> int:
-    stage04 = root / STAGE04 / "04_inference.provenance.json"
-    if not stage04.exists():
-        raise FileNotFoundError("Run stage 04 before stage 05")
+def _compound_inputs(edges: list[tuple[str, int, str]], candidates: list[str]) -> dict[str, list[str]]:
+    """Split metabolite inputs into drug/compound-layer nodes and the rest.
+
+    A metabolite source whose out-edges all go to protein nodes takes part in
+    no PKN reaction: it comes from the COSMOS compound-target layer (e.g.
+    tamoxifen Metab__5376_c, cinnamaldehyde Metab__HMDB0003441_c).
+    """
+    targets: dict[str, set[str]] = {}
+    for source, _, target in edges:
+        targets.setdefault(source, set()).add(target)
+    compound = [n for n in candidates if n.startswith("Metab__") and targets.get(n)
+                and all(not t.startswith(("Metab__", "Gene")) for t in targets[n])]
+    return {"compound_layer": compound, "all_metabolites": [n for n in candidates if n.startswith("Metab__")]}
+
+
+def _no_drug_inputs(root: Path, out: Path, lambda_reg: float, resume: bool) -> pd.DataFrame:
+    """cosmos_multi with metabolite free inputs removed (addendum, item D).
+
+    In stage 04 one unmeasured input carries about half the fit: tamoxifen
+    (Metab__5376_c) explains 39 of 79 reachable measurements in cosmos_multi,
+    and cinnamaldehyde (Metab__HMDB0003441_c) 44 of 79 in cosmos_repair.  Two
+    variants: drop compound-layer metabolite inputs (only protein targets), or
+    drop every metabolite input.  The nodes stay in the PKN.
+    """
+    pkn_path = _pkn_path(root, "cosmos")
+    edges = read_pkn(pkn_path)
+    measurements = _stage04_measurements(root, "cosmos_multi")
+    measured = set(measurements["PMS_vs_Ctrl"])
+    sources = sorted({s for s, _, _ in edges} - {t for _, _, t in edges})
+    default = [n for n in sources if n not in measured and not is_excluded_input(n)]
+    reference = _edge_set(_stage04_edges(root, "cosmos_multi", lambda_reg))
+    stage04_fit = pd.read_csv(root / STAGE04 / f"cosmos_multi/lambda_{lambda_label(lambda_reg)}/fit.tsv", sep="\t")
+    rows = []
+    for variant, removed in _compound_inputs(edges, default).items():
+        inputs = {n: 0.0 for n in default if n not in set(removed)}
+        result = _solve(root, out, f"no_drug_inputs/{variant}", f"cosmos_multi without {variant} inputs", pkn_path,
+                        measurements, lambda_reg, COSMOS_TIME_LIMIT, resume=resume, inputs=inputs)
+        rows.append({
+            "run": "cosmos_multi", "variant": variant, "lambda_reg": lambda_reg, "n_default_inputs": len(default),
+            "n_inputs_removed": len(removed),
+            "stage04_error": float(stage04_fit["weighted_fitting_error"].sum()),
+            "stage04_n_correct_sign": int(stage04_fit["n_measurements_correct_sign"].sum()),
+            **_fit_columns(result), **_comparison(result, reference),
+        })
+    return pd.DataFrame(rows)
+
+# --------------------------------------------------------------------------
+# main
+# --------------------------------------------------------------------------
+
+def _parse_args(argv: list[str] | None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Stage 05 robustness controls")
+    parser.add_argument("--parts", nargs="+", choices=PARTS, default=list(PARTS))
+    parser.add_argument("--cosmos", action="store_true",
+                        help="also run COSMOS sampling, LOO, rewiring, the tighter-gap re-solve and the no-drug-input run")
+    parser.add_argument("--cosmos-samples", type=int, default=DEFAULT_COSMOS_SAMPLES)
+    parser.add_argument("--sv-full", action="store_true",
+                        help="also run the SV control on the full COSMOS PKNs (up to 2 x 3,600 s)")
+    parser.add_argument("--resume", action="store_true", help="reuse finished solves in the output folder")
+    args = parser.parse_args(argv)
+    args.parts = [part for part in PARTS if part in set(args.parts)]
+    return args
+
+
+def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
+    args = _parse_args(argv)
+    if not (root / STAGE04 / "04_inference.provenance.json").exists():
+        raise FileNotFoundError("Run stage 04 to completion before stage 05")
     out = root / ANALYSIS
-    (out / "summary").mkdir(parents=True, exist_ok=True)
-    status, frequencies = _sample_stage04_runs(root, out)
-    status.to_csv(out / "summary/sampling_status.tsv", sep="\t", index=False)
-    if not frequencies.empty:
-        frequencies.to_csv(out / "summary/edge_frequencies.tsv", sep="\t", index=False)
-    lambda_reg = _selected_lambda(root, "omnipath")
-    loo_status, loo_edges = _loo_controls(root, out, lambda_reg)
-    loo_status.to_csv(out / "summary/loo_status.tsv", sep="\t", index=False)
+    if out.exists() and any(out.iterdir()) and not args.resume:
+        raise ValueError(f"{out} is not empty; archive it or rerun with --resume")
+    out.mkdir(parents=True, exist_ok=True)
+    selected = _stage04_selected(root)
+    omnipath_lambda = selected["omnipath"]
+    cosmos_lambda = selected.get("cosmos_multi")
+    done: list[str] = []
 
-    primary_edges = pd.read_csv(root / STAGE04 / f"omnipath/lambda_{lambda_label(lambda_reg)}/edges.tsv", sep="\t")
-    measured = pd.read_csv(root / STAGE04 / "inputs/measured_tfs.tsv", sep="\t")
-    omni = measured[measured["pkn"].eq("omnipath")]
-    measurements = {"PMS_vs_Ctrl": dict(zip(omni["TF"], omni["score"]))}
-    grid = _choice_grid(root, out, primary_edges, measurements, lambda_reg)
-    grid.to_csv(out / "summary/choice_grid.tsv", sep="\t", index=False)
-    permutations = _permutations(root, out, lambda_reg)
-    permutations.to_csv(out / "summary/permutation_rank.tsv", sep="\t", index=False)
-    cosmos_measurements = None
-    cosmos_lambda = None
-    lambda_grid = pd.read_csv(root / STAGE04 / "summary/lambda_grid.tsv", sep="\t")
-    cosmos_selected = lambda_grid[lambda_grid["run"].eq("cosmos_multi")]
-    selected_status = pd.read_csv(root / STAGE04 / "summary/selected_lambda.tsv", sep="\t")
-    cosmos_status = selected_status[selected_status["run"].eq("cosmos_multi")]
-    cosmos_selected_lambda = float(cosmos_status.iloc[0]["selected_lambda"]) if len(cosmos_status) == 1 else None
-    if cosmos_selected_lambda is not None:
-        cosmos_selected = cosmos_selected[cosmos_selected["lambda_reg"].eq(cosmos_selected_lambda)]
-    if cosmos_selected_lambda is not None and len(cosmos_selected) == 1 and bool(cosmos_selected.iloc[0]["accepted"]) and float(cosmos_selected.iloc[0]["solve_seconds"]) < 1800:
-        cosmos_tf = measured[measured["pkn"].eq("cosmos_multi")]
-        metabolites = pd.read_csv(root / STAGE04 / "inputs/measured_metabolites.tsv", sep="\t")
-        cosmos_measurements = {
-            "PMS_vs_Ctrl": {
-                **dict(zip(cosmos_tf["TF"], cosmos_tf["score"])),
-                **dict(zip(metabolites["pkn_node"], metabolites["value"])),
-            }
-        }
-        cosmos_lambda = cosmos_selected_lambda
-        cosmos_loo_status, cosmos_loo_edges = _loo_controls(
-            root,
-            out,
-            cosmos_lambda,
-            pkn_edges=read_pkn(root / PKN / "cosmos/primary/pkn.tsv"),
-            directory_prefix="cosmos",
-            time_limit=COSMOS_TIME_LIMIT,
-            extra_measurements={
-                str(node): float(value)
-                for node, value in zip(metabolites["pkn_node"], metabolites["value"])
-            },
-        )
-        loo_status = pd.concat([loo_status, cosmos_loo_status], ignore_index=True)
-        loo_edges.extend(cosmos_loo_edges)
-        loo_status.to_csv(out / "summary/loo_status.tsv", sep="\t", index=False)
-    rewired = _rewired(root, out, measurements, lambda_reg, cosmos_measurements, cosmos_lambda)
-    rewired.to_csv(out / "summary/rewired.tsv", sep="\t", index=False)
-    jaccard_rows = []
-    primary_edge_set = _edge_set(primary_edges)
-    for loo_edges_table in loo_edges:
-        left_out = str(loo_edges_table["loo"].iloc[0])
-        jaccard_rows.append({
-            "analysis": "leave_one_line_out",
-            "level": left_out,
-            "edge_jaccard": _jaccard(_edge_set(loo_edges_table), primary_edge_set),
-            "node_jaccard": _jaccard(
-                {node for edge in _edge_set(loo_edges_table) for node in edge},
-                {node for edge in primary_edge_set for node in edge},
-            ),
-        })
-    for row in grid.itertuples(index=False):
-        jaccard_rows.append({
-            "analysis": "choice_grid",
-            "level": f"{row.factor}={row.level}",
-            "edge_jaccard": row.edge_jaccard,
-            "node_jaccard": row.node_jaccard,
-        })
-    pd.DataFrame(jaccard_rows).to_csv(out / "summary/jaccard.tsv", sep="\t", index=False)
-
-    if not frequencies.empty or loo_edges:
-        core_records = []
-        for row in frequencies[frequencies["run"].eq("omnipath")].itertuples(index=False) if not frequencies.empty else []:
-            core_records.append({
-                "source": row.source,
-                "target": row.target,
-                "n_present": row.n_alternatives,
-                "n_steps": row.n_total_alternatives,
-            })
-        for loo_table in loo_edges:
-            if "pkn" in loo_table.columns and loo_table["pkn"].iloc[0] != "omnipath":
-                continue
-            for source, target in sorted(_edge_set(loo_table)):
-                core_records.append({"source": source, "target": target, "n_present": 1, "n_steps": 1})
-        if core_records:
-            core = pd.DataFrame(core_records).groupby(["source", "target"], as_index=False).agg(
-                n_present=("n_present", "sum"), n_steps=("n_steps", "sum")
-            )
-            core["frequency"] = core["n_present"] / core["n_steps"]
-            core["core"] = core["frequency"].ge(0.8)
-            core.to_csv(out / "summary/core_network.tsv", sep="\t", index=False)
-            fig, ax = plt.subplots(figsize=(6, 4))
-            ax.hist(core["frequency"], bins=np.linspace(0, 1, 11), color="#0072B2", edgecolor="white")
-            ax.set(xlabel="Combined edge frequency", ylabel="Edges", title="Stage-05 edge stability")
-            save_figure(fig, out / "figures/edge_frequency")
-            plt.close(fig)
-    rewired_nodes = set()
-    for edge_file in (out / "rewired/omnipath").glob("*/edges.tsv"):
-        rewired_edges = pd.read_csv(edge_file, sep="\t")
-        if not rewired_edges.empty:
-            rewired_nodes.update(rewired_edges["source"])
-            rewired_nodes.update(rewired_edges["target"])
-    _hub_bias(root, frequencies, out, rewired_nodes)
+    frequencies = pd.DataFrame(columns=["run", "source", "target", "n_present", "n_networks", "frequency"])
+    loo_tables: list[pd.DataFrame] = []
+    if "sampling" in args.parts:
+        runs = ["omnipath", "omnipath_lines"] + (["cosmos_multi"] if args.cosmos else [])
+        samples = {run: N_SAMPLES if run not in COSMOS_RUNS else args.cosmos_samples for run in runs}
+        status, frequencies = _sampling(root, out, runs, samples, args.resume)
+        _write(status, out, "sampling_status.tsv")
+        _write(frequencies, out, "edge_frequencies.tsv")
+        done.append("sampling")
+    if "loo" in args.parts:
+        tables = []
+        for run in ["omnipath"] + (["cosmos_multi"] if args.cosmos and cosmos_lambda is not None else []):
+            status, edges = _loo(root, out, run, selected[run], args.resume)
+            tables.append(status)
+            loo_tables += edges
+        _write(pd.concat(tables, ignore_index=True), out, "loo_status.tsv")
+        done.append("loo")
+    if "grid" in args.parts:
+        _write(_choice_grid(root, out, omnipath_lambda, args.resume), out, "choice_grid.tsv")
+        done.append("grid")
+    if "permutations" in args.parts:
+        table, summary = _permutations(root, out, omnipath_lambda, args.resume)
+        _write(table, out, "permutations.tsv")
+        _write(summary, out, "permutation_rank.tsv")
+        done.append("permutations")
+    if "rewired" in args.parts:
+        tables = [_rewired(root, out, "omnipath", "omnipath", omnipath_lambda, N_OMNIPATH_REWIRED, args.resume)]
+        if args.cosmos and cosmos_lambda is not None:
+            tables.append(_rewired(root, out, "cosmos", "cosmos_multi", cosmos_lambda, N_COSMOS_REWIRED, args.resume))
+        _write(pd.concat(tables, ignore_index=True), out, "rewired.tsv")
+        done.append("rewired")
+    if "receptors" in args.parts:
+        _write(_receptor_inputs(root, out, omnipath_lambda, args.resume), out, "receptor_inputs.tsv")
+        done.append("receptors")
+    if "sv_control" in args.parts:
+        table, contrast = _sv_control(root, out, args.resume, full=args.sv_full)
+        _write(contrast, out, "sv_cholesterol_contrast.tsv")
+        _write(table, out, "sv_control.tsv")
+        done.append("sv_control")
+    if "tight_gap" in args.parts and args.cosmos:
+        _write(_tight_gap(root, out, args.resume), out, "tight_gap.tsv")
+        done.append("tight_gap")
+    if "no_drug_inputs" in args.parts and args.cosmos and cosmos_lambda is not None:
+        _write(_no_drug_inputs(root, out, cosmos_lambda, args.resume), out, "no_drug_inputs.tsv")
+        done.append("no_drug_inputs")
+    if "sampling" in args.parts:
+        _write(_hub_bias(root, frequencies, out), out, "hub_bias.tsv")
+        if "loo" in args.parts:
+            _write(_core_network(frequencies, loo_tables, out), out, "core_network.tsv")
 
     inputs = [
-        stage04,
+        root / STAGE04 / "04_inference.provenance.json",
         root / STAGE04 / "inputs/measured_tfs.tsv",
+        root / STAGE04 / "inputs/measured_metabolites.tsv",
         root / STAGE04 / "summary/selected_lambda.tsv",
+        root / STAGE04 / "summary/lambda_grid.tsv",
         root / PREPROCESSED / "rnaseq/log2cpm.tsv",
         root / PREPROCESSED / "rnaseq/samples.tsv",
-        root / PLAN,
-    ]
-    code = [
-        root / "src/inference.py", root / "src/activities.py", root / "src/pkn.py",
-        root / "scripts/analysis/06_corneto_robustness.py", root / PLAN,
-    ]
+        root / PREPROCESSED / "metabolomics/ST003328/line_log2.tsv",
+        root / ACTIVITIES / "collectri/tf_activity_per_line.tsv",
+        root / PLAN, root / ADDENDUM,
+    ] + [_pkn_path(root, name) for name in ("omnipath", "nc_rule", "signor_only", "unpruned", "cosmos", "cosmos_repair")]
+    if "receptors" in done:
+        inputs.append(root / RECEPTOR_CACHE)
+    if "sv_control" in done:
+        inputs.append(root / PKN / "aim5_route/cofactor_nodes.tsv")
+    code = [root / "src" / name for name in ("inference.py", "corneto_worker.py", "activities.py", "pkn.py",
+                                             "metabolic_route.py")] + [
+        root / "scripts/analysis/06_corneto_robustness.py"]
     parameters = {
-        "alternative_solutions": {"max_samples": 30, "percentage": 0.03, "scale": 0.03, "rel_opt_tol": 0.05},
-        "seed_base": SEED_BASE,
-        "permutation_assignments": 20,
-        "omnipath_rewired_replicates": 10,
-        "solver": SOLVER,
-        "solver_threads": SOLVER_THREADS,
-        "solver_seed": SOLVER_SEED,
+        "parts_completed_this_invocation": done,
+        "cosmos": args.cosmos,
+        "alternatives": {"omnipath": N_SAMPLES, "omnipath_lines": N_SAMPLES, "cosmos_multi": args.cosmos_samples,
+                         "percentage": 0.03, "scale": 0.03, "rel_opt_tol": 0.05},
+        "rewired_replicates": {"omnipath": N_OMNIPATH_REWIRED, "cosmos": N_COSMOS_REWIRED},
+        "core_threshold": CORE_THRESHOLD,
+        "tight_gap": {"mip_rel_gap": TIGHT_GAP, "lambdas": list(TIGHT_LAMBDAS)},
+        "sv_control": {"full_pkn": args.sv_full, "input": "HMGCR=-1", "lambda": SV_LAMBDA, "measurement": "paired moderated t, SV - untreated",
+                       "pkns": "cosmos/cosmos_repair x full/metabolism-only cofactor-free"},
+        "receptor_resource": RECEPTOR_URL,
+        "seed_base": SEED_BASE, "solver": SOLVER, "solver_relative_gap": SOLVER_RELATIVE_GAP,
+        "solver_threads": SOLVER_THREADS, "solver_seed": SOLVER_SEED,
+        "execution": "one Python process per solve (src/corneto_worker.py); resume=" + str(args.resume),
     }
-    provenance = stage_provenance(root, "05_robustness", inputs, {}, parameters, code)
+    existing = [path for path in inputs if path.exists()]
+    provenance = stage_provenance(root, "05_robustness", existing, {}, parameters, code)
     write_stage_provenance(out, provenance)
-    print(f"Stage 05 complete: {out}")
+    print(f"Stage 05 parts completed: {', '.join(done) or 'none'} -> {out}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(argv=sys.argv[1:]))

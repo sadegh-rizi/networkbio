@@ -108,6 +108,17 @@ def test_node_states_come_from_vertex_value_and_unreachable_measurements_are_rep
     assert "HMGCR" not in result["inputs"]
 
 
+def test_lambda_rule_ignores_floating_point_noise_at_zero_baseline():
+    results = [
+        {"lambda_reg": 0.0, "accepted": True, "weighted_fitting_error": 0.0},
+        {"lambda_reg": 0.3, "accepted": True, "weighted_fitting_error": 0.0},
+        {"lambda_reg": 1.0, "accepted": True, "weighted_fitting_error": 1.437731e-15},
+    ]
+    assert choose_lambda(results) == 1.0
+    results[2]["weighted_fitting_error"] = 0.5
+    assert choose_lambda(results) == 0.3
+
+
 def test_rejected_time_limit_is_not_an_accepted_solution():
     assert solution_accepted("optimal", float("nan"))
     assert solution_accepted("user_limit", 0.05)
@@ -121,3 +132,44 @@ def test_edge_state_conflicts_check_both_endpoints():
     ])
     assert _edge_state_conflicts(selected, {"A": 1, "B": 1}) == 0
     assert _edge_state_conflicts(selected, {"A": 1, "B": -1}) == 1
+
+
+def _stage04_script():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "stage04_script", ROOT / "scripts/analysis/05_corneto_inference.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_backfill_log_parser_reads_only_finished_lambdas(tmp_path):
+    log = tmp_path / "stage04.log"
+    log.write_text(
+        "omnipath: lambda=0\nUnreachable vertices for sample: 0\n"
+        "  status=optimal accepted=True gap=0 seconds=30 error=0.000\n"
+        "cosmos_tf: lambda=0.3\n  status=optimal accepted=True gap=0.0001485 seconds=564 error=-0.000\n"
+        "cosmos_multi: lambda=0\nUnreachable vertices for sample: 0\n"
+        "scripts/setup/run_stage04.sh: line 11: 23702 Killed\n"
+    )
+    records = _stage04_script()._parse_backfill_log(log)
+    assert set(records) == {("omnipath", 0.0), ("cosmos_tf", 0.3)}
+    assert records[("cosmos_tf", 0.3)]["mip_gap"] == 0.0001485
+    assert records[("omnipath", 0.0)]["accepted"] is True
+
+
+def test_resume_refuses_changed_measurements(tmp_path):
+    import pandas as pd
+    import pytest
+
+    script = _stage04_script()
+    (tmp_path / "inputs").mkdir()
+    tfs = pd.DataFrame({"pkn": ["omnipath"], "TF": ["SP1"], "score": [7.29]})
+    metabolites = pd.DataFrame({"pkn_node": ["Metab__HMDB0000067_c"], "value": [6.41]})
+    tfs.to_csv(tmp_path / "inputs/measured_tfs.tsv", sep="\t", index=False)
+    metabolites.to_csv(tmp_path / "inputs/measured_metabolites.tsv", sep="\t", index=False)
+    script._check_resume_inputs(tmp_path, tfs, metabolites)
+    with pytest.raises(ValueError, match="differs"):
+        script._check_resume_inputs(tmp_path, tfs.assign(score=[7.0]), metabolites)

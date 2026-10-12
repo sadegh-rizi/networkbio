@@ -1,0 +1,7 @@
+sample	weighted_fitting_error	n_measurements	n_missing_from_pkn	n_unreachable	n_reachable	n_measurements_correct_sign	sign_agreement_ratio	n_selected_edges	n_selected_nodes	n_edge_state_conflicts
+C1	-5.1663777528627105e-15	50	0	0	50	50	1.0	72	93	0
+C2	4.846694723674315e-15	50	0	0	50	50	1.0	68	87	0
+C3	4.2511761631583225e-16	50	0	0	50	50	1.0	66	82	0
+C4	-1.490898370384468e-15	50	0	0	50	50	1.0	69	90	0
+C5	3.7580707079076354e-15	50	0	0	50	50	1.0	68	88	0
+C6	8.426966750919274e-15	50	0	0	50	50	1.0	71	92	0

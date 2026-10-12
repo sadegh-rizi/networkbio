@@ -8,5 +8,6 @@ PYTHON="${ROOT}/.venv/bin/python"
 export MPLBACKEND=Agg
 export PYTHONUNBUFFERED=1
 "${PYTHON}" -m pytest -q tests
-"${PYTHON}" scripts/analysis/05_corneto_inference.py
+# Extra arguments are passed through, e.g. --resume [--backfill-log <log>].
+"${PYTHON}" scripts/analysis/05_corneto_inference.py "$@"
 printf 'STAGE 04 FINISHED\n'

@@ -87,6 +87,7 @@ def make_corneto_data(
     measurements: Measurements,
     *,
     excluded_inputs: Iterable[str] = EXCLUDED_INPUTS,
+    inputs: Mapping[str, float] | None = None,
 ) -> tuple[cn.Data, list[str], dict[str, list[str]]]:
     """Build CORNETO data and return the inputs used and missing measurements.
 
@@ -95,10 +96,23 @@ def make_corneto_data(
     union of the per-sample input sets actually written to the CORNETO data.
     Missing measured nodes are reported per sample and never silently passed
     to CORNETO.
+
+    ``inputs`` replaces the default input set (every non-excluded PKN source
+    node with value 0, i.e. unknown sign).  It maps node -> value, where 0 is
+    an unknown-sign input and +1/-1 a known perturbation.  Explicit inputs may
+    be internal nodes and are not filtered by ``excluded_inputs``; nodes
+    absent from the PKN are dropped (the caller compares with the returned
+    input list).  Used by the stage-05 positive control and receptor-only
+    sensitivity.
     """
     edges = list(edges)
     nodes = pkn_nodes(edges)
-    sources = [node for node in source_nodes(edges) if not is_excluded_input(node, excluded_inputs)]
+    if inputs is None:
+        input_values = {
+            node: 0.0 for node in source_nodes(edges) if not is_excluded_input(node, excluded_inputs)
+        }
+    else:
+        input_values = {str(node): float(value) for node, value in inputs.items() if str(node) in nodes}
     data: dict[str, dict[str, dict[str, Any]]] = {}
     missing: dict[str, list[str]] = {}
     used_inputs: set[str] = set()
@@ -111,8 +125,8 @@ def make_corneto_data(
         if absent:
             sample_values = {node: value for node, value in sample_values.items() if node in nodes}
         features: dict[str, dict[str, Any]] = {
-            node: {"value": 0.0, "role": "input", "mapping": "vertex"}
-            for node in sources if node not in sample_values
+            node: {"value": value, "role": "input", "mapping": "vertex"}
+            for node, value in input_values.items() if node not in sample_values
         }
         used_inputs.update(features)
         features.update({
@@ -307,10 +321,17 @@ def solve_carnival(
     threads: int = SOLVER_THREADS,
     seed: int = SOLVER_SEED,
     excluded_inputs: Iterable[str] = EXCLUDED_INPUTS,
+    inputs: Mapping[str, float] | None = None,
 ) -> dict[str, Any]:
-    """Build and solve one CarnivalFlow problem with the preregistered rule."""
+    """Build and solve one CarnivalFlow problem with the preregistered rule.
+
+    ``inputs`` optionally replaces the default input set; see
+    :func:`make_corneto_data`.
+    """
     edges = list(edges)
-    data, inputs, missing = make_corneto_data(edges, measurements, excluded_inputs=excluded_inputs)
+    data, inputs, missing = make_corneto_data(
+        edges, measurements, excluded_inputs=excluded_inputs, inputs=inputs
+    )
     method = CarnivalFlow(lambda_reg=lambda_reg)
     problem = method.build_from_data(load_graph_from_sif_tuples(edges), data)
     cvx_problem = problem.solve(
@@ -368,6 +389,18 @@ def solve_carnival(
     }
 
 
+LAMBDA_ABSOLUTE_TOLERANCE = 1e-9
+
+
+def _within_tolerance(error: float, baseline: float, tolerance: float) -> bool:
+    """Registered rule error <= tolerance * baseline, with a 1e-9 allowance for solver rounding.
+
+    Without it, a baseline of exactly 0 rejects errors such as 1.4e-15 that are
+    floating-point noise, not misfit (stage-04 run of 2026-10-11, OmniPath lambda = 1).
+    """
+    return error <= tolerance * baseline + LAMBDA_ABSOLUTE_TOLERANCE
+
+
 def choose_lambda(results: Iterable[Mapping[str, Any]], tolerance: float = 1.10) -> float | None:
     """Choose the largest accepted lambda within 10% of the lambda-zero fit."""
     results = list(results)
@@ -377,7 +410,7 @@ def choose_lambda(results: Iterable[Mapping[str, Any]], tolerance: float = 1.10)
     baseline_error = float(baseline["weighted_fitting_error"])
     accepted = [
         result for result in results
-        if result["accepted"] and float(result["weighted_fitting_error"]) <= tolerance * baseline_error
+        if result["accepted"] and _within_tolerance(float(result["weighted_fitting_error"]), baseline_error, tolerance)
     ]
     if not accepted:
         return None
@@ -407,7 +440,7 @@ def lambda_grid_table(results: Iterable[Mapping[str, Any]], tolerance: float = 1
             "n_missing_measurements": result["n_missing_measurements"],
             "within_error_tolerance": (
                 bool(result["accepted"] and np.isfinite(baseline_error) and
-                     result["weighted_fitting_error"] <= tolerance * baseline_error)
+                     _within_tolerance(float(result["weighted_fitting_error"]), baseline_error, tolerance))
             ),
             "n_selected_edges": int(result["selected_edges"].drop_duplicates(["source", "target"]).shape[0]),
             "n_selected_nodes": len({
@@ -458,20 +491,24 @@ def sample_edges(
     values = np.asarray(sampled.get("edge_value", []), dtype=float)
     if values.size == 0:
         # No perturbed solution stayed within rel_opt_tol: report zero alternatives.
-        return pd.DataFrame(columns=["alternative", "source", "target", "edge_value"])
+        return pd.DataFrame(columns=["alternative", "source", "target", "edge_value", "n_samples_selected"])
     values = values.reshape(values.shape[0], method.processed_graph.num_edges, -1)
     rows: list[dict[str, Any]] = []
     for sample_index in range(values.shape[0]):
         for edge_index, (sources, targets) in enumerate(method.processed_graph.E):
             if len(sources) == 0 or len(targets) == 0:
                 continue
-            value = float(values[sample_index, edge_index, 0])
-            if abs(value) <= 0.5:
+            # Multi-sample problems (omnipath_lines) have one column per
+            # sample; an edge belongs to the alternative if any sample uses it.
+            per_sample = values[sample_index, edge_index, :]
+            used = np.abs(per_sample) > 0.5
+            if not used.any():
                 continue
             rows.append({
                 "alternative": sample_index,
                 "source": str(next(iter(sources))),
                 "target": str(next(iter(targets))),
-                "edge_value": int(round(value)),
+                "edge_value": int(round(float(per_sample[used][0]))),
+                "n_samples_selected": int(used.sum()),
             })
-    return pd.DataFrame(rows, columns=["alternative", "source", "target", "edge_value"])
+    return pd.DataFrame(rows, columns=["alternative", "source", "target", "edge_value", "n_samples_selected"])

@@ -165,6 +165,13 @@ and stage-03 resource choice are settled in
 5. Aim 5 implementation is on `task/aim5-metabolic-route`. The structural
    run reproduced the expected `r0170` and `HMR_1465` gaps, the 5,938 / 1,616
    genome-wide gap count, and a repaired PKN with exactly four added edges.
-   The restricted route reaches Lanosterol but not the final Cholesterol
-   waypoint because 19 canonical rows remain present but unconnected after
-   endpoint mapping; this is reported as a residual resource/mapping issue.
+   The first run's "19 present but unconnected" rows and the failed
+   Lanosterol -> Cholesterol waypoint were an identifier-mapping artefact, not
+   a resource gap (audit `doc/reviews/2026-10-10-aim5-route-implementation-audit.md`):
+   Recon3D lacks HMDB annotations for several late sterols that COSMOS names
+   by HMDB ID. After the fix (names inferred from the COSMOS reaction
+   neighbours; rerun 2026-10-11), the output gives 56 canonical steps present
+   forward and only the two FDFT1 half-reactions absent; on the repaired PKN
+   all 12 waypoints are reachable and the degree-weighted search returns the
+   canonical route (40 steps to ER cholesterol, 16 pathway enzymes). The
+   repaired PKN itself is unchanged.

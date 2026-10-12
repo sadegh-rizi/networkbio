@@ -1,0 +1,7 @@
+comparison	entity	jaccard
+omnipath_vs_cosmos_tf	protein_node	0.7142857142857143
+omnipath_vs_cosmos_tf	edge	0.11818181818181818
+omnipath_vs_cosmos_multi	protein_node	0.5045871559633027
+omnipath_vs_cosmos_multi	edge	0.07017543859649122
+cosmos_tf_vs_cosmos_multi	protein_node	0.6082474226804123
+cosmos_tf_vs_cosmos_multi	edge	0.21379310344827587

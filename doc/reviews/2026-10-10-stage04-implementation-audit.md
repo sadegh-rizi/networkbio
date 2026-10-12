@@ -109,3 +109,67 @@ Observation for interpretation: with 823 unknown-sign inputs the error at
 error as λ = 0". A perfect fit is therefore expected and carries little
 information on its own; the label-permutation and rewired-PKN controls
 (stage 05) are what test whether the network reflects the PMS contrast.
+
+## Run failures and restartable execution (2026-10-11)
+
+1. First full run (~00:50): killed by the OS during `cosmos_tf` λ = 0.01
+   (bare `Killed`). Fix: release CORNETO/cvxpy objects after each λ;
+   λ rule gained a 1e-9 absolute tolerance (OmniPath error 0 at λ 0–0.3 and
+   1.4e-15 at λ 1 is rounding).
+2. Second run: `NameError: gc` (the import was lost to two concurrent edits
+   by the reviewing agent); fixed.
+3. Third run (11:33–13:56): all 6 OmniPath and all 6 `cosmos_tf` λ finished
+   (COSMOS 15–27 min wall per λ, rising), then killed 20 min into
+   `cosmos_multi` λ = 0. The pruned `cosmos_multi` graph is the same size as
+   `cosmos_tf` (18,933 vs 18,923 nodes; 7 of 36 measured metabolites are
+   unreachable), so the cause is memory not returned between solves in one
+   process, not a larger problem.
+
+Change: every (run, λ) problem is solved in its own Python process
+(`--worker task.json`), which writes `edges.tsv`, `nodes.tsv`, `fit.tsv` and
+`result.json` (solver status, gap, time, error, inputs, task signature). The
+parent only reads these tables. `--resume` reuses every λ whose `result.json`
+matches the current task signature (repository-relative PKN path, PKN hash,
+measurements, λ, time limit, solver settings) and refuses to resume if the
+recomputed TF or metabolite measurements differ from those saved in
+`inputs/`. `--backfill-log <log>` (with `--resume`) adds `result.json` for λ
+folders written before this change, taking status, gap and time from the log
+and the error from `fit.tsv`; such results are flagged `backfilled_from_log`
+and listed in the provenance. Tested on the toy network (fresh solve, resume,
+backfill give identical networks and λ choice) and on the real log (12
+finished records parsed).
+
+## Completed run (resumed, finished 2026-10-12)
+
+Provenance: `results/ionescu_corneto/04_inference/04_inference.provenance.json`, git commit
+`a4dcbb0`, `git_dirty = true`; 12 OmniPath/`cosmos_tf` λ points backfilled from the log. Commit and
+rerun before the report if a clean provenance record is needed.
+
+| Run | Selected λ | Error | Network | Note |
+|---|---|---|---|---|
+| omnipath | 1 | 0 | 65 edges | perfect fit at every λ |
+| cosmos_tf | 1 | 0 | 58 edges | perfect fit at every λ |
+| cosmos_multi | 0.1 | 8.93 | 118 edges, 70/79 reachable correct | errors not monotone in λ (0.01: 10.57) |
+| cosmos_repair | 0.1 | 9.03 | 113 edges, 69/79 reachable correct | edge Jaccard with cosmos_multi 0.45 |
+| omnipath_lines | 0 | ≈0 | 127 unique edges over 6 lines | **λ > 0: no incumbent within 1,800 s at any λ** |
+
+Findings:
+
+1. `omnipath_lines` is not usable as a regularised result. Every λ > 0 hit the time limit
+   without a feasible incumbent (error 1,212 = all measurements unexplained). The rule then
+   selected λ = 0, where every sign-consistent edge set is optimal. Report it as a
+   tractability failure of the six-sample problem, not as a network. Stage 05 skips its sampling.
+2. Aim 5: in both `cosmos_multi` and `cosmos_repair`, HMGCR is inactive, no canonical
+   cholesterol-synthesis reaction is active, and the measured cholesterol increase is explained
+   by `HDLBP → Gene4449__HDLBP_reverse → cholesterol`. No selected route leaves cholesterol
+   towards E2F1, EGR1, SP1, JUN or JUNB. Repairing the FDFT1 gap did not change this.
+3. One unmeasured free input explains about half the fit in each multi-omic network. In
+   `cosmos_multi` it is the tamoxifen node `Metab__5376_c` (39 of 79 reachable measurements);
+   in `cosmos_repair` it is cinnamaldehyde `Metab__HMDB0003441_c` (44 of 79). Both belong to the
+   COSMOS compound-target layer. The swap between two PKNs that differ only in canonical
+   metabolic edges shows that the upstream input is not identifiable. Of the 4,711 free inputs,
+   3,246 are such compound-layer metabolites. Follow-up: stage-05 addendum, item D.
+4. Recurring kinases (AKT1, FYN, MAPK1, MAPK14, PRKACA) remain the shared core. In
+   `cosmos_repair` the routes to SP1, JUN and EGR1 are longer
+   (MAPK14→TCF3→ID1→AKT1→PRKACA/CHUK→…). The same TFs are reached through a different path,
+   which again points to non-identifiability rather than to a biological route.

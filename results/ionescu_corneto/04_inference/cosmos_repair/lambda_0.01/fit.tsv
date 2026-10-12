@@ -1,0 +1,2 @@
+sample	weighted_fitting_error	n_measurements	n_missing_from_pkn	n_unreachable	n_reachable	n_measurements_correct_sign	sign_agreement_ratio	n_selected_edges	n_selected_nodes	n_edge_state_conflicts
+PMS_vs_Ctrl	8.489508893624139	86	0	7	79	72	0.9113924050632911	135	156	0
