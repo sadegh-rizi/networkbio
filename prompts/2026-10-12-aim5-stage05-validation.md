@@ -4,7 +4,7 @@ Date: 2026-10-12
 Model: gpt-5.6-luna
 Settings: default
 Plan: doc/decisions/2026-10-12-commit-aim5-stage05-plan.md
-Commit(s): pending
+Commit(s): 4547325, 9b196a6
 Transcript: current agent session
 
 ## Prompt and confirmed scope
