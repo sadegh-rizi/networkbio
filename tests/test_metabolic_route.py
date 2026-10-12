@@ -92,6 +92,78 @@ def test_gap_audit_identifies_missing_fdft1_and_repair_adds_only_it():
     }
 
 
+def test_unannotated_intermediate_is_named_from_cosmos_neighbours():
+    # Recon3D has no HMDB annotation for 7-dehydrocholesterol; COSMOS names it
+    # by HMDB. The name must come from the neighbours of the COSMOS reaction node.
+    model = {
+        "metabolites": [
+            {"id": "7dhchsterol_r", "compartment": "r", "annotation": {}},
+            {"id": "chsterol_r", "compartment": "r", "annotation": {"hmdb": ["HMDB0000067"]}},
+            {"id": "nadph_r", "compartment": "r", "annotation": {}},
+        ],
+        "reactions": [{
+            "id": "DHCR72r", "name": "7-DHC reductase", "subsystem": "cholesterol",
+            "gene_reaction_rule": "1717_AT1",
+            "metabolites": {"7dhchsterol_r": -1.0, "nadph_r": -1.0, "chsterol_r": 1.0},
+        }],
+    }
+    edges = pd.DataFrame([
+        ("DHCR7", 1, "Gene1__DHCR7"),
+        ("Metab__HMDB0000032_r", 1, "Gene1__DHCR7"),
+        ("Gene1__DHCR7", 1, "Metab__HMDB0000067_r"),
+    ], columns=["source", "sign", "target"])
+    nodes = set(edges["source"]) | set(edges["target"])
+    maps = {"entrez": {"1717": {"DHCR7"}}}
+    without = canonical_step_table(model, maps, pkn_nodes=nodes)
+    assert pd.isna(without.loc[0, "substrate"])
+    steps = canonical_step_table(model, maps, pkn_nodes=nodes, edges=edges)
+    assert steps.loc[0, "substrate"] == "Metab__HMDB0000032_r"
+    assert steps.loc[0, "substrate_source"] == "cosmos_neighbour_of_Gene1"
+    assert steps.loc[0, "product_source"] == "recon3d_annotation"
+    gaps = gap_audit(steps, edges, edges)
+    assert gaps.loc[0, "status"] == "present_forward"
+
+
+def test_same_side_metabolites_are_not_a_conversion_step():
+    # HMR_1532-like reaction: GGPP + PPi <=> DMAPP + FPP has DMAPP and FPP on
+    # the same side, so it is not a DMAPP -> FPP step.
+    model = {
+        "metabolites": [
+            {"id": name, "compartment": "c", "annotation": {}}
+            for name in ("dmpp_c", "frdp_c", "ppi_c", "ttc_ggdp_c")
+        ],
+        "reactions": [
+            {"id": "HMGCOAR", "name": "", "subsystem": "", "gene_reaction_rule": "3156_AT1",
+             "metabolites": {"hmgcoa_c": 1.0, "mev__R_c": -1.0}},
+            {"id": "HMR_1532", "name": "", "subsystem": "", "gene_reaction_rule": "2224_AT1",
+             "metabolites": {"dmpp_c": 1.0, "frdp_c": 1.0, "ppi_c": -1.0, "ttc_ggdp_c": -1.0}},
+        ],
+    }
+    maps = {"entrez": {"3156": {"HMGCR"}, "2224": {"FDPS"}}}
+    steps = canonical_step_table(model, maps, pkn_nodes=set())
+    assert "HMR_1532" not in set(steps["recon_id"])
+
+
+def test_top_degree_sensitivity_keeps_protected_cholesterol_target():
+    steps = pd.DataFrame([{
+        "substrate": "Metab__HMDB0000227_c", "product": "Metab__HMDB0000067_c",
+        "previous_intermediate": "Mevalonate", "next_intermediate": "Cholesterol",
+        "reaction_node": "Gene2__X", "reaction_node_candidates": "Gene2__X", "branch": "core",
+    }])
+    edges = [("HMGCR", 1, "Gene1__HMGCR"), ("Gene1__HMGCR", 1, "Metab__HMDB0000227_c"),
+             ("Metab__HMDB0000227_c", 1, "Gene2__X"), ("Gene2__X", 1, "Metab__HMDB0000067_c")]
+    # Make cholesterol the highest-degree metabolite.
+    edges += [("Metab__HMDB0000067_c", 1, f"Gene{n}__Y") for n in range(10, 20)]
+    edges += [(f"Gene{n}__Y", 1, f"Metab__m{n}_c") for n in range(10, 20)]
+    route_edges = pd.DataFrame(edges, columns=["source", "sign", "target"])
+    cofactor_columns = ["model_id", "bigg_id", "compartment", "pkn_node", "degree", "protected", "mapped"]
+    paths, _ = path_variant_tables({"repaired": route_edges}, steps, pd.DataFrame(columns=cofactor_columns))
+    top = paths[(paths["path_variant"] == "metabolism_no_cofactors_weighted_top1pct")
+                & (paths["target"] == "Metab__HMDB0000067_c")]
+    assert bool(top["path_found"].iloc[0])
+    assert top["fraction_waypoints_in_order"].iloc[0] > 0
+
+
 def test_path_variants_report_missing_and_repaired_routes():
     steps = pd.DataFrame([{
         "substrate": "HMGCR",

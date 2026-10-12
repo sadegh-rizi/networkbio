@@ -1,6 +1,6 @@
 {
   "stage": "aim5_route",
-  "created_utc": "2026-10-10T18:05:19+00:00",
+  "created_utc": "2026-10-11T08:24:15+00:00",
   "inputs": {
     "data/resources/pkn/Recon3D.json": "aba925f17547a42f9fdb4c1f685d89364cbf4979bbe7862e9f793af7169b26d5",
     "data/resources/hgnc/hgnc_complete_set_2026-10-06.txt": "8bf6f686e640dbc864a346484626953621b0500d900d26cd085a35c2782d725d",
@@ -70,14 +70,14 @@
     "cofactor_rule": "registered BiGG IDs mapped through Recon3D; canonical intermediates protected"
   },
   "code": {
-    "src/metabolic_route.py": "1e761a209b1b58b7656985aaaed5d53154acb07cb9b5060ef14b385e2e1fc37e",
+    "src/metabolic_route.py": "17135721536ffb85422148092c8e495f49e6d4b264da51aa5fca3cc07c8f1151",
     "src/pkn.py": "f4ff4517afdd20db3d28ee9dd0e83aec03362463fe8ccb335513295083c42e75",
     "src/plot_config.py": "bb0e5d9f5e4ce36927a4e24053e8318780db26011c34a76341399d6fa93df3a1",
     "src/preprocess.py": "195a2de1c6cc7e8cfb5d9b8213d9db6e116a6d666045dc999ac0ee3841d8e8f9",
-    "scripts/analysis/04b_aim5_metabolic_route.py": "c200acf286429812c5631340bdba01cb9a961688211ed72d5c893c42d3c49ad2",
+    "scripts/analysis/04b_aim5_metabolic_route.py": "3ad68546bc002c7f5afb644232011122260afa2facf0948d21ac27164649335d",
     "doc/decisions/2026-10-10-aim5-metabolic-route-plan.md": "7a098ca5aa31bd14805adc639b8f0eaa1ef5c8402346b2181f482384dd0c000b"
   },
-  "git_commit": "341d5783a9317a05682853592617052aa8cee914",
+  "git_commit": "a4dcbb045094c790f567e020a5cb997188bebc62",
   "git_dirty": true,
   "versions": {
     "numpy": "2.5.3",
@@ -90,23 +90,23 @@
   "python": "3.12.3",
   "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
   "diagnostics": {
-    "n_canonical_steps": 59,
+    "n_canonical_steps": 58,
     "n_absent_canonical_steps": 2,
     "n_gene_associated_recon3d": 5938,
     "n_gene_associated_absent": 1616
   },
   "outputs": {
     "canonical_gene_kegg.tsv": "60073b6c957093e91fcd50ff7ea57891fe198d471452919896cf99c12e4df189",
-    "canonical_steps.tsv": "6bbf1e6f6cb7928699ef7dc8da86cd5d848fba42e5088f9b417aa9bf2bf0f204",
+    "canonical_steps.tsv": "06cd6544cfdec8995ccb167798f8c84b38cc46df52b2a4d0888f2db99a635c70",
     "cofactor_nodes.tsv": "aaf61541e2bbf6b2de2027e96956eb095055e4e358707715e12c81b5b7fa3ea9",
-    "figures/canonical_route.pdf": "710a55f9cad7ccd7b863f4bc68b168cf9491bae404b01571cffb6a047445b3cb",
-    "figures/canonical_route_manuscript.png": "652d74be0cd3ccec05a4856255a81fa729aea753aa3468069424bd27db1bef3a",
-    "figures/canonical_route_presentation.png": "9a53887e5ecd053ca3659140115bfa50b35f972283a35ca091f8a6a20ec67074",
-    "gap_audit.tsv": "62d30844665785526c9b8d799689d1525febaa56620530303772d5cc709cef66",
+    "figures/canonical_route.pdf": "cf9335072c0750a531f15c38bab1e78f35f1d952f9eee31fe673c9efaee618d1",
+    "figures/canonical_route_manuscript.png": "1ed34022ba6a9a1ff292fab80e0e0285454b25516203f63a49c748b930e3ec71",
+    "figures/canonical_route_presentation.png": "d608b06e02859fb93dfadbc237937e733252b95f61a1ff2cc4b300cfbdc1519b",
+    "gap_audit.tsv": "9672c6be5b9b02ebc70c6a4c0f032365730a684d65cb59f204b1450ce8190aa1",
     "null_metabolite_to_tf_typed.tsv": "2d5e2c518289d81a9e8541c05fac77981595592e3ccb17f3512fa6a6770423ea",
-    "path_variant_edges.tsv": "df1e32296d3ef8225686b6b2ddca44f70350d447365bd4428f7671dae87de08a",
-    "path_variants.tsv": "b08c0ce58e0a7b5fe256bdd36e0bb84c1775078a9927521e77edc99a23ad5723",
+    "path_variant_edges.tsv": "8456a34aafd3fc163e0d643dddefb078b0f8f001ae831aff033d509c0e634107",
+    "path_variants.tsv": "f6cbde83d6e00830ba0e76ef9a0a5b1ff33d66d09cafd1add22437833b35fd3e",
     "recon3d_absent_by_subsystem.tsv": "350ef106ded17ccaa30a5b40fd360fd1aecd7451549cefa45cfcd302d2257d50",
-    "waypoints.tsv": "52a77653fdf62607f5d611f1c3925506f91e1d0fe1883c4caaad18ca0806d7bf"
+    "waypoints.tsv": "0b6563f6c3d2ecbea64312f429d89cf52f22a8cb3b0e6156c7ca0bf206e4e91d"
   }
 }

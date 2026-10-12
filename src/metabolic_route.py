@@ -162,14 +162,89 @@ def _resolve_model_node(model_id: str, model_nodes: Mapping[str, tuple[str, ...]
     return None
 
 
+def _present(value: Any) -> bool:
+    """True for a real node name; False for None, NaN and empty values."""
+    if value is None:
+        return False
+    if isinstance(value, float) and np.isnan(value):
+        return False
+    return str(value) not in {"", "nan", "None"}
+
+
+def infer_names_from_cosmos_reactions(
+    model: Mapping[str, Any],
+    edges: pd.DataFrame,
+    reaction_numbers: Iterable[int],
+    resolved: Mapping[str, str],
+) -> tuple[dict[str, str], dict[str, str]]:
+    """Name Recon3D metabolites from the COSMOS neighbours of their reactions.
+
+    COSMOS ``Gene<N>__...`` nodes are Recon3D reaction N, with in-edges from
+    the reactants and out-edges to the products of Recon3D's written
+    direction.  Some intermediates (e.g. 7-dehydrocholesterol, lathosterol,
+    desmosterol) lack HMDB annotations in Recon3D but are HMDB-named in
+    COSMOS.  On each side of a reaction, a name is assigned only when exactly
+    one non-cofactor Recon3D metabolite is unresolved and exactly one COSMOS
+    metabolite neighbour is unclaimed.  The rule is repeated until no new
+    name is assigned; ambiguous cases stay unresolved.
+    """
+    predecessors: dict[str, list[str]] = defaultdict(list)
+    successors: dict[str, list[str]] = defaultdict(list)
+    forward_nodes: dict[int, list[str]] = defaultdict(list)
+    for source, target in zip(edges["source"].astype(str), edges["target"].astype(str)):
+        predecessors[target].append(source)
+        successors[source].append(target)
+    for node in set(predecessors) | set(successors):
+        match = re.match(r"Gene(\d+)__", node)
+        if match and not node.endswith("_reverse"):
+            forward_nodes[int(match.group(1))].append(node)
+
+    reactions = list(model.get("reactions", []))
+    assigned = dict(resolved)
+    sources: dict[str, str] = {}
+    changed = True
+    while changed:
+        changed = False
+        for number in sorted(set(int(value) for value in reaction_numbers)):
+            stoichiometry = reactions[number - 1].get("metabolites", {})
+            for reaction_node in forward_nodes.get(number, []):
+                for side, neighbours in ((-1, predecessors[reaction_node]), (1, successors[reaction_node])):
+                    model_ids = [str(m) for m, c in stoichiometry.items() if np.sign(float(c)) == side]
+                    claimed = {assigned[m] for m in model_ids if m in assigned}
+                    unresolved = [m for m in model_ids if m not in assigned and _base_id(m) not in COFACTOR_BIGG_IDS]
+                    unclaimed = [n for n in neighbours if n.startswith("Metab__") and n not in claimed]
+                    if len(unresolved) == 1 and len(unclaimed) == 1:
+                        assigned[unresolved[0]] = unclaimed[0]
+                        sources[unresolved[0]] = f"cosmos_neighbour_of_Gene{number}"
+                        changed = True
+
+    by_node: dict[str, set[str]] = defaultdict(set)
+    for model_id, node in assigned.items():
+        if model_id in sources:
+            by_node[node].add(_base_id(model_id) + "_" + _compartment(model_id))
+    conflicts = {node: ids for node, ids in by_node.items() if len(ids) > 1}
+    if conflicts:
+        raise ValueError(f"COSMOS neighbour inference assigned one node to several metabolites: {conflicts}")
+    inferred = {model_id: node for model_id, node in assigned.items() if model_id in sources}
+    return inferred, sources
+
+
 def canonical_step_table(
     model: Mapping[str, Any],
     hgnc_maps: Mapping[str, Any],
     *,
     pkn_nodes: set[str] | None = None,
     canonical_genes: Iterable[str] = CANONICAL_GENES,
+    edges: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
-    """Build one row per Recon3D reaction matching a registered route step."""
+    """Build one row per Recon3D reaction matching a registered route step.
+
+    Substrate and product names come from Recon3D annotations first. When
+    ``edges`` (a COSMOS PKN) is given, names still missing are inferred from
+    the COSMOS neighbours of the canonical reactions
+    (:func:`infer_names_from_cosmos_reactions`); the source of each name is
+    recorded in ``substrate_source`` / ``product_source``.
+    """
     canonical = set(canonical_genes)
     model_nodes = _model_node_map(model)
     rows: list[dict[str, Any]] = []
@@ -187,8 +262,13 @@ def canonical_step_table(
                 continue
             substrate_ids = sorted(item for item in metabolite_ids if _base_id(item) == substrate_base)
             product_ids = sorted(item for item in metabolite_ids if _base_id(item) == product_base)
+            stoichiometry = reaction.get("metabolites", {})
             for substrate_id in substrate_ids:
                 for product_id in product_ids:
+                    # A conversion step needs substrate and product on opposite
+                    # sides (excludes e.g. HMR_1532, GGPP + PPi <=> DMAPP + FPP).
+                    if np.sign(float(stoichiometry[substrate_id])) == np.sign(float(stoichiometry[product_id])):
+                        continue
                     expected_nodes = _reaction_node_candidates(number, matched_genes)
                     rows.append({
                         "step_order": order,
@@ -211,6 +291,26 @@ def canonical_step_table(
     table = pd.DataFrame(rows)
     if table.empty:
         raise ValueError("No canonical Recon3D route reactions matched the registered step table")
+    table["substrate_source"] = np.where(table["substrate"].map(_present), "recon3d_annotation", "unresolved")
+    table["product_source"] = np.where(table["product"].map(_present), "recon3d_annotation", "unresolved")
+    if edges is not None:
+        reactions = list(model.get("reactions", []))
+        numbers = sorted(set(table["recon_number"].astype(int)))
+        resolved: dict[str, str] = {}
+        for number in numbers:
+            for model_id in reactions[number - 1].get("metabolites", {}):
+                node = _resolve_model_node(str(model_id), model_nodes, pkn_nodes or set())
+                if node is not None:
+                    resolved[str(model_id)] = node
+        inferred, sources = infer_names_from_cosmos_reactions(model, edges, numbers, resolved)
+        for column, id_column, source_column in (
+            ("substrate", "substrate_model_id", "substrate_source"),
+            ("product", "product_model_id", "product_source"),
+        ):
+            missing = ~table[column].map(_present)
+            table.loc[missing, column] = table.loc[missing, id_column].map(inferred)
+            filled = missing & table[column].map(_present)
+            table.loc[filled, source_column] = table.loc[filled, id_column].map(sources)
     return table.sort_values(["step_order", "compartment", "recon_number", "recon_id"]).reset_index(drop=True)
 
 
@@ -245,12 +345,12 @@ def gap_audit(
         candidates = str(row.reaction_node_candidates).split(";") if row.reaction_node_candidates else []
         forward_node = next((
             node for node in candidates
-            if node in primary_nodes and row.substrate and row.product
+            if node in primary_nodes and _present(row.substrate) and _present(row.product)
             and (row.substrate, node) in primary_pairs and (node, row.product) in primary_pairs
         ), None)
         reverse_node = next((
             node for node in candidates
-            if node in primary_nodes and row.substrate and row.product
+            if node in primary_nodes and _present(row.substrate) and _present(row.product)
             and (row.product, node) in primary_pairs and (node, row.substrate) in primary_pairs
         ), None)
         primary_reaction = forward_node or reverse_node or next((node for node in candidates if node in primary_nodes), None)
@@ -355,7 +455,7 @@ def repaired_pkn(
     additions = []
     for row in gaps[gaps["status"].eq("absent_from_cosmos")].itertuples(index=False):
         reaction_node = f"Gene{int(row.recon_number)}__{row.genes.replace(';', '_')}"
-        if not row.substrate or not row.product:
+        if not (_present(row.substrate) and _present(row.product)):
             raise ValueError(f"Cannot repair {row.recon_id}: substrate/product is not mapped to COSMOS")
         additions.extend([
             (str(row.substrate), 1, reaction_node),
@@ -432,9 +532,9 @@ def route_restricted_graph(
     reaction_nodes = set()
     metabolite_nodes = set()
     for row in steps.itertuples(index=False):
-        if row.substrate:
+        if _present(row.substrate):
             metabolite_nodes.add(str(row.substrate))
-        if row.product:
+        if _present(row.product):
             metabolite_nodes.add(str(row.product))
         reaction_nodes.update(str(row.reaction_node_candidates).split(";"))
     allowed = {node for node in reaction_nodes if node in _nodes(edges)} | metabolite_nodes | {"HMGCR"}
@@ -445,7 +545,9 @@ def route_restricted_graph(
         if _is_reaction(node) and node not in reaction_nodes
     }
     allowed.update(transports)
-    for source, target in pairs:
+    # Sorted insertion makes tie-breaking between equal-length paths independent
+    # of Python's string-hash randomisation (otherwise reruns report different paths).
+    for source, target in sorted(pairs):
         if source in allowed and target in allowed:
             graph.add_edge(source, target)
     return graph
@@ -454,10 +556,12 @@ def route_restricted_graph(
 def _label_nodes(steps: pd.DataFrame) -> dict[str, set[str]]:
     labels: dict[str, set[str]] = defaultdict(set)
     for row in steps.itertuples(index=False):
-        if row.substrate:
-            labels[str(row.previous_intermediate)].add(str(row.substrate))
-        if row.product:
-            labels[str(row.next_intermediate)].add(str(row.product))
+        previous = getattr(row, "previous_intermediate", None)
+        following = getattr(row, "next_intermediate", None)
+        if _present(row.substrate) and _present(previous):
+            labels[str(previous)].add(str(row.substrate))
+        if _present(row.product) and _present(following):
+            labels[str(following)].add(str(row.product))
     # The waypoint table merges IPP and DMAPP into one checkpoint.
     labels["IPP/DMAPP"] = labels.get("IPP", set()) | labels.get("DMAPP", set())
     labels["Cholesterol"] = {node for nodes in labels.values() for node in nodes if node.startswith(CHOLESTEROL_NODE_PREFIX)}
@@ -505,7 +609,7 @@ def _path_branch(path: list[str], steps: pd.DataFrame) -> str:
     matched = []
     triples = {}
     for row in steps.itertuples(index=False):
-        if not row.substrate or not row.product:
+        if not (_present(row.substrate) and _present(row.product)):
             continue
         for reaction_node in str(row.reaction_node_candidates).split(";"):
             triples[(str(row.substrate), reaction_node, str(row.product))] = str(row.branch)
@@ -528,25 +632,31 @@ def _path_metrics(
     if path is None:
         return {
             "path_found": False, "steps": np.nan, "cost": np.nan,
-            "n_canonical_enzymes": 0, "fraction_ordered_canonical_steps_traversed": 0.0,
+            "n_canonical_enzymes": 0, "n_waypoints_in_order": 0,
+            "fraction_waypoints_in_order": 0.0,
             "first_noncanonical_node": "", "branch": "none", "path": "",
         }
-    matched = 0
-    triples = {
-        (str(row.substrate), reaction_node, str(row.product))
-        for row in steps.itertuples(index=False)
-        if row.substrate and row.product
-        for reaction_node in str(row.reaction_node_candidates).split(";")
-    }
-    for index in range(len(path) - 2):
-        matched += (path[index], path[index + 1], path[index + 2]) in triples
+    # Ordered intermediates from mevalonate to cholesterol (HMG-CoA is skipped:
+    # a path starting at the HMGCR gene enters the reaction node directly).
+    labels = _label_nodes(steps)
+    ordered = [following for _, following in WAYPOINTS if following != "HMG-CoA"]
+    position = {node: index for index, node in reversed(list(enumerate(path)))}
+    last, in_order = -1, 0
+    for label in ordered:
+        hits = sorted(
+            index for node in labels.get(label, set())
+            for index in [position.get(node)] if index is not None and index > last
+        )
+        if hits:
+            last, in_order = hits[0], in_order + 1
     noncanonical = next((node for node in path[1:] if node not in route_nodes), "")
     return {
         "path_found": True,
         "steps": len(path) - 1,
         "cost": cost,
         "n_canonical_enzymes": sum(node in canonical_reactions for node in path),
-        "fraction_ordered_canonical_steps_traversed": matched / max(len(steps), 1),
+        "n_waypoints_in_order": in_order,
+        "fraction_waypoints_in_order": in_order / len(ordered),
         "first_noncanonical_node": noncanonical,
         "branch": _path_branch(path, steps),
         "path": " -> ".join(path),
@@ -562,6 +672,10 @@ def path_variant_tables(
     rows = []
     edge_rows = []
     protected_nodes = set(cofactors.loc[cofactors["protected"] & cofactors["mapped"], "pkn_node"].astype(str)) if not cofactors.empty else set()
+    intermediate_nodes = {
+        str(node) for column in ("substrate", "product") if column in steps.columns
+        for node in steps[column] if _present(node)
+    }
     for variant, edges in variants.items():
         if variant == "unpruned":
             continue
@@ -575,12 +689,15 @@ def path_variant_tables(
         weighted = no_cofactor.copy()
         for source, target in weighted.edges:
             weighted[source][target]["weight"] = float(degrees.get(target, 1) if _is_metabolite(target) else 0.0)
-        metabolite_degrees = sorted({degree for node, degree in degrees.items() if _is_metabolite(node)}, reverse=True)
+        # Top 1% of metabolite *nodes* by degree (not of distinct degree
+        # values); canonical intermediates and HMGCR are always protected.
+        metabolite_degrees = sorted((degree for node, degree in degrees.items() if _is_metabolite(node)), reverse=True)
         cutoff_index = max(0, int(np.ceil(len(metabolite_degrees) * 0.01)) - 1)
         cutoff = metabolite_degrees[cutoff_index] if metabolite_degrees else np.inf
+        route_protected = protected_nodes | intermediate_nodes | {"HMGCR"}
         top_degree = {
             node for node, degree in degrees.items()
-            if _is_metabolite(node) and degree >= cutoff and node not in protected_nodes
+            if _is_metabolite(node) and degree >= cutoff and node not in route_protected
         }
         weighted_top = weighted.copy()
         weighted_top.remove_nodes_from(top_degree)

@@ -21,7 +21,7 @@ Transcript: not saved
 
 ## What was changed by hand afterwards
 
-- The full run showed 19 `present_but_unconnected` canonical rows and a failed final restricted-route waypoint; this was recorded as a residual limitation rather than hidden or reclassified as a gap.
+- The initial full run showed 19 `present_but_unconnected` canonical rows and a failed final restricted-route waypoint. The implementation audit found these were caused by missing Recon3D HMDB annotations for late sterols, not by a resource gap. The mapping fix infers names from COSMOS reaction neighbours, reruns the route audit, and records the corrected result in the Aim-5 audit.
 - The 100-replicate type-preserving null is run on the primary COSMOS PKN, matching the registered stage-03 null family; repaired-PKN path variants remain reported separately.
 
 ## Outputs stamped

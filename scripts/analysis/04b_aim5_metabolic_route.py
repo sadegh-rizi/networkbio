@@ -103,7 +103,9 @@ def main() -> int:
     primary_edges = read_pkn(primary_path)
     unpruned_edges = read_pkn(unpruned_path)
     all_nodes = set(primary_edges["source"]) | set(primary_edges["target"]) | set(unpruned_edges["source"]) | set(unpruned_edges["target"])
-    steps = canonical_step_table(recon_model, hgnc_maps, pkn_nodes=all_nodes)
+    # Names missing from Recon3D annotations are inferred from the COSMOS
+    # neighbours of each canonical reaction (unpruned PKN: complete reaction set).
+    steps = canonical_step_table(recon_model, hgnc_maps, pkn_nodes=all_nodes, edges=unpruned_edges)
     gaps = gap_audit(steps, primary_edges, unpruned_edges)
     absent = genome_absent_by_subsystem(recon_model, set(unpruned_edges["source"]) | set(unpruned_edges["target"]))
 
