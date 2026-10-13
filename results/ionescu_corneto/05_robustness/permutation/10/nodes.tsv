@@ -1,0 +1,69 @@
+sample	node	state	is_measured	observed_value	is_input	reachability
+PMS_vs_Ctrl	ABL1	-1	False		False	reachable
+PMS_vs_Ctrl	AKT1	1	False		False	reachable
+PMS_vs_Ctrl	AR	1	True	2.5405575010862878	False	reachable
+PMS_vs_Ctrl	ATF2	1	True	2.7025633931487825	False	reachable
+PMS_vs_Ctrl	ATF3	1	True	2.2191507823370684	False	reachable
+PMS_vs_Ctrl	ATF4	1	True	2.4874252029736788	False	reachable
+PMS_vs_Ctrl	BRD4	-1	True	-2.1072413755557693	False	reachable
+PMS_vs_Ctrl	CDK2	1	False		False	reachable
+PMS_vs_Ctrl	CREB1	1	True	1.9460121457201673	False	reachable
+PMS_vs_Ctrl	CTNNB1	1	False		False	reachable
+PMS_vs_Ctrl	E2F7	0	True	2.090861801031744	False	unreachable
+PMS_vs_Ctrl	ELF4	1	True	2.183867797980149	False	reachable
+PMS_vs_Ctrl	ELK4	1	True	1.9520990043785758	False	reachable
+PMS_vs_Ctrl	ETS1	1	True	2.6627032815521146	False	reachable
+PMS_vs_Ctrl	FGF2	0	True	2.308260397894092	False	unreachable
+PMS_vs_Ctrl	FOS	1	True	2.0046123623522583	False	reachable
+PMS_vs_Ctrl	FOXM1	1	True	2.8019164279330844	False	reachable
+PMS_vs_Ctrl	GSK3B	1	False		False	reachable
+PMS_vs_Ctrl	HIPK2	-1	True	-2.0185752231112346	False	reachable
+PMS_vs_Ctrl	HSF1	1	True	2.2619330005940426	False	reachable
+PMS_vs_Ctrl	ID3	1	True	1.9510551856147185	False	reachable
+PMS_vs_Ctrl	IRF1	1	True	2.293079974002568	False	reachable
+PMS_vs_Ctrl	IRF2	1	True	2.7684707793731076	False	reachable
+PMS_vs_Ctrl	IRF3	1	True	2.471366863177019	False	reachable
+PMS_vs_Ctrl	IRF7	1	True	2.5452545483215023	False	reachable
+PMS_vs_Ctrl	IRF9	1	True	2.3366072927302115	False	reachable
+PMS_vs_Ctrl	JAK2	-1	False		False	reachable
+PMS_vs_Ctrl	JUNB	1	True	2.2710962581726366	False	reachable
+PMS_vs_Ctrl	JUND	1	True	2.478760536788539	False	reachable
+PMS_vs_Ctrl	MAFK	0	True	2.4495373504646194	False	reachable
+PMS_vs_Ctrl	MAPK1	-1	False		False	reachable
+PMS_vs_Ctrl	MAPK8	1	False		False	reachable
+PMS_vs_Ctrl	MEOX1	0	True	-2.387095352698637	False	reachable
+PMS_vs_Ctrl	MYBL2	1	True	2.426096484611954	False	reachable
+PMS_vs_Ctrl	MYC	1	True	2.2691611688657525	False	reachable
+PMS_vs_Ctrl	NFE2L2	1	True	2.1534888767386953	False	reachable
+PMS_vs_Ctrl	NFKB1	1	True	2.1709603845706975	False	reachable
+PMS_vs_Ctrl	NR3C1	-1	False		False	reachable
+PMS_vs_Ctrl	NR4A3	-1	True	-4.099390394326417	False	reachable
+PMS_vs_Ctrl	NRF1	1	True	1.9837505526980233	False	reachable
+PMS_vs_Ctrl	PBRM1	0	True	-1.9988912434509527	False	reachable
+PMS_vs_Ctrl	PITX2	1	True	2.4270216307467574	False	reachable
+PMS_vs_Ctrl	PKNOX1	0	True	-1.92601484703075	False	unreachable
+PMS_vs_Ctrl	PPM1B	-1	False		True	reachable
+PMS_vs_Ctrl	PRKCD	1	False		False	reachable
+PMS_vs_Ctrl	PTK2B	1	False		False	reachable
+PMS_vs_Ctrl	PTPRE	1	False		True	reachable
+PMS_vs_Ctrl	PTPRG	1	False		True	reachable
+PMS_vs_Ctrl	RB1	1	True	1.8739085289306752	False	reachable
+PMS_vs_Ctrl	REL	1	True	2.1614422855197484	False	reachable
+PMS_vs_Ctrl	RELA	1	True	1.9774784513489443	False	reachable
+PMS_vs_Ctrl	RORA	1	True	2.505020181155337	False	reachable
+PMS_vs_Ctrl	RPS6KA3	1	False		False	reachable
+PMS_vs_Ctrl	SDCBP	-1	False		True	reachable
+PMS_vs_Ctrl	SIRT1	1	True	1.9606185798461602	False	reachable
+PMS_vs_Ctrl	SMAD5	0	True	-1.9450885543483205	False	reachable
+PMS_vs_Ctrl	SOX4	-1	True	-2.595717742446412	False	reachable
+PMS_vs_Ctrl	SOX9	-1	True	-2.2807771982861236	False	reachable
+PMS_vs_Ctrl	SRC	1	False		False	reachable
+PMS_vs_Ctrl	SRF	1	True	3.183915722168445	False	reachable
+PMS_vs_Ctrl	STAT1	1	True	3.55269844579156	False	reachable
+PMS_vs_Ctrl	STAT2	1	True	3.714677315246844	False	reachable
+PMS_vs_Ctrl	TBK1	1	False		False	reachable
+PMS_vs_Ctrl	TGFB1I1	1	True	2.092233430620729	False	reachable
+PMS_vs_Ctrl	TP53	-1	True	-2.957791137469916	False	reachable
+PMS_vs_Ctrl	TP73	-1	True	-2.6159940472871672	False	reachable
+PMS_vs_Ctrl	VHL	-1	True	-2.091443434714425	False	reachable
+PMS_vs_Ctrl	YBX1	-1	True	-1.8091695482383439	False	reachable

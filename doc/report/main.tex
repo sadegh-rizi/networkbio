@@ -1,0 +1,323 @@
+% Network Biology course report: CORNETO on the Ionescu/Park PMS iNSC data.
+% Compile: pdflatex main && bibtex main && pdflatex main && pdflatex main
+% Figures: python scripts/report/make_report_figures.py  (all five)
+% Status (2026-10-13): full draft, framed around three network questions.
+% Page budget: 2-3 pages of text, excluding title, figures and references; at most 5 figures.
+
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{cite}
+\usepackage[hidelinks]{hyperref}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.4ex plus 0.4ex minus 0.2ex}{0.6ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{1.0ex plus 0.3ex minus 0.2ex}{0.4ex plus 0.2ex}
+\setlength{\parskip}{0.3ex}
+\graphicspath{{figures/}}
+
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{\textbf{What multi-omic network inference captures and misses:\\
+CORNETO on a patient stem-cell model of progressive multiple sclerosis}}
+\author{Sadegh Seyedhashemirizi\\Student ID i6427433\\[1ex]
+\small Network Biology (MSc Systems Biology), Maastricht University}
+\date{\today}
+
+\begin{document}
+% Title page (required: title, name, student ID, date, course name). Replace with the Canvas template if provided.
+\begin{titlepage}
+\vspace*{\fill}
+\maketitle
+\thispagestyle{empty}
+\vspace*{\fill}
+\end{titlepage}
+
+% =====================================================================
+\section{Introduction}
+% =====================================================================
+
+Network biology treats disease as a perturbation that spreads through networks of interacting
+molecules \cite{barabasi2011network}. A common way to study it is to start from a large
+prior-knowledge network (PKN) of literature-curated, signed and directed interactions and to ask
+which part of it explains the changes measured in one disease model. This step, called
+contextualisation, turns a generic map into a cell-specific hypothesis
+\cite{garridorodriguez2022}. CARNIVAL \cite{liu2019carnival} and COSMOS \cite{dugourd2021cosmos}
+do this for transcription factor (TF) activities and metabolites, and CORNETO
+\cite{rodriguezmier2025corneto} unifies them. Each of these methods searches for the smallest
+subnetwork that connects some starting nodes to the measured nodes with the observed signs
+(Fig.~\ref{fig:design}a,b).
+
+The result is a hypothesis, not a measurement, and on patient data there is no ground truth to
+check it against. What the method returns depends on the network as much as on the data:
+\begin{itemize}[noitemsep, topsep=2pt, leftmargin=*]
+  \item which edges the PKN contains;
+  \item which nodes may start a signal;
+  \item how strongly small networks are preferred.
+\end{itemize}
+How much of an inferred network is driven by the data, and how much by the structure of the PKN,
+is rarely tested.
+
+We use a published hypothesis as a test case. In induced neural stem cells (iNSCs) from patients
+with progressive multiple sclerosis (PMS), Ionescu et al.\ found a senescent, neurotoxic state
+that a cholesterol-synthesis inhibitor, simvastatin, reduced \cite{ionescu2024}. They proposed a
+route from HMG-CoA reductase (HMGCR) through cholesterol to cholesterol-responsive TFs (E2F1,
+EGR1, WT1, SP1, JUN, JUNB). We asked three network questions (Fig.~\ref{fig:design}c):
+\begin{enumerate}[noitemsep, topsep=2pt, leftmargin=*]
+  \item Is the proposed route present in the PKN?
+  \item Does contextualisation with CORNETO select it, when it is not given as a starting node?
+  \item How much of the selected network comes from the data, and how much from the network?
+\end{enumerate}
+
+% =====================================================================
+\section{Methods}
+% =====================================================================
+
+\subsection{Data and measured nodes}
+We used bulk RNA-seq of 3 control and 3 PMS iNSC lines (GSE297192 \cite{park2025,barrett2013geo})
+and metabolomics and lipidomics of 3 control and 4 PMS lines (Metabolomics Workbench
+ST003331/ST003332/ST003328 \cite{ionescu2024,sud2016mw}). Each cell line is one observation,
+and replicates were averaged. Gene expression differences between PMS and control lines were scored with an empirical-Bayes
+moderated t statistic \cite{smyth2004limma}. TF activities were inferred from these scores with
+CollecTRI regulons and decoupler \cite{mullerdott2023collectri,badia2022decoupler}.
+The 50 most changed TFs, all of which kept their sign when any one line was left out, became the
+measured nodes. In the joint analysis, 36 metabolite contrasts mapped to the PKN were added,
+including free cholesterol.
+
+\subsection{Networks}
+The signalling PKN is OmniPath \cite{turei2021omnipath}: signed, directed and curated edges
+between expressed genes (9,870 edges, 3,443 nodes). The multi-omic PKN is COSMOS
+\cite{dugourd2021cosmos}. It adds metabolic reactions from Recon3D \cite{brunk2018recon3d} and
+compound--protein interactions \cite{szklarczyk2016stitch}, with metabolites as nodes (54,571
+edges, 26,510 nodes).
+
+\subsection{Contextualisation}
+CORNETO's CarnivalFlow method \cite{rodriguezmier2025corneto} selects the subnetwork that best
+reproduces the signs of the measured nodes. A penalty $\lambda$ on the number of edges makes it
+prefer small networks. Any PKN node without incoming edges could act as a starting node, and the
+method chose its sign. The proposed route (HMGCR, SREBF1/2, SCAP, INSIG1, the six TFs,
+mevalonate, cholesterol) was never allowed to start a signal, so finding it would not be
+circular. We fitted TFs alone on each PKN and TFs plus metabolites on COSMOS. For each fit, we
+chose the largest $\lambda$ that kept the fitting error within 10\% of the unpenalised fit, a rule
+set before any network was inspected. The fits were solved as mixed-integer programs with HiGHS \cite{huangfu2018highs}.
+Settings: CORNETO 1.0.0rc8; $\lambda\in\{0,0.01,0.03,0.1,0.3,1\}$; 1\% optimality gap;
+30\,min (OmniPath) and 60\,min (COSMOS) time limits. Code, settings and checksums of every
+input are recorded in the project repository.
+
+\subsection{Route analysis and controls}
+For question~1, we listed every reaction of the 20 cholesterol-synthesis enzymes (KEGG
+\cite{kanehisa2000kegg}). We checked whether the pathway intermediates can be reached in order,
+and searched for the shortest HMGCR $\to$ cholesterol path in the metabolic part of COSMOS. That
+search excluded ubiquitous co-factors and penalised hub metabolites \cite{croes2006weighted}.
+Pathway reactions that exist in Recon3D, the metabolic model COSMOS is built from, but are
+missing from COSMOS were copied into a separate repaired PKN. This added two reactions and no
+other edges, so the repair is targeted at the tested pathway. For question~2, we also gave CORNETO a known
+perturbation: HMGCR inhibited, with the simvastatin-induced fall in free cholesterol as the only
+measurement. For question~3, we repeated the OmniPath fit:
+\begin{itemize}[noitemsep, topsep=2pt, leftmargin=*]
+  \item on ten randomised PKNs that keep every node's degree and the edge signs;
+  \item under all 20 assignments of the six lines to two groups;
+  \item without each line in turn;
+  \item with starting nodes restricted to cell-surface receptors.
+\end{itemize}
+We also compared the networks selected across $\lambda$ values and PKNs. Overlaps are Jaccard
+indices on edges and on inferred (unmeasured) nodes.
+
+\subsection{Network properties and integration styles}
+To link the inferred networks to PKN topology, we regressed whether an unmeasured node was
+selected on its PKN degree (logistic regression, $\log_2$ degree). We did this for every real and
+randomised network. We also ranked the recurring nodes and the hypothesis nodes by degree and
+betweenness centrality, and asked how many metabolites are as close to the hypothesis TFs as
+cholesterol is. To compare integration styles, we fitted a metabolite-only network on COSMOS at the
+joint network's $\lambda$. Merging it with the TF-only network gives \emph{late} integration, one
+network per data layer combined afterwards. We compared this merge with the \emph{early} joint
+fit by counting edges that cross between the metabolic and signalling layers, and paths from
+measured metabolites to measured TFs.
+
+% =====================================================================
+\section{Results}
+% =====================================================================
+
+\paragraph{Measured nodes.} SP1 and JUN were the second and sixth most activated of 628 TFs in PMS
+lines, and the AP-1 and NF-$\kappa$B complexes ranked 13th and 25th (Fig.~\ref{fig:tf}a). JUNB and
+EGR1 were moderately increased, E2F1 was unchanged, and WT1 is not expressed. The senescence
+markers SERPINE1 (up) and LMNB1 (down) changed, but sterol-synthesis genes such as HMGCR were not
+induced (Fig.~\ref{fig:tf}b).
+
+\subsection{The route is in the network, but not uniquely}
+The cholesterol pathway is almost complete in COSMOS: 56 of its 58 reactions are present. The two
+missing reactions are halves of the squalene-synthase step (FDFT1), and they disconnect the
+pathway between farnesyl and squalene (Fig.~\ref{fig:aim5}a, row~1). After adding them, the
+shortest weighted path from HMGCR to cholesterol followed the textbook pathway. Cholesterol is
+two edges away from SP1, JUN and E2F1. But cholesterol is itself a hub: it is among the top 2\%
+of COSMOS metabolites by degree and the top 0.1\% by betweenness. About 480 other metabolites are
+as close to SP1, and 33--66\% of degree-preserving randomised networks connect cholesterol to these
+TFs just as closely. Short paths alone therefore do not support the route.
+
+\subsection{Inference does not select it, unless told where to start}
+Neither PMS fit used the pathway (Fig.~\ref{fig:aim5}a, rows~4--5). HMGCR stayed inactive, and
+the measured rise in cholesterol was explained by a single transport reaction
+(Fig.~\ref{fig:aim5}b). When CORNETO was told that HMGCR is inhibited and that cholesterol falls,
+it recovered the pathway through mevalonate, using 16 of the 20 enzymes in order, but only in
+the repaired network. In the original network it reached cholesterol by a 32-edge detour through
+unrelated mitochondrial reactions (row~2). That detour is sign-consistent but biochemically
+meaningless.
+
+Adding metabolites changed the routes more than the nodes. The three networks shared 50--71\% of
+their protein nodes but only 7--21\% of their edges. The kinases MAPK1, MAPK14, PRKACA, FYN and
+AKT1 were present in all of them. In the joint network, every route into SP1, JUN, JUNB and EGR1
+started from one unmeasured node, a tamoxifen compound, which alone sat upstream of 39 of the 79
+explained measurements (Fig.~\ref{fig:network}).
+
+\subsection{Much of the network comes from the network}
+\begin{itemize}[noitemsep, topsep=2pt, leftmargin=*]
+  \item \textbf{One hub, arbitrary identity.} At every sparsity level, one starting node sat
+        upstream of 24--92\% of the explained measurements. Which node this hub was changed
+        with $\lambda$ and with the PKN (Fig.~\ref{fig:robust}a). Only 6--24\% of edges
+        survived across all five $\lambda$ values (Fig.~\ref{fig:robust}b).
+  \item \textbf{Hubs are selected, whatever the network.} In every fit, the odds that an
+        unmeasured node was selected rose 1.7- to 3-fold with each doubling of its PKN degree (Fig.~\ref{fig:robust}d), and randomised networks showed the same bias. The
+        kinases that recur across all fits (MAPK1, MAPK14, PRKACA, FYN, AKT1) are among the top
+        1\% of OmniPath proteins by both degree and betweenness. Their stability partly reflects
+        their position in the PKN, not only the data.
+  \item \textbf{Random networks fit too.} Six of ten degree-preserving random networks
+        explained every TF exactly, while sharing only 7--18\% of the inferred nodes with the
+        real network. A perfect fit is therefore no evidence for the topology.
+  \item \textbf{The grouping, not the network, carries the signal.} Only the true split of the
+        lines (and its mirror) was fitted exactly; the 18 other splits were not ($p=2/20$).
+        Still, the mirror problem, which differs only in sign, shared just 47\% of its edges
+        with the true network. Leaving out one line changed 41--65\% of the inferred nodes.
+  \item \textbf{Starting nodes decide the shape.} Restricting the starting nodes to receptors
+        gave the same picture: a single receptor (PTPRE) explained 49 of 50 TFs. Removing the
+        3,246 compound starting nodes from the joint fit still fitted every TF, at a slightly
+        higher error (9.4 vs 8.9). It replaced tamoxifen by another single hub, the
+        extracellular-matrix protein LAMA5 (33 of 79 measurements). Only then did a route run
+        from cholesterol to a hypothesis TF (cholesterol $\to$ MAPK3 $\to \dots \to$ JUNB).
+        Without any metabolite starting nodes, JUN and EGR1 were also reached through
+        cholesterol. In both cases cholesterol was still supplied by transport, not synthesis.
+  \item \textbf{The optimiser is not exact.} Some networks the solver reported as optimal
+        scored up to 19\% worse than other known solutions (Fig.~\ref{fig:robust}c). A fit of
+        all six lines at once found no solution with $\lambda>0$.
+\end{itemize}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig1_concept.pdf}
+  \caption{\textbf{Network contextualisation and the questions asked.} (a) A prior-knowledge
+  network (PKN) of signed, directed interactions, with TFs measured as up or down in PMS. Nodes
+  without incoming edges may start a signal. (b) CORNETO selects the subnetwork with the fewest
+  edges whose signal reproduces every measured sign; light colours are inferred states.
+  (c) The three questions asked of the PMS iNSC data. Toy example; the real PKNs have
+  9,870 (OmniPath) and 54,571 (COSMOS) edges.}
+  \label{fig:design}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig2_tf_activity.pdf}
+  \caption{\textbf{The measured nodes: TF activity and cholesterol-related genes, PMS versus
+  control (3 vs 3 lines).} (a) TF activity scores for the six hypothesis TFs (orange), the SREBFs
+  and the AP-1/NF-$\kappa$B complexes. Large dots: all lines; small dots: leaving out one line;
+  numbers: rank among 628 TFs. (b) Per-line expression relative to the control mean, with the
+  moderated t statistic. Senescence markers change, while sterol-synthesis genes do not rise.}
+  \label{fig:tf}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig3_aim5_route.pdf}
+  \caption{\textbf{The cholesterol route is in the network, but inference uses it only for a
+  known perturbation and only after repair.} (a) The cholesterol-synthesis enzymes in pathway order. Row 1: present in COSMOS; two squalene-synthase (FDFT1) half-reactions are
+  missing and were added in the repaired network. Rows 2--3: enzymes CORNETO used when told that
+  HMGCR is inhibited and cholesterol falls (simvastatin), in the original and the repaired
+  metabolic network. Rows 4--5: enzymes used in the PMS-versus-control fits. (b) In both PMS fits,
+  the cholesterol rise is explained by one transport reaction.}
+  \label{fig:aim5}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig4_cosmos_subnetwork.pdf}
+  \caption{\textbf{A single compound hub feeds the joint network.} The TF-plus-metabolite
+  network on COSMOS ($\lambda=0.1$), restricted to the routes into the cholesterol-linked TFs.
+  (a) All routes into SP1, JUNB, JUN and EGR1 start at one unmeasured starting node, a tamoxifen
+  compound, and pass through the kinases MAPK1 or MAPK14. Blue boxes collapse further measured
+  TFs. All shown nodes are inferred as increased in PMS. (b) Measured nodes downstream of each
+  starting node used.}
+  \label{fig:network}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig5_robustness.pdf}
+  \caption{\textbf{What changes, what persists, and why.} (a) For each fit and
+  penalty $\lambda$, the starting node upstream of the most measurements (dot area: fraction of
+  measurements; ``same'': unchanged from the previous $\lambda$). (b) Edges selected at all five
+  $\lambda$ values, as a fraction of all edges ever selected. (c) Each saved network was scored
+  under every $\lambda$; the value shown is how much worse the network the solver returned as
+  optimal is than the best known network. (d) Odds that an unmeasured node is selected, per
+  doubling of its PKN degree (logistic regression; dots: $\lambda$ values or random networks;
+  bars: medians). Selection favours hubs to the same degree in degree-preserving random
+  networks.}
+  \label{fig:robust}
+\end{figure}
+
+% =====================================================================
+\section{Discussion}
+% =====================================================================
+
+Contextualisation reflected the structure of the PKN at least as much as the data. Two results
+were robust. The first is a kinase layer (MAPK1, MAPK14, PRKACA, FYN) directly upstream of the
+activated AP-1 and SP1 targets. Because these kinases are also the PKN's main hubs, their stability
+is necessary but not sufficient evidence of involvement. The second is the textbook cholesterol
+pathway under a known perturbation, once two missing edges were restored. A gap that cannot be seen
+in the network is enough to hide a well-known pathway.
+
+The upstream part of the network, where the proposed mechanism would sit, was not identifiable:
+\begin{enumerate}[noitemsep, topsep=2pt, leftmargin=*]
+  \item \textbf{Too much freedom at the start.} With thousands of possible starting nodes, a
+        sparse solution collapses onto one hub, and many hubs are equally good. In COSMOS most
+        candidates (3,246 of 4,711) are drug or food compounds; removing them moved the hub to a
+        protein. That random networks fit as well as the real one shows that the data constrain
+        the last step into the TFs, not the path before it.
+  \item \textbf{Signs are not chemistry.} Without mass balance, transport or an unrelated reaction
+        explains a metabolite as well as its synthesis, giving the transport shortcut and the
+        mitochondrial detour. The absent transcriptional induction of sterol synthesis makes the
+        shortcut easier still.
+  \item \textbf{Optimisation is approximate.} Solver guarantees were unreliable on the large
+        network, so $\lambda$ selection inherits solver noise.
+\end{enumerate}
+
+\paragraph{Integration styles.}
+\begin{itemize}[noitemsep, topsep=2pt, leftmargin=*]
+  \item \textbf{Late integration} keeps each layer's network interpretable, but links layers only
+        where the separate networks share nodes. \todo{late-integration numbers: cross-layer
+        edges, metabolite-to-TF paths, state conflicts}
+  \item \textbf{Early, network-based integration} (the joint fit) links layers through the PKN,
+        but here those links were dominated by the transport shortcut and compound hubs.
+  \item \textbf{Factor models} (MOFA, SOFA \cite{argelaguet2020mofa,capraz2026sofa}) need the
+        same samples in every layer. The public RNA-seq and metabolomics lines come from
+        different experiments, so no cross-layer factor model can be fitted. A PKN bridges
+        unmatched layers, at the price of the structural biases shown here.
+\end{itemize}
+
+The results rest on 3 control and 3--4 PMS lines from unmatched experiments, with disease
+confounded by donor background; the positive control and starting-node restrictions were added
+after the main fits. The clearest next steps are to limit starting nodes to measured
+perturbations, to use stoichiometric models (e.g.\ CORNETO's iMAT/FBA on Recon3D), and to apply
+factor models to a line-matched cohort.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

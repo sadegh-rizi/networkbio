@@ -77,3 +77,4 @@ For what has actually been run and decided, see `doc/analysis-state.md`.
 | `2026-10-09-stage02-trend-and-tf-selection-addendum.md` | confirmed; E1 deferred by user 2026-10-10 | E2–E4 implemented within stage 04; limma-trend becomes a later sensitivity |
 | `2026-10-10-aim5-metabolic-route-plan.md` | confirmed by user (2026-10-10) | ordered canonical-route test, canonical-only FDFT1 gap repair, cofactor removal and degree-weighted primary path, type-preserving null |
 | `2026-10-10-stage04-inference-plan.md` | confirmed by user (2026-10-10) | CORNETO implementation added on `task/stage04-inference`; repaired run awaits the canonical-repair PKN |
+| `2026-10-13-imat-fba-plan.md` | proposed | iMAT/FBA context models on full Recon3D; flux-consistent sterol readouts; context-specific COSMOS refit |

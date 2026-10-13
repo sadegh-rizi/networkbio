@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any
 
 import matplotlib.pyplot as plt
+import networkx as nx
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
@@ -71,7 +72,7 @@ ADDENDUM = "doc/decisions/2026-10-11-stage05-robustness-addendum.md"
 SEED_BASE = 20261010
 
 PARTS = ("sampling", "loo", "grid", "permutations", "rewired", "receptors", "sv_control", "tight_gap",
-         "no_drug_inputs")
+         "no_drug_inputs", "late_integration")
 STAGE04_RUNS = ("omnipath", "cosmos_tf", "cosmos_multi", "cosmos_repair", "omnipath_lines")
 COSMOS_RUNS = frozenset({"cosmos_tf", "cosmos_multi", "cosmos_repair"})
 RUN_PKN = {
@@ -88,6 +89,7 @@ TIGHT_LAMBDAS = (0.0, 0.01, 0.03, 0.1, 0.3)
 SV_LAMBDA = 0.01
 RECEPTOR_URL = "https://omnipathdb.org/intercell?categories=receptor&format=tsv"
 RECEPTOR_CACHE = "data/resources/pkn/omnipath_intercell_receptor.tsv"
+RECEPTOR_MIN_CONSENSUS = 3
 
 
 # --------------------------------------------------------------------------
@@ -405,8 +407,9 @@ def _permutations(root: Path, out: Path, lambda_reg: float, resume: bool) -> tup
         moderated, _ = moderated_t_statistics(expression, groups)
         scores, _, _, _ = run_ulm(pd.DataFrame([moderated["moderated_t"]], index=["PMS_vs_Ctrl"]), regulon, tmin=5)
         loo = leave_one_line_out_ulm(expression, groups, regulon, tmin=5)
-        selected, _ = select_stable_top_tfs(scores.loc["PMS_vs_Ctrl"], loo, pkn_nodes, k=50)
-        values = {tf: float(scores.loc["PMS_vs_Ctrl", tf]) for tf in selected}
+        contrast = scores["PMS_vs_Ctrl"]  # run_ulm returns TF x observation
+        selected, _ = select_stable_top_tfs(contrast, loo, pkn_nodes, k=50)
+        values = {tf: float(contrast[tf]) for tf in selected}
         result = _solve(root, out, f"permutation/{index}", f"permutation {index}", pkn_path,
                         {"PMS_vs_Ctrl": values}, lambda_reg, OMNIPATH_TIME_LIMIT, resume=resume)
         ctrl_label = ",".join(sorted(ctrl))
@@ -434,7 +437,7 @@ def _permutations(root: Path, out: Path, lambda_reg: float, resume: bool) -> tup
         summary_rows.append({
             "statistic": statistic, "better_is": "lower" if ascending else "higher",
             "true_value": table.loc[table["role"].eq("true"), statistic].iloc[0],
-            "true_rank_of_20": int(ranks[table["role"].eq("true")].iloc[0]),
+            "true_rank_of_20": (lambda r: int(r) if pd.notna(r) else np.nan)(ranks[table["role"].eq("true")].iloc[0]),
             "n_ties_with_true": int((table[statistic] == table.loc[table["role"].eq("true"), statistic].iloc[0]).sum() - 1),
             "median_permuted": float(table.loc[table["role"].eq("permuted"), statistic].median()),
         })
@@ -547,18 +550,23 @@ def _core_network(frequencies: pd.DataFrame, loo_tables: list[pd.DataFrame], out
 # --------------------------------------------------------------------------
 
 def _receptor_list(root: Path) -> tuple[set[str], dict[str, Any]]:
-    """OmniPath intercell receptors (cached with a checksum sidecar)."""
+    """OmniPath intercell receptors (cached with a checksum sidecar).
+
+    Only the OmniPath composite (consensus) annotation of transmembrane
+    proteins with consensus score >= 3 is used.  The resource-specific rows
+    also label intracellular kinases (MAPK1, MAPK14, GSK3B) as receptors.
+    """
     path, metadata = _fetch_bytes(root / RECEPTOR_CACHE, RECEPTOR_URL)
     table = pd.read_csv(path, sep="\t", dtype=str)
-    required = {"category", "genesymbol"}
+    required = {"category", "genesymbol", "source", "entity_type", "consensus_score", "plasma_membrane_transmembrane"}
     if not required.issubset(table.columns):
         raise ValueError(f"OmniPath intercell table lacks {sorted(required - set(table.columns))}: {path}")
-    table = table[table["category"].eq("receptor")]
-    if "parent" in table:
-        table = table[table["parent"].eq("receptor")]
-    if "entity_type" in table:
-        table = table[table["entity_type"].eq("protein")]
-    receptors = {symbol for symbol in table["genesymbol"].dropna() if symbol and not symbol.startswith("COMPLEX:")}
+    table = table[
+        table["category"].eq("receptor") & table["source"].eq("composite") & table["entity_type"].eq("protein")
+        & table["plasma_membrane_transmembrane"].eq("True")
+        & pd.to_numeric(table["consensus_score"], errors="coerce").ge(RECEPTOR_MIN_CONSENSUS)
+    ]
+    receptors = {symbol for symbol in table["genesymbol"].dropna() if symbol}
     if not receptors:
         raise ValueError("No receptors left after filtering the OmniPath intercell table")
     return receptors, metadata
@@ -743,6 +751,71 @@ def _no_drug_inputs(root: Path, out: Path, lambda_reg: float, resume: bool) -> p
         })
     return pd.DataFrame(rows)
 
+def _layer(node: str) -> str:
+    return "metabolic" if node.startswith(("Metab__", "Gene")) else "protein"
+
+
+def _network_summary(name: str, edges: pd.DataFrame, nodes: pd.DataFrame, tfs: set[str], metabolites: set[str]) -> dict[str, Any]:
+    """Topology of one selected network; states are CORNETO vertex values (0 = inactive)."""
+    pairs = {(str(s), str(t)) for s, t in zip(edges["source"], edges["target"])}
+    graph = nx.DiGraph(list(pairs))
+    reachable = {n: nx.descendants(graph, n) for n in metabolites if n in graph}
+    linked = {(m, tf) for m, down in reachable.items() for tf in down & tfs}
+    return {
+        "network": name, "n_edges": len(pairs), "n_nodes": graph.number_of_nodes(),
+        "n_weak_components": nx.number_weakly_connected_components(graph) if graph.number_of_nodes() else 0,
+        "n_cross_layer_edges": sum(_layer(s) != _layer(t) for s, t in pairs),
+        "n_metabolite_to_tf_pairs": len(linked),
+        "n_measured_metabolites_upstream_of_a_tf": len({m for m, _ in linked}),
+        "n_tfs_downstream_of_a_metabolite": len({tf for _, tf in linked}),
+    }
+
+
+def _late_integration(root: Path, out: Path, lambda_reg: float, resume: bool) -> pd.DataFrame:
+    """Late versus early integration on COSMOS at the joint run's lambda.
+
+    Late: a metabolite-only network (solved here) merged with the stage-04
+    TF-only network (cosmos_tf) at the same lambda.  Early: the stage-04
+    joint network (cosmos_multi).  Compares topology, cross-layer edges,
+    metabolite-to-TF connections and node-state conflicts in the merge.
+    """
+    metabolites = pd.read_csv(root / STAGE04 / "inputs/measured_metabolites.tsv", sep="\t")
+    values = {str(n): float(v) for n, v in zip(metabolites["pkn_node"], metabolites["value"])}
+    result = _solve(root, out, "late_integration/metabolites_only", "metabolites only (COSMOS)", _pkn_path(root, "cosmos"),
+                    {"PMS_vs_Ctrl": values}, lambda_reg, COSMOS_TIME_LIMIT, resume=resume)
+    label = lambda_label(lambda_reg)
+    tf_dir, joint_dir = root / STAGE04 / "cosmos_tf" / f"lambda_{label}", root / STAGE04 / "cosmos_multi" / f"lambda_{label}"
+    read = lambda d, f: pd.read_csv(d / f, sep="\t", dtype={"source": str, "target": str, "node": str})
+    tf_edges, tf_nodes = read(tf_dir, "edges.tsv"), read(tf_dir, "nodes.tsv")
+    joint_edges, joint_nodes = read(joint_dir, "edges.tsv"), read(joint_dir, "nodes.tsv")
+    met_edges, met_nodes = result["selected_edges"], result["nodes"]
+    tfs = set(tf_nodes.loc[tf_nodes["is_measured"], "node"])
+    mets = set(values)
+    late_edges = pd.concat([tf_edges[["source", "target"]], met_edges[["source", "target"]]]).drop_duplicates()
+    tf_state = dict(zip(tf_nodes["node"], tf_nodes["state"]))
+    met_state = dict(zip(met_nodes["node"], met_nodes["state"])) if result["accepted"] else {}
+    shared = {n for n in set(tf_state) & set(met_state) if tf_state[n] != 0 and met_state[n] != 0}
+    conflicts = sorted(n for n in shared if np.sign(tf_state[n]) != np.sign(met_state[n]))
+    rows = [
+        _network_summary("tf_only", tf_edges, tf_nodes, tfs, mets),
+        _network_summary("metabolites_only", met_edges, met_nodes, tfs, mets),
+        _network_summary("late_union", late_edges, pd.DataFrame(), tfs, mets),
+        _network_summary("early_joint", joint_edges, joint_nodes, tfs, mets),
+    ]
+    joint_set = _edge_set(joint_edges)
+    late_set = {(str(s), str(t)) for s, t in zip(late_edges["source"], late_edges["target"])}
+    single = _edge_set(tf_edges) | _edge_set(met_edges)
+    for row in rows:
+        row.update({"lambda_reg": lambda_reg, "metabolite_solve_status": result["status"],
+                    "metabolite_solve_gap": result["mip_gap"], "metabolite_solve_error": result["weighted_fitting_error"]})
+    rows[2].update({"n_shared_active_nodes": len(shared), "n_state_conflicts": len(conflicts),
+                    "state_conflicts": ",".join(conflicts),
+                    "edge_jaccard_with_joint": _jaccard(late_set, joint_set)})
+    rows[3].update({"n_edges_in_neither_single_layer_network": len(joint_set - single),
+                    "edge_jaccard_with_late": _jaccard(late_set, joint_set)})
+    return pd.DataFrame(rows)
+
+
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
@@ -806,8 +879,13 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
         _write(pd.concat(tables, ignore_index=True), out, "rewired.tsv")
         done.append("rewired")
     if "receptors" in args.parts:
-        _write(_receptor_inputs(root, out, omnipath_lambda, args.resume), out, "receptor_inputs.tsv")
-        done.append("receptors")
+        try:
+            _write(_receptor_inputs(root, out, omnipath_lambda, args.resume), out, "receptor_inputs.tsv")
+            done.append("receptors")
+        except Exception as error:  # network or resource-format failure must not stop the other controls
+            print(f"receptors: skipped ({type(error).__name__}: {error})", flush=True)
+            _write(pd.DataFrame([{"run": "omnipath", "status": f"failed: {type(error).__name__}: {error}"}]),
+                   out, "receptor_inputs.tsv")
     if "sv_control" in args.parts:
         table, contrast = _sv_control(root, out, args.resume, full=args.sv_full)
         _write(contrast, out, "sv_cholesterol_contrast.tsv")
@@ -816,6 +894,9 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     if "tight_gap" in args.parts and args.cosmos:
         _write(_tight_gap(root, out, args.resume), out, "tight_gap.tsv")
         done.append("tight_gap")
+    if "late_integration" in args.parts and args.cosmos and cosmos_lambda is not None:
+        _write(_late_integration(root, out, cosmos_lambda, args.resume), out, "late_integration.tsv")
+        done.append("late_integration")
     if "no_drug_inputs" in args.parts and args.cosmos and cosmos_lambda is not None:
         _write(_no_drug_inputs(root, out, cosmos_lambda, args.resume), out, "no_drug_inputs.tsv")
         done.append("no_drug_inputs")
@@ -854,6 +935,7 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
         "sv_control": {"full_pkn": args.sv_full, "input": "HMGCR=-1", "lambda": SV_LAMBDA, "measurement": "paired moderated t, SV - untreated",
                        "pkns": "cosmos/cosmos_repair x full/metabolism-only cofactor-free"},
         "receptor_resource": RECEPTOR_URL,
+        "receptor_filter": f"composite, transmembrane protein, consensus_score >= {RECEPTOR_MIN_CONSENSUS}",
         "seed_base": SEED_BASE, "solver": SOLVER, "solver_relative_gap": SOLVER_RELATIVE_GAP,
         "solver_threads": SOLVER_THREADS, "solver_seed": SOLVER_SEED,
         "execution": "one Python process per solve (src/corneto_worker.py); resume=" + str(args.resume),

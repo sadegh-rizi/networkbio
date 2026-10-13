@@ -1,0 +1,2 @@
+run	lambda_reg	n_receptors_in_resource	n_receptor_inputs	n_receptor_inputs_that_are_pkn_sources	receptor_resource_sha256	status	accepted	mip_gap	solve_seconds	weighted_fitting_error	n_edges	n_nodes	n_measurements	n_reachable	n_measurements_correct_sign	n_inputs_offered	edge_jaccard	node_jaccard
+omnipath	1.0	1035	216	43	02be223b8681f81fe7b75b6575992dee95569b3dab3389bd88f39717a4cd13b2	optimal	True	0.002117650366680703	1647.6040015220642	3.2813737824290357	67	68	50.0	50.0	49.0	216	0.40425531914893614	0.84

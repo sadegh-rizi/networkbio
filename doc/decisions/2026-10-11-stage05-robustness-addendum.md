@@ -129,3 +129,38 @@ D. **No compound-layer inputs** (`--cosmos`, part `no_drug_inputs`). In both mul
   `omnipath_lines` are handled; the draft read only sample 0.
 - `src/activities.py`: new `one_sample_moderated_t` (paired design).
 - `src/corneto_worker.py`: new.
+
+## Results of item D (run finished 2026-10-13, `summary/no_drug_inputs.tsv`)
+
+| Variant | Inputs removed | Error (stage 04: 8.93) | TFs fitted | Metabolites fitted | Dominant input | Inferred-node Jaccard with stage 04 |
+|---|---|---|---|---|---|---|
+| `compound_layer` | 3,246 | 9.43 | 50/50 | 19/36 | LAMA5 (33 of 79) | 0.42 |
+| `all_metabolites` | 3,683 | 11.66 | 50/50 | 16/36 | EFNB3 (25 of 77) | 0.36 |
+
+- **Single-hub structure:** removing the compound starting nodes keeps it; the hub moves to a protein.
+- **Kinase core:** MAPK1, MAPK14, PRKACA, FYN and AKT1 stay in both variants.
+- **Cholesterol:** explained by the HDLBP transport reaction in both, and HMGCR is never active.
+- **Cholesterol to TF routes:** these appear only once the compound hubs are gone:
+  - `compound_layer`: cholesterol → MAPK3 → CEBPB → STAT3 → JUNB;
+  - `all_metabolites`: cholesterol → MAPK3 → NCOA1 → FOS → JUN → EGR1.
+
+## Item E: late versus early integration (added 2026-10-13, `--cosmos`, part `late_integration`)
+
+- **Late network:** one metabolite-only CORNETO solve on COSMOS (36 metabolite measurements, default
+  free inputs) at the joint run's lambda (0.1), merged with the stage-04 `cosmos_tf` network at the
+  same lambda. This merge is the late-integration network.
+- **Early network:** the stage-04 `cosmos_multi` network at the same lambda.
+- **Readouts** (`summary/late_integration.tsv`), for the TF-only, metabolite-only, merged and joint
+  networks:
+  - edges, nodes and weakly connected components;
+  - edges crossing between the metabolic (metabolite or reaction) and protein layers;
+  - measured-metabolite-to-measured-TF directed paths;
+  - for the merge: node-state conflicts between the two networks and edge Jaccard with the joint
+    network;
+  - for the joint network: edges found in neither single-layer network.
+- **Network properties** without new solves: `scripts/analysis/07_network_properties.py` writes to
+  `results/ionescu_corneto/07_downstream/network_properties/`:
+  - degree bias of node selection, for real and randomised networks;
+  - out-degree percentiles of the starting nodes used;
+  - centrality of the kinase core and the hypothesis nodes;
+  - metabolite-to-TF distances.

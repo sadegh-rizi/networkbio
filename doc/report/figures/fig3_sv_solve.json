@@ -1,0 +1,25 @@
+{
+  "solve_directory": "D:\\#University\\#MS-SystemsBio\\Master_Thesis\\repos\\networkbio\\results\\ionescu_corneto\\05_robustness\\sv_control\\cosmos_repair_metabolic",
+  "status": "user_limit",
+  "mip_gap": 0.03246160078663825,
+  "weighted_fitting_error": 0.0,
+  "solve_seconds": 3600.1873168945312,
+  "canonical_genes_used": [
+    "CYP51A1",
+    "DHCR24",
+    "DHCR7",
+    "EBP",
+    "FDFT1",
+    "FDPS",
+    "HMGCR",
+    "LSS",
+    "MSMO1",
+    "MVD",
+    "MVK",
+    "NSDHL",
+    "PMVK",
+    "SC5D",
+    "SQLE",
+    "TM7SF2"
+  ]
+}

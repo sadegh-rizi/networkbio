@@ -1,0 +1,73 @@
+sample	node	state	is_measured	observed_value	is_input	reachability
+PMS_vs_Ctrl	ABL1	1	False		False	reachable
+PMS_vs_Ctrl	ARID3A	1	True	2.0674738184013512	False	reachable
+PMS_vs_Ctrl	ATF2	-1	False		False	reachable
+PMS_vs_Ctrl	ATF3	-1	True	-2.2036082804710304	False	reachable
+PMS_vs_Ctrl	ATM	-1	False		False	reachable
+PMS_vs_Ctrl	BACH1	1	True	2.1269679100353387	False	reachable
+PMS_vs_Ctrl	CDK1	1	False		False	reachable
+PMS_vs_Ctrl	CEBPB	1	False		False	reachable
+PMS_vs_Ctrl	CLOCK	-1	True	-2.262060243270876	False	reachable
+PMS_vs_Ctrl	CSNK2A1	1	False		False	reachable
+PMS_vs_Ctrl	CUX1	-1	True	-2.256378569535103	False	reachable
+PMS_vs_Ctrl	DMPK	-1	False		True	reachable
+PMS_vs_Ctrl	E2F4	1	True	2.128362821310643	False	reachable
+PMS_vs_Ctrl	E2F7	0	True	-4.004141022744047	False	unreachable
+PMS_vs_Ctrl	ELK3	-1	True	-2.4569573757111964	False	reachable
+PMS_vs_Ctrl	ETS1	-1	True	-3.167649518218549	False	reachable
+PMS_vs_Ctrl	FOS	-1	True	-2.8889580099425345	False	reachable
+PMS_vs_Ctrl	FOSL1	-1	True	-2.220152471556764	False	reachable
+PMS_vs_Ctrl	FOXO3	-1	True	-2.3628779025399935	False	reachable
+PMS_vs_Ctrl	GLI3	1	True	2.6594990070855675	False	reachable
+PMS_vs_Ctrl	GSK3B	1	False		False	reachable
+PMS_vs_Ctrl	HDAC7	1	True	2.575655523017632	False	reachable
+PMS_vs_Ctrl	HIPK2	1	True	2.411931404356036	False	reachable
+PMS_vs_Ctrl	HMGA2	-1	True	-2.87714643017896	False	reachable
+PMS_vs_Ctrl	HOXD13	1	False		True	reachable
+PMS_vs_Ctrl	IRF1	-1	True	-2.610304959751237	False	reachable
+PMS_vs_Ctrl	IRF2	-1	True	-2.508044216851737	False	reachable
+PMS_vs_Ctrl	IRF3	-1	True	-2.545092965413433	False	reachable
+PMS_vs_Ctrl	IRF7	-1	True	-2.270640830861848	False	reachable
+PMS_vs_Ctrl	JUNB	-1	True	-3.155065980611613	False	reachable
+PMS_vs_Ctrl	JUND	-1	True	-3.5526150317056926	False	reachable
+PMS_vs_Ctrl	MAFG	0	True	-2.594329985736181	False	reachable
+PMS_vs_Ctrl	MAPK1	-1	False		False	reachable
+PMS_vs_Ctrl	MAPK14	-1	False		False	reachable
+PMS_vs_Ctrl	MAPK8	-1	False		False	reachable
+PMS_vs_Ctrl	MBD1	-1	True	-2.4846006471739543	False	reachable
+PMS_vs_Ctrl	MEF2A	-1	True	-3.48083186895676	False	reachable
+PMS_vs_Ctrl	MEIS1	1	True	2.7491975083378875	False	reachable
+PMS_vs_Ctrl	MEOX1	1	True	3.9710885632684603	False	reachable
+PMS_vs_Ctrl	MPG	-1	False		False	reachable
+PMS_vs_Ctrl	MSC	0	True	-2.507192141265227	False	unreachable
+PMS_vs_Ctrl	MSX1	0	True	2.167942120086531	False	unreachable
+PMS_vs_Ctrl	MTA1	0	True	-2.6417720165945378	False	unreachable
+PMS_vs_Ctrl	MYB	-1	True	-2.193233756343611	False	reachable
+PMS_vs_Ctrl	MYBL2	-1	True	-2.20592579100927	False	reachable
+PMS_vs_Ctrl	NFATC4	-1	True	-2.174353524934085	False	reachable
+PMS_vs_Ctrl	NFE2L2	-1	True	-2.9159685333172143	False	reachable
+PMS_vs_Ctrl	NR1H3	-1	True	-2.5459976757396583	False	reachable
+PMS_vs_Ctrl	NR2C1	0	True	-2.454034758104611	False	unreachable
+PMS_vs_Ctrl	NR4A2	-1	True	-2.2481839722278854	False	reachable
+PMS_vs_Ctrl	PAX3	1	False		False	reachable
+PMS_vs_Ctrl	PIAS1	1	False		False	reachable
+PMS_vs_Ctrl	PPME1	-1	False		True	reachable
+PMS_vs_Ctrl	PPP2CB	1	False		False	reachable
+PMS_vs_Ctrl	PTPRG	-1	False		True	reachable
+PMS_vs_Ctrl	RBCK1	-1	False		True	reachable
+PMS_vs_Ctrl	SDCBP	1	False		True	reachable
+PMS_vs_Ctrl	SIRT1	-1	True	-3.8227724310075786	False	reachable
+PMS_vs_Ctrl	SMAD5	1	True	2.746227688520541	False	reachable
+PMS_vs_Ctrl	SMURF2	-1	False		False	reachable
+PMS_vs_Ctrl	SOX4	1	True	3.7295997401364205	False	reachable
+PMS_vs_Ctrl	SOX9	1	True	2.5684591073911016	False	reachable
+PMS_vs_Ctrl	SP1	-1	True	-4.129469548124712	False	reachable
+PMS_vs_Ctrl	SP3	-1	True	-2.2567714715480025	False	reachable
+PMS_vs_Ctrl	SRF	-1	True	-4.024861113770431	False	reachable
+PMS_vs_Ctrl	STAT1	-1	True	-2.8183966032777668	False	reachable
+PMS_vs_Ctrl	STAT2	-1	True	-2.721131604273527	False	reachable
+PMS_vs_Ctrl	TP53	1	True	2.4589248939547734	False	reachable
+PMS_vs_Ctrl	TRAF6	-1	False		False	reachable
+PMS_vs_Ctrl	ZFHX3	0	True	2.183396228389753	False	reachable
+PMS_vs_Ctrl	ZIC1	0	True	2.0477223105282802	False	unreachable
+PMS_vs_Ctrl	ZNF350	0	True	2.2513194848388745	False	unreachable

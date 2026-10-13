@@ -8,6 +8,9 @@ PYTHON="${ROOT}/.venv/bin/python"
 [[ -x "${PYTHON}" ]] || { printf 'Missing project venv; no environment changes were made.\n' >&2; exit 1; }
 export MPLBACKEND=Agg
 export PYTHONUNBUFFERED=1
-"${PYTHON}" -m pytest -q tests
+# Set RUN_TESTS=0 to skip the test suite (about 1 h on /mnt/d), e.g. when resuming.
+if [[ "${RUN_TESTS:-1}" != "0" ]]; then
+  "${PYTHON}" -m pytest -q tests
+fi
 "${PYTHON}" scripts/analysis/06_corneto_robustness.py "$@"
 printf 'STAGE 05 FINISHED\n'
