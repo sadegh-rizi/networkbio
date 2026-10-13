@@ -4,7 +4,7 @@ Date: 2026-10-13
 Model: gpt-5.6-luna
 Settings: default
 Plan: doc/decisions/2026-10-13-imat-fba-plan.md
-Commit(s): pending
+Commit(s): 8b6278f
 Transcript: current agent session
 
 ## Prompt actually used
