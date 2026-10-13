@@ -1,7 +1,7 @@
 # Stage 06: stoichiometric context models (iMAT/FBA) to fix the signed-metabolism shortcuts
 
 Date: 2026-10-13
-Status: proposed, awaiting user confirmation (open questions Q1–Q6 have recommended defaults).
+Status: confirmed by user (2026-10-13); open questions Q1–Q6 use the recommended defaults.
 Depends on: stages 01–05 (finished). Code from CORNETO 1.0.0rc8 already in `.venv`.
 
 ## Why

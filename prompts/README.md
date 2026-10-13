@@ -72,3 +72,4 @@ Transcript: prompts/session-<id>.md (or: not saved)
 | 2026-10-09 | stage-03 COSMOS parser correction | `2026-10-09-stage03-cosmos-correction.md` |
 | 2026-10-10 | stage-04 audit fixes | `2026-10-10-stage04-audit-fixes.md` |
 | 2026-10-10 | Aim-5 metabolic route implementation | `2026-10-10-aim5-metabolic-route-implementation.md` |
+| 2026-10-13 | Stage-06 iMAT/FBA implementation | `2026-10-13-imat-fba-implementation.md` |

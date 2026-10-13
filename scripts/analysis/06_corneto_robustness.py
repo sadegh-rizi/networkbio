@@ -72,7 +72,7 @@ ADDENDUM = "doc/decisions/2026-10-11-stage05-robustness-addendum.md"
 SEED_BASE = 20261010
 
 PARTS = ("sampling", "loo", "grid", "permutations", "rewired", "receptors", "sv_control", "tight_gap",
-         "no_drug_inputs", "late_integration")
+         "no_drug_inputs", "late_integration", "context_cosmos")
 STAGE04_RUNS = ("omnipath", "cosmos_tf", "cosmos_multi", "cosmos_repair", "omnipath_lines")
 COSMOS_RUNS = frozenset({"cosmos_tf", "cosmos_multi", "cosmos_repair"})
 RUN_PKN = {
@@ -816,6 +816,30 @@ def _late_integration(root: Path, out: Path, lambda_reg: float, resume: bool) ->
     return pd.DataFrame(rows)
 
 
+def _context_cosmos(root: Path, out: Path, resume: bool) -> pd.DataFrame:
+    """Refit the stage-04 joint and stage-05 SV controls on the iMAT PKN."""
+    pkn_path = root / "results/ionescu_corneto/06_validation/metabolic_context/context_cosmos/pkn.tsv"
+    if not pkn_path.exists():
+        return pd.DataFrame([{"run": "context_cosmos", "status": "missing_context_pkn"}])
+    rows = []
+    measurements = _stage04_measurements(root, "cosmos_multi")
+    joint = _solve(root, out, "context_cosmos/joint", "context COSMOS joint", pkn_path, measurements,
+                   0.1, COSMOS_TIME_LIMIT, resume=resume)
+    rows.append({"run": "cosmos_multi", "scope": "context", "lambda_reg": 0.1,
+                 **_fit_columns(joint)})
+    node, contrast = _sv_measurement(root)
+    sv = _solve(root, out, "context_cosmos/sv_control", "context COSMOS simvastatin", pkn_path,
+                {"SV_vs_untreated": {node: float(contrast["moderated_t"].iloc[0])}}, SV_LAMBDA,
+                COSMOS_TIME_LIMIT, resume=resume, inputs={"HMGCR": -1.0})
+    active = sv["nodes"]
+    active = active[active["state"].ne(0)] if sv["accepted"] else active.iloc[0:0]
+    rows.append({"run": "cosmos_multi", "scope": "context_sv", "lambda_reg": SV_LAMBDA,
+                 "measured_node": node, "measured_t": float(contrast["moderated_t"].iloc[0]),
+                 "cholesterol_state": int(active.loc[active["node"].eq(node), "state"].iloc[0]) if node in set(active["node"]) else 0,
+                 **_fit_columns(sv)})
+    return pd.DataFrame(rows)
+
+
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
@@ -824,7 +848,7 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Stage 05 robustness controls")
     parser.add_argument("--parts", nargs="+", choices=PARTS, default=list(PARTS))
     parser.add_argument("--cosmos", action="store_true",
-                        help="also run COSMOS sampling, LOO, rewiring, the tighter-gap re-solve and the no-drug-input run")
+                        help="also run COSMOS controls, including context-specific refits")
     parser.add_argument("--cosmos-samples", type=int, default=DEFAULT_COSMOS_SAMPLES)
     parser.add_argument("--sv-full", action="store_true",
                         help="also run the SV control on the full COSMOS PKNs (up to 2 x 3,600 s)")
@@ -900,6 +924,9 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     if "no_drug_inputs" in args.parts and args.cosmos and cosmos_lambda is not None:
         _write(_no_drug_inputs(root, out, cosmos_lambda, args.resume), out, "no_drug_inputs.tsv")
         done.append("no_drug_inputs")
+    if "context_cosmos" in args.parts and args.cosmos:
+        _write(_context_cosmos(root, out, args.resume), out, "context_cosmos.tsv")
+        done.append("context_cosmos")
     if "sampling" in args.parts:
         _write(_hub_bias(root, frequencies, out), out, "hub_bias.tsv")
         if "loo" in args.parts:
@@ -916,14 +943,15 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
         root / PREPROCESSED / "metabolomics/ST003328/line_log2.tsv",
         root / ACTIVITIES / "collectri/tf_activity_per_line.tsv",
         root / PLAN, root / ADDENDUM,
+        root / "doc/decisions/2026-10-13-imat-fba-plan.md",
     ] + [_pkn_path(root, name) for name in ("omnipath", "nc_rule", "signor_only", "unpruned", "cosmos", "cosmos_repair")]
     if "receptors" in done:
         inputs.append(root / RECEPTOR_CACHE)
     if "sv_control" in done:
         inputs.append(root / PKN / "aim5_route/cofactor_nodes.tsv")
     code = [root / "src" / name for name in ("inference.py", "corneto_worker.py", "activities.py", "pkn.py",
-                                             "metabolic_route.py")] + [
-        root / "scripts/analysis/06_corneto_robustness.py"]
+                                             "metabolic_route.py", "gem.py", "gem_worker.py")] + [
+        root / "scripts/analysis/06_corneto_robustness.py", root / "scripts/analysis/08_metabolic_context.py"]
     parameters = {
         "parts_completed_this_invocation": done,
         "cosmos": args.cosmos,
