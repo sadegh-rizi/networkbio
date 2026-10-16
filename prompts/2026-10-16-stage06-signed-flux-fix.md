@@ -4,7 +4,7 @@ Date: 2026-10-16
 Model: openai/gpt-5.6-luna (OpenCode)
 Settings: default
 Plan: doc/decisions/2026-10-13-imat-fba-plan.md
-Commit(s): add after committing
+Commit(s): 24d24d7 (implementation and regression test)
 Transcript: not saved
 
 ## Prompt actually used

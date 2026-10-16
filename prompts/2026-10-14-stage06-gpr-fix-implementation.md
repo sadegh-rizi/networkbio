@@ -4,7 +4,7 @@ Date: 2026-10-14
 Model: claude-opus-5-5 (Claude, cloud session linked to the user's computer)
 Settings: default
 Plan: doc/decisions/2026-10-14-stage06-gpr-and-checks-addendum.md
-Commit(s): (add after committing)
+Commit(s): 24d24d7 (implementation and report outputs)
 Transcript: not saved
 
 ## Prompt actually used
@@ -47,9 +47,12 @@ Fourth event (2026-10-15): the completed run showed D6-D8 (addendum items
 
 ## What was changed by hand afterwards
 
-None yet.
+The implementation was tested in the project WSL environment after this
+generation event. The HMR-1916 reporting fix is recorded in the separate
+2026-10-16 prompt.
 
 ## Outputs stamped
 
-None. Only an AST syntax check was run (the linked VM has Python 3.10 and
-no pytest; the project venv is WSL Python 3.12). Tests not yet run.
+The implementation, report outputs, and test changes are in commit `24d24d7`.
+Raw Stage-06 solver outputs remain uncommitted because the current
+context-specific simvastatin refit failed.
