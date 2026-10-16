@@ -17,6 +17,7 @@ from pkn import (  # noqa: E402
     map_metabolite_features,
     parse_cosmos_node,
     rewire_signed_graph,
+    rewire_type_preserving_signed_graph,
     signed_shortest_paths,
 )
 
@@ -245,3 +246,20 @@ def test_rewiring_preserves_directed_degrees_sign_counts_and_seed():
     assert {target: sum(edge[2] == target for edge in edges) for target in {edge[2] for edge in edges}} == {
         target: sum(edge[2] == target for edge in rewired_a) for target in {edge[2] for edge in rewired_a}
     }
+
+
+def test_type_preserving_rewiring_keeps_class_and_sign_counts():
+    edges = [
+        ("P1", 1, "Gene1__A"),
+        ("P2", 1, "Gene2__B"),
+        ("Metab__m1_c", -1, "Gene3__C"),
+        ("Metab__m2_c", -1, "Gene4__D"),
+    ]
+    rewired = rewire_type_preserving_signed_graph(edges, seed=20261010, accepted_swaps=1)
+    classes = lambda edge: (
+        "metabolite" if edge[0].startswith("Metab__") else "reaction" if edge[0].startswith("Gene") else "protein",
+        "metabolite" if edge[2].startswith("Metab__") else "reaction" if edge[2].startswith("Gene") else "protein",
+        edge[1],
+    )
+    assert sorted(map(classes, edges)) == sorted(map(classes, rewired))
+    assert len({(source, target) for source, _, target in rewired}) == len(rewired)

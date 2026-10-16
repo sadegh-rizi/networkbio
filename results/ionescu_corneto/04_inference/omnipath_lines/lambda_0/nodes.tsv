@@ -1,0 +1,533 @@
+sample	node	state	is_measured	observed_value	is_input	reachability
+C1	ACTL6A	-1	False		True	reachable
+C1	AKT1	-1	False		False	reachable
+C1	ATF2	-1	True	-2.5380495859619447	False	reachable
+C1	ATF4	-1	True	-3.795310389061984	False	reachable
+C1	ATM	-1	False		False	reachable
+C1	AURKB	-1	False		False	reachable
+C1	BRAF	-1	False		False	reachable
+C1	CDK10	1	False		True	reachable
+C1	CEBPB	-1	True	-2.654776428198104	False	reachable
+C1	CLOCK	-1	True	-1.9672251309462183	False	reachable
+C1	CREB1	-1	True	-4.397376666224978	False	reachable
+C1	CREBBP	-1	False		False	reachable
+C1	DCAF7	-1	False		True	reachable
+C1	DNAJC3	1	False		True	reachable
+C1	DUSP19	-1	False		True	reachable
+C1	DYRK1B	-1	False		False	reachable
+C1	EGR1	-1	True	-2.989317732346042	False	reachable
+C1	EIF2AK3	-1	False		False	reachable
+C1	ELK1	-1	True	-2.9915200019996	False	reachable
+C1	ETS1	-1	True	-5.424300574424668	False	reachable
+C1	ETS2	-1	True	-3.4875211979185528	False	reachable
+C1	ETV1	-1	True	-2.766306549727457	False	reachable
+C1	FOS	-1	True	-4.712262132936046	False	reachable
+C1	FOXM1	-1	True	-2.0456876411717406	False	reachable
+C1	FOXO3	1	False		False	reachable
+C1	FYN	-1	False		False	reachable
+C1	GSK3B	1	False		False	reachable
+C1	GTF2I	-1	False		False	reachable
+C1	HDAC1	1	True	5.2727328000315135	False	reachable
+C1	HDAC9	1	True	0.9431402981174748	False	reachable
+C1	HIF1A	-1	True	-5.245979062759758	False	reachable
+C1	HMGB2	-1	False		True	reachable
+C1	ID1	-1	True	-2.5298197975230776	False	reachable
+C1	ING2	1	False		True	reachable
+C1	IRF1	-1	True	-0.4012096848268014	False	reachable
+C1	IRF2	-1	True	-2.4293925643791785	False	reachable
+C1	IRF2BP2	-1	False		True	reachable
+C1	IRF7	-1	True	-3.007737873721541	False	reachable
+C1	IRF9	-1	True	-3.354907626276533	False	reachable
+C1	ITCH	1	False		False	reachable
+C1	JUN	-1	True	-5.029632645901557	False	reachable
+C1	JUNB	-1	True	-4.887212546592684	False	reachable
+C1	JUND	-1	True	-7.828915538519915	False	reachable
+C1	LAMTOR3	1	False		True	reachable
+C1	MAPK1	1	False		False	reachable
+C1	MAPK3	-1	False		False	reachable
+C1	MAPK7	-1	False		False	reachable
+C1	MAPK8	-1	False		False	reachable
+C1	MED14	-1	False		True	reachable
+C1	MEF2A	-1	True	-3.2437428855858323	False	reachable
+C1	MEN1	1	False		True	reachable
+C1	MTMR4	-1	False		True	reachable
+C1	MYC	-1	True	-3.1031450071172366	False	reachable
+C1	N4BP1	-1	False		True	reachable
+C1	NAB2	1	False		True	reachable
+C1	NCOA1	-1	True	-2.4687503209308925	False	reachable
+C1	NFE2L2	-1	True	-2.0433564218754814	False	reachable
+C1	NFKB1	-1	True	-4.682526729091789	False	reachable
+C1	NFKB2	-1	True	-3.074099892550316	False	reachable
+C1	NKRF	1	False		True	reachable
+C1	NRF1	-1	True	-2.6086246141128795	False	reachable
+C1	PDP2	1	False		True	reachable
+C1	PLK3	-1	False		True	reachable
+C1	POU2F1	-1	True	-3.6668522469790137	False	reachable
+C1	PRKACA	-1	False		False	reachable
+C1	PRP4K	-1	False		True	reachable
+C1	PRRX1	-1	False		False	reachable
+C1	PTPRE	1	False		True	reachable
+C1	RARA	-1	True	-4.496473721078488	False	reachable
+C1	REL	-1	True	-6.605833200547325	False	reachable
+C1	RELA	-1	True	-3.8255130022244095	False	reachable
+C1	RNF11	1	False		False	reachable
+C1	RORA	-1	True	-2.922306301838005	False	reachable
+C1	RPS6KA3	-1	False		False	reachable
+C1	RWDD3	-1	False		True	reachable
+C1	RXRA	-1	True	-4.312029701039212	False	reachable
+C1	SKIL	1	True	3.1487663390414973	False	reachable
+C1	SMAD1	-1	True	-3.424785682358363	False	reachable
+C1	SMAD2	-1	True	-5.57704043389301	False	reachable
+C1	SMAD3	-1	True	-4.81738320753408	False	reachable
+C1	SMAD4	-1	True	-3.0931068701776687	False	reachable
+C1	SMURF2	1	False		False	reachable
+C1	SNAI1	-1	True	-2.314807652373601	False	reachable
+C1	SP1	-1	True	-6.7575559270496655	False	reachable
+C1	SP3	-1	True	-5.999158327162183	False	reachable
+C1	SRF	-1	True	-6.274064778458974	False	reachable
+C1	STAT1	-1	True	-3.6440139401732137	False	reachable
+C1	STAT2	-1	True	-3.453154926771605	False	reachable
+C1	STAT3	-1	True	-4.606443954725469	False	reachable
+C1	TGFB1I1	-1	True	-3.585612362750709	False	reachable
+C1	THRB	-1	False		False	reachable
+C1	TRIM21	1	False		True	reachable
+C1	USF1	-1	True	-3.3684174797191964	False	reachable
+C2	AKT1	-1	False		False	reachable
+C2	ATF2	-1	True	-3.514084118154208	False	reachable
+C2	ATF4	-1	True	-3.720278477520543	False	reachable
+C2	BCOR	1	False		True	reachable
+C2	CDK10	1	False		True	reachable
+C2	CEBPB	-1	True	-3.417197802962631	False	reachable
+C2	CLOCK	-1	True	-1.7927025707928774	False	reachable
+C2	CREB1	-1	True	-2.5393295252443284	False	reachable
+C2	CREBBP	-1	False		False	reachable
+C2	CTDSP1	1	False		True	reachable
+C2	DCAF7	-1	False		True	reachable
+C2	DNAJC3	1	False		True	reachable
+C2	DUSP19	-1	False		True	reachable
+C2	DUSP9	1	False		True	reachable
+C2	DYRK1B	-1	False		False	reachable
+C2	EGR1	-1	True	-3.3720536963817214	False	reachable
+C2	EIF2AK3	-1	False		False	reachable
+C2	ELK1	-1	True	-1.2095978286816895	False	reachable
+C2	ETS1	-1	True	-5.863559536266931	False	reachable
+C2	ETS2	-1	True	-3.833482186456352	False	reachable
+C2	ETV1	-1	True	-2.3003499152158526	False	reachable
+C2	FOS	-1	True	-4.816596304889432	False	reachable
+C2	FOXM1	-1	True	-1.7990581749228811	False	reachable
+C2	FOXO3	1	False		False	reachable
+C2	FYN	-1	False		False	reachable
+C2	GSK3B	1	False		False	reachable
+C2	GTF2I	-1	False		False	reachable
+C2	HDAC1	1	True	3.673628280753483	False	reachable
+C2	HDAC9	1	True	0.4140811415398458	False	reachable
+C2	HIF1A	-1	True	-3.187654765944573	False	reachable
+C2	HIF1AN	1	False		True	reachable
+C2	HMGB2	-1	False		True	reachable
+C2	ID1	-1	True	-2.21422312386344	False	reachable
+C2	IRF1	-1	True	-2.8620812990881874	False	reachable
+C2	IRF2	-1	True	-2.897533953541252	False	reachable
+C2	IRF2BP2	-1	False		True	reachable
+C2	IRF7	-1	True	-3.781431811465676	False	reachable
+C2	IRF9	-1	True	-6.470541689050887	False	reachable
+C2	JUN	-1	True	-4.211024348718053	False	reachable
+C2	JUNB	-1	True	-4.424315917689715	False	reachable
+C2	JUND	-1	True	-6.334236338358229	False	reachable
+C2	MAPK1	1	False		False	reachable
+C2	MAPK3	-1	False		False	reachable
+C2	MAPK8	-1	False		False	reachable
+C2	MED14	-1	False		True	reachable
+C2	MEF2A	-1	True	-2.645664979470427	False	reachable
+C2	MEN1	1	False		True	reachable
+C2	MYC	-1	True	-2.886783618054401	False	reachable
+C2	NCOA1	-1	True	-2.1681879617475723	False	reachable
+C2	NFE2L2	-1	True	-1.4031900520333416	False	reachable
+C2	NFKB1	-1	True	-3.932081789490922	False	reachable
+C2	NFKB2	-1	True	-2.9351008554258	False	reachable
+C2	NKRF	1	False		True	reachable
+C2	NRF1	-1	True	-1.67069185208379	False	reachable
+C2	PLK3	-1	False		True	reachable
+C2	POU2F1	-1	True	-2.1584952036192027	False	reachable
+C2	PRKACA	-1	False		False	reachable
+C2	PRRX1	-1	False		False	reachable
+C2	PTPRE	1	False		True	reachable
+C2	RARA	-1	True	-2.4634008997760994	False	reachable
+C2	REL	-1	True	-6.141707970623546	False	reachable
+C2	RELA	-1	True	-2.046956357604663	False	reachable
+C2	RNF11	1	False		False	reachable
+C2	RORA	-1	True	-1.5828272348951369	False	reachable
+C2	RPS6KA3	-1	False		False	reachable
+C2	RPS6KA4	-1	False		False	reachable
+C2	RXRA	-1	True	-2.833001584618742	False	reachable
+C2	SKIL	1	True	2.5816435733327694	False	reachable
+C2	SLC2A4RG	-1	False		True	reachable
+C2	SMAD1	-1	True	-2.628555979740544	False	reachable
+C2	SMAD2	-1	True	-4.328013863533706	False	reachable
+C2	SMAD3	-1	True	-4.175950646040379	False	reachable
+C2	SMAD4	-1	True	-3.3663990615793637	False	reachable
+C2	SMURF2	1	False		False	reachable
+C2	SNAI1	-1	True	-4.039502694186552	False	reachable
+C2	SNIP1	-1	False		True	reachable
+C2	SP1	-1	True	-3.604023353079522	False	reachable
+C2	SP3	-1	True	-3.1814011095998334	False	reachable
+C2	SRF	-1	True	-5.164429088591793	False	reachable
+C2	STAT1	-1	True	-5.849331567160234	False	reachable
+C2	STAT2	-1	True	-6.803000432489188	False	reachable
+C2	STAT3	-1	True	-2.8854691183590275	False	reachable
+C2	TGFB1I1	-1	True	-2.5466043567056307	False	reachable
+C2	THEM4	1	False		True	reachable
+C2	THRB	-1	False		False	reachable
+C2	TRIM21	1	False		True	reachable
+C2	USF1	-1	True	-2.005671036464454	False	reachable
+C3	AKT1	-1	False		False	reachable
+C3	ATF2	-1	True	-4.445250622170693	False	reachable
+C3	ATF4	-1	True	-3.829119076857231	False	reachable
+C3	CDK10	1	False		True	reachable
+C3	CEBPB	-1	True	-3.203322750100209	False	reachable
+C3	CLOCK	-1	True	-2.561618470921353	False	reachable
+C3	CREB1	-1	True	-4.666154255466946	False	reachable
+C3	CREBBP	-1	False		False	reachable
+C3	CTDSP1	1	False		True	reachable
+C3	DCAF7	-1	False		True	reachable
+C3	DUSP19	-1	False		True	reachable
+C3	DYRK1B	-1	False		False	reachable
+C3	EGR1	-1	True	-3.0016875563660896	False	reachable
+C3	ELK1	-1	True	-0.6273235832226619	False	reachable
+C3	ENC1	1	False		True	reachable
+C3	ETS1	-1	True	-6.164393838441335	False	reachable
+C3	ETS2	-1	True	-4.560901416864191	False	reachable
+C3	ETV1	-1	True	-1.2797461627086923	False	reachable
+C3	FOS	-1	True	-5.622269477883171	False	reachable
+C3	FOXM1	-1	True	-2.311620147172194	False	reachable
+C3	FOXO3	1	False		False	reachable
+C3	FYN	-1	False		False	reachable
+C3	GSK3B	1	False		False	reachable
+C3	GTF2I	-1	False		False	reachable
+C3	HDAC1	1	True	3.09995927845012	False	reachable
+C3	HDAC9	1	True	2.160689900964102	False	reachable
+C3	HIF1A	-1	True	-5.1358224105666	False	reachable
+C3	HMGB2	-1	False		True	reachable
+C3	ID1	-1	True	-3.5366517371761867	False	reachable
+C3	ING2	1	False		True	reachable
+C3	IRF1	-1	True	-5.14380369755452	False	reachable
+C3	IRF2	-1	True	-3.8610966052755376	False	reachable
+C3	IRF2BP2	-1	False		True	reachable
+C3	IRF7	-1	True	-4.713010751878432	False	reachable
+C3	IRF9	-1	True	-6.899553877033664	False	reachable
+C3	JUN	-1	True	-6.375293429491069	False	reachable
+C3	JUNB	-1	True	-3.963718812792268	False	reachable
+C3	JUND	-1	True	-6.480684468447495	False	reachable
+C3	MAPK1	1	False		False	reachable
+C3	MAPK3	-1	False		False	reachable
+C3	MAPK8	-1	False		False	reachable
+C3	MED14	-1	False		True	reachable
+C3	MEF2A	-1	True	-4.368905605748592	False	reachable
+C3	MYC	-1	True	-3.127768419089713	False	reachable
+C3	NCOA1	-1	True	-3.2271007548268016	False	reachable
+C3	NFE2L2	-1	True	-3.853680660930189	False	reachable
+C3	NFKB1	-1	True	-5.440139371086261	False	reachable
+C3	NFKB2	-1	True	-3.2446226450426945	False	reachable
+C3	NKRF	1	False		True	reachable
+C3	NRF1	-1	True	-2.122729184583568	False	reachable
+C3	POU2F1	-1	True	-4.1593276834344	False	reachable
+C3	PRKACA	-1	False		False	reachable
+C3	PRRX1	-1	False		False	reachable
+C3	PTPRE	-1	False		True	reachable
+C3	RARA	-1	True	-4.807927024072992	False	reachable
+C3	REL	-1	True	-6.981602795640389	False	reachable
+C3	RELA	-1	True	-5.036965652519857	False	reachable
+C3	RNF11	1	False		False	reachable
+C3	RORA	-1	True	-2.480030004699087	False	reachable
+C3	RPS6KA3	-1	False		False	reachable
+C3	RXRA	-1	True	-4.169055427192071	False	reachable
+C3	SKIL	1	True	2.8151017573577057	False	reachable
+C3	SMAD1	-1	True	-3.2233380744631948	False	reachable
+C3	SMAD2	-1	True	-5.107770693247393	False	reachable
+C3	SMAD3	-1	True	-4.272559923422831	False	reachable
+C3	SMAD4	-1	True	-3.8430712821563993	False	reachable
+C3	SMURF2	1	False		False	reachable
+C3	SNAI1	-1	True	-1.8520531604384611	False	reachable
+C3	SNIP1	-1	False		True	reachable
+C3	SP1	-1	True	-7.465063132534642	False	reachable
+C3	SP3	-1	True	-5.331972655370441	False	reachable
+C3	SRF	-1	True	-8.604606346231174	False	reachable
+C3	SS18L1	-1	False		True	reachable
+C3	STAT1	-1	True	-7.292653724614617	False	reachable
+C3	STAT2	-1	True	-7.586627616724859	False	reachable
+C3	STAT3	-1	True	-3.8354548117287535	False	reachable
+C3	TGFB1I1	-1	True	-3.828691824941064	False	reachable
+C3	THEM4	1	False		True	reachable
+C3	THRB	-1	False		False	reachable
+C3	TRIM21	1	False		True	reachable
+C3	USF1	-1	True	-3.79219737765642	False	reachable
+C3	WDR83	-1	False		True	reachable
+C4	ACTL6A	1	False		True	reachable
+C4	AKT1	1	False		False	reachable
+C4	ATF2	1	True	3.431112824136155	False	reachable
+C4	ATF4	1	True	4.07807030101902	False	reachable
+C4	ATM	1	False		False	reachable
+C4	AURKB	1	False		False	reachable
+C4	BCOR	-1	False		True	reachable
+C4	CDK10	-1	False		True	reachable
+C4	CEBPB	1	True	3.2931307793131235	False	reachable
+C4	CLOCK	1	True	2.1078664139678325	False	reachable
+C4	CREB1	1	True	3.663921316525813	False	reachable
+C4	CREBBP	1	False		False	reachable
+C4	DCAF7	1	False		True	reachable
+C4	DNAJC3	-1	False		True	reachable
+C4	DUSP19	1	False		True	reachable
+C4	DUSP9	1	False		True	reachable
+C4	DYRK1B	1	False		False	reachable
+C4	EGR1	1	True	3.403274790365617	False	reachable
+C4	EIF2AK3	1	False		False	reachable
+C4	ELK1	1	True	2.396320097456007	False	reachable
+C4	ETS1	1	True	6.4017870919065	False	reachable
+C4	ETS2	1	True	4.320739973739281	False	reachable
+C4	ETV1	1	True	2.8759122235797627	False	reachable
+C4	FOS	1	True	6.164801611478744	False	reachable
+C4	FOXM1	1	True	1.716892764226981	False	reachable
+C4	FOXO3	-1	False		False	reachable
+C4	FYN	1	False		False	reachable
+C4	GSK3B	-1	False		False	reachable
+C4	GTF2I	1	False		False	reachable
+C4	HDAC1	-1	True	-3.698207007912952	False	reachable
+C4	HDAC9	-1	True	-1.6196506831016813	False	reachable
+C4	HIF1A	1	True	5.155925763790608	False	reachable
+C4	HIF1AN	-1	False		True	reachable
+C4	HMGB2	1	False		True	reachable
+C4	ID1	1	True	3.4641446368409268	False	reachable
+C4	IRF1	1	True	2.1750786608419443	False	reachable
+C4	IRF2	1	True	2.387048134676148	False	reachable
+C4	IRF7	1	True	2.381509714188653	False	reachable
+C4	IRF9	1	True	4.081779141907799	False	reachable
+C4	JUN	1	True	5.159958855235393	False	reachable
+C4	JUNB	1	True	4.051205483660202	False	reachable
+C4	JUND	1	True	8.42838831184415	False	reachable
+C4	MAPK1	-1	False		False	reachable
+C4	MAPK3	1	False		False	reachable
+C4	MAPK8	1	False		False	reachable
+C4	MED14	1	False		True	reachable
+C4	MEF2A	1	True	5.2649775437221225	False	reachable
+C4	MEN1	-1	False		True	reachable
+C4	MTMR4	1	False		True	reachable
+C4	MYC	1	True	2.8541688295897103	False	reachable
+C4	NAB2	-1	False		True	reachable
+C4	NCOA1	1	True	2.994626131552536	False	reachable
+C4	NFE2L2	1	True	3.3000073502574065	False	reachable
+C4	NFKB1	1	True	4.6892379477526624	False	reachable
+C4	NFKB2	1	True	3.2745231964606023	False	reachable
+C4	NKRF	-1	False		True	reachable
+C4	NRF1	1	True	1.803927607052816	False	reachable
+C4	PDP2	-1	False		True	reachable
+C4	PLK3	1	False		True	reachable
+C4	POU2F1	1	True	4.071654830308733	False	reachable
+C4	PRKACA	1	False		False	reachable
+C4	PRRX1	1	False		False	reachable
+C4	PTPRE	1	False		True	reachable
+C4	RARA	1	True	5.582169369239972	False	reachable
+C4	REL	1	True	6.16523295158702	False	reachable
+C4	RELA	1	True	3.975778203354752	False	reachable
+C4	RNF11	-1	False		False	reachable
+C4	RORA	1	True	1.2867231516983242	False	reachable
+C4	RPS6KA3	1	False		False	reachable
+C4	RXRA	1	True	4.32872130501604	False	reachable
+C4	SKIL	-1	True	-2.38568804029473	False	reachable
+C4	SMAD1	1	True	3.833887854900211	False	reachable
+C4	SMAD2	1	True	5.836945295056391	False	reachable
+C4	SMAD3	1	True	5.711921192260555	False	reachable
+C4	SMAD4	1	True	4.276766191824772	False	reachable
+C4	SMURF2	-1	False		False	reachable
+C4	SNAI1	1	True	3.4373642518733645	False	reachable
+C4	SNIP1	1	False		True	reachable
+C4	SP1	1	True	7.872879806160096	False	reachable
+C4	SP3	1	True	5.974040280442629	False	reachable
+C4	SRF	1	True	7.025805372546667	False	reachable
+C4	SS18L1	1	False		True	reachable
+C4	STAT1	1	True	5.062427301348619	False	reachable
+C4	STAT2	1	True	4.745278771096602	False	reachable
+C4	STAT3	1	True	4.610256195912015	False	reachable
+C4	TGFB1I1	1	True	2.612798607603556	False	reachable
+C4	THEM4	-1	False		True	reachable
+C4	THRB	1	False		False	reachable
+C4	TRIM21	-1	False		True	reachable
+C4	USF1	1	True	3.718208088420364	False	reachable
+C5	AKAP8	-1	False		True	reachable
+C5	AKT1	1	False		False	reachable
+C5	ATF2	1	True	4.303277398398588	False	reachable
+C5	ATF4	1	True	5.409195285548264	False	reachable
+C5	AXIN1	1	False		False	reachable
+C5	CDK10	-1	False		True	reachable
+C5	CEBPB	1	True	3.558859407227539	False	reachable
+C5	CLOCK	1	True	2.1198062457790323	False	reachable
+C5	CREB1	1	True	4.585919593565186	False	reachable
+C5	CREBBP	1	False		False	reachable
+C5	CTDSPL	-1	False		True	reachable
+C5	DCAF7	1	False		True	reachable
+C5	DUSP19	1	False		True	reachable
+C5	DYRK1B	1	False		False	reachable
+C5	EGR1	1	True	2.317896531324714	False	reachable
+C5	ELK1	1	True	1.5416322996294582	False	reachable
+C5	ENC1	-1	False		True	reachable
+C5	ETS1	1	True	5.461121249779077	False	reachable
+C5	ETS2	1	True	3.5263750037758705	False	reachable
+C5	ETV1	1	True	1.3885726687430886	False	reachable
+C5	FOS	1	True	4.818983112863653	False	reachable
+C5	FOXH1	1	False		True	reachable
+C5	FOXM1	1	True	2.8255066207523405	False	reachable
+C5	FOXO3	-1	False		False	reachable
+C5	FRAT2	1	False		True	reachable
+C5	FYN	1	False		False	reachable
+C5	GSK3B	-1	False		False	reachable
+C5	GTF2I	1	False		False	reachable
+C5	HDAC1	-1	True	-4.194509465037314	False	reachable
+C5	HDAC3	-1	False		False	reachable
+C5	HDAC9	-1	True	-1.859795008709268	False	reachable
+C5	HIF1A	1	True	4.412046899589575	False	reachable
+C5	HMGB2	1	False		True	reachable
+C5	ID1	1	True	4.5583360863645535	False	reachable
+C5	IRF1	1	True	2.6548775220392637	False	reachable
+C5	IRF2	1	True	2.149581538785903	False	reachable
+C5	IRF2BP2	1	False		True	reachable
+C5	IRF7	1	True	4.210822696978751	False	reachable
+C5	IRF9	1	True	6.933198408285038	False	reachable
+C5	JUN	1	True	6.034871974242073	False	reachable
+C5	JUNB	1	True	2.971947734986244	False	reachable
+C5	JUND	1	True	5.693044585165528	False	reachable
+C5	KREMEN2	1	False		True	reachable
+C5	LAMTOR3	-1	False		True	reachable
+C5	LRP6	1	False		False	reachable
+C5	MAPK1	-1	False		False	reachable
+C5	MAPK3	1	False		False	reachable
+C5	MAPK8	1	False		False	reachable
+C5	MED14	1	False		True	reachable
+C5	MEF2A	1	True	0.6515043533995379	False	reachable
+C5	MYC	1	True	4.468783842249774	False	reachable
+C5	NCOA1	1	True	2.822893005923961	False	reachable
+C5	NFE2L2	1	True	2.2797179577295967	False	reachable
+C5	NFKB1	1	True	4.611846171120131	False	reachable
+C5	NFKB2	1	True	2.388542379213295	False	reachable
+C5	NKRF	-1	False		True	reachable
+C5	NRF1	1	True	1.9832339107528545	False	reachable
+C5	PLK3	1	False		True	reachable
+C5	POU2F1	1	True	3.7986462304571926	False	reachable
+C5	PRKACA	1	False		False	reachable
+C5	PRRX1	1	False		False	reachable
+C5	PTPRE	-1	False		True	reachable
+C5	RARA	1	True	2.3639016468784178	False	reachable
+C5	REL	1	True	6.910533485145741	False	reachable
+C5	RELA	1	True	3.761790885570007	False	reachable
+C5	RNF111	1	False		False	reachable
+C5	RNF123	-1	False		True	reachable
+C5	RORA	1	True	4.495694469034501	False	reachable
+C5	RPS6KA3	1	False		False	reachable
+C5	RWDD3	1	False		True	reachable
+C5	RXRA	1	True	3.790783813731526	False	reachable
+C5	SKIL	-1	True	-3.898384805013073	False	reachable
+C5	SMAD1	1	True	3.8470735083862153	False	reachable
+C5	SMAD2	1	True	4.589551165380847	False	reachable
+C5	SMAD3	1	True	3.85118533806116	False	reachable
+C5	SMAD4	1	True	4.169620241857953	False	reachable
+C5	SNAI1	1	True	1.7710359439472092	False	reachable
+C5	SP1	1	True	4.0311652471900405	False	reachable
+C5	SP3	1	True	3.5593469983779205	False	reachable
+C5	SRF	1	True	6.639262870479668	False	reachable
+C5	SS18L1	1	False		True	reachable
+C5	STAT1	1	True	6.142554144839094	False	reachable
+C5	STAT2	1	True	6.776169452412082	False	reachable
+C5	STAT3	1	True	3.050410408239975	False	reachable
+C5	TGFB1I1	1	True	5.125846728603674	False	reachable
+C5	THRB	1	False		False	reachable
+C5	TRIM21	-1	False		True	reachable
+C5	USF1	1	True	3.1363349260646958	False	reachable
+C6	AKAP8	-1	False		True	reachable
+C6	AKT1	1	False		False	reachable
+C6	ATF2	1	True	4.175093097692652	False	reachable
+C6	ATF4	1	True	3.460131714453274	False	reachable
+C6	AURKB	1	False		False	reachable
+C6	CDK10	-1	False		True	reachable
+C6	CEBPB	1	True	3.563818823211788	False	reachable
+C6	CLOCK	1	True	2.8997069908331192	False	reachable
+C6	CREB1	1	True	4.998940200354406	False	reachable
+C6	CREBBP	1	False		False	reachable
+C6	CTDSPL	-1	False		True	reachable
+C6	DCAF7	1	False		True	reachable
+C6	DNAJC3	-1	False		True	reachable
+C6	DUSP19	1	False		True	reachable
+C6	DYRK1B	1	False		False	reachable
+C6	EGR1	1	True	4.594931423121963	False	reachable
+C6	EIF2AK3	1	False		False	reachable
+C6	ELK1	1	True	1.4643898390337713	False	reachable
+C6	ETS1	1	True	7.637806107856432	False	reachable
+C6	ETS2	1	True	5.440008597326714	False	reachable
+C6	ETV1	1	True	2.680812351469505	False	reachable
+C6	FAM8A1	-1	False		True	reachable
+C6	FBXO25	-1	False		True	reachable
+C6	FOS	1	True	6.051383608576569	False	reachable
+C6	FOXH1	1	False		True	reachable
+C6	FOXM1	1	True	2.469729783261268	False	reachable
+C6	FOXO3	-1	False		False	reachable
+C6	FYN	1	False		False	reachable
+C6	GSK3B	-1	False		False	reachable
+C6	GTF2I	1	False		False	reachable
+C6	HDAC1	-1	True	-5.52183617326569	False	reachable
+C6	HDAC3	-1	False		False	reachable
+C6	HDAC9	-1	True	-0.7435177541822775	False	reachable
+C6	HIF1A	1	True	5.79951265953365	False	reachable
+C6	HMGB2	1	False		True	reachable
+C6	ID1	1	True	1.669101401188314	False	reachable
+C6	IRF1	1	True	4.661675777417964	False	reachable
+C6	IRF2	1	True	5.612463458642054	False	reachable
+C6	IRF2BP1	1	False		True	reachable
+C6	IRF7	1	True	6.274083634066135	False	reachable
+C6	IRF9	1	True	7.765655370216403	False	reachable
+C6	ITCH	-1	False		False	reachable
+C6	JUN	1	True	6.559560076359317	False	reachable
+C6	JUNB	1	True	7.51668956908221	False	reachable
+C6	JUND	1	True	8.895947109757522	False	reachable
+C6	MAP3K2	-1	False		True	reachable
+C6	MAPK1	-1	False		False	reachable
+C6	MAPK3	1	False		False	reachable
+C6	MAPK8	1	False		False	reachable
+C6	MED14	1	False		True	reachable
+C6	MEF2A	1	True	5.411866054796642	False	reachable
+C6	MYC	1	True	3.083418330045672	False	reachable
+C6	N4BP1	1	False		True	reachable
+C6	NCOA1	1	True	3.1152664922006097	False	reachable
+C6	NFE2L2	1	True	2.8306240747926683	False	reachable
+C6	NFKB1	1	True	6.518697377831328	False	reachable
+C6	NFKB2	1	True	4.604328092544175	False	reachable
+C6	NKRF	-1	False		True	reachable
+C6	NRF1	1	True	3.358924501050442	False	reachable
+C6	PLK3	1	False		True	reachable
+C6	POU2F1	1	True	3.5913526717266224	False	reachable
+C6	PPP1CB	-1	False		True	reachable
+C6	PRKACA	1	False		False	reachable
+C6	PRRX1	1	False		False	reachable
+C6	PTPRE	-1	False		True	reachable
+C6	RARA	1	True	5.3021915718424255	False	reachable
+C6	REL	1	True	9.056150658283553	False	reachable
+C6	RELA	1	True	4.761321923956327	False	reachable
+C6	RNF11	-1	False		False	reachable
+C6	RNF123	-1	False		True	reachable
+C6	RORA	1	True	2.358566159990904	False	reachable
+C6	RPS6KA3	1	False		False	reachable
+C6	RWDD3	1	False		True	reachable
+C6	RXRA	1	True	4.685456177031962	False	reachable
+C6	SKIL	-1	True	-3.4064092044353886	False	reachable
+C6	SMAD1	1	True	2.9053059527412715	False	reachable
+C6	SMAD2	1	True	6.414052284104429	False	reachable
+C6	SMAD3	1	True	5.272350920359037	False	reachable
+C6	SMAD4	1	True	3.270806919990822	False	reachable
+C6	SMURF2	-1	False		False	reachable
+C6	SNAI1	1	True	3.6519298962834656	False	reachable
+C6	SP1	1	True	8.221121836981748	False	reachable
+C6	SP3	1	True	6.772650643803736	False	reachable
+C6	SRF	1	True	9.04518978076721	False	reachable
+C6	STAT1	1	True	7.686825648813582	False	reachable
+C6	STAT2	1	True	8.476670833377952	False	reachable
+C6	STAT3	1	True	5.035036609697634	False	reachable
+C6	SYVN1	-1	False		False	reachable
+C6	TGFB1I1	1	True	3.725503571497233	False	reachable
+C6	THRB	1	False		False	reachable
+C6	TRIM21	-1	False		True	reachable
+C6	USF1	1	True	3.607894612955591	False	reachable

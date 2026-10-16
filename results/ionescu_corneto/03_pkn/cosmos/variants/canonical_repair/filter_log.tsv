@@ -1,0 +1,2 @@
+variant	step	description	n_rows	n_edges	n_nodes	n_added_reaction_nodes	n_added_edges
+canonical_repair	canonical_repair	add canonical reactions classified absent from primary and unpruned COSMOS	54575	54575	26512	2	4

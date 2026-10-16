@@ -1,0 +1,5 @@
+network	n_edges	n_nodes	n_weak_components	n_cross_layer_edges	n_metabolite_to_tf_pairs	n_measured_metabolites_upstream_of_a_tf	n_tfs_downstream_of_a_metabolite	lambda_reg	metabolite_solve_status	metabolite_solve_gap	metabolite_solve_error	n_shared_active_nodes	n_state_conflicts	state_conflicts	edge_jaccard_with_joint	n_edges_in_neither_single_layer_network	edge_jaccard_with_late
+tf_only	60	67	7	8	0	0	0	0.1	optimal	0.009164385674398801	9.02572235015379						
+metabolites_only	49	59	10	8	0	0	0	0.1	optimal	0.009164385674398801	9.02572235015379						
+late_union	109	126	17	16	0	0	0	0.1	optimal	0.009164385674398801	9.02572235015379	0.0	0.0		0.31213872832369943		
+early_joint	118	134	16	18	0	0	0	0.1	optimal	0.009164385674398801	9.02572235015379					64.0	0.31213872832369943

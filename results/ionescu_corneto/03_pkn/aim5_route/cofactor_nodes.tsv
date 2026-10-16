@@ -1,0 +1,171 @@
+model_id	bigg_id	compartment	pkn_node	degree	protected	mapped
+h2o_c	h2o	c	Metab__HMDB0001039_c	0.0	False	True
+o2_c	o2	c	Metab__HMDB0001377_c	0.0	False	True
+h2o2_c	h2o2	c	Metab__HMDB0003125_c	56.0	False	True
+nh4_c	nh4	c	Metab__HMDB0000051_c	71.0	False	True
+h2o_m	h2o	m			False	False
+o2_m	o2	m			False	False
+co2_c	co2	c	Metab__HMDB0001967_c	0.0	False	True
+h_m	h	m			False	False
+nadph_m	nadph	m			False	False
+nadp_m	nadp	m			False	False
+h_c	h	c			False	False
+atp_c	atp	c	Metab__HMDB0000538_c	0.0	False	True
+adp_c	adp	c			False	False
+pi_c	pi	c			False	False
+h_x	h	x			False	False
+nadh_x	nadh	x			False	False
+nad_x	nad	x			False	False
+nadph_c	nadph	c			False	False
+nadp_c	nadp	c			False	False
+nadh_c	nadh	c			False	False
+nad_c	nad	c	Metab__HMDB0000902_c	0.0	False	True
+coa_c	coa	c			False	False
+h_e	h	e			False	False
+hco3_e	hco3	e			False	False
+udp_c	udp	c			False	False
+hco3_c	hco3	c			False	False
+na1_e	na1	e			False	False
+h_g	h	g			False	False
+na1_c	na1	c	Metab__HMDB0000588_c	0.0	False	True
+nadh_m	nadh	m			False	False
+nad_m	nad	m			False	False
+udp_g	udp	g			False	False
+h2o_l	h2o	l			False	False
+coa_m	coa	m			False	False
+co2_m	co2	m			False	False
+pi_l	pi	l			False	False
+amet_c	amet	c	Metab__HMDB0001185_c	128.0	False	True
+ahcys_c	ahcys	c	Metab__HMDB0000939_c	130.0	False	True
+atp_m	atp	m			False	False
+adp_m	adp	m			False	False
+pi_m	pi	m			False	False
+hco3_m	hco3	m			False	False
+amp_m	amp	m			False	False
+ppi_m	ppi	m			False	False
+h_l	h	l			False	False
+coa_x	coa	x			False	False
+fad_x	fad	x	Metab__HMDB0001248_x	18.0	False	True
+fadh2_x	fadh2	x	Metab__HMDB0001197_x	18.0	False	True
+h2o_e	h2o	e			False	False
+fad_m	fad	m	Metab__HMDB0001248_m	171.0	False	True
+ahcys_r	ahcys	r	Metab__HMDB0000939_r	15.0	False	True
+fadh2_m	fadh2	m	Metab__HMDB0001197_m	171.0	False	True
+h2o_x	h2o	x			False	False
+o2_x	o2	x			False	False
+h2o2_x	h2o2	x	Metab__HMDB0003125_x	146.0	False	True
+amp_c	amp	c	Metab__HMDB0000045_c	0.0	False	True
+ppi_c	ppi	c	Metab__HMDB0000250_c	0.0	False	True
+nh4_e	nh4	e	Metab__HMDB0000051_e	14.0	False	True
+gtp_c	gtp	c	Metab__HMDB0001273_c	40.0	False	True
+gdp_c	gdp	c	Metab__HMDB0001201_c	40.0	False	True
+gtp_m	gtp	m	Metab__HMDB0001273_m	13.0	False	True
+gdp_m	gdp	m	Metab__HMDB0001201_m	13.0	False	True
+adp_x	adp	x			False	False
+h2o_r	h2o	r			False	False
+o2_r	o2	r			False	False
+amet_r	amet	r	Metab__HMDB0001185_r	15.0	False	True
+amet_m	amet	m	Metab__HMDB0001185_m	9.0	False	True
+ahcys_m	ahcys	m	Metab__HMDB0000939_m	9.0	False	True
+amp_x	amp	x			False	False
+amp_r	amp	r			False	False
+atp_x	atp	x			False	False
+nh4_m	nh4	m	Metab__HMDB0000051_m	17.0	False	True
+nadp_r	nadp	r			False	False
+k_c	k	c	Metab__HMDB0000586_c	36.0	False	True
+k_e	k	e	Metab__HMDB0000586_e	34.0	False	True
+atp_r	atp	r			False	False
+adp_r	adp	r			False	False
+atp_e	atp	e			False	False
+pi_e	pi	e			False	False
+amp_e	amp	e			False	False
+adp_e	adp	e			False	False
+h2o_g	h2o	g			False	False
+atp_n	atp	n			False	False
+cl_e	cl	e	Metab__HMDB0000492_e	29.0	False	True
+co2_r	co2	r			False	False
+cl_c	cl	c	Metab__HMDB0000492_c	29.0	False	True
+nadh_r	nadh	r			False	False
+nad_r	nad	r			False	False
+h2o2_m	h2o2	m	Metab__HMDB0003125_m	17.0	False	True
+nh4_r	nh4	r	Metab__HMDB0000051_r	3.0	False	True
+pi_r	pi	r			False	False
+ppi_n	ppi	n			False	False
+ppi_r	ppi	r			False	False
+ctp_n	ctp	n	Metab__HMDB0000082_n	13.0	False	True
+co2_g	co2	g			False	False
+co2_x	co2	x			False	False
+coa_g	coa	g			False	False
+coa_l	coa	l			False	False
+coa_r	coa	r			False	False
+ctp_c	ctp	c	Metab__HMDB0000082_c	33.0	False	True
+ctp_m	ctp	m	Metab__HMDB0000082_m	6.0	False	True
+q10_m	q10	m	Metab__HMDB0001072_m	43.0	False	True
+h_r	h	r			False	False
+h2o_n	h2o	n			False	False
+coa_n	coa	n			False	False
+nadph_r	nadph	r			False	False
+q10h2_m	q10h2	m	Metab__HMDB0013111_m	43.0	False	True
+nh4_n	nh4	n	Metab__HMDB0000051_n	3.0	False	True
+h_n	h	n			False	False
+fad_r	fad	r	Metab__HMDB0001248_r	4.0	False	True
+fadh2_r	fadh2	r	Metab__HMDB0001197_r	4.0	False	True
+cdp_c	cdp	c	Metab__HMDB0001546_c	31.0	False	True
+cdp_n	cdp	n	Metab__HMDB0001546_n	20.0	False	True
+fad_c	fad	c	Metab__HMDB0001248_c	15.0	False	True
+fadh2_c	fadh2	c	Metab__HMDB0001197_c	11.0	False	True
+utp_c	utp	c	Metab__HMDB0000285_c	26.0	False	True
+udp_n	udp	n			False	False
+utp_n	utp	n	Metab__HMDB0000285_n	12.0	False	True
+cdp_m	cdp	m	Metab__HMDB0001546_m	5.0	False	True
+adp_n	adp	n			False	False
+gtp_n	gtp	n	Metab__HMDB0001273_n	10.0	False	True
+gdp_n	gdp	n	Metab__HMDB0001201_n	10.0	False	True
+nh4_x	nh4	x	Metab__HMDB0000051_x	4.0	False	True
+pi_x	pi	x			False	False
+ppi_x	ppi	x			False	False
+nad_e	nad	e			False	False
+nadp_e	nadp	e			False	False
+gdp_e	gdp	e	Metab__HMDB0001201_e	4.0	False	True
+gtp_e	gtp	e	Metab__HMDB0001273_e	2.0	False	True
+h2o2_e	h2o2	e	Metab__HMDB0003125_e	5.0	False	True
+udp_e	udp	e			False	False
+utp_e	utp	e	Metab__HMDB0000285_e	3.0	False	True
+gdp_g	gdp	g	Metab__HMDB0001201_g	14.0	False	True
+h2o2_l	h2o2	l	Metab__HMDB0003125_l	4.0	False	True
+h2o2_n	h2o2	n	Metab__HMDB0003125_n	2.0	False	True
+k_g	k	g	Metab__HMDB0000586_g	2.0	False	True
+nadph_x	nadph	x			False	False
+nadp_x	nadp	x			False	False
+amp_l	amp	l			False	False
+o2_n	o2	n			False	False
+nad_n	nad	n			False	False
+udp_l	udp	l			False	False
+na1_g	na1	g			False	False
+na1_x	na1	x			False	False
+pi_n	pi	n			False	False
+udp_r	udp	r			False	False
+pi_g	pi	g			False	False
+amp_g	amp	g			False	False
+o2_e	o2	e			False	False
+ctp_e	ctp	e	Metab__HMDB0000082_e	2.0	False	True
+fad_e	fad	e	Metab__HMDB0001248_e	3.0	False	True
+q10_c	q10	c	Metab__HMDB0001072_c	8.0	False	True
+q10h2_c	q10h2	c	Metab__HMDB0013111_c	8.0	False	True
+ppi_e	ppi	e			False	False
+cdp_e	cdp	e	Metab__HMDB0001546_e	4.0	False	True
+atp_l	atp	l			False	False
+adp_l	adp	l			False	False
+na1_r	na1	r			False	False
+co2_e	co2	e			False	False
+coa_e	coa	e			False	False
+atp_g	atp	g			False	False
+adp_g	adp	g			False	False
+h2o2_r	h2o2	r	Metab__HMDB0003125_r	6.0	False	True
+q10_e	q10	e	Metab__HMDB0001072_e	2.0	False	True
+q10h2_e	q10h2	e	Metab__HMDB0013111_e	2.0	False	True
+ahcys_e	ahcys	e	Metab__HMDB0000939_e	3.0	False	True
+amet_e	amet	e	Metab__HMDB0001185_e	3.0	False	True
+amp_n	amp	n			False	False
+nadh_e	nadh	e			False	False
+h_i	h	i			False	False

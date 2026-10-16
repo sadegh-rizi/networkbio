@@ -1,0 +1,6 @@
+run	status	selected_lambda	n_missing_measurements
+omnipath	accepted	1.0	0
+cosmos_tf	accepted	1.0	0
+cosmos_multi	accepted	0.1	0
+cosmos_repair	accepted	0.1	0
+omnipath_lines	accepted	0.0	0

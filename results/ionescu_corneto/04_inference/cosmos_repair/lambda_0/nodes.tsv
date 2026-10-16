@@ -1,0 +1,236 @@
+sample	node	state	is_measured	observed_value	is_input	reachability
+PMS_vs_Ctrl	ATF2	1	True	3.949124785305258	False	reachable
+PMS_vs_Ctrl	ATF4	1	True	4.865603024165248	False	reachable
+PMS_vs_Ctrl	CDK10	-1	False		True	reachable
+PMS_vs_Ctrl	CDK5	1	False		False	reachable
+PMS_vs_Ctrl	CEBPB	1	True	4.307635908151564	False	reachable
+PMS_vs_Ctrl	CLOCK	1	True	3.033267325147305	False	reachable
+PMS_vs_Ctrl	CREB1	1	True	4.977390867154234	False	reachable
+PMS_vs_Ctrl	CREBZF	1	False		True	reachable
+PMS_vs_Ctrl	DENND3	1	False		False	reachable
+PMS_vs_Ctrl	DHCR24	-1	False		False	reachable
+PMS_vs_Ctrl	DHCR7	-1	False		False	reachable
+PMS_vs_Ctrl	DHX58	-1	False		True	reachable
+PMS_vs_Ctrl	EGR1	1	True	2.8650153879937847	False	reachable
+PMS_vs_Ctrl	ETS1	1	True	5.88940311970247	False	reachable
+PMS_vs_Ctrl	ETS2	1	True	3.2813737824290783	False	reachable
+PMS_vs_Ctrl	ETV1	1	True	3.289403080370496	False	reachable
+PMS_vs_Ctrl	FOS	1	True	6.259210754637624	False	reachable
+PMS_vs_Ctrl	FOSL2	1	True	3.150151456263303	False	reachable
+PMS_vs_Ctrl	GCH1	1	False		False	reachable
+PMS_vs_Ctrl	GLRX	1	False		False	reachable
+PMS_vs_Ctrl	GTF3A	1	True	5.45020257736851	False	reachable
+PMS_vs_Ctrl	Gene10166__SLC16A1_TRANSPORTER3_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene103__AK5_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene1262__QUILSYN	-1	False		False	reachable
+PMS_vs_Ctrl	Gene134400003__SLC1A5	-1	False		False	reachable
+PMS_vs_Ctrl	Gene1444__AOC2	1	False		False	reachable
+PMS_vs_Ctrl	Gene1617__ALDH7A1	1	False		False	reachable
+PMS_vs_Ctrl	Gene1739__LIPA	-1	False		False	reachable
+PMS_vs_Ctrl	Gene1786__ABCA1	-1	False		False	reachable
+PMS_vs_Ctrl	Gene2300001__SLC25A21	1	False		False	reachable
+PMS_vs_Ctrl	Gene2308__AADSACYCL_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene2330__RE2605C	1	False		False	reachable
+PMS_vs_Ctrl	Gene255__orphanReacCHSTEROLt3	1	False		False	reachable
+PMS_vs_Ctrl	Gene2755__DHCR24	-1	False		False	reachable
+PMS_vs_Ctrl	Gene2837__SLC36A4_reverse	-1	False		False	reachable
+PMS_vs_Ctrl	Gene315__SLC29A1_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene315__SLC29A2	1	False		False	reachable
+PMS_vs_Ctrl	Gene339900002__SLC15A2	1	False		False	reachable
+PMS_vs_Ctrl	Gene340500002__SLC15A2	1	False		False	reachable
+PMS_vs_Ctrl	Gene340900002__SLC15A2	1	False		False	reachable
+PMS_vs_Ctrl	Gene3505__orphanReacPROLYSPROr	1	False		False	reachable
+PMS_vs_Ctrl	Gene3565__orphanReacTYRVALMETr	1	False		False	reachable
+PMS_vs_Ctrl	Gene4139__orphanReacSELMETHt2e_reverse	-1	False		False	reachable
+PMS_vs_Ctrl	Gene4316__AC098591.2	-1	False		False	reachable
+PMS_vs_Ctrl	Gene4449__HDLBP	1	False		False	reachable
+PMS_vs_Ctrl	Gene4449__NPC1_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene4964__PHYKPL	1	False		False	reachable
+PMS_vs_Ctrl	Gene5507__AADAT	1	False		False	reachable
+PMS_vs_Ctrl	Gene5507__AADAT_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene5674__BTD	-1	False		False	reachable
+PMS_vs_Ctrl	Gene5713__STARD3_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene5764__UCK2	1	False		False	reachable
+PMS_vs_Ctrl	Gene5791__GLRX	1	False		False	reachable
+PMS_vs_Ctrl	Gene5816__SLC2A4_reverse	-1	False		False	reachable
+PMS_vs_Ctrl	Gene5821__DHCR7	-1	False		False	reachable
+PMS_vs_Ctrl	Gene6318__RE2898C	1	False		False	reachable
+PMS_vs_Ctrl	Gene6553__64240_64241	1	False		False	reachable
+PMS_vs_Ctrl	Gene698__orphanReacFORtm_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene725900002__SLC15A2	1	False		False	reachable
+PMS_vs_Ctrl	Gene7347__GOT1_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene7397__orphanReacTRPTHRGLUr	1	False		False	reachable
+PMS_vs_Ctrl	Gene7425__orphanReacTYRPHETYRr	1	False		False	reachable
+PMS_vs_Ctrl	Gene752000002__SLC38A2	-1	False		False	reachable
+PMS_vs_Ctrl	Gene7573__GCH1	1	False		False	reachable
+PMS_vs_Ctrl	Gene8413__FN3KRP	1	False		False	reachable
+PMS_vs_Ctrl	Gene861__orphanReacDHAOX_c	1	False		False	reachable
+PMS_vs_Ctrl	Gene906400002__SLC25A12	1	False		False	reachable
+PMS_vs_Ctrl	Gene9176__orphanReacLEUt5m_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene9705__AFMID	1	False		False	reachable
+PMS_vs_Ctrl	Gene9705__AFMID_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene9740__orphanReacr0466_1	1	False		False	reachable
+PMS_vs_Ctrl	Gene974__BCAT2	1	False		False	reachable
+PMS_vs_Ctrl	Gene974__BCAT2_reverse	1	False		False	reachable
+PMS_vs_Ctrl	Gene9867__SOAT1	-1	False		False	reachable
+PMS_vs_Ctrl	Gene9875__ACSL3	-1	False		False	reachable
+PMS_vs_Ctrl	Gene9881__orphanReacr1318_reverse	-1	False		False	reachable
+PMS_vs_Ctrl	HDAC1	-1	True	-3.135574413922718	False	reachable
+PMS_vs_Ctrl	HDAC9	-1	True	-3.1592978609764457	False	reachable
+PMS_vs_Ctrl	HDLBP	1	False		True	reachable
+PMS_vs_Ctrl	HIF1A	1	True	5.87085430130786	False	reachable
+PMS_vs_Ctrl	HMGB2	1	False		True	reachable
+PMS_vs_Ctrl	HNRNPUL1	-1	False		True	reachable
+PMS_vs_Ctrl	ID1	1	True	2.776944646018375	False	reachable
+PMS_vs_Ctrl	IRF1	1	True	2.97518212947155	False	reachable
+PMS_vs_Ctrl	IRF2	1	True	3.60475422851233	False	reachable
+PMS_vs_Ctrl	IRF2BP1	-1	False		True	reachable
+PMS_vs_Ctrl	IRF2BP2	1	False		True	reachable
+PMS_vs_Ctrl	IRF7	1	True	3.279446719174401	False	reachable
+PMS_vs_Ctrl	IRF9	1	True	3.2090689636339453	False	reachable
+PMS_vs_Ctrl	JUN	1	True	6.020356357072344	False	reachable
+PMS_vs_Ctrl	JUNB	1	True	3.3110450936942013	False	reachable
+PMS_vs_Ctrl	JUND	1	True	7.755818413236855	False	reachable
+PMS_vs_Ctrl	MAPK1	1	False		False	reachable
+PMS_vs_Ctrl	MEF2A	1	True	3.1627773449306087	False	reachable
+PMS_vs_Ctrl	MYC	1	True	4.8977187545242575	False	reachable
+PMS_vs_Ctrl	Metab__11025495_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__162859_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__2314_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__238_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__23990_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__3032732_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__3703_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__3931_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__439213_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__44475945_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__5076_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__5186_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__5591_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__6536_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__8546_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__C01041_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HC02024_r	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000044_c	1	True	1.8241059743868573	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000044_e	0	True	-0.865450236149588	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000067_c	1	True	6.410902164220873	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000067_e	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000067_g	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000067_l	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000067_m	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000067_r	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000068_c	0	True	-1.9897008590700034	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0000089_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000089_e	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000095_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000142_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000142_e	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000142_m	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000148_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000148_m	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000158_c	1	True	4.33493391592857	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000158_e	0	True	-1.7115419927976743	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000159_c	1	True	3.7112176415701743	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000167_c	1	True	2.3415051812425394	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000167_e	-1	True	-0.27974461890413566	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000177_c	1	True	2.5147627526254897	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000177_e	0	True	-1.4128936334927154	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000182_c	1	True	1.6617576629814745	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000182_e	-1	True	-1.9523563047918415	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000208_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000210_c	0	True	2.6162035388034823	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0000210_e	0	True	0.14120883682812443	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0000225_c	1	True	2.378133395759435	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000232_c	-1	True	-0.6427865812971457	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000303_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__HMDB0000510_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000510_m	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000673_c	-1	True	-0.726133516262867	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000673_e	-1	True	-2.1952875252336064	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000673_r	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000687_c	1	True	4.269545754003046	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000687_e	0	True	-0.7022994989874999	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000687_m	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000695_m	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000696_c	1	True	1.7867061199133114	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000696_e	0	True	-2.1474321761730977	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000745_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__HMDB0000763_c	0	True	-0.24751657319422524	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0000883_c	1	True	3.208585822685459	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000883_e	0	True	-1.6215490801763541	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000929_c	1	True	2.548097223168839	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0000929_e	-1	True	-1.913566273773813	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001016_c	0	True	3.364295084179201	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0001064_c	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001064_r	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001123_c	1	True	0.16531002775529696	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001190_c	1	True	0.9916429063438451	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001201_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001263_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001264_c	1	True	0.09115880987021517	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001264_e	-1	True	-0.4979291588078472	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001273_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0001330_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__HMDB0001877_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__HMDB0002032_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__HMDB0002243_c	0	True	-1.6132785301866206	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0002719_r	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0003966_c	-1	True	-0.0283422758472099	False	reachable
+PMS_vs_Ctrl	Metab__HMDB0003966_e	-1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0012130_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__HMDB0014400_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__HMDB0060485_c	0	True	3.5386126397306605	False	unreachable
+PMS_vs_Ctrl	Metab__HMDB0240214_c	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__M03167_c	1	False		True	reachable
+PMS_vs_Ctrl	Metab__biocyt_e	-1	False		True	reachable
+PMS_vs_Ctrl	Metab__nformanth_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__prolyspro_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__prolyspro_e	1	False		True	reachable
+PMS_vs_Ctrl	Metab__trpthrglu_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__trpthrglu_e	1	False		True	reachable
+PMS_vs_Ctrl	Metab__tyrphetyr_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__tyrphetyr_e	1	False		True	reachable
+PMS_vs_Ctrl	Metab__tyrvalmet_c	1	False		False	reachable
+PMS_vs_Ctrl	Metab__tyrvalmet_e	1	False		True	reachable
+PMS_vs_Ctrl	NCOA1	1	True	2.9710795787766915	False	reachable
+PMS_vs_Ctrl	NFE2L2	1	True	4.092040042741218	False	reachable
+PMS_vs_Ctrl	NFKB1	1	True	5.190654807169427	False	reachable
+PMS_vs_Ctrl	NFKB2	1	True	3.122196175436271	False	reachable
+PMS_vs_Ctrl	NRF1	1	True	3.570136258081352	False	reachable
+PMS_vs_Ctrl	POU2F1	1	True	3.434592137257106	False	reachable
+PMS_vs_Ctrl	PRKACA	1	False		False	reachable
+PMS_vs_Ctrl	PTK2B	1	False		False	reachable
+PMS_vs_Ctrl	PTPRG	1	False		True	reachable
+PMS_vs_Ctrl	RAB12	1	False		False	reachable
+PMS_vs_Ctrl	RANBP17	1	False		True	reachable
+PMS_vs_Ctrl	RARA	1	True	3.372488365010036	False	reachable
+PMS_vs_Ctrl	REL	1	True	6.219629694573327	False	reachable
+PMS_vs_Ctrl	RELA	1	True	4.15347269565126	False	reachable
+PMS_vs_Ctrl	RORA	1	True	3.3389791324756763	False	reachable
+PMS_vs_Ctrl	RXRA	1	True	3.552908595781949	False	reachable
+PMS_vs_Ctrl	SKIL	-1	True	-3.121096517015406	False	reachable
+PMS_vs_Ctrl	SLC1A5	-1	False		True	reachable
+PMS_vs_Ctrl	SLC29A1	1	False		False	reachable
+PMS_vs_Ctrl	SLC2A4	-1	False		False	reachable
+PMS_vs_Ctrl	SLC36A4	-1	False		False	reachable
+PMS_vs_Ctrl	SLC38A2	-1	False		False	reachable
+PMS_vs_Ctrl	SMAD1	1	True	3.263890514793772	False	reachable
+PMS_vs_Ctrl	SMAD2	1	True	4.020439198352557	False	reachable
+PMS_vs_Ctrl	SMAD3	1	True	5.015289413350927	False	reachable
+PMS_vs_Ctrl	SMAD4	1	True	3.0973243196895845	False	reachable
+PMS_vs_Ctrl	SMAD7	-1	False		False	reachable
+PMS_vs_Ctrl	SMCR8	-1	False		True	reachable
+PMS_vs_Ctrl	SMURF2	-1	False		False	reachable
+PMS_vs_Ctrl	SNAI1	1	True	2.955742894085583	False	reachable
+PMS_vs_Ctrl	SP1	1	True	7.294982356516201	False	reachable
+PMS_vs_Ctrl	SP2	1	False		True	reachable
+PMS_vs_Ctrl	SP3	1	True	5.135581240826044	False	reachable
+PMS_vs_Ctrl	SRF	1	True	6.797484207705574	False	reachable
+PMS_vs_Ctrl	STAT1	1	True	4.699570853319989	False	reachable
+PMS_vs_Ctrl	STAT2	1	True	4.069767681025327	False	reachable
+PMS_vs_Ctrl	STAT3	1	True	3.5432063653351253	False	reachable
+PMS_vs_Ctrl	TCF3	1	False		False	reachable
+PMS_vs_Ctrl	TGFB1I1	1	True	3.750035864703527	False	reachable
+PMS_vs_Ctrl	TP53	1	False		False	reachable
+PMS_vs_Ctrl	ULK1	1	False		False	reachable
+PMS_vs_Ctrl	USF1	1	True	3.031474629189688	False	reachable

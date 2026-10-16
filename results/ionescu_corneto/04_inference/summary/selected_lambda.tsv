@@ -1,0 +1,6 @@
+run	selected_lambda	weighted_fitting_error
+omnipath	1.0	0.0
+cosmos_tf	1.0	0.0
+cosmos_multi	0.1	8.934563540283573
+cosmos_repair	0.1	9.02572235015319
+omnipath_lines	0.0	1.0799573675569878e-14

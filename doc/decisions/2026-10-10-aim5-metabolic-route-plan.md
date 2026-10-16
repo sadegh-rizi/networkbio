@@ -1,7 +1,7 @@
 # Aim 5: HMGCR → cholesterol route in the COSMOS PKN (cofactor removal and ordered-route test)
 
 Date: 2026-10-10
-Status: proposed
+Status: confirmed by user (2026-10-10)
 
 Resolves open question 1 of `2026-10-09-stage03-cosmos-correction-plan.md`
 (metabolic-leg readout). Stage-03 outputs are not changed; this adds a new
@@ -93,7 +93,10 @@ the resource, not biological findings.
    the pathway direction), `present_reverse_only`, `pruned_unexpressed`
    (in unpruned only), `absent_from_cosmos` (no Gene<N> node). Expected:
    `r0170` and `HMR_1465` absent. Also write the genome-wide count of absent
-   gene-associated reactions (fact 2) by Recon3D subsystem.
+    gene-associated reactions (fact 2) by Recon3D subsystem. If the reaction
+    node is present but either mapped pathway endpoint is absent or cannot be
+    connected in the PKN, record `present_but_unconnected` rather than calling
+    it absent or repairing it.
 4. **Cofactor list.** Pre-registered BiGG base IDs, mapped to COSMOS nodes
    through Recon3D HMDB annotations and model IDs, in every compartment:
    h, h2o, atp, adp, amp, gtp, gdp, utp, udp, ctp, cdp, nad, nadh, nadp,
@@ -135,12 +138,10 @@ the resource, not biological findings.
 
 ## Open questions
 
-1. Repair scope: only canonical steps absent from COSMOS (recommended), or
-   also report a variant adding all 1,616 absent reactions? Recommended: only
-   canonical steps; the genome-wide gap is reported as a count.
-2. Whether the degree-weighted search (7d) is reported as the primary
-   readout of the metabolic leg, with 7a–c as context (recommended), or only
-   the ordered-route test (6).
+None. The user confirmed canonical-only repair and the degree-weighted
+metabolism-only path as the primary metabolic readout on 2026-10-10. The
+ordered-route waypoint test and other path variants remain contextual
+readouts.
 
 ## Files to change
 
@@ -178,3 +179,16 @@ the resource, not biological findings.
   without repair, or if the weighted search returns the canonical route on
   the unrepaired PKN; then the "missing step" explanation is wrong and the
   step table must be rechecked.
+
+## Implementation result (2026-10-10)
+
+The structural run reproduced the expected two absent FDFT1 half-reactions
+(`r0170` and `HMR_1465`) and the genome-wide count of 5,938 gene-associated
+Recon3D reactions with 1,616 absent from unpruned COSMOS. The repaired PKN
+adds exactly four directed edges and no existing edges are removed. Nineteen
+other canonical rows are `present_but_unconnected` because their reaction
+node is present but the mapped pathway endpoint pair cannot be verified.
+Consequently, the restricted route reaches Lanosterol but not the final
+Cholesterol waypoint; this remains a resource/mapping limitation to resolve
+before treating the repaired route as recovered. The weighted unrepaired
+paths remain non-canonical, as required by the falsification criterion.

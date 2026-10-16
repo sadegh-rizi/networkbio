@@ -1,0 +1,71 @@
+sample	node	state	is_measured	observed_value	is_input	reachability
+without_C2	AKT1	1	False		False	reachable
+without_C2	ATF2	1	True	3.766231908962119	False	reachable
+without_C2	ATF4	1	True	4.403008996405837	False	reachable
+without_C2	AURKB	1	False		False	reachable
+without_C2	CDK10	-1	False		True	reachable
+without_C2	CEBPB	1	True	3.92522101041079	False	reachable
+without_C2	CLOCK	1	True	3.0738186171419843	False	reachable
+without_C2	CREB1	1	True	5.61220462000233	False	reachable
+without_C2	CREBBP	1	False		False	reachable
+without_C2	DUSP1	1	False		False	reachable
+without_C2	EGR1	1	True	2.716902351666474	False	reachable
+without_C2	ETS1	1	True	5.700565666716643	False	reachable
+without_C2	ETS2	1	True	3.2398411260562288	False	reachable
+without_C2	ETV1	1	True	3.0065774554694356	False	reachable
+without_C2	FOS	1	True	6.348996680789902	False	reachable
+without_C2	FOXM1	1	True	2.7348783375567125	False	reachable
+without_C2	FOXO3	-1	False		False	reachable
+without_C2	FYN	1	False		False	reachable
+without_C2	GSK3B	-1	False		False	reachable
+without_C2	HDAC1	-1	True	-3.8168655332386283	False	reachable
+without_C2	HDAC9	-1	True	-3.290213215413535	False	reachable
+without_C2	HIF1A	1	True	6.051622589599782	False	reachable
+without_C2	HMGB2	1	False		True	reachable
+without_C2	ID1	1	True	2.743733980656679	False	reachable
+without_C2	IRF2	1	True	3.4189214650144653	False	reachable
+without_C2	IRF7	1	True	2.9545049129502274	False	reachable
+without_C2	IRF9	1	True	3.149283792970102	False	reachable
+without_C2	JUN	1	True	6.258414276298159	False	reachable
+without_C2	JUNB	1	True	3.074194823029872	False	reachable
+without_C2	JUND	1	True	7.701807401318957	False	reachable
+without_C2	MAPK1	-1	False		False	reachable
+without_C2	MAPK14	1	False		False	reachable
+without_C2	MAPK3	1	False		False	reachable
+without_C2	MAPK8	1	False		False	reachable
+without_C2	MEF2A	1	True	3.2789826557152804	False	reachable
+without_C2	MSX1	-1	False		True	reachable
+without_C2	MYC	1	True	4.8148237688554385	False	reachable
+without_C2	NCOA1	1	True	2.930626906626959	False	reachable
+without_C2	NFE2L2	1	True	3.547825772214463	False	reachable
+without_C2	NFKB1	1	True	5.24432371085664	False	reachable
+without_C2	NFKB2	1	True	3.2866596587443797	False	reachable
+without_C2	NONO	1	True	2.694487014104078	False	reachable
+without_C2	NRF1	1	True	3.1945900184408202	False	reachable
+without_C2	POU2F1	1	True	3.31493020240815	False	reachable
+without_C2	PRKACA	1	False		False	reachable
+without_C2	RARA	1	True	3.765860423602564	False	reachable
+without_C2	REL	1	True	6.5636658610718435	False	reachable
+without_C2	RELA	1	True	4.533273545413601	False	reachable
+without_C2	RORA	1	True	3.440560993381966	False	reachable
+without_C2	RPS6KA3	1	False		False	reachable
+without_C2	RXRA	1	True	3.413386939441617	False	reachable
+without_C2	SFPQ	1	False		False	reachable
+without_C2	SKIL	0	True	-2.932312517594993	False	reachable
+without_C2	SMAD1	1	True	3.2225161939085605	False	reachable
+without_C2	SMAD2	1	True	3.8651396754563176	False	reachable
+without_C2	SMAD3	1	True	4.546015472810622	False	reachable
+without_C2	SMAD4	1	True	2.673788047662188	False	reachable
+without_C2	SP1	1	True	7.497112291550552	False	reachable
+without_C2	SP3	1	True	5.191946257333432	False	reachable
+without_C2	SPHK2	1	False		False	reachable
+without_C2	SRF	1	True	7.498551082293853	False	reachable
+without_C2	STAT1	1	True	4.674449671308337	False	reachable
+without_C2	STAT2	1	True	4.13919625401107	False	reachable
+without_C2	STAT3	1	True	3.591066718979743	False	reachable
+without_C2	TBK1	1	False		False	reachable
+without_C2	TBKBP1	1	False		True	reachable
+without_C2	TBP	1	True	2.7234936700028154	False	reachable
+without_C2	TFCP2	1	True	2.7211622766690233	False	reachable
+without_C2	TGFB1I1	1	True	3.832332656648676	False	reachable
+without_C2	USF1	1	True	3.350287223087038	False	reachable

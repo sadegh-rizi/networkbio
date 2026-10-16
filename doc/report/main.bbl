@@ -1,0 +1,155 @@
+\begin{thebibliography}{10}
+
+\bibitem{barabasi2011network}
+Albert-L{\'a}szl{\'o} Barab{\'a}si, Natali Gulbahce, and Joseph Loscalzo.
+\newblock Network medicine: a network-based approach to human disease.
+\newblock {\em Nature Reviews Genetics}, 12(1):56--68, 2011.
+
+\bibitem{garridorodriguez2022}
+Martin Garrido-Rodriguez, Katharina Zirngibl, Olga Ivanova, Sebastian
+  Lobentanzer, and Julio Saez-Rodriguez.
+\newblock Integrating knowledge and omics to decipher mechanisms via
+  large-scale models of signaling networks.
+\newblock {\em Molecular Systems Biology}, 18(7):MSB202211036, 2022.
+
+\bibitem{liu2019carnival}
+Anika Liu, Panuwat Trairatphisan, Enio Gjerga, Athanasios Didangelos, Jonathan
+  Barratt, and Julio Saez-Rodriguez.
+\newblock From expression footprints to causal pathways: contextualizing large
+  signaling networks with {CARNIVAL}.
+\newblock {\em npj Systems Biology and Applications}, 5(1):40, 2019.
+
+\bibitem{dugourd2021cosmos}
+Aurelien Dugourd, Christoph Kuppe, Marco Sciacovelli, Enio Gjerga, Attila
+  Gabor, Kristina~B. Emdal, Vitor Vieira, Dorte~B. Bekker-Jensen, Jennifer
+  Kranz, Eric.M.J. Bindels, Ana~S.H. Costa, Abel Sousa, Pedro Beltrao, Miguel
+  Rocha, Jesper~V. Olsen, Christian Frezza, Rafael Kramann, and Julio
+  Saez-Rodriguez.
+\newblock Causal integration of multi-omics data with prior knowledge to
+  generate mechanistic hypotheses.
+\newblock {\em Molecular Systems Biology}, 17(1):MSB20209730, 2021.
+
+\bibitem{rodriguezmier2025corneto}
+Pablo Rodriguez-Mier, Martin Garrido-Rodriguez, Attila Gabor, and Julio
+  Saez-Rodriguez.
+\newblock Unifying multi-sample network inference from prior knowledge and
+  omics data with {CORNETO}.
+\newblock {\em Nature Machine Intelligence}, 7(7):1168--1186, 2025.
+
+\bibitem{ionescu2024}
+Rosana-Bristena Ionescu, Alexandra~M. Nicaise, Julie~A. Reisz, Eleanor~C.
+  Williams, Pranathi Prasad, Cory~M. Willis, Madalena~B.C. Sim{\~o}es-Abade,
+  Linda Sbarro, Monika Dzieciatkowska, Daniel Stephenson, Marta Suarez~Cubero,
+  Sandra Rizzi, Liviu Pirvan, Luca Peruzzotti-Jametti, Valentina Fossati, Frank
+  Edenhofer, Tommaso Leonardi, Christian Frezza, Irina Mohorianu, Angelo
+  D'Alessandro, and Stefano Pluchino.
+\newblock Increased cholesterol synthesis drives neurotoxicity in patient stem
+  cell-derived model of multiple sclerosis.
+\newblock {\em Cell Stem Cell}, 31(11):1574--1590.e11, 2024.
+
+\bibitem{park2025}
+Bongsoo Park, Alexandra~M. Nicaise, Dimitrios Tsitsipatis, Liviu Pirvan, Daniel
+  Zucha, Andi Munteanu, Pranathi Prasad, Miguel Larraz~Lopez De~Novales,
+  Cristian Bulgaru, Rafael Kollyfas, Julia Whitten, Cory~M. Willis, Luka Culig,
+  Joseph Llewellyn, Rosana-Bristena Ionescu, Magdy Mekdad, Madalena~B.C.
+  Sim{\~o}es-Abade, Grzegorz Krzak, Jinshui Fan, Supriyo De, Matthew~O. Ellis,
+  Marta~Suarez Cubero, Angeliki Spathopoulou, Luca Peruzzotti-Jametti, Tommaso
+  Leonardi, Gabriel Balmus, Frank Edenhofer, Myriam Gorospe, Lukas Valihrach,
+  Irina Mohorianu, Stefano Pluchino, and Isabel Beerman.
+\newblock Integrated omics reveals disease-associated radial glia-like cells
+  with epigenetically dysregulated interferon response in multiple sclerosis.
+\newblock {\em Neuron}, 113(24):4158--4177.e10, 2025.
+
+\bibitem{barrett2013geo}
+Tanya Barrett, Stephen~E. Wilhite, Pierre Ledoux, Carlos Evangelista, Irene~F.
+  Kim, Maxim Tomashevsky, Kimberly~A. Marshall, Katherine~H. Phillippy,
+  Patti~M. Sherman, Michelle Holko, Andrey Yefanov, Hyeseung Lee, Naigong
+  Zhang, Cynthia~L. Robertson, Nadezhda Serova, Sean Davis, and Alexandra
+  Soboleva.
+\newblock {NCBI} {GEO}: archive for functional genomics data sets---update.
+\newblock {\em Nucleic Acids Research}, 41(D1):D991--D995, 2013.
+
+\bibitem{sud2016mw}
+Manish Sud, Eoin Fahy, Dawn Cotter, Kenan Azam, Ilango Vadivelu, Charles
+  Burant, Arthur Edison, Oliver Fiehn, Richard Higashi, K.~Sreekumaran Nair,
+  Susan Sumner, and Shankar Subramaniam.
+\newblock {Metabolomics Workbench}: An international repository for
+  metabolomics data and metadata, metabolite standards, protocols, tutorials
+  and training, and analysis tools.
+\newblock {\em Nucleic Acids Research}, 44(D1):D463--D470, 2016.
+
+\bibitem{smyth2004limma}
+Gordon~K. Smyth.
+\newblock Linear models and empirical {B}ayes methods for assessing
+  differential expression in microarray experiments.
+\newblock {\em Statistical Applications in Genetics and Molecular Biology},
+  3:Article 3, 2004.
+
+\bibitem{mullerdott2023collectri}
+Sophia M{\"u}ller-Dott, Eirini Tsirvouli, Miguel Vazquez, Ricardo~O
+  Ramirez~Flores, Pau Badia-i Mompel, Robin Fallegger, D{\'e}nes T{\"u}rei,
+  Astrid L{\ae}greid, and Julio Saez-Rodriguez.
+\newblock Expanding the coverage of regulons from high-confidence prior
+  knowledge for accurate estimation of transcription factor activities.
+\newblock {\em Nucleic Acids Research}, 51(20):10934--10949, 2023.
+
+\bibitem{badia2022decoupler}
+Pau Badia-i Mompel, Jes{\'u}s V{\'e}lez~Santiago, Jana Braunger, Celina Geiss,
+  Daniel Dimitrov, Sophia M{\"u}ller-Dott, Petr Taus, Aurelien Dugourd,
+  Christian~H Holland, Ricardo~O Ramirez~Flores, and Julio Saez-Rodriguez.
+\newblock {decoupleR}: ensemble of computational methods to infer biological
+  activities from omics data.
+\newblock {\em Bioinformatics Advances}, 2(1):vbac016, 2022.
+
+\bibitem{turei2021omnipath}
+D{\'e}nes T{\"u}rei, Alberto Valdeolivas, Lejla Gul, Nicol{\`a}s Palacio-Escat,
+  Michal Klein, Olga Ivanova, M{\'a}rton {\"O}lbei, Attila G{\'a}bor, Fabian
+  Theis, Dezs{\H o} M{\'o}dos, Tam{\'a}s Korcsm{\'a}ros, and Julio
+  Saez-Rodriguez.
+\newblock Integrated intra- and intercellular signaling knowledge for
+  multicellular omics analysis.
+\newblock {\em Molecular Systems Biology}, 17(3):MSB20209923, 2021.
+
+\bibitem{brunk2018recon3d}
+Elizabeth Brunk, Swagatika Sahoo, Daniel~C. Zielinski, et~al.
+\newblock {Recon3D} enables a three-dimensional view of gene variation in human
+  metabolism.
+\newblock {\em Nature Biotechnology}, 36(3):272--281, 2018.
+
+\bibitem{szklarczyk2016stitch}
+Damian Szklarczyk, Alberto Santos, Christian von Mering, Lars~Juhl Jensen, Peer
+  Bork, and Michael Kuhn.
+\newblock {STITCH} 5: augmenting protein--chemical interaction networks with
+  tissue and affinity data.
+\newblock {\em Nucleic Acids Research}, 44(D1):D380--D384, 2016.
+
+\bibitem{huangfu2018highs}
+Q.~Huangfu and J.~A.~J. Hall.
+\newblock Parallelizing the dual revised simplex method.
+\newblock {\em Mathematical Programming Computation}, 10(1):119--142, 2018.
+
+\bibitem{kanehisa2000kegg}
+Minoru Kanehisa and Susumu Goto.
+\newblock {KEGG}: {K}yoto {E}ncyclopedia of {G}enes and {G}enomes.
+\newblock {\em Nucleic Acids Research}, 28(1):27--30, 2000.
+
+\bibitem{croes2006weighted}
+Didier Croes, Fabian Couche, Shoshana~J. Wodak, and Jacques van Helden.
+\newblock Inferring meaningful pathways in weighted metabolic networks.
+\newblock {\em Journal of Molecular Biology}, 356(1):222--236, 2006.
+
+\bibitem{argelaguet2020mofa}
+Ricard Argelaguet, Damien Arnol, Danila Bredikhin, Yonatan Deloro, Britta
+  Velten, John~C. Marioni, and Oliver Stegle.
+\newblock {MOFA+}: a statistical framework for comprehensive integration of
+  multi-modal single-cell data.
+\newblock {\em Genome Biology}, 21(1):111, 2020.
+
+\bibitem{capraz2026sofa}
+T{\"u}may Capraz, Harald V{\"o}hringer, Klaus Sebastian~Augusto Kruger~Serrano,
+  Ricardo~Omar Ramirez~Flores, Julio Saez-Rodriguez, and Wolfgang Huber.
+\newblock Semi-supervised omics factor analysis ({SOFA}) disentangles known and
+  latent sources of variation in multi-omic data.
+\newblock {\em Nature Communications}, 17:8725, 2026.
+
+\end{thebibliography}

@@ -1,0 +1,2 @@
+mean_difference	s2	posterior_variance	moderated_t	moderated_df	feature_id	pkn_node	n_lines	df_g	d0	s0_squared	n_features_prior
+-3.9798430534565687	1.1153989462492298	0.8819949358578159	-11.21196982029505	8.494322223015068	AN005453|cholesterol	Metab__HMDB0000067_c	7	6	2.4943222230150672	0.3205502077361663	642

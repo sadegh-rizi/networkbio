@@ -1,0 +1,37 @@
+variant	previous_intermediate	next_intermediate	reachable	first_failing_waypoint
+primary	HMGCR	HMG-CoA	True	FPP->Presqualene diphosphate
+primary	HMG-CoA	Mevalonate	True	FPP->Presqualene diphosphate
+primary	Mevalonate	Phosphomevalonate	True	FPP->Presqualene diphosphate
+primary	Phosphomevalonate	Diphosphomevalonate	True	FPP->Presqualene diphosphate
+primary	Diphosphomevalonate	IPP/DMAPP	True	FPP->Presqualene diphosphate
+primary	IPP/DMAPP	GPP	True	FPP->Presqualene diphosphate
+primary	GPP	FPP	True	FPP->Presqualene diphosphate
+primary	FPP	Presqualene diphosphate	False	FPP->Presqualene diphosphate
+primary	Presqualene diphosphate	Squalene	True	FPP->Presqualene diphosphate
+primary	Squalene	2,3-oxidosqualene	True	FPP->Presqualene diphosphate
+primary	2,3-oxidosqualene	Lanosterol	True	FPP->Presqualene diphosphate
+primary	Lanosterol	Cholesterol	True	FPP->Presqualene diphosphate
+unpruned	HMGCR	HMG-CoA	True	FPP->Presqualene diphosphate
+unpruned	HMG-CoA	Mevalonate	True	FPP->Presqualene diphosphate
+unpruned	Mevalonate	Phosphomevalonate	True	FPP->Presqualene diphosphate
+unpruned	Phosphomevalonate	Diphosphomevalonate	True	FPP->Presqualene diphosphate
+unpruned	Diphosphomevalonate	IPP/DMAPP	True	FPP->Presqualene diphosphate
+unpruned	IPP/DMAPP	GPP	True	FPP->Presqualene diphosphate
+unpruned	GPP	FPP	True	FPP->Presqualene diphosphate
+unpruned	FPP	Presqualene diphosphate	False	FPP->Presqualene diphosphate
+unpruned	Presqualene diphosphate	Squalene	True	FPP->Presqualene diphosphate
+unpruned	Squalene	2,3-oxidosqualene	True	FPP->Presqualene diphosphate
+unpruned	2,3-oxidosqualene	Lanosterol	True	FPP->Presqualene diphosphate
+unpruned	Lanosterol	Cholesterol	True	FPP->Presqualene diphosphate
+repaired	HMGCR	HMG-CoA	True	
+repaired	HMG-CoA	Mevalonate	True	
+repaired	Mevalonate	Phosphomevalonate	True	
+repaired	Phosphomevalonate	Diphosphomevalonate	True	
+repaired	Diphosphomevalonate	IPP/DMAPP	True	
+repaired	IPP/DMAPP	GPP	True	
+repaired	GPP	FPP	True	
+repaired	FPP	Presqualene diphosphate	True	
+repaired	Presqualene diphosphate	Squalene	True	
+repaired	Squalene	2,3-oxidosqualene	True	
+repaired	2,3-oxidosqualene	Lanosterol	True	
+repaired	Lanosterol	Cholesterol	True	

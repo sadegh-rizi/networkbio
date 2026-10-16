@@ -1,0 +1,5 @@
+statistic	better_is	true_value	true_rank_of_20	n_ties_with_true	median_permuted
+n_stable_tfs	higher	50.0	1	13	50.0
+sum_abs_score_selected	higher	204.15211904581406	1	1	119.52678356764386
+weighted_fitting_error	lower	0.0	1	0	8.999989912618396
+n_edges	lower	66.0	20	0	57.0

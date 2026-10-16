@@ -1,7 +1,7 @@
 # Stage 04 (and pre-registered stage-05 controls): CORNETO inference
 
 Date: 2026-10-10
-Status: proposed
+Status: confirmed by user (2026-10-10)
 
 Answers main-plan questions Q4 (inputs, controls), Q7 (λ rule), Q8 (solver
 limits) and the COSMOS run direction for this project. All choices below
@@ -154,16 +154,11 @@ hypothesis-generating.
 
 ## Open questions
 
-1. Inputs: all source nodes with unknown sign (recommended, step 3), or
-   receptors only (OmniPath intercell annotation, expressed genes)?
-2. Include free cholesterol from the lipidomics as a COSMOS measurement in
-   the primary run (recommended; it is a measurement, not an input), or only
-   in a sensitivity run?
-3. λ rule: 10% error tolerance (recommended), or CORNETO tutorial's
-   overall-agreement metric?
-4. Time limits (1,800 / 3,600 s) and the 0.05 acceptance gap: acceptable
-   given that the stage-05 grid multiplies them (about 40 OmniPath problems)?
-5. Secondary multi-sample run (step 9): in scope now, or after stage 05?
+None. The user confirmed the recommended choices on 2026-10-10: all source
+nodes with unknown sign, free cholesterol in the primary COSMOS measurement,
+the 10% lambda tolerance rule, the stated time limits and acceptance gap, and
+the secondary OmniPath multi-sample run are in scope.
+
 
 ## Files to change
 

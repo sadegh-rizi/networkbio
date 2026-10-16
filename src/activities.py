@@ -127,8 +127,9 @@ def moderated_t_statistics(
     if not groups.index.is_unique or set(groups.index) != set(log2cpm.columns):
         raise ValueError("Every RNA-seq line needs exactly one group annotation")
     groups = groups.reindex(log2cpm.columns)
-    if groups.value_counts().to_dict() != {"Ctrl": 3, "PMS": 3}:
-        raise ValueError("The moderated contrast requires 3 Ctrl and 3 PMS lines")
+    counts = groups.value_counts().to_dict()
+    if set(counts) != {"Ctrl", "PMS"} or any(counts[group] < 2 for group in ("Ctrl", "PMS")):
+        raise ValueError("The moderated contrast requires at least 2 Ctrl and 2 PMS lines")
     ctrl = log2cpm.loc[:, groups.eq("Ctrl")]
     pms = log2cpm.loc[:, groups.eq("PMS")]
     n_ctrl, n_pms = ctrl.shape[1], pms.shape[1]
@@ -176,6 +177,157 @@ def moderated_t_statistics(
         raise ValueError("Moderated-t calculation returned undefined values")
     return result, {"df_g": df_g, "d0": d0, "s0_squared": s0_squared,
                     "n_genes_prior": int(usable.sum())}
+
+
+def one_sample_moderated_t(
+    differences: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, float | int]]:
+    """Paired (one-sample) empirical-Bayes moderated t on per-line differences.
+
+    ``differences`` holds one column per biological line (for example
+    log2 SV minus log2 untreated of the same line) and one row per feature.
+    The scaled-inverse-chi-square prior (d0, s0^2) is fitted to the sample
+    variances of all rows with the same moment estimator as
+    :func:`moderated_t_statistics` (Smyth 2004), so pass every complete
+    feature of the study, not only the feature of interest.
+    """
+    differences = differences.dropna()
+    n = differences.shape[1]
+    if n < 3:
+        raise ValueError("The paired moderated t needs at least 3 lines")
+    df_g = n - 1
+    mean = differences.mean(axis=1)
+    s2 = differences.var(axis=1, ddof=1)
+    usable = s2.gt(0) & np.isfinite(s2)
+    if usable.sum() < 2:
+        raise ValueError("At least two positive feature variances are needed for the prior")
+    z = np.log(s2.loc[usable].to_numpy())
+    e = z - special.digamma(df_g / 2) + np.log(df_g / 2)
+    e_bar = float(np.mean(e))
+    v = float(np.var(e, ddof=1) - special.polygamma(1, df_g / 2))
+    if v > 0:
+        root = optimize.brentq(lambda x: float(special.polygamma(1, x) - v), 1e-8, 1e8)
+        d0 = float(2 * root)
+        s0_squared = float(np.exp(e_bar + special.digamma(root) - np.log(root)))
+        posterior = (d0 * s0_squared + df_g * s2) / (d0 + df_g)
+        moderated_df = d0 + df_g
+    else:
+        d0 = float("inf")
+        s0_squared = float(np.exp(e_bar))
+        posterior = pd.Series(s0_squared, index=s2.index)
+        moderated_df = float("inf")
+    moderated_t = mean / np.sqrt(posterior / n)
+    result = pd.DataFrame({
+        "mean_difference": mean,
+        "s2": s2,
+        "posterior_variance": posterior,
+        "moderated_t": moderated_t,
+        "moderated_df": moderated_df,
+    })
+    return result, {"df_g": df_g, "d0": d0, "s0_squared": s0_squared, "n_features_prior": int(usable.sum())}
+
+
+def leave_one_line_out_ulm(
+    log2cpm: pd.DataFrame,
+    groups: pd.Series,
+    regulon: pd.DataFrame,
+    *,
+    tmin: int = 5,
+) -> pd.DataFrame:
+    """Return one moderated-t ULM contrast after leaving out each line.
+
+    The contrast is recomputed on the remaining lines, so leaving out a Ctrl
+    line gives a 2-vs-3 comparison and leaving out a PMS line gives a 3-vs-2
+    comparison.  Columns are named ``without_<line>`` and rows are TFs.
+    """
+    if not log2cpm.columns.is_unique or set(groups.index) != set(log2cpm.columns):
+        raise ValueError("Every expression line needs exactly one group annotation")
+    groups = groups.reindex(log2cpm.columns)
+    counts = groups.value_counts().to_dict()
+    if set(counts) != {"Ctrl", "PMS"} or any(counts[group] < 3 for group in ("Ctrl", "PMS")):
+        raise ValueError("Leave-one-line-out contrasts require at least 3 lines per group")
+
+    contrasts: list[pd.Series] = []
+    for left_out in log2cpm.columns:
+        remaining = [line for line in log2cpm.columns if line != left_out]
+        moderated, _ = moderated_t_statistics(log2cpm.loc[:, remaining], groups.loc[remaining])
+        vector = pd.DataFrame(
+            [moderated["moderated_t"].to_numpy()],
+            index=["PMS_vs_Ctrl"],
+            columns=moderated.index,
+        )
+        scores, _, _, _ = run_ulm(vector, regulon, tmin=tmin)
+        contrasts.append(scores["PMS_vs_Ctrl"].rename(f"without_{left_out}"))
+
+    result = pd.concat(contrasts, axis=1)
+    result.index.name = "TF"
+    return result
+
+
+def select_stable_top_tfs(
+    primary_scores: pd.Series,
+    loo_scores: pd.DataFrame,
+    pkn_nodes: set[str],
+    *,
+    k: int = 50,
+) -> tuple[list[str], pd.DataFrame]:
+    """Select top-|ULM| PKN TFs whose primary and six LOO signs agree.
+
+    The top-k ranking is applied after restricting the CollecTRI tmin
+    universe to TFs present in the PKN.  A zero score has no sign and is
+    therefore dropped rather than assigned an arbitrary direction.
+    """
+    if k < 1:
+        raise ValueError("k must be positive")
+    if not primary_scores.index.is_unique or not loo_scores.index.is_unique:
+        raise ValueError("TF score indexes must be unique")
+    if loo_scores.shape[1] != 6:
+        raise ValueError("The preregistered stability filter requires six LOO contrasts")
+
+    shared = primary_scores.index.intersection(loo_scores.index)
+    eligible = [tf for tf in shared if tf in pkn_nodes]
+    eligible.sort(key=lambda tf: (-abs(float(primary_scores[tf])), str(tf)))
+    rank = {tf: i + 1 for i, tf in enumerate(eligible)}
+    top = set(eligible[:k])
+
+    rows = []
+    selected: list[str] = []
+    for tf in eligible:
+        primary = float(primary_scores[tf])
+        loo = loo_scores.loc[tf]
+        signs = np.sign(np.r_[primary, loo.to_numpy(dtype=float)])
+        stable = bool(np.all(signs != 0) and np.all(signs == signs[0]))
+        if tf not in top:
+            reason = "outside_top_k"
+        elif not stable:
+            reason = "loo_sign_not_stable"
+        else:
+            reason = "kept"
+            selected.append(tf)
+        row = {
+            "TF": tf,
+            "rank": rank[tf],
+            "primary_score": primary,
+            "primary_sign": int(np.sign(primary)),
+            "in_pkn": True,
+            "within_top_k": tf in top,
+            "loo_sign_stable": stable,
+            "selected": reason == "kept",
+            "drop_reason": "" if reason == "kept" else reason,
+        }
+        row.update({column: float(value) for column, value in loo.items()})
+        rows.append(row)
+
+    table = pd.DataFrame(rows)
+    if table.empty:
+        table = pd.DataFrame(
+            columns=[
+                "TF", "rank", "primary_score", "primary_sign", "in_pkn",
+                "within_top_k", "loo_sign_stable", "selected", "drop_reason",
+                *loo_scores.columns,
+            ]
+        )
+    return selected, table
 
 
 def run_ulm(

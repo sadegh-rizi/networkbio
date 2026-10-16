@@ -75,5 +75,8 @@ For what has actually been run and decided, see `doc/analysis-state.md`.
 | `2026-10-09-stage03-pkn-plan.md` | implemented (commit c7f3719) | COSMOS parser and Aim-5 correction completed; figure width capped; original outputs archived |
 | `2026-10-09-stage03-cosmos-correction-plan.md` | implemented (commit c7f3719) | Correct NetworkCommons grammar, three-leg Aim-5 query, complete provenance, and figure validation |
 | `2026-10-09-stage02-trend-and-tf-selection-addendum.md` | confirmed; E1 deferred by user 2026-10-10 | E2–E4 implemented within stage 04; limma-trend becomes a later sensitivity |
-| `2026-10-10-aim5-metabolic-route-plan.md` | proposed | ordered canonical-route test, FDFT1 gap audit and repair variant, cofactor removal and degree-weighted paths, type-preserving null |
-| `2026-10-10-stage04-inference-plan.md` | proposed | CORNETO runs (OmniPath, COSMOS TF-only, COSMOS TF + metabolites, repaired COSMOS), λ rule, solver limits; stage-05 controls pre-registered |
+| `2026-10-10-aim5-metabolic-route-plan.md` | confirmed by user (2026-10-10) | ordered canonical-route test, canonical-only FDFT1 gap repair, cofactor removal and degree-weighted primary path, type-preserving null |
+| `2026-10-10-stage04-inference-plan.md` | confirmed by user (2026-10-10) | CORNETO implementation added on `task/stage04-inference`; repaired run awaits the canonical-repair PKN |
+| `2026-10-13-imat-fba-plan.md` | confirmed by user (2026-10-13) | iMAT/FBA context models on full Recon3D; flux-consistent sterol readouts; context-specific COSMOS refit |
+| `2026-10-14-stage06-gpr-and-checks-addendum.md` | confirmed by user (2026-10-14); implemented, uncommitted | parser-safe GPR tokens; unmapped genes score 0; sterol checks in defined media; stop on failed checks |
+| `2026-10-15-stage06-activity-threshold-addendum.md` | confirmed by user (2026-10-15); implemented, uncommitted | D9: tolerant eps threshold for activity and direction; run-4 readouts and context PKN invalid; in-process FBA readouts |
