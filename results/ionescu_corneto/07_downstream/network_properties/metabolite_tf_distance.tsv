@@ -1,0 +1,6 @@
+tf	cholesterol_distance	n_metabolites	n_metabolites_reaching	n_metabolites_as_close_or_closer	fraction_as_close_or_closer	median_distance_reaching
+E2F1	2.0	8735	6428	487	0.05575271894676589	6.0
+EGR1	3.0	8735	6428	1462	0.16737263880938752	7.0
+SP1	2.0	8735	6428	484	0.055409273039496276	6.0
+JUN	2.0	8735	6428	557	0.06376645678305667	6.0
+JUNB	3.0	8735	6428	656	0.07510017172295363	7.0

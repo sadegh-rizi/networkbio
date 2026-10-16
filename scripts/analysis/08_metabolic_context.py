@@ -24,13 +24,18 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from gem import (  # noqa: E402
     BIOMASS_REACTIONS,
+    BOUNDARY_PREFIXES,
     DEMAND_REACTION,
+    cap_synthesis_direction,
     add_cholesterol_demand,
     context_reactions,
     directional_reaction_nodes,
     gene_scores,
+    gpr_token,
+    is_active,
     load_recon3d,
     medium_bounds,
+    mevalonate_synthesis_sign,
     minimum_extra_exchanges,
     prune_cosmos_to_context,
     reaction_table,
@@ -42,6 +47,7 @@ from gem_worker import (  # noqa: E402
     SOLVER_SEED,
     SOLVER_THREADS,
     make_task,
+    solve_in_process,
     solve_in_subprocess,
 )
 from preprocess import sha256, stage_provenance, write_stage_provenance  # noqa: E402
@@ -57,6 +63,9 @@ PLAN = ROOT / "doc/decisions/2026-10-13-imat-fba-plan.md"
 EPS = 1e-2
 TIME_LIMIT = 3600
 MEDIUMS = ("open", "defined_chol_plus", "defined_chol_minus")
+# FBA readouts run in this process with a cached model (addendum D9); iMAT always
+# runs in a subprocess. --fba-subprocess restores one process per FBA solve.
+_FBA_IN_PROCESS = True
 
 
 def _parse_args(argv: list[str] | None) -> argparse.Namespace:
@@ -64,6 +73,8 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--resume", action="store_true", help="reuse matching worker tasks")
     parser.add_argument("--mediums", nargs="+", choices=MEDIUMS, default=list(MEDIUMS))
     parser.add_argument("--time-limit", type=int, default=TIME_LIMIT)
+    parser.add_argument("--fba-subprocess", action="store_true",
+                        help="run every FBA solve in its own process (slow; default: in process)")
     return parser.parse_args(argv)
 
 
@@ -86,7 +97,7 @@ def _groups(root: Path, expression: pd.DataFrame) -> pd.Series:
 
 def _write_medium_table(model: Any, bounds: dict[str, tuple[float, float]], path: Path, detected_kegg: set[str]) -> None:
     table = reaction_table(model)
-    table = table[table["reaction"].str.startswith("EX_")].copy()
+    table = table[table["reaction"].str.startswith(("EX_", "SK_", "DM_"))].copy()
     table["medium_lower_bound"] = table["reaction"].map(lambda reaction: bounds.get(reaction, (np.nan, np.nan))[0])
     table["medium_upper_bound"] = table["reaction"].map(lambda reaction: bounds.get(reaction, (np.nan, np.nan))[1])
     table["uptake_allowed"] = table["medium_lower_bound"].lt(0)
@@ -109,6 +120,7 @@ def _task(
     time_limit: int,
     add_demand: bool = False,
     gap: float = SOLVER_RELATIVE_GAP,
+    in_process: bool = False,
 ) -> dict[str, Any]:
     reaction_bounds = {condition: dict(bounds or {}) for condition in conditions}
     if objectives is None:
@@ -119,6 +131,8 @@ def _task(
         reaction_bounds=reaction_bounds, time_limit=time_limit,
         solver_relative_gap=gap, eps=EPS, add_demand=add_demand, root=root,
     )
+    if in_process and method == "fba":
+        return solve_in_process(task, output, resume=resume, root=root)
     return solve_in_subprocess(task, output, resume=resume, root=root)
 
 
@@ -138,7 +152,7 @@ def _fba(
     result = _task(
         root, label=label, method="fba", objectives={condition: {reaction: coefficient}},
         bounds=bounds, conditions=(condition,), output=output, resume=resume,
-        time_limit=time_limit, add_demand=add_demand,
+        time_limit=time_limit, add_demand=add_demand, in_process=_FBA_IN_PROCESS,
     )
     return result
 
@@ -151,7 +165,16 @@ def _flux_value(result: dict[str, Any], condition: str, reaction: str) -> float:
     return float(rows["flux"].iloc[0]) if len(rows) else float("nan")
 
 
-def _model_checks(root: Path, model: Any, output: Path, resume: bool, time_limit: int) -> pd.DataFrame:
+def _model_checks(root: Path, model: Any, output: Path, resume: bool, time_limit: int,
+                  chol_minus: dict[str, tuple[float, float]], chol_plus: dict[str, tuple[float, float]]) -> pd.DataFrame:
+    """Model sanity checks.
+
+    The sterol checks use the defined media, not the open medium: with every
+    uptake open, cholesterol sulfate, cholesterol esters and 7-dehydro-
+    cholesterol supply cholesterol even when free-cholesterol uptake and
+    HMG-CoA reductase are blocked (first Stage-06 run, 2026-10-14).
+    """
+    statin = {"HMGCOAR": (0.0, 0.0), "HMGCOARx": (0.0, 0.0)}
     rows = [
         {"check": "reaction_count", "value": model.num_edges, "expected": 10600, "passed": model.num_edges == 10600},
         {"check": "metabolite_count", "value": model.num_vertices, "expected": 5835, "passed": model.num_vertices == 5835},
@@ -160,23 +183,23 @@ def _model_checks(root: Path, model: Any, output: Path, resume: bool, time_limit
                         reaction="BIOMASS_maintenance", bounds={}, condition="open", resume=resume, time_limit=time_limit)
     biomass = _flux_value(open_biomass, "open", "BIOMASS_maintenance")
     rows.append({"check": "open_biomass_maintenance", "value": biomass, "expected": "> 0", "passed": bool(open_biomass["accepted"] and biomass > 0)})
-    blocked = {"EX_chsterol_e": (0.0, 0.0), "HMGCOAR": (0.0, 0.0), "HMGCOARx": (0.0, 0.0)}
+    blocked = {**chol_minus, **statin}
     hmg_blocked = _fba(root, label="sterol sanity blocked", output=output / "checks/sterol_blocked",
                        reaction=DEMAND_REACTION, bounds=blocked, condition="blocked", resume=resume,
                        time_limit=time_limit, add_demand=True)
     hmg_allowed = _fba(root, label="sterol sanity synthesis", output=output / "checks/sterol_synthesis",
-                        reaction=DEMAND_REACTION, bounds={"EX_chsterol_e": (0.0, 0.0)}, condition="synthesis",
+                        reaction=DEMAND_REACTION, bounds=dict(chol_minus), condition="synthesis",
                         resume=resume, time_limit=time_limit, add_demand=True)
     uptake_allowed = _fba(root, label="sterol sanity uptake", output=output / "checks/sterol_uptake",
-                          reaction=DEMAND_REACTION, bounds={"HMGCOAR": (0.0, 0.0), "HMGCOARx": (0.0, 0.0)},
+                          reaction=DEMAND_REACTION, bounds={**chol_plus, **statin},
                           condition="uptake", resume=resume, time_limit=time_limit, add_demand=True)
     blocked_value = _flux_value(hmg_blocked, "blocked", DEMAND_REACTION)
     synthesis_value = _flux_value(hmg_allowed, "synthesis", DEMAND_REACTION)
     uptake_value = _flux_value(uptake_allowed, "uptake", DEMAND_REACTION)
     rows.extend([
-        {"check": "cholesterol_demand_hmgcr_and_uptake_blocked", "value": blocked_value, "expected": "0", "passed": bool(hmg_blocked["accepted"] and abs(blocked_value) <= EPS)},
-        {"check": "cholesterol_demand_synthesis_allowed", "value": synthesis_value, "expected": "> 0", "passed": bool(hmg_allowed["accepted"] and synthesis_value > EPS)},
-        {"check": "cholesterol_demand_uptake_allowed", "value": uptake_value, "expected": "> 0", "passed": bool(uptake_allowed["accepted"] and uptake_value > EPS)},
+        {"check": "cholesterol_demand_defined_chol_minus_hmgcr_blocked", "value": blocked_value, "expected": "0", "passed": bool(hmg_blocked["accepted"] and abs(blocked_value) <= EPS)},
+        {"check": "cholesterol_demand_defined_chol_minus", "value": synthesis_value, "expected": "> 0", "passed": bool(hmg_allowed["accepted"] and synthesis_value > EPS)},
+        {"check": "cholesterol_demand_defined_chol_plus_hmgcr_blocked", "value": uptake_value, "expected": "> 0", "passed": bool(uptake_allowed["accepted"] and uptake_value > EPS)},
     ])
     return pd.DataFrame(rows)
 
@@ -202,7 +225,10 @@ def _active_context_bounds(model: Any, base_bounds: dict[str, tuple[float, float
     table = reaction_table(model)
     bounds = {}
     for row in table.itertuples(index=False):
-        if row.reaction.startswith("EX_") or row.reaction == DEMAND_REACTION:
+        # Boundaries (exchange, sink, demand) keep the medium bounds whether or
+        # not iMAT used them: resetting an active sink to its Recon3D default
+        # would reopen the supply the defined medium closes.
+        if row.reaction.startswith(BOUNDARY_PREFIXES) or row.reaction == DEMAND_REACTION:
             bounds[row.reaction] = base_bounds.get(row.reaction, (float(row.lower_bound), float(row.upper_bound)))
         elif row.reaction not in active:
             bounds[row.reaction] = (0.0, 0.0)
@@ -223,9 +249,16 @@ def _sterol_flux_ranges(root: Path, model: Any, output: Path, fluxes: pd.DataFra
                            reaction=reaction, bounds=bounds, condition=condition, resume=resume, time_limit=time_limit)
             minimum = _fba(root, label=f"{condition} min {reaction}", output=output / f"flux_range/{condition}/{reaction}/min",
                            reaction=reaction, bounds=bounds, condition=condition, resume=resume, time_limit=time_limit, coefficient=1.0)
+            minimum_flux = _flux_value(minimum, condition, reaction)
+            maximum_flux = _flux_value(maximum, condition, reaction)
+            synthesis = np.nan
+            if reaction in ("HMGCOAR", "HMGCOARx"):
+                sign = mevalonate_synthesis_sign(model, reaction)
+                synthesis = max(0.0, maximum_flux if sign > 0 else -minimum_flux)
             rows.append({"condition": condition, "reaction": reaction,
-                         "minimum_flux": _flux_value(minimum, condition, reaction),
-                         "maximum_flux": _flux_value(maximum, condition, reaction),
+                         "minimum_flux": minimum_flux,
+                         "maximum_flux": maximum_flux,
+                         "mevalonate_synthesis_capacity": synthesis,
                          "minimum_status": minimum["status"], "maximum_status": maximum["status"],
                          "accepted": bool(minimum["accepted"] and maximum["accepted"])})
     ranges = pd.DataFrame(rows)
@@ -233,7 +266,7 @@ def _sterol_flux_ranges(root: Path, model: Any, output: Path, fluxes: pd.DataFra
     for condition in ("Ctrl", "PMS"):
         for step, group in canonical.groupby("step_order"):
             known = ranges[(ranges["condition"].eq(condition)) & ranges["reaction"].isin(group["recon_id"].astype(str))]
-            step_rows.append({"condition": condition, "step_order": step, "step_has_flux": bool((known["maximum_flux"].abs() > EPS).any() or (known["minimum_flux"].abs() > EPS).any())})
+            step_rows.append({"condition": condition, "step_order": step, "step_has_flux": bool(is_active(known["maximum_flux"], EPS).any() or is_active(known["minimum_flux"], EPS).any())})
     return pd.concat([ranges, pd.DataFrame(step_rows).assign(row_type="ordered_step")], ignore_index=True, sort=False)
 
 
@@ -248,15 +281,20 @@ def _cholesterol_tasks(root: Path, model: Any, output: Path, fluxes: pd.DataFram
             for reaction in ("HMGCOAR", "HMGCOARx"):
                 maximums = ranges[(ranges.get("condition", pd.Series(dtype=str)).eq(condition)) & ranges.get("reaction", pd.Series(dtype=str)).eq(reaction)]
                 if len(maximums):
-                    cap = max(0.0, 0.1 * float(maximums["maximum_flux"].iloc[0]))
-                    lower, upper = variants["defined"].get(reaction, (0.0, 1000.0))
-                    variants["defined"][reaction] = (lower, min(upper, cap))
-                    variants["cholesterol_blocked"][reaction] = (lower, min(upper, cap))
+                    # Cap HMG-CoA reductase in its mevalonate-forming direction,
+                    # which is negative flux for Recon3D's HMGCOAR.
+                    sign = mevalonate_synthesis_sign(model, reaction)
+                    capacity = float(maximums["mevalonate_synthesis_capacity"].iloc[0])
+                    for name in ("defined", "cholesterol_blocked"):
+                        current = variants[name].get(reaction, (0.0, 1000.0))
+                        variants[name][reaction] = cap_synthesis_direction(current, sign, capacity, 0.1)
         for variant, variant_bounds in variants.items():
             result = _fba(root, label=f"{condition} cholesterol {variant}", output=output / f"{condition}/{variant}",
                           reaction=DEMAND_REACTION, bounds=variant_bounds, condition=condition, resume=resume,
                           time_limit=time_limit, add_demand=True)
             rows.append({"condition": condition, "task": variant, "simvastatin_cap": statin,
+                         "HMGCOAR_bounds": str(variant_bounds.get("HMGCOAR", "")),
+                         "HMGCOARx_bounds": str(variant_bounds.get("HMGCOARx", "")),
                          "demand_flux": _flux_value(result, condition, DEMAND_REACTION), "status": result["status"],
                          "accepted": result["accepted"]})
     return pd.DataFrame(rows)
@@ -298,16 +336,20 @@ def _signed_vs_flux(root: Path, fluxes: pd.DataFrame, canonical: pd.DataFrame, p
         nodes = {node for node in reaction_nodes if re.match(rf"^Gene\d+__.*", node) and str(node).split("__", 1)[0] == str(group["reaction_node"].iloc[0]).split("__", 1)[0]}
         subset = fluxes[fluxes["reaction"].eq(str(reaction))]
         rows.append({"reaction": reaction, "reaction_name": group["reaction_name"].iloc[0], "present_in_cosmos": bool(nodes),
-                     "used_in_stage04_joint": bool(nodes & used), "active_ctrl": bool((subset.loc[subset["condition"].eq("Ctrl"), "flux"].abs() > EPS).any()),
-                     "active_pms": bool((subset.loc[subset["condition"].eq("PMS"), "flux"].abs() > EPS).any()),
+                     "used_in_stage04_joint": bool(nodes & used), "active_ctrl": bool(is_active(subset.loc[subset["condition"].eq("Ctrl"), "flux"], EPS).any()),
+                     "active_pms": bool(is_active(subset.loc[subset["condition"].eq("PMS"), "flux"], EPS).any()),
                      "minimum_flux": float(subset["flux"].min()) if len(subset) else np.nan,
                      "maximum_flux": float(subset["flux"].max()) if len(subset) else np.nan})
-    hmr = canonical[canonical["recon_id"].eq("HMR_1916")]
-    if len(hmr):
+    if "HMR_1916" in set(fluxes["reaction"]):
         subset = fluxes[fluxes["reaction"].eq("HMR_1916")]
-        rows.append({"reaction": "HMR_1916", "reaction_name": "HDLBP cholesterol transport", "present_in_cosmos": True,
-                     "used_in_stage04_joint": bool("Gene" in "".join(used)), "active_ctrl": bool((subset.loc[subset["condition"].eq("Ctrl"), "flux"].abs() > EPS).any()),
-                     "active_pms": bool((subset.loc[subset["condition"].eq("PMS"), "flux"].abs() > EPS).any()),
+        hmr_numbers = set(pd.to_numeric(subset["reaction_number"], errors="coerce").dropna().astype(int))
+        hmr_nodes = {
+            node for node in reaction_nodes
+            if (match := re.match(r"^Gene(\d+)__", node)) and int(match.group(1)) in hmr_numbers
+        }
+        rows.append({"reaction": "HMR_1916", "reaction_name": "HDLBP cholesterol transport", "present_in_cosmos": bool(hmr_nodes),
+                     "used_in_stage04_joint": bool(hmr_nodes & used), "active_ctrl": bool(is_active(subset.loc[subset["condition"].eq("Ctrl"), "flux"], EPS).any()),
+                     "active_pms": bool(is_active(subset.loc[subset["condition"].eq("PMS"), "flux"], EPS).any()),
                      "minimum_flux": float(subset["flux"].min()) if len(subset) else np.nan, "maximum_flux": float(subset["flux"].max()) if len(subset) else np.nan})
     return pd.DataFrame(rows)
 
@@ -327,7 +369,9 @@ def _context_pkn(root: Path, output: Path, fluxes: pd.DataFrame) -> pd.DataFrame
 
 
 def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
+    global _FBA_IN_PROCESS
     args = _parse_args(argv)
+    _FBA_IN_PROCESS = not args.fba_subprocess
     root = Path(root)
     output = root / OUT
     if output.exists() and any(output.iterdir()) and not args.resume:
@@ -337,8 +381,14 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     gene_map.to_csv(output / "gene_map.tsv", sep="\t", index=False)
     expression = pd.read_csv(root / PREPROCESSED / "rnaseq/log2cpm.tsv", sep="\t", index_col=0)
     groups = _groups(root, expression)
-    model_genes = set(gene_map["mapped_gene"].astype(str))
-    scores = gene_scores(expression, groups, quantiles=(0.25, 0.75), model_genes=model_genes)
+    # Expression keys must use the same parser-safe tokens as the GPR rules
+    # (e.g. MT-ND3 -> MT_ND3); see gem.gpr_token.
+    expression.index = expression.index.map(gpr_token)
+    if expression.index.duplicated().any():
+        raise ValueError(f"gpr_token collisions in expression: {sorted(set(expression.index[expression.index.duplicated()]))[:10]}")
+    model_genes = set(gene_map["gpr_token"].astype(str))
+    unscored = set(gene_map.loc[gene_map["mapping_status"].ne("unique_approved_symbol"), "gpr_token"].astype(str))
+    scores = gene_scores(expression, groups, quantiles=(0.25, 0.75), model_genes=model_genes, unscored_genes=unscored)
     # MultiSampleIMAT validates gene_expression identifiers against GPR tokens;
     # model genes that occur in no reaction are retained in gene_map but are not
     # sent as features to CORNETO.
@@ -350,8 +400,14 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     for variant, bounds in medium_maps.items():
         _write_medium_table(model, bounds, output / f"medium/{variant}.tsv", detected_kegg)
 
-    checks = _model_checks(root, model, output, args.resume, args.time_limit)
+    sterol_media = {variant: medium_maps.get(variant) or medium_bounds(model, variant, detected_kegg)
+                    for variant in ("defined_chol_minus", "defined_chol_plus")}
+    checks = _model_checks(root, model, output, args.resume, args.time_limit,
+                           sterol_media["defined_chol_minus"], sterol_media["defined_chol_plus"])
     checks.to_csv(output / "model_checks.tsv", sep="\t", index=False)
+    if not checks["passed"].all():
+        failed = ", ".join(checks.loc[~checks["passed"].astype(bool), "check"])
+        raise RuntimeError(f"Model checks failed ({failed}); see model_checks.tsv. No context model was interpreted.")
     open_result = _fba(root, label="open biomass for medium target", output=output / "checks/open_biomass_target",
                        reaction="BIOMASS_maintenance", bounds={}, condition="open", resume=args.resume, time_limit=args.time_limit)
     open_max = _flux_value(open_result, "open", "BIOMASS_maintenance")
@@ -368,6 +424,7 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
     primary_fluxes = primary["fluxes"]
     if not primary["accepted"]:
         raise RuntimeError("Primary iMAT solve was not accepted; no context or readout was interpreted")
+    (output / "summary").mkdir(parents=True, exist_ok=True)
     annotated = context_reactions(primary_fluxes, EPS)
     annotated.to_csv(output / "summary/reaction_activity.tsv", sep="\t", index=False)
     differential, enrichment = _differential_activity(primary_fluxes, model)
@@ -393,7 +450,8 @@ def main(root: Path = ROOT, argv: list[str] | None = None) -> int:
                                   {"recon3d": {"sha256": sha256(root / MODEL)}, "hgnc": {"sha256": sha256(root / HGNC)}},
                                   {"mediums": list(args.mediums), "primary_medium": primary_variant, "quantiles": [0.25, 0.75],
                                    "eps": EPS, "time_limit": args.time_limit, "solver": SOLVER, "threads": SOLVER_THREADS,
-                                   "seed": SOLVER_SEED, "relative_gap": SOLVER_RELATIVE_GAP, "acceptance_gap": ACCEPTANCE_GAP}, code)
+                                   "seed": SOLVER_SEED, "relative_gap": SOLVER_RELATIVE_GAP, "acceptance_gap": ACCEPTANCE_GAP,
+                                   "activity_threshold": EPS - 1e-6, "fba_in_process": _FBA_IN_PROCESS}, code)
     write_stage_provenance(output, provenance)
     print(f"Stage 06 metabolic context finished: {output}")
     return 0

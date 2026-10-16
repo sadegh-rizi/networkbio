@@ -828,6 +828,16 @@ def _context_cosmos(root: Path, out: Path, resume: bool) -> pd.DataFrame:
     rows.append({"run": "cosmos_multi", "scope": "context", "lambda_reg": 0.1,
                  **_fit_columns(joint)})
     node, contrast = _sv_measurement(root)
+    # The pruned PKN may contain no directed path from the fixed input to the
+    # measured node; CarnivalFlow then prunes the graph to nothing and the worker
+    # fails (2026-10-15). Record that as a result instead of a crash.
+    pkn = pd.read_csv(pkn_path, sep="\t", dtype={"source": str, "target": str})
+    graph = nx.DiGraph(list(zip(pkn["source"], pkn["target"])))
+    if not ("HMGCR" in graph and node in graph and nx.has_path(graph, "HMGCR", node)):
+        rows.append({"run": "cosmos_multi", "scope": "context_sv", "lambda_reg": SV_LAMBDA,
+                     "measured_node": node, "measured_t": float(contrast["moderated_t"].iloc[0]),
+                     "status": "no_directed_path_from_HMGCR", "accepted": False})
+        return pd.DataFrame(rows)
     sv = _solve(root, out, "context_cosmos/sv_control", "context COSMOS simvastatin", pkn_path,
                 {"SV_vs_untreated": {node: float(contrast["moderated_t"].iloc[0])}}, SV_LAMBDA,
                 COSMOS_TIME_LIMIT, resume=resume, inputs={"HMGCR": -1.0})

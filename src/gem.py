@@ -24,6 +24,16 @@ except ImportError:  # corneto 1.0.0rc8 keeps this reader private
 
 
 EXCHANGE_PREFIX = "EX_"
+# Recon3D boundary reactions: exchanges, sinks and demands.  All have the form
+# "met -> " (coefficient -1), so a negative flux is an uptake.
+SUPPLY_PREFIXES = ("SK_", "DM_")
+# Essential amino acids absent from the ST003332 metabolomics panel, so they
+# can never be "detected in the blanks"; every culture medium contains them.
+# Without them BIOMASS_maintenance is infeasible in the defined media
+# (Stage-06 run, 2026-10-14). The other essential amino acids are detected.
+UNMEASURED_ESSENTIAL_UPTAKES = ("EX_phe__L_e", "EX_ile__L_e")
+MEVALONATE_PREFIX = "mev__R_"
+BOUNDARY_PREFIXES = (EXCHANGE_PREFIX, *SUPPLY_PREFIXES)
 DEMAND_REACTION = "DM_chsterol_c"
 BIOMASS_REACTIONS = ("BIOMASS_reaction", "BIOMASS_maintenance", "BIOMASS_maintenance_noTrTr")
 INORGANIC_KEGG = {
@@ -83,6 +93,20 @@ def _gene_number(gene_id: str) -> str:
     return match.group(1) if match else str(gene_id)
 
 
+def gpr_token(gene: Any) -> str:
+    """Return a gene identifier that CORNETO's GPR parser reads as one name.
+
+    CORNETO parses GPR rules as Python expressions.  A hyphen (``MT-ND3``) is
+    read as subtraction and the reaction is left unscored, and a bare number
+    (an Entrez ID without an approved symbol) is read as a constant whose
+    value becomes the reaction score.  Non-identifier characters are therefore
+    replaced by ``_`` and identifiers that do not start with a letter or
+    underscore are prefixed with ``ENTREZ_``.
+    """
+    token = re.sub(r"[^A-Za-z0-9_]", "_", str(gene))
+    return token if re.match(r"[A-Za-z_]", token) else f"ENTREZ_{token}"
+
+
 def _rewrite_gpr(rule: str, token_map: Mapping[str, str]) -> str:
     return re.sub(r"\b\d+_AT\d+\b", lambda match: token_map.get(match.group(0), match.group(0)), str(rule or ""))
 
@@ -113,13 +137,15 @@ def load_recon3d(path: Path, hgnc: Any) -> tuple[Any, pd.DataFrame]:
         else:
             mapped = entrez
             status = "no_unique_approved_symbol" if symbols else "no_approved_symbol"
-        token_map[model_id] = mapped
-        token_map.setdefault(f"{entrez}_AT1", mapped)
+        token = gpr_token(mapped)
+        token_map[model_id] = token
+        token_map.setdefault(f"{entrez}_AT1", token)
         gene_rows.append({
             "model_gene_id": model_id,
             "entrez_id": entrez,
             "model_name": str(gene.get("name", "")),
             "mapped_gene": mapped,
+            "gpr_token": token,
             "mapping_status": status,
             "approved_symbols": ";".join(symbols),
         })
@@ -243,14 +269,25 @@ def medium_bounds(model: Any, variant: str, detected_kegg: Collection[str] = ())
     detected compounds, registered inorganic compounds, and optionally
     extracellular cholesterol. Secretion remains at each reaction's default
     upper bound.
+
+    Sink (``SK_``) and demand (``DM_``) reactions are boundaries as well: 92
+    sinks and 3 demands in Recon3D can supply their metabolite (lower bound
+    < 0).  The defined medium closes that supply direction too; otherwise, for
+    example, ``SK_vitd3_c`` supplies vitamin D3, which the reversible
+    ``VD3``/``PVD3`` reactions turn into 7-dehydrocholesterol and cholesterol
+    with HMG-CoA reductase and cholesterol uptake blocked (Stage-06 check,
+    2026-10-14).
     """
     label = str(variant).lower().replace("+", "_plus").replace("-", "_minus").replace(" ", "_")
     if label in {"open", "default"}:
         return {}
     if label not in {"defined_chol_plus", "defined_chol_minus", "defined", "chol_plus", "chol_minus"}:
         raise ValueError(f"Unknown medium variant: {variant}")
-    exchanges = reaction_table(model).query("reaction.str.startswith('EX_')", engine="python")
+    table = reaction_table(model)
+    exchanges = table[table["reaction"].str.startswith(EXCHANGE_PREFIX)]
     bounds = {str(row.reaction): (0.0, float(row.upper_bound)) for row in exchanges.itertuples(index=False)}
+    supplies = table[table["reaction"].str.startswith(SUPPLY_PREFIXES) & table["lower_bound"].lt(0)]
+    bounds.update({str(row.reaction): (0.0, float(row.upper_bound)) for row in supplies.itertuples(index=False)})
     by_kegg = _exchange_reactions(model)
     allowed_kegg = {str(value).removeprefix("cpd:") for value in detected_kegg}
     allowed_kegg.update(INORGANIC_KEGG.values())
@@ -258,6 +295,10 @@ def medium_bounds(model: Any, variant: str, detected_kegg: Collection[str] = ())
         exchange = _choose_exchange(by_kegg.get(kegg, []))
         if exchange is not None:
             bounds[exchange["reaction"]] = (min(-1000.0, exchange["lower_bound"]), exchange["upper_bound"])
+    for reaction in UNMEASURED_ESSENTIAL_UPTAKES:
+        if reaction in bounds:
+            row = table.set_index("reaction").loc[reaction]
+            bounds[reaction] = (min(-1000.0, float(row.lower_bound)), float(row.upper_bound))
     cholesterol = "EX_chsterol_e"
     if label in {"defined_chol_plus", "chol_plus"} and cholesterol in bounds:
         row = reaction_table(model).set_index("reaction").loc[cholesterol]
@@ -267,13 +308,43 @@ def medium_bounds(model: Any, variant: str, detected_kegg: Collection[str] = ())
     return bounds
 
 
+def mevalonate_synthesis_sign(model: Any, reaction: str) -> int:
+    """+1 if positive flux of ``reaction`` produces mevalonate, -1 if negative flux does.
+
+    Recon3D writes cytosolic ``HMGCOAR`` as mevalonate -> HMG-CoA, so HMG-CoA
+    reductase activity is negative flux there, while peroxisomal ``HMGCOARx``
+    is written in the synthesis direction.
+    """
+    for attributes in model.get_attr_edges():
+        if str(attributes.get("id")) == reaction:
+            coefficient = sum(float(value) for key, value in attributes.get("stoichiometry", {}).items()
+                              if str(key).startswith(MEVALONATE_PREFIX))
+            if coefficient == 0:
+                raise ValueError(f"{reaction} does not produce or consume mevalonate")
+            return 1 if coefficient > 0 else -1
+    raise ValueError(f"Unknown reaction: {reaction}")
+
+
+def cap_synthesis_direction(bounds: tuple[float, float], sign: int, capacity: float, fraction: float = 0.1) -> tuple[float, float]:
+    """Limit flux in the synthesis direction to ``fraction`` of ``capacity`` (>= 0)."""
+    lower, upper = float(bounds[0]), float(bounds[1])
+    cap = max(0.0, fraction * float(capacity))
+    return (lower, min(upper, cap)) if sign > 0 else (max(lower, -cap), upper)
+
+
 def gene_scores(
     expression: pd.DataFrame,
     groups: Mapping[str, str] | pd.Series,
     quantiles: tuple[float, float] = (0.25, 0.75),
     model_genes: Collection[str] = (),
+    unscored_genes: Collection[str] = (),
 ) -> dict[str, dict[str, float]]:
-    """Convert group-mean expression to the registered iMAT -1/0/+1 scores."""
+    """Convert group-mean expression to the registered iMAT -1/0/+1 scores.
+
+    Model genes absent from ``expression`` score -1 (not expressed), except
+    ``unscored_genes`` (model genes without a unique approved symbol, whose
+    expression cannot be looked up), which score 0.
+    """
     if len(quantiles) != 2 or not 0 <= quantiles[0] < quantiles[1] <= 1:
         raise ValueError("quantiles must be an increasing pair between 0 and 1")
     labels = pd.Series(groups, index=list(groups.index) if isinstance(groups, pd.Series) else list(groups))
@@ -290,15 +361,38 @@ def gene_scores(
         scores.loc[values.le(low)] = -1.0
         scores.loc[values.ge(high)] = 1.0
         score_map = {str(gene): float(score) for gene, score in scores.items()}
+        unscored = {str(gene) for gene in unscored_genes}
         for gene in model_genes:
             if str(gene) not in score_map:
-                score_map[str(gene)] = -1.0
+                score_map[str(gene)] = 0.0 if str(gene) in unscored else -1.0
         result[str(group)] = score_map
     return result
 
 
+ACTIVITY_TOLERANCE = 1e-6
+
+
+def activity_threshold(eps: float = 1e-2) -> float:
+    """Smallest |flux| counted as active.
+
+    iMAT places active reactions exactly at its lower bound ``eps``; the solver
+    returns that value as 0.01 or as 0.0099999999999909. Comparing with ``eps``
+    itself therefore splits the iMAT "on" state at random (defect D9, 2026-10-15).
+    """
+    return float(eps) - ACTIVITY_TOLERANCE
+
+
+def is_active(values: Any, eps: float = 1e-2) -> Any:
+    """Vectorised activity test with the D9 tolerance."""
+    return np.abs(np.asarray(values, dtype=float)) >= activity_threshold(eps)
+
+
 def context_reactions(fluxes: pd.DataFrame, eps: float = 1e-2) -> pd.DataFrame:
-    """Annotate reaction fluxes with activity and direction."""
+    """Annotate reaction fluxes with activity and direction.
+
+    Activity and direction use the same tolerant threshold, so every active
+    reaction has a direction (forward or reverse) and every inactive one has none.
+    """
     required = {"condition", "reaction", "flux"}
     if not required.issubset(fluxes.columns):
         raise ValueError(f"Flux table lacks columns: {sorted(required - set(fluxes.columns))}")
@@ -307,9 +401,10 @@ def context_reactions(fluxes: pd.DataFrame, eps: float = 1e-2) -> pd.DataFrame:
         columns.insert(1, "reaction_number")
     result = fluxes[columns].copy()
     result["flux"] = pd.to_numeric(result["flux"], errors="raise")
-    result["active"] = result["flux"].abs().ge(float(eps))
+    threshold = activity_threshold(eps)
+    result["active"] = result["flux"].abs().ge(threshold)
     result["direction"] = np.select(
-        [result["flux"].gt(float(eps)), result["flux"].lt(-float(eps))],
+        [result["flux"].ge(threshold), result["flux"].le(-threshold)],
         ["forward", "reverse"], default="inactive",
     )
     return result
@@ -363,16 +458,24 @@ def minimum_extra_exchanges(
     table = reaction_table(model).set_index("reaction")
     if objective_reaction not in table.index:
         raise ValueError(f"Unknown objective reaction: {objective_reaction}")
-    exchange_ids = [reaction for reaction in reactions if reaction.startswith("EX_")]
-    candidates = [reaction for reaction in exchange_ids if bounds.get(reaction, (float(table.loc[reaction, "lower_bound"]), float(table.loc[reaction, "upper_bound"])))[0] >= 0]
+    exchange_ids = [reaction for reaction in reactions if reaction.startswith(BOUNDARY_PREFIXES)]
+    # Candidates: boundary reactions whose uptake the medium closed but the
+    # model allows.  Their lower bound is relaxed to the model default and the
+    # uptake is switched by ``opened``.  (Keeping the medium lower bound of 0
+    # here made every candidate unusable and the MILP always infeasible.)
+    candidates = [reaction for reaction in exchange_ids
+                  if bounds.get(reaction, (float(table.loc[reaction, "lower_bound"]), 0.0))[0] >= 0
+                  and float(table.loc[reaction, "lower_bound"]) < 0]
     v = cp.Variable(len(reactions))
     opened = cp.Variable(len(candidates), boolean=True)
     lower = np.array([bounds.get(reaction, (table.loc[reaction, "lower_bound"], table.loc[reaction, "upper_bound"]))[0] for reaction in reactions], dtype=float)
     upper = np.array([bounds.get(reaction, (table.loc[reaction, "lower_bound"], table.loc[reaction, "upper_bound"]))[1] for reaction in reactions], dtype=float)
-    constraints = [S @ v == 0, v >= lower, v <= upper]
     position = {reaction: index for index, reaction in enumerate(reactions)}
+    for reaction in candidates:
+        lower[position[reaction]] = float(table.loc[reaction, "lower_bound"])
+    constraints = [S @ v == 0, v >= lower, v <= upper]
     for index, reaction in enumerate(candidates):
-        constraints.append(v[position[reaction]] >= -1000.0 * opened[index])
+        constraints.append(v[position[reaction]] >= float(table.loc[reaction, "lower_bound"]) * opened[index])
     constraints.append(v[position[objective_reaction]] >= float(target))
     problem = cp.Problem(cp.Minimize(cp.sum(opened)), constraints)
     problem.solve(solver="HIGHS", time_limit=time_limit, mip_rel_gap=0.01)

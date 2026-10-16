@@ -118,7 +118,7 @@ def _empty_fluxes() -> pd.DataFrame:
     return pd.DataFrame(columns=["condition", "reaction_number", "reaction", "flux"])
 
 
-def _solve_task(task: Mapping[str, Any], root: Path) -> tuple[dict[str, Any], pd.DataFrame]:
+def _load_task_model(task: Mapping[str, Any], root: Path) -> Any:
     model_path = root / task["model_path"]
     hgnc_path = root / task["hgnc_path"]
     if file_sha256(model_path) != task["model_sha256"]:
@@ -128,6 +128,31 @@ def _solve_task(task: Mapping[str, Any], root: Path) -> tuple[dict[str, Any], pd
     model, _ = load_recon3d(model_path, hgnc_path)
     if task.get("add_cholesterol_demand", False):
         add_cholesterol_demand(model)
+    return model
+
+
+# In-process FBA reuses one loaded model per (model, HGNC, demand) combination.
+# CORNETO's FBA build passes bounds per problem and does not modify the graph
+# (checked 2026-10-15); the edge count is re-checked after every solve.
+_MODEL_CACHE: dict[tuple[str, str, str, str, bool], Any] = {}
+
+
+def _cached_model(task: Mapping[str, Any], root: Path) -> Any:
+    key = (str(Path(root).resolve()), str(task["model_path"]), str(task["model_sha256"]),
+           str(task["hgnc_sha256"]), bool(task.get("add_cholesterol_demand", False)))
+    if key not in _MODEL_CACHE:
+        _MODEL_CACHE[key] = _load_task_model(task, root)
+    return _MODEL_CACHE[key]
+
+
+def clear_model_cache() -> None:
+    _MODEL_CACHE.clear()
+
+
+def _solve_task(task: Mapping[str, Any], root: Path, model: Any | None = None) -> tuple[dict[str, Any], pd.DataFrame]:
+    if model is None:
+        model = _load_task_model(task, root)
+    n_edges_before = model.num_edges
     conditions = set((task.get("objectives") or {}).keys()) | set((task.get("reaction_bounds") or {}).keys()) | set((task.get("gene_expression") or {}).keys())
     if not conditions:
         raise ValueError("A GEM task needs at least one named condition")
@@ -171,6 +196,8 @@ def _solve_task(task: Mapping[str, Any], root: Path) -> tuple[dict[str, Any], pd
         random_seed=SOLVER_SEED,
     )
     elapsed = time.perf_counter() - started
+    if model.num_edges != n_edges_before:
+        raise RuntimeError("The model graph changed during the solve; the cached model cannot be reused")
     stats = getattr(getattr(solved, "solver_stats", None), "extra_stats", None)
     gap = float(getattr(stats, "mip_gap", 0.0) or 0.0)
     status = str(getattr(solved, "status", "unknown"))
@@ -213,17 +240,22 @@ def _write_condition_outputs(directory: Path, task: Mapping[str, Any], summary: 
         fluxes.loc[fluxes["condition"].eq(condition)].to_csv(child / "fluxes.tsv", sep="\t", index=False)
 
 
+def _write_outputs(directory: Path, task: Mapping[str, Any], summary: Mapping[str, Any], fluxes: pd.DataFrame) -> None:
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / "task.json").write_text(json.dumps(task, indent=2))
+    fluxes.to_csv(directory / "fluxes.tsv", sep="\t", index=False)
+    # result.json is written last: its presence marks a completed task for resume.
+    _write_condition_outputs(directory, task, summary, fluxes)
+    (directory / "result.json").write_text(json.dumps(summary, indent=2, default=float))
+    print(f"  status={summary['status']} accepted={summary['accepted']} gap={summary['mip_gap']:.4g} seconds={summary['wall_seconds']:.0f}", flush=True)
+
+
 def run_task(task_path: Path, root: Path = ROOT) -> int:
     task_path = Path(task_path)
     task = json.loads(task_path.read_text())
     summary, fluxes = _solve_task(task, Path(root))
-    directory = task_path.parent
-    directory.mkdir(parents=True, exist_ok=True)
-    task_path.write_text(json.dumps(task, indent=2))
-    fluxes.to_csv(directory / "fluxes.tsv", sep="\t", index=False)
-    (directory / "result.json").write_text(json.dumps(summary, indent=2, default=float))
-    _write_condition_outputs(directory, task, summary, fluxes)
-    print(f"  status={summary['status']} accepted={summary['accepted']} gap={summary['mip_gap']:.4g} seconds={summary['wall_seconds']:.0f}", flush=True)
+    _write_outputs(task_path.parent, task, summary, fluxes)
     return 0
 
 
@@ -259,6 +291,34 @@ def solve_in_subprocess(task: Mapping[str, Any], directory: Path, *, resume: boo
         status = f"worker_failed_exit_{completed.returncode}"
         print(f"  {status}", flush=True)
         return failed_result(task, status, directory)
+    return load_result(directory)
+
+
+def solve_in_process(task: Mapping[str, Any], directory: Path, *, resume: bool = False, root: Path = ROOT) -> dict[str, Any]:
+    """Solve an FBA task in this process with a cached model (D9 speed-up).
+
+    Same task, signature, resume rule and output files as ``solve_in_subprocess``;
+    only the process differs. Restricted to LPs: iMAT MILPs keep the subprocess
+    isolation that bounds their solver memory.
+    """
+    if task["method"] != "fba":
+        raise ValueError("solve_in_process is for FBA tasks only; run iMAT with solve_in_subprocess")
+    directory = Path(directory)
+    done = directory / "result.json"
+    if resume and done.exists() and json.loads(done.read_text()).get("task_signature") == task["signature"]:
+        print(f"{task['label']}: resumed", flush=True)
+        return load_result(directory)
+    print(f"{task['label']}: method={task['method']} (in process)", flush=True)
+    root = Path(root)
+    try:
+        summary, fluxes = _solve_task(task, root, model=_cached_model(task, root))
+    except Exception as error:
+        # HiGHS keeps one thread pool per process; an earlier in-process solve
+        # with another thread count makes later solves fail with SolverError.
+        # Fall back to the isolated worker rather than losing the readout.
+        print(f"  in-process solve failed ({type(error).__name__}: {error}); retrying in a subprocess", flush=True)
+        return solve_in_subprocess(task, directory, resume=False, root=root)
+    _write_outputs(directory, task, {**summary, "process": "in_process"}, fluxes)
     return load_result(directory)
 
 

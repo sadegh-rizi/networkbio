@@ -1,6 +1,6 @@
 {
   "stage": "05_robustness",
-  "created_utc": "2026-10-12T22:57:09+00:00",
+  "created_utc": "2026-10-15T22:56:46+00:00",
   "inputs": {
     "results/ionescu_corneto/04_inference/04_inference.provenance.json": "6f8a9d28cca4deba0194b37d884fce1377b37dae316b256db65217aef78d534e",
     "results/ionescu_corneto/04_inference/inputs/measured_tfs.tsv": "cc2f50d67eadfa7ebe18694daff41816a5e099cf0105c9649664cabcaede077b",
@@ -12,7 +12,8 @@
     "results/ionescu_corneto/01_preprocessing/metabolomics/ST003328/line_log2.tsv": "67118b3bd763f4e5266b23c858aa4adc2b1151ba20d9682410854caef3f595bb",
     "results/ionescu_corneto/02_activities/collectri/tf_activity_per_line.tsv": "64d05e765408e03abce2ff815d453ccf3fd278b17b70d87d0c8b403b44508b65",
     "doc/decisions/2026-10-10-stage04-inference-plan.md": "4ed243942062d941c02cdaa23514fb1b06b59e548071690ed46243a6db519e19",
-    "doc/decisions/2026-10-11-stage05-robustness-addendum.md": "7051a5273992a0a96e1c02f7b51573ef185c486cf6b85c6e053a2085d5ee0eeb",
+    "doc/decisions/2026-10-11-stage05-robustness-addendum.md": "e3f6fd730dec055e4dd9bcf32d7938ae115cd97c9f4de5c12423abf0458dbdea",
+    "doc/decisions/2026-10-13-imat-fba-plan.md": "3008db0f6fa238cf976de0def8e9ceadbd4930b139ea439bcc1a983c2963369c",
     "results/ionescu_corneto/03_pkn/omnipath/primary/pkn.tsv": "d41087ad712399e7ccbc21ecf44d42086046ba3ca445336ac212725ab122dc19",
     "results/ionescu_corneto/03_pkn/omnipath/variants/nc_rule/pkn.tsv": "79001798b5df058e0ace0e39d1cba160d8d7c45deeffbfb5ae52bd84e46f9828",
     "results/ionescu_corneto/03_pkn/omnipath/variants/signor_only/pkn.tsv": "5bbb1b882fc4563aeae674867d94d96b94ab1f99c381478c811337c0c6659f45",
@@ -23,7 +24,7 @@
   "resources": {},
   "parameters": {
     "parts_completed_this_invocation": [
-      "no_drug_inputs"
+      "late_integration"
     ],
     "cosmos": true,
     "alternatives": {
@@ -71,9 +72,12 @@
     "src/activities.py": "a125195b44fdb1c5b9e749455dfb3bafed36a6dd800e768f4bcdba30ceae1a09",
     "src/pkn.py": "f4ff4517afdd20db3d28ee9dd0e83aec03362463fe8ccb335513295083c42e75",
     "src/metabolic_route.py": "17135721536ffb85422148092c8e495f49e6d4b264da51aa5fca3cc07c8f1151",
-    "scripts/analysis/06_corneto_robustness.py": "ffbb43d3978b8a3a299a9edf8c468b64a6bc2de5025ca22ad484247ebfac7109"
+    "src/gem.py": "2a5ae5a06de71d49d2d2d73639ed079659b6ed6ae9ec8828dc44337c30b16ac2",
+    "src/gem_worker.py": "a7cb8db14aa551c3f81abef0ba6e8f9979b52811a398795f6e76ce3f701dd36a",
+    "scripts/analysis/06_corneto_robustness.py": "582cf54c0f50a3b2f7dbcc79ced0fc672c8fa25454a4ad0b4ddba1d55b46b05f",
+    "scripts/analysis/08_metabolic_context.py": "53a6da0cb0e8925f149a7a73ae6232ad42683ef3284b21ff634e5e8c6e4ec50b"
   },
-  "git_commit": "ec270423a5de3ad3e105dcd7c680997b3eac00ff",
+  "git_commit": "ca21e4afe6ccf94149a914da94805e6d1708bded",
   "git_dirty": true,
   "versions": {
     "numpy": "2.5.3",
@@ -84,8 +88,19 @@
     "omnipath": "1.0.12"
   },
   "python": "3.12.3",
-  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
   "outputs": {
+    "context_cosmos/joint/edges.tsv": "22d11d9c4f7d5ca6f90c2b2c49f240c84fe4943152cdf08560bb95af5d4d23cf",
+    "context_cosmos/joint/fit.tsv": "c008c4848c65cec78a08a77773fafec23d08537b64e24b27a1d71baa594cb0f6",
+    "context_cosmos/joint/nodes.tsv": "fb14e1ae28c0a9c3ef6bd4e1feba0157bd1743edca93532988342d8b01f86a23",
+    "context_cosmos/joint/result.json": "9b23159c049536663310e383a44c02fb81ef7d66b7b97d9a4b70b66a377af67b",
+    "context_cosmos/joint/task.json": "32c6e3325c3d09fee27f0d7c8e3d8c7cfa236927872cc05cc41694fa303640f0",
+    "context_cosmos/sv_control/task.json": "25968b60d32d572d752ff827fd26ceadbd8e80b270a0e1004ea2643d65f4d588",
+    "late_integration/metabolites_only/edges.tsv": "03ced08a37e705aa8c47dee719c549dc2ad1b4b52996b939275aa77c72c9f527",
+    "late_integration/metabolites_only/fit.tsv": "d18f46845dc827971bf997d428c1b6b74014f3e0a58cceedc23e86687e841c71",
+    "late_integration/metabolites_only/nodes.tsv": "b660b8bd8d31d784869407fe3af58c700984e766b1a3e34b111305f22a23d918",
+    "late_integration/metabolites_only/result.json": "01833809a3021c9426ceb0bec244ab442c5306a3dd3f4f1c6a378a30fe02261a",
+    "late_integration/metabolites_only/task.json": "e34c8e1a3b31d83405a4af0d434948f99dc6b8e6c6ba0cb5ae061e465ee6328b",
     "loo/omnipath/C1/edges.tsv": "40e4d419ed644c769db1fc42754cd7c37fd2eee2700f4ea65f8f3c508cb952e8",
     "loo/omnipath/C1/fit.tsv": "704cbb61310f31495600c1ddf47efb5159e179eb6209c77f0e9edce370817a60",
     "loo/omnipath/C1/nodes.tsv": "6a486d2fba935406eb96aef83da19db54040f13c00700c5b7505d4aa82511c8e",
@@ -298,6 +313,8 @@
     "rewired/omnipath/9/pkn.tsv": "f3c05cbd41953300bbbd000a23931758057f8f97f8819e817a22fe14f06522d4",
     "rewired/omnipath/9/result.json": "630d2ff8e36c2ec8b16dc27f0d436e827815481161d7e8aa7edbe8451d439263",
     "rewired/omnipath/9/task.json": "d913e35d8868878e9b61b79ebf79371dc2611c6ab02b2b2f4dc1acdf8642ae88",
+    "summary/context_cosmos.tsv": "6bf5eb1a8384bf8c81d0951dfa1069a905a090acc630709882796b1ba3a644a7",
+    "summary/late_integration.tsv": "82d382295e875bd235532d8438a58a852e7a0069deb3dbd531e36ee19733cd4a",
     "summary/loo_status.tsv": "3d08bb7e962485650e09ac0d99c898d973a9b183b9c6a0be08f68e0ad8b13f85",
     "summary/no_drug_inputs.tsv": "25cf951d7766a9bea047ab032ee5c36485dd48ac033c9b17781368fb8166607d",
     "summary/permutation_rank.tsv": "5120e42ff706d5471019ddbc6b726be951924ec0b3365f365d8ade7250a92669",

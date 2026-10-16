@@ -1,6 +1,6 @@
 # Analysis state: read this first
 
-Last updated: 2026-10-10. Update this file whenever a decision is made or a
+Last updated: 2026-10-16. Update this file whenever a decision is made or a
 run changes a number. Detail and sources are in `doc/context/`.
 
 ## Question
@@ -141,6 +141,18 @@ and stage-03 resource choice are settled in
   come from `scripts/analysis/00b_plot_toy_network.py`.
 - `networkcommons` could not be installed (pins graphviz<0.18, conflicts
   with corneto 1.0.0rc8); the COSMOS meta-PKN has to be fetched directly.
+
+- Stage 06 runs 1--4 (2026-10-14--15) are invalid and archived: GPR parser
+  defects, sink leakage, wrong-direction simvastatin capping, missing Phe/Ile
+  uptake, and the D9 activity-threshold defect. The fixes are recorded in
+  `doc/decisions/2026-10-14-stage06-gpr-and-checks-addendum.md` and
+  `doc/decisions/2026-10-15-stage06-activity-threshold-addendum.md`.
+- **Stage 06 run 5 (2026-10-15):** the corrected iMAT/FBA run completed. All
+  model checks passed; the three iMAT solves were accepted; the D9 readouts
+  use the tolerant activity threshold; and the context PKN has 4,660 active
+  reaction nodes and 32,175 edges. The context COSMOS joint refit was accepted
+  (weighted error 9.033, gap 0.15%). The context-specific simvastatin refit
+  failed in its worker and remains uninterpreted.
 
 ## Next steps, in order
 

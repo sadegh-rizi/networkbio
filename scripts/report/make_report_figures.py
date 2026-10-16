@@ -59,7 +59,7 @@ def _load(run: str, lam: str) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
 
 
 # --------------------------------------------------------------------------
-# Figure 1: workflow
+# Figure 1: workflow, contextualisation and integration levels
 # --------------------------------------------------------------------------
 
 def _toy_arrow(ax, p, q, colour, lw, sign=1, z=1):
@@ -68,63 +68,170 @@ def _toy_arrow(ax, p, q, colour, lw, sign=1, z=1):
                                  shrinkA=9, shrinkB=9, color=colour, lw=lw, zorder=z))
 
 
-def figure1() -> None:
-    """Concept (a, b) and the three questions asked of the PMS data (c)."""
+SIG_FILL, MET_FILL, DATA_FILL = "#FBE3C0", "#CDEBDD", "#D6E9F5"
+MET_EDGE = "#009E73"
+
+
+def _box(ax, x, y, w, h, text, fc, bold=None, ec="0.5", ls="-", fs=None):
+    ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h, boxstyle="round,pad=0.02,rounding_size=0.08",
+                                fc=fc, ec=ec, lw=0.7, ls=ls, zorder=2))
+    if bold:
+        top = y + min(h / 2, 0.37)
+        ax.text(x, top - 0.07, bold, ha="center", va="top", fontsize=fs or SIZES[1], fontweight="bold", zorder=3)
+        ax.text(x, top - 0.27, text, ha="center", va="top", fontsize=SIZES[2], color="0.2", zorder=3,
+                linespacing=1.05)
+    else:
+        ax.text(x, y, text, ha="center", va="center", fontsize=SIZES[2], zorder=3, linespacing=1.1)
+
+
+def _flow(ax, p, q, colour="0.45", ls="-", lw=0.8, rad=0.0):
+    ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=7, color=colour, lw=lw, ls=ls,
+                                 shrinkA=0, shrinkB=0, connectionstyle=f"arc3,rad={rad}", zorder=1))
+
+
+def _workflow(ax) -> None:
+    ax.set_xlim(0, 10); ax.set_ylim(0, 3.35); ax.set_axis_off()
+    xs = [0.95, 2.95, 4.95, 6.95, 8.95]
+    w, h = 1.8, 0.74
+    ys = [2.45, 1.5, 0.55]
+    for x, head in zip(xs, ["Data (cell lines)", "Measured nodes", "Prior knowledge", "CORNETO method",
+                            "Readouts"]):
+        ax.text(x, 3.2, head, ha="center", va="center", fontsize=SIZES[1], fontweight="bold")
+    _box(ax, xs[0], ys[0], w, h, "cells, medium, lipids\n3 Ctrl vs 4 PMS", DATA_FILL,
+         bold="Metabolomics")
+    _box(ax, xs[0], (ys[1] + ys[2]) / 2, w, ys[1] - ys[2] + h, "GSE297192\n3 Ctrl vs 3 PMS", DATA_FILL,
+         bold="RNA-seq")
+    nodes = [("Metabolites", "36 contrasts,\nincl. cholesterol", SIG_FILL),
+             ("TF activities", "CollecTRI, top 50", SIG_FILL),
+             ("Gene scores", "high / low\nexpression", MET_FILL)]
+    pkns = [("COSMOS", "signalling +\nsigned metabolism", SIG_FILL),
+            ("OmniPath", "signed\nsignalling", SIG_FILL),
+            ("Recon3D", "stoichiometric\nmetabolism", MET_FILL)]
+    for (bt, t, c), y in zip(nodes, ys):
+        _box(ax, xs[1], y, w, h, t, c, bold=bt)
+    for (bt, t, c), y in zip(pkns, ys):
+        _box(ax, xs[2], y, w, h, t, c, bold=bt)
+    _box(ax, xs[3], (ys[0] + ys[1]) / 2, w, ys[0] - ys[1] + h, "signed paths from\nstarting nodes to\nmeasured nodes,\nfewest edges",
+         SIG_FILL, bold="CarnivalFlow")
+    _box(ax, xs[3], ys[2], w, h, "flux with\nmass balance", MET_FILL, bold="iMAT / FBA")
+    _box(ax, xs[4], ys[1], w, ys[0] - ys[2] + h,
+         "cholesterol route:\nin the network?\nselected?\n\nnetwork properties:\nhubs, random\nnetworks, robustness\n\nintegration level:\nlate vs joint", "white")
+    R = w / 2
+    _flow(ax, (xs[0] + R, ys[0]), (xs[1] - R, ys[0]))
+    _flow(ax, (xs[0] + R, ys[1]), (xs[1] - R, ys[1]))
+    _flow(ax, (xs[0] + R, ys[2]), (xs[1] - R, ys[2]), colour=MET_EDGE)
+    _flow(ax, (xs[1] + R, ys[0]), (xs[2] - R, ys[0]))
+    _flow(ax, (xs[1] + R, ys[1]), (xs[2] - R, ys[1]))
+    _flow(ax, (xs[1] + R, ys[1] + 0.2), (xs[2] - R, ys[0] - 0.2))
+    _flow(ax, (xs[1] + R, ys[2]), (xs[2] - R, ys[2]), colour=MET_EDGE)
+    _flow(ax, (xs[2] + R, ys[0]), (xs[3] - R, ys[0]))
+    _flow(ax, (xs[2] + R, ys[1]), (xs[3] - R, ys[1]))
+    _flow(ax, (xs[2] + R, ys[2]), (xs[3] - R, ys[2]), colour=MET_EDGE)
+    _flow(ax, (xs[3] + R, (ys[0] + ys[1]) / 2), (xs[4] - R, (ys[0] + ys[1]) / 2))
+    _flow(ax, (xs[3] + R, ys[2]), (xs[4] - R, ys[2]), colour=MET_EDGE)
+
+
+def _toy(ax) -> None:
     pos = {"S1": (0, 3), "S2": (0, 1.5), "S3": (0, 0), "K1": (1.2, 3.2), "K2": (1.2, 1.9), "K3": (1.2, 0.6),
            "K4": (2.4, 2.6), "K5": (2.4, 0.9), "T1": (3.6, 3.3), "T2": (3.6, 2.2), "T3": (3.6, 1.1), "T4": (3.6, 0.0)}
     pkn = [("S1", "K1", 1), ("S1", "K2", 1), ("S2", "K2", 1), ("S2", "K3", -1), ("S3", "K3", 1), ("K1", "K4", 1),
            ("K1", "T1", 1), ("K2", "K4", 1), ("K2", "K5", -1), ("K3", "K5", 1), ("K4", "T1", 1), ("K4", "T2", 1),
            ("K5", "T3", 1), ("K5", "T4", -1), ("K3", "T4", 1), ("K2", "T3", -1)]
-    selected = {("S1", "K1"), ("K1", "K4"), ("K4", "T1"), ("K4", "T2"), ("S1", "K2"), ("K2", "K5"), ("K5", "T3"), ("K5", "T4")}
+    selected = {("S1", "K1"), ("K1", "K4"), ("K4", "T1"), ("K4", "T2"), ("S1", "K2"), ("K2", "K5"), ("K5", "T3"),
+                ("K5", "T4")}
     measured = {"T1": 1, "T2": 1, "T3": -1, "T4": 1}
-    state = {"S1": 1, "K1": 1, "K2": 1, "K4": 1, "K5": -1, "T1": 1, "T2": 1, "T3": -1, "T4": 1}
-    fig = plt.figure(figsize=(7.2, 2.7))
-    grid = fig.add_gridspec(1, 3, width_ratios=[1, 1, 1.3], wspace=0.22)
-    axes = [fig.add_subplot(grid[i]) for i in range(3)]
-    for k, ax in enumerate(axes[:2]):
-        for u, v, sign in pkn:
-            chosen = k == 1 and (u, v) in selected
-            if k == 1 and not chosen:
-                _toy_arrow(ax, pos[u], pos[v], "0.85", 0.6, sign)
-            elif chosen:
-                _toy_arrow(ax, pos[u], pos[v], "0.1", 1.4, sign, z=2)
-            else:
-                _toy_arrow(ax, pos[u], pos[v], "0.55", 0.8, sign)
-        for n, (x, y) in pos.items():
-            if n in measured:
-                fc, ec = (VERM if measured[n] > 0 else BLUE), "0.1"
-            elif k == 1 and n in state:
-                fc, ec = ("#F6C9B0" if state[n] > 0 else "#BFD9EC"), "0.3"
-            else:
-                fc, ec = "white", "0.45"
-            if n.startswith("S"):
-                ec = "#CC79A7"
-            ax.scatter(x, y, s=210, facecolor=fc, edgecolor=ec, linewidth=1.6 if n.startswith("S") else 0.9, zorder=3)
-        ax.set_xlim(-0.5, 4.1); ax.set_ylim(-0.6, 4.1); ax.set_axis_off()
-    axes[0].text(0, 3.45, "starting\nnodes", ha="center", va="bottom", fontsize=SIZES[2], color="#CC79A7")
-    axes[0].text(3.6, 3.75, "measured", ha="center", va="bottom", fontsize=SIZES[2])
-    axes[0].set_title("Prior-knowledge network\n+ measured TFs", loc="left")
-    axes[1].set_title("Inferred subnetwork\n(fewest edges, all signs fit)", loc="left")
-    _letter(axes[0], "a", x=-0.03, y=1.0); _letter(axes[1], "b", x=-0.03, y=1.0)
-    handles = [Line2D([], [], marker="o", ls="", mfc=VERM, mec="0.1", ms=6, label="up in PMS"),
-               Line2D([], [], marker="o", ls="", mfc=BLUE, mec="0.1", ms=6, label="down in PMS"),
-               Line2D([], [], color="0.2", lw=1.2, marker=">", ms=4, label="activation"),
-               Line2D([], [], color="0.2", lw=1.2, marker="|", ms=6, label="inhibition")]
-    axes[0].legend(handles=handles, loc="upper left", bbox_to_anchor=(0.0, 0.0), ncol=2, frameon=False,
-                   handletextpad=0.3, columnspacing=0.8)
-    ax = axes[2]; ax.set_xlim(0, 10); ax.set_ylim(0, 10); ax.set_axis_off()
-    ax.set_title("Questions asked\nof the PMS data", loc="left")
-    _letter(ax, "c", x=-0.03, y=1.0)
-    boxes = [
-        ("1  Is the route in the network?", "HMGCR → cholesterol → TFs:\npaths vs randomised networks", 7.6),
-        ("2  Does inference select it?", "PMS vs control fit; simvastatin as a\nknown perturbation", 4.5),
-        ("3  What drives the selection?", "random networks, label swaps,\nstarting nodes, sparsity", 1.4),
-    ]
-    for title, detail, y in boxes:
-        ax.add_patch(FancyBboxPatch((0.2, y - 1.15), 9.6, 2.6, boxstyle="round,pad=0.1,rounding_size=0.4",
-                                    fc=LIGHT_BLUE, ec="0.5", lw=0.6))
-        ax.text(0.6, y + 0.65, title, fontsize=SIZES[1], fontweight="bold", va="center")
-        ax.text(0.6, y - 0.35, detail, fontsize=SIZES[2], va="center", color="0.2", linespacing=1.15)
+    state = {"S1": 1, "K1": 1, "K2": 1, "K4": 1, "K5": -1}
+    for u, v, sign in pkn:
+        if (u, v) in selected:
+            _toy_arrow(ax, pos[u], pos[v], "0.1", 1.3, sign, z=2)
+        else:
+            _toy_arrow(ax, pos[u], pos[v], "0.8", 0.6, sign)
+    for n, (x, y) in pos.items():
+        if n in measured:
+            fc, ec = (VERM if measured[n] > 0 else BLUE), "0.1"
+        elif n in state:
+            fc, ec = ("#F6C9B0" if state[n] > 0 else "#BFD9EC"), "0.3"
+        else:
+            fc, ec = "white", "0.45"
+        if n.startswith("S"):
+            ec = "#CC79A7"
+        ax.scatter(x, y, s=150, facecolor=fc, edgecolor=ec, linewidth=1.5 if n.startswith("S") else 0.9, zorder=3)
+    ax.set_xlim(-0.5, 4.1); ax.set_ylim(-1.9, 4.2); ax.set_axis_off()
+    ax.text(0, 3.5, "starting\nnodes", ha="center", va="bottom", fontsize=SIZES[2], color="#CC79A7")
+    ax.text(3.6, 3.75, "measured", ha="center", va="bottom", fontsize=SIZES[2])
+    handles = [Line2D([], [], marker="o", ls="", mfc=VERM, mec="0.1", ms=5, label="up in PMS"),
+               Line2D([], [], marker="o", ls="", mfc=BLUE, mec="0.1", ms=5, label="down in PMS"),
+               Line2D([], [], color="0.1", lw=1.3, label="selected edge"),
+               Line2D([], [], color="0.8", lw=1.0, label="unused PKN edge")]
+    ax.legend(handles=handles, loc="lower left", bbox_to_anchor=(-0.02, -0.02), ncol=2, frameon=False,
+              handletextpad=0.3, columnspacing=0.7, handlelength=1.3)
+
+
+def _mini_graph(ax, origin, kind, scale=1.0):
+    """A four-node glyph: signalling (orange, signed arrows) or metabolism (green, reaction square)."""
+    x0, y0 = origin
+    if kind == "sig":
+        pts = [(0, 0.5), (0.55, 0.85), (0.55, 0.15), (1.1, 0.5)]
+        for i, j in [(0, 1), (0, 2), (1, 3), (2, 3)]:
+            ax.add_patch(FancyArrowPatch((x0 + pts[i][0] * scale, y0 + pts[i][1] * scale),
+                                         (x0 + pts[j][0] * scale, y0 + pts[j][1] * scale), arrowstyle="-|>",
+                                         mutation_scale=5, shrinkA=4, shrinkB=4, color="0.35", lw=0.7, zorder=3))
+        for px, py in pts:
+            ax.scatter(x0 + px * scale, y0 + py * scale, s=28, fc=ORANGE, ec="0.2", lw=0.5, zorder=4)
+    else:
+        mets = [(0, 0.8), (0, 0.2), (1.1, 0.5)]
+        rx, ry = 0.55, 0.5
+        for mx, my in mets[:2]:
+            ax.plot([x0 + mx * scale, x0 + rx * scale], [y0 + my * scale, y0 + ry * scale], color=MET_EDGE,
+                    lw=0.8, zorder=3)
+        ax.add_patch(FancyArrowPatch((x0 + rx * scale, y0 + ry * scale), (x0 + 1.1 * scale, y0 + 0.5 * scale),
+                                     arrowstyle="-|>", mutation_scale=5, shrinkA=2, shrinkB=4, color=MET_EDGE,
+                                     lw=0.8, zorder=3))
+        for mx, my in mets:
+            ax.scatter(x0 + mx * scale, y0 + my * scale, s=28, fc=MET_FILL, ec=MET_EDGE, lw=0.7, zorder=4)
+        ax.scatter(x0 + rx * scale, y0 + ry * scale, s=26, marker="s", fc=MET_EDGE, ec=MET_EDGE, zorder=4)
+
+
+def _integration(ax) -> None:
+    ax.set_xlim(0, 10); ax.set_ylim(0, 6.2); ax.set_axis_off()
+    ax.text(0.1, 5.85, "Late (this study): separate problems", fontsize=SIZES[1],
+            fontweight="bold", va="center")
+    _box(ax, 1.6, 4.35, 2.9, 1.8, "", SIG_FILL)
+    _box(ax, 8.3, 4.35, 2.9, 1.8, "", MET_FILL)
+    _mini_graph(ax, (0.9, 4.3), "sig", scale=1.3)
+    _mini_graph(ax, (7.6, 4.3), "met", scale=1.3)
+    ax.text(1.6, 3.65, "CarnivalFlow", ha="center", fontsize=SIZES[2])
+    ax.text(8.3, 3.65, "iMAT", ha="center", fontsize=SIZES[2])
+    _box(ax, 4.95, 4.35, 2.5, 1.3, "compare, or\nprune one with\nthe other", "white")
+    _flow(ax, (3.05, 4.35), (3.7, 4.35))
+    _flow(ax, (6.85, 4.35), (6.2, 4.35), colour=MET_EDGE)
+    ax.text(0.1, 2.75, "Coupled (future): one problem with shared variables", fontsize=SIZES[1],
+            fontweight="bold", va="center")
+    _box(ax, 4.95, 1.25, 9.7, 2.3, "", "white", ls="--", ec="0.35")
+    _box(ax, 1.75, 1.25, 2.9, 1.8, "", SIG_FILL)
+    _box(ax, 8.15, 1.25, 2.9, 1.8, "", MET_FILL)
+    _mini_graph(ax, (1.05, 1.2), "sig", scale=1.3)
+    _mini_graph(ax, (7.45, 1.2), "met", scale=1.3)
+    ax.text(1.75, 0.55, "enzyme activity", ha="center", fontsize=SIZES[2])
+    ax.text(8.15, 0.55, "reaction flux", ha="center", fontsize=SIZES[2])
+    ax.annotate("", xy=(8.16, 1.85), xytext=(2.48, 1.85),
+                arrowprops=dict(arrowstyle="<|-|>", ls="--", color="0.15", lw=0.9, mutation_scale=7,
+                                shrinkA=4, shrinkB=4), zorder=5)
+    ax.text(4.95, 1.05, "shared variable:\ninactive enzyme\n= no flux", ha="center", va="center",
+            fontsize=SIZES[2], color="0.15", zorder=6)
+
+
+def figure1() -> None:
+    """Workflow (a), contextualisation toy (b) and integration levels (c)."""
+    fig = plt.figure(figsize=(7.2, 5.0))
+    grid = fig.add_gridspec(2, 2, height_ratios=[1.0, 1.05], width_ratios=[0.8, 1.2], hspace=0.28, wspace=0.1)
+    ax_a = fig.add_subplot(grid[0, :]); ax_b = fig.add_subplot(grid[1, 0]); ax_c = fig.add_subplot(grid[1, 1])
+    _workflow(ax_a)
+    _toy(ax_b)
+    _integration(ax_c)
+    ax_b.set_title("Contextualisation: fewest edges\nthat fit all measured signs", loc="left")
+    ax_c.set_title("How CORNETO methods are combined", loc="left")
+    _letter(ax_a, "a", x=0.0, y=0.98); _letter(ax_b, "b", x=-0.02, y=1.0); _letter(ax_c, "c", x=-0.03, y=1.0)
     save_figure(fig, OUT / "fig1_concept")
     plt.close(fig)
 
@@ -423,9 +530,9 @@ def _input_name(node: str) -> str:
 
 def figure5(properties: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     dominant, rescoring = _dominant_inputs(), _rescoring()
-    fig = plt.figure(figsize=(7.2, 5.8))
-    grid = fig.add_gridspec(2, 2, width_ratios=[1.7, 1], height_ratios=[1.45, 1], wspace=0.45, hspace=0.7)
-    axa, axb, axc, axd = fig.add_subplot(grid[0, 0]), fig.add_subplot(grid[0, 1]), fig.add_subplot(grid[1, 0]), fig.add_subplot(grid[1, 1])
+    fig = plt.figure(figsize=(7.2, 5.4))
+    grid = fig.add_gridspec(2, 2, width_ratios=[1.7, 1], height_ratios=[1.45, 0.95], wspace=0.45, hspace=0.75)
+    axa, axb, axc = fig.add_subplot(grid[0, 0]), fig.add_subplot(grid[0, 1]), fig.add_subplot(grid[1, :])
     runs = list(RUN_LABELS)
     for r, run in enumerate(runs):
         sub = dominant[dominant["run"].eq(run)]
@@ -456,21 +563,9 @@ def figure5(properties: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     axb.set_xlabel("Edges in all five\nλ networks (fraction)")
     axb.set_title("Few edges persist", loc="left")
     _letter(axb, "b", x=-0.02)
-    for k, run in enumerate(("cosmos_multi", "cosmos_repair")):
-        sub = rescoring[rescoring["run"].eq(run)]
-        axc.plot(range(len(sub)), 100 * sub["excess"], marker="o", ms=4, lw=1, color=[BLUE, ORANGE][k])
-    axc.axhline(1, color="0.5", lw=0.6, ls="--")
-    axc.text(len(LAMBDAS) - 1, 2.0, "1 % gap", fontsize=SIZES[2], ha="right", color="0.4")
-    axc.set_xticks(range(len(LAMBDAS)), LAMBDAS); axc.set_xlabel("λ")
-    axc.set_ylabel("Above best known\nsolution (%)")
-    for k, run in enumerate(("cosmos_multi", "cosmos_repair")):
-        sub = rescoring[rescoring["run"].eq(run)].reset_index(drop=True)
-        peak = int(sub["excess"].idxmax())
-        axc.text(peak + 0.25, 100 * sub.loc[peak, "excess"], ["COSMOS", "COSMOS repaired"][k], va="center",
-                 fontsize=SIZES[1], color=[BLUE, ORANGE][k])
-    axc.set_title("Reported optima are not optimal", loc="left")
-    _letter(axc, "c", x=-0.02)
-    # panel d: degree bias of node selection (07_network_properties.py)
+    # The solver-rescoring panel was removed on 2026-10-16 (user decision); fig5_rescoring.tsv is
+    # still written by main() as a record.
+    # panel c: degree bias of node selection (07_network_properties.py)
     bias = pd.read_csv(properties / "degree_bias.tsv", sep="\t")
     groups = [("omnipath", "OmniPath"), ("cosmos_tf", "COSMOS, TFs"), ("cosmos_multi", "COSMOS, TFs + metab."),
               ("cosmos_repair", "COSMOS repaired"), ("omnipath_rewired", "random networks")]
@@ -478,15 +573,15 @@ def figure5(properties: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
         values = bias.loc[bias["network"].eq(name), "odds_ratio_per_degree_doubling"].dropna().to_numpy()
         jitter = np.linspace(-0.12, 0.12, len(values)) if len(values) > 1 else np.zeros(len(values))
         colour = "0.55" if name == "omnipath_rewired" else BLUE
-        axd.scatter(values, k + jitter, s=14, color=colour, zorder=3)
-        axd.plot([np.median(values)] * 2, [k - 0.25, k + 0.25], color="0.1", lw=1.2, zorder=4)
-    axd.axvline(1, color="0.6", lw=0.6, ls="--")
-    axd.set_yticks(range(len(groups)), [label for _, label in groups]); axd.set_ylim(len(groups) - 0.5, -0.6)
-    axd.tick_params(axis="y", length=0)
-    axd.set_xlim(0.8, 3.3)
-    axd.set_xlabel("Odds of selecting a node\nper doubling of its PKN degree")
-    axd.set_title("Hubs are favoured, even in random networks", loc="left")
-    _letter(axd, "d", x=-0.02)
+        axc.scatter(values, k + jitter, s=14, color=colour, zorder=3)
+        axc.plot([np.median(values)] * 2, [k - 0.25, k + 0.25], color="0.1", lw=1.2, zorder=4)
+    axc.axvline(1, color="0.6", lw=0.6, ls="--")
+    axc.set_yticks(range(len(groups)), [label for _, label in groups]); axc.set_ylim(len(groups) - 0.5, -0.6)
+    axc.tick_params(axis="y", length=0)
+    axc.set_xlim(0.8, 3.3)
+    axc.set_xlabel("Odds of selecting a node\nper doubling of its PKN degree")
+    axc.set_title("Hubs are favoured, even in random networks", loc="left")
+    _letter(axc, "c", x=-0.02)
     save_figure(fig, OUT / "fig5_robustness")
     plt.close(fig)
     return dominant.drop(columns="edges"), rescoring
@@ -499,7 +594,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--only", nargs="+", choices=["1", "2", "3", "4", "5"], default=["1", "2", "3", "4", "5"])
     parser.add_argument("--network-properties", type=Path,
                         default=ROOT / "results/ionescu_corneto/07_downstream/network_properties",
-                        help="output folder of scripts/analysis/07_network_properties.py (Figure 5d)")
+                        help="output folder of scripts/analysis/07_network_properties.py (Figure 5c)")
     args = parser.parse_args(argv)
     if args.sv_dir is None:
         registered = STAGE05 / "sv_control/cosmos_repair_metabolic"

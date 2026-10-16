@@ -1,0 +1,3 @@
+run	scope	lambda_reg	status	accepted	mip_gap	solve_seconds	weighted_fitting_error	n_edges	n_nodes	n_measurements	n_reachable	n_measurements_correct_sign	n_inputs_offered	measured_node	measured_t	cholesterol_state
+cosmos_multi	context	0.1	optimal	True	0.0014826937829795753	306.2968416213989	9.032927765403953	86.0	99.0	86.0	65.0	58.0	4469			
+cosmos_multi	context_sv	0.01	worker_failed_exit_1	False									0	Metab__HMDB0000067_c	-11.21196982029505	0.0
